@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Andean Modern - Verificación de Identidad</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ff9f1c",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#eeeeed",
+                        "tertiary-fixed-dim": "#ffb86c",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#efa655",
+                        "surface-tint": "#895100",
+                        "surface-dim": "#dadad9",
+                        "outline-variant": "#dac2ae",
+                        "surface": "#f9f9f9",
+                        "on-tertiary-container": "#683c00",
+                        "surface-card": "#ffffff",
+                        "on-primary-fixed": "#2c1700",
+                        "on-background": "#1a1c1c",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#544434",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "on-secondary-container": "#004d6a",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed": "#ffdcbc",
+                        "outline-muted": "#dac2ae",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "outline": "#877462",
+                        "inverse-on-surface": "#f1f1f0",
+                        "secondary-fixed": "#c4e7ff",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb86b",
+                        "primary-fixed-dim": "#ffb86b",
+                        "secondary-container": "#40c2fd",
+                        "tertiary": "#895100",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed": "#001e2c",
+                        "icon-blue": "#38BDF8",
+                        "primary-fixed": "#ffdcbc",
+                        "background": "#f9f9f9",
+                        "on-tertiary-fixed-variant": "#683c00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#683c00",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "primary": "#895100",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f4f3f3",
+                        "secondary": "#00668a",
+                        "surface-bg": "#f9f9f9",
+                        "on-primary-fixed-variant": "#683d00",
+                        "on-primary": "#ffffff",
+                        "success-container": "#d3f5d5",
+                        "on-success-container": "#0b5c10"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "screen-margin": "20px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "chassis-padding": "12px",
+                        "stack-md": "16px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface min-h-screen flex flex-col">
+    <!-- Top Navigation (Transactional/Linear flow, so we only show minimal branding, suppressing full nav) -->
+    <header
+        class="bg-surface-container-lowest sticky top-0 w-full border-b border-outline-variant shadow-sm z-50 px-screen-margin py-stack-md flex justify-between items-center max-w-full mx-auto">
+        <div class="flex items-center gap-stack-sm">
+            <span class="material-symbols-outlined text-primary"
+                style="font-variation-settings: 'FILL' 1;">other_houses</span>
+            <span class="font-headline-md text-headline-md font-bold text-primary">Andean Modern</span>
+        </div>
+        <button
+            class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 font-label-lg text-label-lg cursor-pointer active:scale-95 duration-150">
+            <span class="material-symbols-outlined">close</span>
+            Cancelar
+        </button>
+    </header>
+    <main class="flex-grow flex items-center justify-center p-screen-margin py-12 md:py-20">
+        <div
+            class="max-w-3xl w-full bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm flex flex-col overflow-hidden">
+            <!-- Progress Header -->
+            <div class="bg-surface-container-low px-8 py-6 border-b border-outline-variant">
+                <div class="flex items-center justify-between mb-4">
+                    <h1 class="font-headline-lg text-headline-lg text-on-surface">Verificación de Identidad</h1>
+                    <div
+                        class="flex items-center gap-2 px-3 py-1 bg-success-container rounded-full text-on-success-container font-label-sm text-label-sm">
+                        <span class="material-symbols-outlined" style="font-size: 16px;">lock</span>
+                        Seguro
+                    </div>
+                </div>
+                <!-- Wizard Steps -->
+                <div class="flex items-center w-full mt-6">
+                    <div class="flex flex-col items-center flex-1">
+                        <div
+                            class="w-8 h-8 rounded-full bg-success-container text-on-success-container flex items-center justify-center font-label-lg text-label-lg mb-2">
+                            <span class="material-symbols-outlined" style="font-size: 18px;">check</span>
+                        </div>
+                        <span class="font-label-sm text-label-sm text-on-surface">Cuenta</span>
+                    </div>
+                    <div class="h-1 bg-success-container flex-1 mx-2 rounded"></div>
+                    <div class="flex flex-col items-center flex-1">
+                        <div
+                            class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-lg text-label-lg mb-2 shadow-sm ring-4 ring-primary-container/20">
+                            2
+                        </div>
+                        <span class="font-label-sm text-label-sm text-primary font-bold">Identidad</span>
+                    </div>
+                    <div class="h-1 bg-surface-variant flex-1 mx-2 rounded"></div>
+                    <div class="flex flex-col items-center flex-1 opacity-50">
+                        <div
+                            class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-lg text-label-lg mb-2 border border-outline-muted">
+                            3
+                        </div>
+                        <span class="font-label-sm text-label-sm text-on-surface-variant">Documentos</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Content Area -->
+            <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+                <!-- Left Column: Instructions & Trust -->
+                <div class="flex flex-col gap-stack-md">
+                    <h2 class="font-headline-md text-headline-md text-on-surface">Paso 2: Eres un estudiante verificado
+                    </h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant">
+                        Para mantener la confianza en nuestra comunidad, necesitamos verificar tu identidad estudiantil.
+                        Tu información está cifrada y nunca se compartirá públicamente.
+                    </p>
+                    <div
+                        class="mt-4 bg-surface-bright border border-outline-muted rounded-DEFAULT p-stack-md flex gap-stack-md items-start">
+                        <span class="material-symbols-outlined text-secondary"
+                            style="font-variation-settings: 'FILL' 1;">shield_locked</span>
+                        <div>
+                            <h3 class="font-label-lg text-label-lg text-on-surface mb-1">Privacidad Garantizada</h3>
+                            <p class="font-body-md text-body-md text-on-surface-variant text-sm">Tus datos están
+                                protegidos bajo estrictos estándares de seguridad y solo se usan para confirmar tu
+                                perfil.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right Column: Form Inputs -->
+                <div
+                    class="flex flex-col gap-stack-lg bg-surface-bright rounded-DEFAULT p-stack-md border border-surface-container-high shadow-sm">
+                    <!-- Profile Photo Upload -->
+                    <div>
+                        <label class="block font-label-lg text-label-lg text-on-surface mb-stack-sm">Foto de
+                            Perfil</label>
+                        <p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">Sube una foto clara
+                            donde se vea tu rostro.</p>
+                        <div class="flex items-center gap-stack-lg">
+                            <div
+                                class="w-24 h-24 rounded-full bg-surface-container border-2 border-dashed border-outline-muted flex items-center justify-center text-on-surface-variant overflow-hidden cursor-pointer hover:border-primary hover:text-primary transition-colors relative group">
+                                <span class="material-symbols-outlined" style="font-size: 32px;">add_a_photo</span>
+                                <!-- Hidden input for actual file upload functionality -->
+                                <input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                    type="file" />
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <button
+                                    class="font-label-lg text-label-lg text-primary border border-outline-variant rounded-full px-4 py-2 hover:bg-surface-variant transition-colors active:scale-95">
+                                    Subir Foto
+                                </button>
+                                <span class="font-label-sm text-label-sm text-on-surface-variant">Max 5MB. JPG o
+                                    PNG.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-px bg-surface-container-high w-full"></div>
+                    <!-- University Email Input -->
+                    <div>
+                        <label class="block font-label-lg text-label-lg text-on-surface mb-stack-sm">Correo
+                            Institucional (.edu.pe)</label>
+                        <div class="relative">
+                            <span
+                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">school</span>
+                            <input
+                                class="w-full bg-surface-container-lowest border border-outline-variant rounded-full py-3 pl-12 pr-4 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow"
+                                placeholder="tu.nombre@universidad.edu.pe" type="email" />
+                        </div>
+                        <p class="font-label-sm text-label-sm text-on-surface-variant mt-2 ml-4">Enviaremos un código a
+                            este correo para validarlo.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer Actions -->
+            <div
+                class="bg-surface-container-low px-8 py-6 border-t border-outline-variant flex justify-between items-center">
+                <button
+                    class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface px-4 py-2 transition-colors active:scale-95">
+                    Atrás
+                </button>
+                <button
+                    class="bg-primary-container text-on-primary-container font-label-lg text-label-lg font-bold rounded-full px-8 py-3 hover:shadow-md hover:bg-primary-container/90 transition-all active:scale-95 flex items-center gap-2">
+                    Verificar Identidad
+                    <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
+                </button>
+            </div>
+        </div>
+    </main>
+    <!-- Footer (Minimal for transactional flow) -->
+    <footer
+        class="bg-surface-container-highest dark:bg-inverse-surface w-full py-stack-md px-screen-margin text-center">
+        <p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Andean Modern Student Rentals. Cusco,
+            Perú.</p>
+    </footer>
+</body>
+
+</html>
