@@ -1,0 +1,195 @@
+# PROPUESTA DE SOFTWARE: GESTOR DE HABITACIONES DE ALQUILER PARA ESTUDIANTES UNIVERSITARIOS "CUSCO RENT"
+
+**Autores:** Kelmer W. Obregon, Brayddy B. Beltran, Diego A. Quispe, Niell D. Llancari y Juan C. Auccatinco  
+**Institución:** Facultad de Ingeniería, Universidad Continental  
+**Asignatura:** Análisis de Software (NRC 29838)  
+**Docente:** Melisa Betys Holguin Herrera  
+**Fecha:** 23 de abril de 2026  
+
+---
+
+## 1. INTRODUCCIÓN
+
+### 1.1. Propósitos del Proyecto
+
+**A. Propósito Empresarial**
+* **Misión:** Brindar una plataforma digital con funcionalidades de búsqueda, anexado y gestión de hospedaje que permita a los usuarios y ofertantes un espacio de comunicación y transparencia, centrado en la comunidad estudiantil de la región del Cusco.
+* **Visión:** Crear una plataforma intermediaria entre usuarios y ofertantes de hospedaje, basada en la calidad, transparencia, control y organización adecuada. Generar confianza en nuestros clientes para expandir nuestra influencia.
+* **Metas:** Posicionarse en la región local en un plazo de 5 años. En base a los resultados, expandir o derivar servicios a otros posibles socios.
+
+**B. Propósito del Software**
+* **Misión:** Desarrollar un software de gestión de habitaciones orientado a facilitar la búsqueda, publicación y comunicación entre estudiantes universitarios y ofertantes de hospedaje. Será accesible mediante navegadores web y una aplicación móvil (Android/iOS).
+* **Visión:** Proveer un software robusto, intuitivo y transparente. Implementar métricas y sistemas de calificación bidireccionales (usuarios a hospedajes y ofertantes a usuarios) para garantizar la calidad.
+
+### 1.2. Alcance del Proyecto
+
+**A. Alcance Empresarial**
+Destinado principalmente a estudiantes universitarios y disponible para todos los usuarios de la región del Cusco. Se busca crear un entorno confiable y transparente que fomente la interacción en la comunidad.
+
+**B. Alcance del Software**
+El sistema funcionará como una base de datos centralizada accesible a la comunidad estudiantil, desarrollando interconexión con servidores, plataformas de software externas (como pasarelas de pago y validadores de identidad) y APIs.
+
+### 1.3. Resumen Empresarial
+
+* **Descripción del problema:** Estudiantes universitarios (especialmente de provincias o que buscan independizarse) tienen dificultades para encontrar domicilios disponibles que se ajusten a sus necesidades.
+* **Necesidades:** Acceso transparente a la información de arrendadores, inquilinos, estado del domicilio, costos, y facilidad de contacto.
+* **Solución planteada:** Una plataforma ("Cusco Rent") que conecte eficientemente a los estudiantes universitarios del Cusco con ofertantes de alquileres.
+* **Datos estadísticos relevantes:** 
+  * El 75% considera el precio de alquiler y los servicios básicos como factores críticos.
+  * El 62.5% prefiere hospedarse en casa de familiares actualmente.
+  * El 87.5% utiliza redes sociales (50% Facebook, 37.5% TikTok) para buscar información, indicando una clara ruta para la publicidad digital.
+* **Emprendimientos similares (Competencia):** Airbnb (enfoque turístico), InfoCasas (venta/alquiler general) y Urbania (inmuebles formales, poco amigable para habitaciones económicas estudiantiles).
+
+### 1.4. Definiciones, Siglas y Acrónimos
+
+**Términos del Negocio:**
+* **Arrendador:** Propietario responsable de ofrecer una habitación en alquiler.
+* **Inquilino:** Estudiante universitario que alquila o busca hospedaje.
+* **Publicación:** Anuncio del arrendador mostrando detalles de la habitación.
+* **Reserva:** Solicitud del estudiante para separar una habitación.
+* **Comisión:** Porcentaje o monto cobrado por la plataforma por servicios premium o intermediación.
+
+**Términos de Software:**
+* **API:** Interfaz que permite conectar el sistema con servicios externos (mapas, pagos como Yape, mensajería).
+* **Frontend / Backend:** Parte visual interactiva (web/app) y parte lógica/interna del sistema (procesamiento, seguridad).
+* **Dashboard:** Panel administrativo con estadísticas y control.
+
+**Siglas:**
+* **SUNAT:** Superintendencia Nacional de Aduanas y de Administración Tributaria.
+* **RENIEC:** Registro Nacional de Identificación y Estado Civil.
+* **MTC:** Ministerio de Transportes y Comunicaciones.
+
+### 1.5. Partes Interesadas (Stakeholders)
+* **Usuarios (Estudiantes):** Buscan habitaciones seguras, económicas y cercanas a su centro de estudios.
+* **Clientes (Arrendadores):** Publican habitaciones y pueden pagar por servicios destacados.
+* **Productores (Equipo de Desarrollo):** Equipo emprendedor que impulsa y ejecuta el proyecto.
+* **Proveedores:** Empresas de hosting, dominio web, servicios cloud o APIs.
+* **Gobierno y Reguladores:** SUNAT, Municipalidades locales, entidades que supervisan protección de datos y comercio digital.
+* **Acreedores e Inversionistas:** Aportan capital esperando retorno económico y financian el crecimiento.
+
+---
+
+## 2. REQUISITOS DE GESTIÓN EMPRESARIAL
+
+### 2.1. Metas y Objetivos del Proyecto
+* **Objetivos Generales:** Facilitar la búsqueda rápida y segura de habitaciones, incrementar la oferta disponible, generar ingresos mediante publicidad o planes premium, y brindar confianza entre arrendadores e inquilinos.
+* **Metas Específicas:**
+  * Lograr un diseño intuitivo, minimalista y con baja latencia.
+  * Implementar un sistema de seguridad estable que reduzca el riesgo de fraudes o estafas.
+  * Incrementar la cantidad de alojamientos verificados y consolidar una comunidad confiable.
+  * Expandir el uso de la aplicación a nivel nacional e internacional en un futuro.
+
+### 2.2. Entorno Empresarial: Análisis FODA
+
+**A. FODA Interno (Cusco Rent)**
+* **Fortalezas:** Transparencia total en precios y servicios básicos; sistema de mensajería directa; filtros de búsqueda específicos para estudiantes; rol de administrador para eliminar publicaciones fraudulentas.
+* **Debilidades:** Dependencia absoluta del registro voluntario de arrendadores; alcance inicial limitado a la región del Cusco; necesidad de supervisión manual constante de perfiles; falta de reputación inicial.
+* **Oportunidades:** Promover el registro masivo mediante convenios universitarios; marketing digital enfocado en redes sociales; posicionamiento como la única solución local especializada para estudiantes de provincia.
+* **Amenazas:** Usuarios que intenten estafas fuera de la plataforma; competencia de grupos informales en Facebook; arrendadores mayores con resistencia a la tecnología; cambios bruscos en la economía de alquileres.
+
+**B. FODA SUNAT y Formalización**
+* **Fortalezas / Oportunidades:** Trazabilidad de operaciones que facilita demostrar ingresos; capacidad de integración futura con API pública de SUNAT para crear insignias de "Arrendador Formal"; acceso a herramientas gratuitas de facturación para MYPEs.
+* **Debilidades / Amenazas:** Falta de módulo contable inicial; riesgo de albergar informalidad al principio para ganar usuarios; alta evasión tributaria en el sector que podría generar rechazo a usar la plataforma por miedo a auditorías; posibles regulaciones futuras a plataformas digitales.
+
+**C. FODA Municipalidad del Cusco**
+* **Fortalezas / Oportunidades:** Digitalización y centralización de la oferta que reduce la informalidad; posibilidad de alianzas con universidades locales; acceso a financiamiento para proyectos de innovación pública y gobierno digital.
+* **Debilidades / Amenazas:** Resistencia al cambio por arrendadores tradicionales; necesidad de mantenimiento y actualización constante; competencia de plataformas privadas ya posicionadas; problemas de seguridad de datos.
+
+### 2.3. Análisis PESTEL
+* **Político:** Inestabilidad política y nuevas medidas de OSIPTEL para identificar y bloquear números telefónicos; regulaciones tributarias (pagos para nuevas empresas).
+* **Económico:** Incremento de los costos para implementación tecnológica (herramientas IA, servidores); modificación en la tributación de servicios digitales (DL N° 1623, tasa 18% al IGV).
+* **Social:** Incremento del déficit de vivienda; jóvenes (18-25 años) buscando domicilios para independizarse; necesidad de aplicar un fuerte marketing en redes sociales.
+* **Tecnológico:** Herramientas TIC cada vez más digitalizadas; proyectos del MTC para expansión 5G y masificación de la Fibra Óptica en la región Cusco (mayor accesibilidad y velocidad).
+* **Ecológico/Ambiental:** Incremento del frío en la región que afecta requerimientos de los inmuebles; incremento de los costos energéticos e inversión estatal en energías renovables.
+* **Legal:** Necesidad de conexión con RENIEC y PNP para validar registros civiles; consideración de tecnologías de registro facial/dactilar; respeto a las políticas de protección de datos.
+
+### 2.4. Entorno de Información (Cartera de Proyectos / Fases)
+
+**Fase 1: Lanzamiento (Validación del modelo de negocio)**
+* *Proyecto 1: Módulo de Registro y Verificación.* Estudiantes (correo institucional .edu.pe o carné) y Arrendadores (DNI para evitar estafas).
+* *Proyecto 2: Búsqueda Avanzada.* Mapa interactivo de zonas universitarias con filtros específicos.
+* *Proyecto 3: Sistema de Publicación.* Formularios para fotos, descripción y ubicación.
+
+**Fase 2: Confianza y Comunidad (Diferenciación)**
+* *Proyecto 4: Sistema de Reseñas y Calificaciones.* Para calificar arrendadores, seguridad de zona y estado del cuarto.
+* *Proyecto 5: "Roommate Finder".* Módulo estilo *match* para buscar compañeros con intereses afines y dividir gastos.
+* *Proyecto 6: Canal de Comunicación Integrado.* Chat interno seguro.
+
+**Fase 3: Monetización y Escalabilidad**
+* *Proyecto 7: Pasarela de Pagos.* Integración de Yape, Plin y tarjetas para separar cuartos directamente.
+* *Proyecto 8: Modelo Premium para Arrendadores.* Suscripción para destacar anuncios.
+
+---
+
+## 3. PLANTEAMIENTO DEL SOFTWARE
+
+### 3.1. Actores del Sistema
+1. **Estudiante (Inquilino):** Usuario que busca habitaciones, contacta, reserva y califica.
+2. **Arrendador (Propietario):** Usuario que publica habitaciones, edita anuncios y responde contactos.
+3. **Administrador:** Encargado de supervisar el sistema y eliminar publicaciones fraudulentas.
+4. **Validador de Pago (API Yape):** Sistema externo que procesa y valida transacciones monetarias.
+
+### 3.2. Especificación de Casos de Uso Principales
+
+**1. Inicio de Sesión / Registro**
+* *Caja Negra:* El usuario ingresa datos en la interfaz. El sistema responde con acceso exitoso o mensaje de error.
+* *Caja Blanca:* El sistema valida formatos, consulta la base de datos comparando *hashes* de contraseña. Si es registro, verifica inexistencia del correo y ejecuta un `INSERT`. Genera un *token* de sesión activo al ingresar.
+
+**2. Recuperación de Cuenta**
+* *Caja Blanca:* Búsqueda del correo en la BD, generación de un código temporal (expiración de 15 min), y uso del protocolo SMTP para el envío del correo de recuperación.
+
+**3. Buscar Hospedaje (Filtro Avanzado)**
+* *Caja Negra:* El estudiante aplica filtros (distrito, precio máximo), y la interfaz devuelve las coincidencias exactas.
+* *Caja Blanca:* El backend concatena sentencias `WHERE` dinámicas en SQL, consulta la base de datos y retorna un JSON que el frontend procesa en tarjetas visuales.
+
+**4. Ver Detalles, Contactar y Calificar**
+* *Caja Blanca:* El sistema usa cláusulas `JOIN` para traer detalles completos del hospedaje y del arrendador. Para el contacto, ejecuta un `INSERT` en la tabla de mensajes (ID remitente, ID receptor). Para calificar, valida que exista una reserva previa, inserta la reseña y recalcula el promedio general de estrellas mediante una función.
+
+**5. Gestión de Hospedaje (Arrendador)**
+* *Caja Negra:* El arrendador añade, edita o elimina una publicación desde su panel.
+* *Caja Blanca:* Un controlador intercepta la acción. Ejecuta `INSERT` para crear, `UPDATE` para editar y `DELETE` (o actualización de estado lógico) para eliminar, siempre validando que el ID del usuario coincida con el propietario de la publicación.
+
+**6. Realizar y Validar Pago (con API Yape)**
+* *Caja Negra:* El estudiante realiza la reserva pagando con Yape y obtiene un comprobante.
+* *Caja Blanca:* El sistema empaqueta los datos y realiza una petición HTTP `POST` a la API de Yape.
+  * Si hay `200 OK`, el pago se guarda y la habitación pasa a estado "Ocupada".
+  * Si falla, se captura la excepción (*Try/Catch*), la transacción se aborta y se notifica al usuario.
+
+### 3.3. Estructura de Relaciones de Casos de Uso (Lógica UML)
+* **Flujo del Estudiante:** Inicia con "Inicio de Sesión" (que incluye opciones de Registro y Recuperación). Desde aquí accede a "Gestión de perfil" y "Buscar hospedaje". La búsqueda incluye "Ver detalles", que a su vez se extiende a "Contactar arrendador" (incluye visualizar peticiones) y "Realizar pago" (que incluye validación por API). También puede acceder a "Calificación de hospedaje".
+* **Flujo del Arrendador:** Inicia con "Inicio de sesión", lo que permite el acceso a "Gestor de hospedaje" (incluye crear, modificar y eliminar publicaciones) y "Visualizar peticiones de contacto".
+
+*(Nota: Los diagramas UML, BPMN y de implementación visual original se mantienen vigentes en el repositorio gráfico del proyecto).*
+
+---
+
+## 4. ANEXOS Y REFERENCIAS
+* **Encuestas y Formulario:** [https://forms.gle/aZ4FaGC9GAkcXomt5](https://forms.gle/aZ4FaGC9GAkcXomt5)
+* **Entrevistas de campo:** Archivo de video `ENTREVISTAS.mp4` (Campus UC Cusco).
+* **Bibliografía Académica:** 
+  * Sommerville, I. (2011). *Ingeniería de Software*. Pearson.
+  * Pressman, R. (2015). *Ingeniería de Software: Un enfoque práctico*. McGraw-Hill.
+* **Documentación y Normativas:**
+  * SUNAT: Sistema de Emisión Electrónica (SEE) y Guías de arrendamiento.
+  * MINAM: Reportes del SINIA sobre Perspectivas Climáticas 2026.
+  * Decreto Legislativo 1623 (2024). Modificación del IGV a servicios digitales.
+  * Municipalidad Provincial del Cusco (2021). Plan de Desarrollo Provincial Concertado.
+* **Tesis de Referencia:** Barrantes Castro, M. A. y Quintana Ruídias, H. D. (2025). Modelo ProLab: InRoom, solución de habitabilidad para estudiantes. PUCP.
+======================================================================================
+Basándome en el análisis del Documento oficial y comparándolo con el código actual del proyecto, hemos completado con éxito toda la Fase 1 (Lanzamiento) y la Fase 2 (Confianza y Comunidad).
+
+Sin embargo, todavía faltan por implementar las características de la Fase 3 y algunas lógicas de validación, específicamente:
+
+1. Pasarela de Pagos (Fase 3 - Proyecto 7)
+Lo que dice el documento: "Integración de Yape, Plin y tarjetas para separar cuartos directamente... El sistema empaqueta los datos y realiza una petición HTTP POST a la API de Yape. Si hay 200 OK, el pago se guarda y la habitación pasa a estado Ocupada."
+Estado actual: En Estudiante.html solo hay un botón visual que dice "Realizar Pago", pero no tiene ninguna funcionalidad asignada ni se comunica con una pasarela de pagos simulada o real.
+2. Modelo Premium para Arrendadores (Fase 3 - Proyecto 8)
+Lo que dice el documento: "Suscripción para destacar anuncios."
+Estado actual: No existe una opción en el panel del Arrendador.html para comprar una suscripción, ni lógica en Codigo.js para priorizar y resaltar en el catálogo los cuartos de arrendadores premium.
+3. Sistema Formal de Reservas
+Lo que dice el documento: "Reserva: Solicitud del estudiante para separar una habitación... Para calificar, valida que exista una reserva previa."
+Estado actual: Actualmente las habitaciones siempre aparecen disponibles. No hay un flujo donde un estudiante reserve formalmente un cuarto y el estado de la habitación cambie de "Disponible" a "Ocupado". Además, la función de calificar (reseñas) actualmente permite que cualquier estudiante califique cualquier cuarto, sin validar si realmente lo alquiló.
+4. Integraciones con RENIEC / SUNAT (Verificación de Identidad Legal)
+Lo que dice el documento: "Necesidad de conexión con RENIEC y PNP para validar registros civiles... Capacidad de integración futura con API pública de SUNAT."
+Estado actual: La verificación actual se basa en que los usuarios suban fotos de su DNI o Carné, pero la plataforma no se conecta a ninguna API gubernamental real para confirmar la veracidad de esos documentos.
+¿Te gustaría que comencemos a implementar la lógica simulada de la Pasarela de Pagos (Yape/Plin) y el Sistema de Reservas para que el ciclo del proyecto esté 100% completo?

@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>UniStay — Administrador</title>
+    <?!= include('Estilos'); ?>
+</head>
+<body class="bg-bglite min-h-screen text-gray-800 font-sans pb-10">
+
+    <div id="toastContainer"></div>
+    <div id="overlayLoader" class="fixed inset-0 bg-white/80 z-[9999] hidden flex-col items-center justify-center backdrop-blur-sm">
+        <div class="spinner"></div>
+        <p id="loaderText" class="mt-4 font-semibold text-gray-700">Procesando...</p>
+    </div>
+
+    <div class="app-layout">
+        <!-- SIDEBAR -->
+        <aside class="app-sidebar bg-sidebar" id="sidebar">
+            <div class="p-6 border-b border-white/10">
+                <h1 class="text-2xl font-bold font-serif tracking-tight">UniStay <span class="text-primary">Admin</span></h1>
+                <p class="text-sm opacity-80 mt-1">Panel de Control</p>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a onclick="switchAdminTab('dashboard'); toggleMobileSidebar()" id="tabBtn-dashboard" class="nav-item active">
+                    <span class="material-icons-round">dashboard</span> Dashboard
+                </a>
+                <a onclick="switchAdminTab('habitaciones'); toggleMobileSidebar()" id="tabBtn-habitaciones" class="nav-item">
+                    <span class="material-icons-round">home</span> Habitaciones
+                </a>
+                <a onclick="switchAdminTab('estudiantes'); toggleMobileSidebar()" id="tabBtn-estudiantes" class="nav-item">
+                    <span class="material-icons-round">school</span> Estudiantes
+                </a>
+                <a onclick="switchAdminTab('arrendadores'); toggleMobileSidebar()" id="tabBtn-arrendadores" class="nav-item">
+                    <span class="material-icons-round">home_work</span> Arrendadores
+                </a>
+            </nav>
+
+            <div class="mt-auto p-6 border-t border-white/10">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-10 h-10 rounded-full bg-white/10 text-primary flex items-center justify-center">
+                        <span class="material-icons-round">shield</span>
+                    </div>
+                    <div class="text-sm truncate opacity-90 max-w-[150px]" id="userEmailDisplay">Administrador</div>
+                </div>
+                <button onclick="cerrarSesion()" class="w-full py-2.5 bg-white/10 hover:bg-white/20 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2">
+                    <span class="material-icons-round text-[18px]">logout</span> Cerrar sesión
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="app-main relative">
+            <!-- HEADER MÓVIL -->
+            <div class="md:hidden bg-white border-b border-gray-200 p-4 sticky top-0 z-30 flex items-center justify-between shadow-sm">
+                <span class="font-bold font-serif text-xl text-charcoal">UniStay <span class="text-primary">Admin</span></span>
+                <button onclick="toggleMobileSidebar()" class="p-2 text-gray-600 hover:bg-gray-50 rounded-full transition-colors">
+                    <span class="material-icons-round">menu</span>
+                </button>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-900 font-serif">Panel de Administración</h1>
+                    <p class="text-gray-500 mt-1">Supervisa el sistema, modera contenido y gestiona usuarios.</p>
+                </div>
+
+        <!-- ========================= SECCIÓN: DASHBOARD ========================= -->
+        <div id="seccion-dashboard" class="space-y-6">
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="bg-white rounded-2xl p-5 shadow-soft border border-gray-50">
+                    <div class="w-10 h-10 rounded-xl bg-skyblue/10 flex items-center justify-center mb-3">
+                        <span class="material-icons-round text-skyblue">school</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Estudiantes</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-estudiantes">—</p>
+                </div>
+                <div class="bg-white rounded-2xl p-5 shadow-soft border border-gray-50">
+                    <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                        <span class="material-icons-round text-primary">home_work</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Arrendadores</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-arrendadores">—</p>
+                </div>
+                <div class="bg-white rounded-2xl p-5 shadow-soft border border-gray-50">
+                    <div class="w-10 h-10 rounded-xl bg-sage/10 flex items-center justify-center mb-3">
+                        <span class="material-icons-round text-sage">apartment</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Disponibles</p>
+                    <p class="text-3xl font-bold text-sage" id="stat-disponibles">—</p>
+                </div>
+                <div class="bg-white rounded-2xl p-5 shadow-soft border border-gray-50">
+                    <div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center mb-3">
+                        <span class="material-icons-round text-secondary">no_meeting_room</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Ocupadas</p>
+                    <p class="text-3xl font-bold text-secondary" id="stat-ocupados">—</p>
+                </div>
+                <div class="bg-white rounded-2xl p-5 shadow-soft border border-gray-50">
+                    <div class="w-10 h-10 rounded-xl bg-charcoal/5 flex items-center justify-center mb-3">
+                        <span class="material-icons-round text-charcoal">receipt_long</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Reservas Totales</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-reservas">—</p>
+                </div>
+                <div class="bg-white rounded-2xl p-5 shadow-soft border border-gray-50">
+                    <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                        <span class="material-icons-round text-primary">check_circle</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Confirmadas</p>
+                    <p class="text-3xl font-bold text-primary" id="stat-confirmadas">—</p>
+                </div>
+                <div class="bg-white rounded-2xl p-5 shadow-soft border border-gray-50">
+                    <div class="w-10 h-10 rounded-xl bg-charcoal/5 flex items-center justify-center mb-3">
+                        <span class="material-icons-round text-charcoal">chat</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Mensajes</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-mensajes">—</p>
+                </div>
+                <div class="bg-white rounded-2xl p-5 shadow-soft border border-gray-50">
+                    <div class="w-10 h-10 rounded-xl bg-charcoal/5 flex items-center justify-center mb-3">
+                        <span class="material-icons-round text-charcoal">home</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Total Publicaciones</p>
+                    <p class="text-3xl font-bold text-gray-900" id="stat-total-hosp">—</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================= SECCIÓN: HABITACIONES ========================= -->
+        <div id="seccion-habitaciones" class="hidden">
+            <div class="bg-white rounded-3xl p-6 shadow-soft border border-gray-50">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+                        <span class="material-icons-round">gavel</span>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">Moderación de Publicaciones</h2>
+                        <p class="text-sm text-gray-500">Elimina publicaciones que infrinjan las normas de la plataforma.</p>
+                    </div>
+                </div>
+                <div id="listaTodasHabitaciones" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Inyectado por JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================= SECCIÓN: ESTUDIANTES ========================= -->
+        <div id="seccion-estudiantes" class="hidden">
+            <div class="bg-white rounded-3xl p-6 shadow-soft">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-skyblue/10 flex items-center justify-center text-skyblue">
+                        <span class="material-icons-round">school</span>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">Gestión de Estudiantes</h2>
+                        <p class="text-sm text-gray-500">Listado de todos los estudiantes registrados en la plataforma.</p>
+                    </div>
+                </div>
+                <div id="listaEstudiantes" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Inyectado por JS -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================= SECCIÓN: ARRENDADORES ========================= -->
+        <div id="seccion-arrendadores" class="hidden">
+            <div class="bg-white rounded-3xl p-6 shadow-soft">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
+                        <span class="material-icons-round">home_work</span>
+                    </div>
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-900">Gestión de Arrendadores</h2>
+                        <p class="text-sm text-gray-500">Listado de todos los arrendadores registrados en la plataforma.</p>
+                    </div>
+                </div>
+                <div id="listaArrendadores" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Inyectado por JS -->
+                </div>
+            </div>
+        </div>
+
+            </div>
+        </main>
+    </div>
+
+    <?!= include('Scripts'); ?>
+
+    <script>
+      const SCRIPT_URL = "<?= getScriptUrl() ?>";
+
+      window.addEventListener('DOMContentLoaded', () => {
+         const savedUser = localStorage.getItem('user');
+         if (!savedUser) {
+             redirectTop(SCRIPT_URL + '?page=Login');
+             return;
+         }
+         const user = JSON.parse(savedUser);
+         APP.currentEmail = user.Correo || user.Email || user.CorreoInstitucional;
+         APP.currentUser = user;
+         
+         google.script.run
+             .withSuccessHandler(function(esAdmin) {
+                 if (!esAdmin) {
+                     showToast('Acceso no autorizado.', 'error');
+                     localStorage.removeItem('user');
+                     redirectTop(SCRIPT_URL + '?page=Login');
+                     return;
+                 }
+                 APP.currentRole = 'administrador';
+                 document.getElementById('userEmailDisplay').textContent = APP.currentEmail || 'Administrador';
+                 cargarEstadisticas();
+             })
+             .verificarAdmin(APP.currentEmail);
+      });
+
+      // --- NAVEGACIÓN ---
+      function switchAdminTab(tab) {
+          try {
+              hideLoader();
+              ['dashboard', 'habitaciones', 'estudiantes', 'arrendadores'].forEach(t => {
+                  const seccion = document.getElementById(`seccion-${t}`);
+                  const boton = document.getElementById(`tabBtn-${t}`);
+                  if(seccion) seccion.classList.add('hidden');
+                  if(boton) boton.classList.remove('active');
+              });
+              const seccionDestino = document.getElementById(`seccion-${tab}`);
+              const botonDestino = document.getElementById(`tabBtn-${tab}`);
+              if(seccionDestino) seccionDestino.classList.remove('hidden');
+              if(botonDestino) botonDestino.classList.add('active');
+
+              if (tab === 'habitaciones') cargarTodasHabitaciones();
+              if (tab === 'estudiantes') cargarTodosEstudiantes();
+              if (tab === 'arrendadores') cargarTodosArrendadores();
+          } catch(error) {
+              console.error("Error en navegación:", error);
+          }
+      }
+
+      function toggleMobileSidebar() {
+          const sidebar = document.getElementById('sidebar');
+          if(window.innerWidth <= 768) {
+              sidebar.classList.toggle('mobile-open');
+          }
+      }
+
+      // --- DASHBOARD ---
+      function cargarEstadisticas() {
+          google.script.run
+              .withSuccessHandler(stats => {
+                  if (!stats.success) { showToast('Error al cargar estadísticas.', 'error'); return; }
+                  document.getElementById('stat-estudiantes').textContent = stats.totalEstudiantes;
+                  document.getElementById('stat-arrendadores').textContent = stats.totalArrendadores;
+                  document.getElementById('stat-disponibles').textContent = stats.hospedajesDisponibles;
+                  document.getElementById('stat-ocupados').textContent = stats.hospedajesOcupados;
+                  document.getElementById('stat-reservas').textContent = stats.totalReservas;
+                  document.getElementById('stat-confirmadas').textContent = stats.reservasConfirmadas;
+                  document.getElementById('stat-mensajes').textContent = stats.totalMensajes;
+                  document.getElementById('stat-total-hosp').textContent = stats.totalHospedajes;
+              })
+              .withFailureHandler(err => { showToast('Error: ' + err.message, 'error'); })
+              .getEstadisticasAdmin();
+      }
+
+      // --- HABITACIONES ---
+      function cargarTodasHabitaciones() {
+          const container = document.getElementById('listaTodasHabitaciones');
+          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Cargando habitaciones...</div>';
+          google.script.run
+              .withSuccessHandler(result => {
+                  if (!result || result.length === 0) {
+                      container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">No hay habitaciones en el sistema.</div>';
+                      return;
+                  }
+                  container.innerHTML = result.map(h => {
+                      const esOcupado = h.Estado === 'Ocupado';
+                      const estadoBadge = esOcupado
+                          ? '<span class="bg-secondary/10 text-secondary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Ocupado</span>'
+                          : '<span class="bg-sage/10 text-sage text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Disponible</span>';
+                      return `
+                          <div class="bg-white rounded-[20px] overflow-hidden shadow-sm border border-gray-100 hover:border-secondary/20 hover:shadow-md transition-all flex flex-col h-full">
+                              <div class="p-5 flex flex-col flex-1">
+                                  <h4 class="font-bold text-gray-900 text-lg leading-tight line-clamp-1 mb-1">${h.Titulo}</h4>
+                                  <p class="text-xs text-gray-500 mb-1"><span class="font-medium">Arrendador:</span> ${h.ArrendadorID}</p>
+                                  <p class="text-xs text-gray-500 mb-3"><span class="font-medium">Distrito:</span> ${h.Distrito}</p>
+                                  <div class="flex justify-between items-center mt-auto mb-4">
+                                      <span class="text-lg font-bold text-primary">S/ ${h.PrecioMensual}</span>
+                                      ${estadoBadge}
+                                  </div>
+                                  <button class="w-full bg-secondary/10 text-secondary hover:bg-secondary hover:text-white font-semibold py-2 rounded-xl transition-colors duration-200 flex items-center justify-center gap-1 text-sm" onclick="eliminarModeracion('${h.HospedajeID}')">
+                                      <span class="material-icons-round text-[16px]">delete_forever</span> Eliminar Post
+                                  </button>
+                              </div>
+                          </div>
+                      `;
+                  }).join('');
+              })
+              .withFailureHandler(err => { showToast('Error: ' + err.message, 'error'); })
+              .getAllHospedajes();
+      }
+
+      function eliminarModeracion(id) {
+          if (confirm('¿Confirmar eliminación por moderación? Esta acción es irreversible.')) {
+              showLoader('Eliminando publicación...');
+              google.script.run
+                  .withSuccessHandler(res => {
+                      hideLoader();
+                      showToast(res.message, res.success ? 'success' : 'error');
+                      if (res.success) { cargarTodasHabitaciones(); cargarEstadisticas(); }
+                  })
+                  .withFailureHandler(err => { hideLoader(); showToast('Error: ' + err.message, 'error'); })
+                  .eliminarHabitacion(id);
+          }
+      }
+
+      // --- ESTUDIANTES ---
+      function cargarTodosEstudiantes() {
+          const container = document.getElementById('listaEstudiantes');
+          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Cargando estudiantes...</div>';
+          google.script.run
+              .withSuccessHandler(result => {
+                  if (!result || result.length === 0) {
+                      container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">No hay estudiantes registrados.</div>';
+                      return;
+                  }
+                  container.innerHTML = result.map(e => `
+                      <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col gap-3">
+                          <div class="flex items-center gap-3">
+                              <div class="w-10 h-10 rounded-full bg-skyblue/10 text-skyblue flex items-center justify-center font-bold text-lg flex-shrink-0">
+                                  ${(e.NombreCompleto || 'E').charAt(0).toUpperCase()}
+                              </div>
+                              <div>
+                                  <h4 class="font-bold text-gray-900 leading-tight">${e.NombreCompleto || '—'}</h4>
+                                  <p class="text-xs text-gray-500">${e.CorreoInstitucional || '—'}</p>
+                              </div>
+                          </div>
+                          <div class="flex justify-between text-xs text-gray-500">
+                              <span>Tel: ${e.Telefono || '—'}</span>
+                              <span class="font-medium ${e.BuscaRoommate === 'Sí' ? 'text-primary' : 'text-gray-400'}">${e.BuscaRoommate === 'Sí' ? '🤝 Busca Roommate' : ''}</span>
+                          </div>
+                          <button class="w-full bg-secondary/10 text-secondary hover:bg-secondary hover:text-white font-semibold py-2 rounded-xl transition-colors duration-200 text-xs flex items-center justify-center gap-1 mt-1" onclick="eliminarEstudianteMod('${e.EstudianteID}', '${e.NombreCompleto}')">
+                              <span class="material-icons-round text-[14px]">person_remove</span> Eliminar Cuenta
+                          </button>
+                      </div>
+                  `).join('');
+              })
+              .withFailureHandler(err => { showToast('Error: ' + err.message, 'error'); })
+              .getTodosEstudiantes();
+      }
+
+      function eliminarEstudianteMod(id, nombre) {
+          if (confirm(`¿Eliminar la cuenta de "${nombre}"? Esta acción es irreversible.`)) {
+              showLoader('Eliminando cuenta...');
+              google.script.run
+                  .withSuccessHandler(res => {
+                      hideLoader();
+                      showToast(res.message, res.success ? 'success' : 'error');
+                      if (res.success) { cargarTodosEstudiantes(); cargarEstadisticas(); }
+                  })
+                  .withFailureHandler(err => { hideLoader(); showToast('Error: ' + err.message, 'error'); })
+                  .eliminarEstudiante(id);
+          }
+      }
+
+      // --- ARRENDADORES ---
+      function cargarTodosArrendadores() {
+          const container = document.getElementById('listaArrendadores');
+          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Cargando arrendadores...</div>';
+          google.script.run
+              .withSuccessHandler(result => {
+                  if (!result || result.length === 0) {
+                      container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">No hay arrendadores registrados.</div>';
+                      return;
+                  }
+                  container.innerHTML = result.map(a => `
+                      <div class="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col gap-3">
+                          <div class="flex items-center gap-3">
+                              <div class="w-10 h-10 rounded-full bg-primary/10 text-primary flex items-center justify-center font-bold text-lg flex-shrink-0">
+                                  ${(a.NombreCompleto || 'A').charAt(0).toUpperCase()}
+                              </div>
+                              <div>
+                                  <h4 class="font-bold text-gray-900 leading-tight">${a.NombreCompleto || '—'}</h4>
+                                  <p class="text-xs text-gray-500">${a.Email || '—'}</p>
+                              </div>
+                          </div>
+                          <div class="flex justify-between text-xs text-gray-500">
+                              <span>Tel: ${a.Telefono || '—'}</span>
+                              <span class="font-medium ${a.EstadoVerificacion === 'Verificado' ? 'text-sage' : 'text-gray-400'}">
+                                  ${a.EstadoVerificacion === 'Verificado' ? '✓ Verificado' : 'Sin verificar'}
+                              </span>
+                          </div>
+                          <button class="w-full bg-secondary/10 text-secondary hover:bg-secondary hover:text-white font-semibold py-2 rounded-xl transition-colors duration-200 text-xs flex items-center justify-center gap-1 mt-1" onclick="eliminarArrendadorMod('${a.ArrendadorID}', '${a.NombreCompleto}')">
+                              <span class="material-icons-round text-[14px]">person_remove</span> Eliminar Cuenta
+                          </button>
+                      </div>
+                  `).join('');
+              })
+              .withFailureHandler(err => { showToast('Error: ' + err.message, 'error'); })
+              .getTodosArrendadores();
+      }
+
+      function eliminarArrendadorMod(id, nombre) {
+          if (confirm(`¿Eliminar la cuenta de arrendador "${nombre}"? Sus habitaciones también serán eliminadas.`)) {
+              showLoader('Eliminando cuenta...');
+              google.script.run
+                  .withSuccessHandler(res => {
+                      hideLoader();
+                      showToast(res.message, res.success ? 'success' : 'error');
+                      if (res.success) { cargarTodosArrendadores(); cargarEstadisticas(); }
+                  })
+                  .withFailureHandler(err => { hideLoader(); showToast('Error: ' + err.message, 'error'); })
+                  .eliminarArrendador(id);
+          }
+      }
+    </script>
+</body>
+</html>

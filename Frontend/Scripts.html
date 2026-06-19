@@ -1,0 +1,464 @@
+<script>
+    // ============================================================
+    // STATE
+    // ============================================================
+    const APP = {
+        selectedRole: 'estudiante',
+        currentUser: null,
+        currentEmail: '',
+        currentRole: '',
+        pendingFiles: {}
+    };
+
+    // ============================================================
+    // TOAST NOTIFICATIONS
+    // ============================================================
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        if(!container) return;
+        const toast = document.createElement('div');
+        const bgColor = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
+        toast.className = `fixed bottom-4 right-4 flex items-center gap-2 ${bgColor} text-white px-4 py-3 rounded-xl shadow-lg transition-all duration-300 transform translate-y-full opacity-0 z-[10000]`;
+        
+        const icons = { success: 'check_circle', error: 'error', info: 'info' };
+        toast.innerHTML = `
+            <span class="material-icons-round">${icons[type] || 'info'}</span>
+            <span class="font-medium text-sm">${message}</span>
+        `;
+        
+        container.appendChild(toast);
+        
+        // Animate in
+        requestAnimationFrame(() => {
+            toast.classList.remove('translate-y-full', 'opacity-0');
+        });
+        
+        setTimeout(() => {
+            toast.classList.add('translate-y-full', 'opacity-0');
+            setTimeout(() => toast.remove(), 300);
+        }, 4000);
+    }
+
+    // ============================================================
+    // LOADER
+    // ============================================================
+    function showLoader(text = 'Procesando...') {
+        const loader = document.getElementById('overlayLoader');
+        if(loader) {
+            document.getElementById('loaderText').textContent = text;
+            loader.classList.remove('hidden');
+            loader.classList.add('flex');
+        }
+    }
+    
+    function hideLoader() {
+        const loader = document.getElementById('overlayLoader');
+        if(loader) {
+            loader.classList.add('hidden');
+            loader.classList.remove('flex');
+        }
+    }
+
+    // ============================================================
+    // MODAL
+    // ============================================================
+    let modalCallback = null;
+    function mostrarModal(titulo, mensaje, onConfirm) {
+        // En esta versión se puede usar el confirm nativo o un toast, ya que el confirmModal html se removió en Tailwind
+        if(confirm(`${titulo}\n\n${mensaje}`)) {
+            if(onConfirm) onConfirm();
+        }
+    }
+
+    // ============================================================
+    // AUTH / LOGIN / REGISTER
+    // ============================================================
+    function seleccionarRolUI_Reg(role) {
+        document.querySelectorAll('.role-btn-reg').forEach(btn => {
+            if(btn.dataset.role === role) {
+                btn.classList.add('bg-white', 'shadow', 'text-primary');
+                btn.classList.remove('text-gray-500', 'hover:text-gray-900');
+            } else {
+                btn.classList.remove('bg-white', 'shadow', 'text-primary');
+                btn.classList.add('text-gray-500', 'hover:text-gray-900');
+            }
+        });
+        document.getElementById('regRole').value = role;
+        const estExtra = document.getElementById('estudianteExtraFields');
+        if (estExtra) {
+            estExtra.classList.toggle('hidden', role !== 'estudiante');
+        }
+    }
+    
+    function openRegisterModal() {
+        document.getElementById('registerModal').classList.remove('hidden');
+        seleccionarRolUI_Reg('estudiante');
+    }
+
+    function closeRegisterModal() {
+        document.getElementById('registerModal').classList.add('hidden');
+    }
+
+    function openForgotModal() {
+        document.getElementById('forgotModal').classList.remove('hidden');
+    }
+
+    function closeForgotModal() {
+        document.getElementById('forgotModal').classList.add('hidden');
+    }
+
+    function handleForgot(e) {
+        e.preventDefault();
+        const email = document.getElementById('forgotEmail').value.trim();
+        if (!email) return showToast('Ingresa tu correo.', 'error');
+        
+        showLoader('Buscando cuenta y enviando correo...');
+        google.script.run
+            .withSuccessHandler(result => {
+                hideLoader();
+                if (result.success) {
+                    showToast(result.message, 'success');
+                    closeForgotModal();
+                    document.getElementById('forgotEmail').value = '';
+                } else {
+                    showToast(result.message, 'error');
+                }
+            })
+            .withFailureHandler(err => {
+                hideLoader();
+                showToast('Error de conexión: ' + err.message, 'error');
+            })
+            .recuperarCuenta(email);
+    }
+
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('authEmail').value.trim();
+        const password = document.getElementById('authPassword').value;
+        const role = APP.selectedRole;
+        
+        if (!email || !password) {
+            return showToast('Completa todos los campos.', 'error');
+        }
+        
+        showLoader('Verificando credenciales...');
+        google.script.run
+            .withSuccessHandler(result => {
+                hideLoader();
+                if (result.success) {
+                    showToast('¡Bienvenido!', 'success');
+                    iniciarDashboard(email, role, result.user);
+                } else {
+                    showToast(result.message, 'error');
+                }
+            })
+            .withFailureHandler(err => {
+                hideLoader();
+                showToast('Error de conexión: ' + err.message, 'error');
+            })
+            .loginUser(email, password, role);
+    }
+
+    function handleRegister(e) {
+        e.preventDefault();
+        const role = document.getElementById('regRole').value;
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const nombre = document.getElementById('regNombre').value.trim();
+        const telefono = document.getElementById('regTelefono').value.trim();
+        
+        if (!nombre || !email || !password) {
+            return showToast('Completa los campos obligatorios.', 'error');
+        }
+        
+        const userData = {};
+        if (role === 'estudiante') {
+            userData['CorreoInstitucional'] = email;
+            userData['Contrasena'] = password;
+            userData['NombreCompleto'] = nombre;
+            userData['Telefono'] = telefono;
+            userData['BuscaRoommate'] = document.getElementById('regBuscaRoommate').checked ? 'Sí' : 'No';
+            userData['Intereses'] = document.getElementById('regIntereses').value.trim();
+        } else {
+            userData['Email'] = email;
+            userData['Contrasena'] = password;
+            userData['NombreCompleto'] = nombre;
+            userData['Telefono'] = telefono;
+        }
+        
+        showLoader('Creando tu cuenta...');
+        google.script.run
+            .withSuccessHandler(result => {
+                if (result.success) {
+                    google.script.run
+                        .withSuccessHandler(() => {
+                            hideLoader();
+                            showToast('¡Cuenta creada! Inicia sesión.', 'success');
+                            closeRegisterModal();
+                            document.getElementById('authEmail').value = email;
+                            document.getElementById('authPassword').value = '';
+                        })
+                        .withFailureHandler(err => {
+                            hideLoader();
+                            showToast('Cuenta creada, pero error en carpetas: ' + err.message, 'error');
+                            closeRegisterModal();
+                        })
+                        .inicializarCarpetasUsuario(role, email);
+                } else {
+                    hideLoader();
+                    showToast(result.message, 'error');
+                }
+            })
+            .withFailureHandler(err => {
+                hideLoader();
+                showToast('Error: ' + err.message, 'error');
+            })
+            .registerUser(role, userData);
+    }
+
+    // ============================================================
+    // NAVIGATION
+    // ============================================================
+    function redirectTop(url) {
+        if (!url || url.includes('undefined') || url === '?page=Login') {
+            window.location.href = url || 'index.html?page=Login';
+            return;
+        }
+        const form = document.createElement('form');
+        form.method = 'GET';
+        form.action = url.split('?')[0];
+        form.target = '_top';
+        
+        const params = new URLSearchParams(url.split('?')[1] || '');
+        for (const [key, value] of params.entries()) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            form.appendChild(input);
+        }
+        
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function iniciarDashboard(email, role, user) {
+        APP.currentEmail = email;
+        APP.currentRole = role;
+        APP.currentUser = user;
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        let page = role === 'estudiante' ? 'Estudiante' : role === 'arrendador' ? 'Arrendador' : 'Administrador';
+        try {
+            redirectTop(SCRIPT_URL + '?page=' + page);
+        } catch(e) {
+            window.location.href = SCRIPT_URL + '?page=' + page;
+        }
+    }
+
+    function cerrarSesion() {
+        localStorage.removeItem('user');
+        try {
+            redirectTop(SCRIPT_URL + '?page=Login');
+        } catch(e) {
+            window.location.href = SCRIPT_URL + '?page=Login';
+        }
+    }
+
+    // ============================================================
+    // IMAGE COMPRESSION (Canvas API)
+    // ============================================================
+    function compressImage(file, maxWidth = 1920, quality = 0.80) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+                    if (height > maxWidth) {
+                        width = Math.round((width * maxWidth) / height);
+                        height = maxWidth;
+                    }
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+                    const compressedSize = Math.round((compressedBase64.length * 3) / 4);
+                    
+                    resolve({
+                        base64: compressedBase64,
+                        originalSize: file.size,
+                        compressedSize: compressedSize,
+                        width: width,
+                        height: height,
+                        mimeType: 'image/jpeg',
+                        fileName: file.name.replace(/\.\w+$/, '.jpg')
+                    });
+                };
+                img.onerror = reject;
+                img.src = e.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function formatBytes(bytes) {
+        if (bytes < 1024) return bytes + ' B';
+        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+        return (bytes / 1048576).toFixed(2) + ' MB';
+    }
+
+    // ============================================================
+    // FILE HANDLING
+    // ============================================================
+    function handleFileSelect(event, tipoUsuario, categoria, subcategoria) {
+        const files = Array.from(event.target.files);
+        if (files.length === 0) return;
+        
+        const file = files[0];
+        const ext = file.name.split('.').pop().toLowerCase();
+        if (!['jpg', 'jpeg', 'png'].includes(ext)) {
+            showToast('Formato no permitido. Solo JPG y PNG.', 'error');
+            event.target.value = '';
+            return;
+        }
+        
+        if (file.size > 15 * 1024 * 1024) {
+            showToast('El archivo es demasiado grande (máx. 15MB).', 'error');
+            event.target.value = '';
+            return;
+        }
+        
+        showLoader('Comprimiendo...');
+        compressImage(file)
+            .then(result => {
+                hideLoader();
+                const prefix = tipoUsuario === 'estudiante' ? 'est' : 'arr';
+                const key = subcategoria || categoria;
+                const progressEl = document.getElementById(`progress-${prefix}-${key}`);
+                
+                const datos = {
+                    base64: result.base64,
+                    nombreArchivo: result.fileName,
+                    mimeType: result.mimeType,
+                    tipoUsuario: tipoUsuario,
+                    emailUsuario: APP.currentEmail,
+                    categoria: categoria,
+                    subcategoria: subcategoria || null
+                };
+                
+                if(progressEl) {
+                    progressEl.classList.remove('hidden');
+                    progressEl.querySelector('div').style.width = '50%';
+                }
+                
+                google.script.run
+                    .withSuccessHandler(res => {
+                        if(progressEl) progressEl.classList.add('hidden');
+                        if(res.success) {
+                            showToast(res.message, 'success');
+                            cargarImagenesExistentes(); // Recargar todo visualmente
+                        } else {
+                            showToast(res.message, 'error');
+                        }
+                    })
+                    .subirImagen(datos);
+                
+                event.target.value = '';
+            })
+            .catch(err => {
+                hideLoader();
+                showToast('Error de compresión: ' + err.message, 'error');
+                event.target.value = '';
+            });
+    }
+
+    function cargarImagenesExistentes() {
+        if(!APP.currentRole || !APP.currentEmail) return;
+        
+        google.script.run
+            .withSuccessHandler(result => {
+                if (result.success) {
+                    renderizarTodasLasImagenes(result.imagenes);
+                }
+            })
+            .obtenerTodasLasImagenes(APP.currentRole, APP.currentEmail);
+    }
+
+    function renderizarTodasLasImagenes(imagenes) {
+        if (APP.currentRole === 'estudiante') {
+            renderSingleImage('est', 'foto_perfil', imagenes['foto_perfil'] || []);
+            renderSingleImage('est', 'carne_verificacion', imagenes['carne_verificacion'] || []);
+            renderSingleImage('est', 'dni', imagenes['dni'] || []);
+        } else if (APP.currentRole === 'arrendador') {
+            renderGallery('arr', 'habitaciones', imagenes['habitaciones'] || []);
+            const datosPersonales = imagenes['datos_personales'] || [];
+            renderSingleImage('arr', 'datos_personales', datosPersonales);
+        }
+    }
+
+    function renderSingleImage(prefix, key, images) {
+        const container = document.getElementById(`current-${prefix}-${key}`);
+        if (!container) return;
+        
+        if (!images || images.length === 0) {
+            container.innerHTML = ``;
+            return;
+        }
+        
+        const img = images[0];
+        container.innerHTML = `
+            <div class="relative group rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                <img src="${img.thumbnailUrl || img.url}" alt="${img.nombre}" class="w-full h-32 object-cover">
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button class="bg-white/20 hover:bg-white/40 p-2 rounded-full text-white" onclick="window.open('${img.url}', '_blank')"><span class="material-icons-round text-sm">open_in_new</span></button>
+                    <button class="bg-red-500/80 hover:bg-red-500 p-2 rounded-full text-white" onclick="eliminarImagenUI('${img.id}', '${img.nombre}')"><span class="material-icons-round text-sm">delete</span></button>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderGallery(prefix, key, images) {
+        const container = document.getElementById(`current-${prefix}-${key}`);
+        if (!container) return;
+        
+        container.innerHTML = images.map(img => `
+            <div class="relative group rounded-xl overflow-hidden shadow-sm border border-gray-100">
+                <img src="${img.thumbnailUrl || img.url}" alt="${img.nombre}" class="w-full h-32 object-cover">
+                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button class="bg-red-500/80 hover:bg-red-500 p-2 rounded-full text-white" onclick="eliminarImagenUI('${img.id}', '${img.nombre}')"><span class="material-icons-round text-sm">delete</span></button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function eliminarImagenUI(fileId, nombre) {
+        if(confirm(`¿Eliminar la imagen "${nombre}"? Esta acción es irreversible.`)) {
+            showLoader('Eliminando imagen...');
+            google.script.run
+                .withSuccessHandler(result => {
+                    hideLoader();
+                    if (result.success) {
+                        showToast('Imagen eliminada.', 'success');
+                        cargarImagenesExistentes();
+                    } else {
+                        showToast(result.message, 'error');
+                    }
+                })
+                .eliminarImagen(fileId);
+        }
+    }
+</script>

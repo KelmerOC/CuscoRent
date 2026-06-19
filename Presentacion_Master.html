@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuscoRent — Presentación del Proyecto</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Material+Icons+Round"
+        rel="stylesheet">
+    <style>
+        :root {
+            /* --- PALETA ANDINA OFICIAL CENTRALIZADA --- */
+            --bg-base: #faf8f5;
+            /* Crema lino para fondo general */
+            --bg-panel: #ffffff;
+            /* Blanco puro para tarjetas principales */
+            --primary: #c28e46;
+            /* Ocre dorado para acentos y CTAs */
+            --primary-light: #d4a362;
+            /* Ocre iluminado */
+            --primary-glow: rgba(194, 142, 70, 0.08);
+            --secondary: #b85151;
+            /* Terracota para avisos y estados alternos */
+            --secondary-glow: rgba(184, 81, 81, 0.08);
+            --accent: #45121a;
+            /* Vino profundo para Sidebar institucional */
+            --accent-glow: rgba(69, 18, 26, 0.06);
+            --success: #8fa08e;
+            /* Verde salvia para éxitos y disponibles */
+            --success-glow: rgba(143, 160, 142, 0.12);
+            --skyblue: #3a82c4;
+            /* Azul cielo andino para información */
+            --skyblue-glow: rgba(58, 130, 196, 0.1);
+
+            /* --- JERARQUÍA DE TEXTOS (WCAG AAA PASSED) --- */
+            --text-main: #211f1d;
+            /* Carbón orgánico para máxima legibilidad */
+            --text-muted: #59534c;
+            /* Gris medio para descripciones secundarias */
+            --border: #e6dec9;
+            /* Delimitador de bordes suave */
+
+            --font-ui: 'Inter', system-ui, sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-ui);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ── SIDEBAR INSTITUCIONAL ── */
+        .sidebar {
+            width: 290px;
+            background: var(--accent);
+            color: #fdfbf7;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow-y: auto;
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 32px 24px 24px;
+            border-bottom: 1px solid rgba(230, 222, 201, 0.15);
+            background: var(--accent);
+            position: sticky;
+            top: 0;
+            z-index: 20;
+        }
+
+        .sidebar-logo {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-logo span {
+            color: var(--primary);
+        }
+
+        .sidebar-tag {
+            font-size: 0.7rem;
+            color: rgba(253, 251, 247, 0.65);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .nav-group {
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(230, 222, 201, 0.08);
+        }
+
+        .nav-group-title {
+            padding: 0 24px;
+            font-size: 0.72rem;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            font-weight: 700;
+            opacity: 0.85;
+        }
+
+        .nav-btn {
+            width: 100%;
+            text-align: left;
+            background: transparent;
+            border: none;
+            color: rgba(253, 251, 247, 0.75);
+            padding: 12px 24px 12px 32px;
+            font-size: 0.92rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: relative;
+        }
+
+        .nav-btn .material-icons-round {
+            font-size: 18px;
+            opacity: 0.7;
+            transition: transform 0.25s ease;
+        }
+
+        .nav-btn:hover {
+            color: #ffffff;
+            background-color: rgba(255, 255, 255, 0.03);
+            padding-left: 36px;
+        }
+
+        .nav-btn:hover .material-icons-round {
+            transform: scale(1.1);
+            opacity: 1;
+        }
+
+        .nav-btn.active {
+            color: var(--primary);
+            background: rgba(194, 142, 70, 0.12);
+            font-weight: 600;
+            border-right: 4px solid var(--primary);
+            padding-left: 36px;
+        }
+
+        .nav-btn.active .material-icons-round {
+            color: var(--primary);
+            opacity: 1;
+        }
+
+        /* ── ÁREA DE CONTENIDO (MAIN) ── */
+        .main {
+            flex: 1;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            position: relative;
+        }
+
+        .main::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 10% 10%, var(--primary-glow) 0%, transparent 40%),
+                radial-gradient(ellipse at 90% 90%, var(--secondary-glow) 0%, transparent 40%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .page {
+            display: none;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 50px 55px;
+            position: relative;
+            z-index: 1;
+            animation: fadeUp 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ── TIPOGRAFÍAS CORREGIDAS ── */
+        .page-title {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            line-height: 1.2;
+            letter-spacing: -0.5px;
+            color: var(--accent);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .page-title span {
+            color: var(--primary);
+            font-style: italic;
+            font-weight: 400;
+        }
+
+        .page-sub {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 36px;
+            max-width: 800px;
+        }
+
+        .section-h {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin: 40px 0 20px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .body-text p {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            line-height: 1.75;
+        }
+
+        .body-text ul {
+            margin: 0 0 20px 24px;
+        }
+
+        .body-text li {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .body-text li::marker {
+            color: var(--primary);
+        }
+
+        /* ── HERO GALERÍA INTERACTIVA ── */
+        .hero-img {
+            width: 100%;
+            height: 320px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 36px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(69, 18, 26, 0.04);
+            position: relative;
+        }
+
+        .hero-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-img:hover img {
+            transform: scale(1.03);
+        }
+
+        .hero-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* ── MÉTRICAS Y ESTADÍSTICAS ── */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin: 36px 0;
+        }
+
+        .stat {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 24px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stat:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(194, 142, 70, 0.08);
+            border-color: var(--primary);
+        }
+
+        .stat-val {
+            font-size: 3rem;
+            font-weight: 700;
+            font-family: var(--font-serif);
+            color: var(--accent);
+            margin-bottom: 8px;
+        }
+
+        .stat-lbl {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* ── GRIDS Y TARJETAS PREMIUM ── */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 28px;
+        }
+
+        .card {
+            background: var(--bg-panel);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(69, 18, 26, 0.04);
+            border-color: var(--primary-light);
+        }
+
+        .card h4 {
+            color: var(--accent);
+            font-size: 1.2rem;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: var(--font-serif);
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 0.98rem;
+            color: var(--text-main);
+            line-height: 1.65;
+        }
+
+        .card ul {
+            margin: 12px 0 0 20px;
+            list-style-type: square;
+        }
+
+        .card li {
+            margin-bottom: 10px;
+            font-size: 0.98rem;
+            color: var(--text-main);
+        }
+
+        .card li::marker {
+            color: var(--primary);
+        }
+
+        /* Bordes superiores decorativos */
+        .card-top-primary {
+            border-top: 4px solid var(--primary);
+        }
+
+        .card-top-cyan {
+            border-top: 4px solid var(--skyblue);
+        }
+
+        .card-top-violet {
+            border-top: 4px solid var(--accent);
+        }
+
+        .card-top-red {
+            border-top: 4px solid var(--secondary);
+        }
+
+        .card-top-green {
+            border-top: 4px solid var(--success);
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .ic-orange {
+            background: var(--primary-glow);
+            color: var(--primary);
+        }
+
+        .ic-cyan {
+            background: var(--skyblue-glow);
+            color: var(--skyblue);
+        }
+
+        .ic-violet {
+            background: rgba(65, 18, 26, 0.05);
+            color: var(--accent);
+        }
+
+        .ic-red {
+            background: var(--secondary-glow);
+            color: var(--secondary);
+        }
+
+        .ic-green {
+            background: var(--success-glow);
+            color: var(--success);
+        }
+
+        /* ── CALLOUT BOXES COHESIVOS ── */
+        .callout {
+            padding: 20px 24px;
+            border-radius: 4px 16px 16px 4px;
+            border-left: 4px solid var(--primary);
+            background: var(--bg-panel);
+            margin: 24px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.01);
+            border-top: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .callout h4 {
+            color: var(--accent);
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+            font-family: var(--font-serif);
+        }
+
+        .callout p {
+            color: var(--text-main);
+            font-size: 0.98rem;
+            line-height: 1.65;
+        }
+
+        .callout ul {
+            margin: 12px 0 0 20px;
+        }
+
+        .callout li {
+            margin-bottom: 8px;
+            color: var(--text-main);
+            font-size: 0.98rem;
+        }
+
+        .callout li::marker {
+            color: var(--primary);
+        }
+
+        .callout-green {
+            border-left-color: var(--success);
+        }
+
+        .callout-cyan {
+            border-left-color: var(--skyblue);
+        }
+
+        .callout-violet {
+            border-left-color: var(--accent);
+        }
+
+        /* ── ROADMAP TIMELINE ── */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            margin: 32px 0;
+        }
+
+        .phase {
+            display: flex;
+            gap: 24px;
+            padding-bottom: 32px;
+            position: relative;
+        }
+
+        .phase:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 22px;
+            top: 44px;
+            bottom: 0;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .phase-dot {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 2px solid;
+            background: var(--bg-panel);
+        }
+
+        .phase-dot.done {
+            border-color: var(--success);
+            color: var(--success);
+        }
+
+        .phase-dot.built {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .phase-dot.next {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .phase-body {
+            padding-top: 4px;
+        }
+
+        .phase-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 6px;
+        }
+
+        .phase-label.done {
+            color: var(--success);
+        }
+
+        .phase-label.built {
+            color: var(--primary);
+        }
+
+        .phase-label.next {
+            color: var(--accent);
+        }
+
+        .phase-title {
+            font-size: 1.15rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 6px;
+            font-family: var(--font-serif);
+        }
+
+        .phase-desc {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ── CHIPS VISUALES ── */
+        .chip {
+            display: inline-block;
+            padding: 4px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin: 4px 4px 4px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .chip-orange {
+            background: var(--primary-glow);
+            color: var(--primary);
+            border: 1px solid rgba(194, 142, 70, 0.2);
+        }
+
+        .chip-cyan {
+            background: var(--skyblue-glow);
+            color: var(--skyblue);
+            border: 1px solid rgba(58, 130, 196, 0.2);
+        }
+
+        .chip-violet {
+            background: rgba(69, 18, 26, 0.04);
+            color: var(--accent);
+            border: 1px solid rgba(69, 18, 26, 0.15);
+        }
+
+        .chip-green {
+            background: var(--success-glow);
+            color: #526351;
+            border: 1px solid rgba(143, 160, 142, 0.3);
+        }
+
+        /* ── SECCIÓN DE EQUIPO ── */
+        .team {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .team-row {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
+        }
+
+        .team-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #fff;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(69, 18, 26, 0.15);
+        }
+
+        .team-name {
+            font-weight: 600;
+            color: var(--text-main);
+            font-size: 1.05rem;
+        }
+
+        .team-role {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .page {
+                padding: 30px 20px;
+            }
+
+            .stats,
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo">UniStay<span>.</span></div>
+            <div class="sidebar-tag">Análisis de Software · 2026</div>
+        </div>
+
+        <div class="nav-group">
+            <div class="nav-group-title">01 · Proyecto</div>
+            <button class="nav-btn active" onclick="cambiarDiapositiva('p-portada', this)">
+                <span class="material-icons-round">info</span> Portada y Propósito
+            </button>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-problema', this)">
+                <span class="material-icons-round">gavel</span> Problema y Solución
+            </button>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-actores', this)">
+                <span class="material-icons-round">groups</span> Actores del Sistema
+            </button>
+        </div>
+
+        <div class="nav-group">
+            <div class="nav-group-title">02 · Mercado</div>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-mercado', this)">
+                <span class="material-icons-round">analytics</span> Estadísticas de Campo
+            </button>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-foda', this)">
+                <span class="material-icons-round">grid_view</span> FODA Estratégico
+            </button>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-pestel', this)">
+                <span class="material-icons-round">public</span> Análisis PESTEL
+            </button>
+        </div>
+
+        <div class="nav-group">
+            <div class="nav-group-title">03 · Funciones</div>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-fase1', this)">
+                <span class="material-icons-round">manage_accounts</span> Fase 1 · Gestión e Inmuebles
+            </button>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-fase2', this)">
+                <span class="material-icons-round">forum</span> Fase 2 · Comunidad y Confianza
+            </button>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-fase3', this)">
+                <span class="material-icons-round">payments</span> Fase 3 · Reservas y Pagos
+            </button>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-seguridad', this)">
+                <span class="material-icons-round">verified</span> Seguridad y Moderación
+            </button>
+        </div>
+
+        <div class="nav-group">
+            <div class="nav-group-title">04 · Arquitectura</div>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-tech', this)">
+                <span class="material-icons-round">account_tree</span> Casos de Uso (Caja Blanca)
+            </button>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-roadmap', this)">
+                <span class="material-icons-round">alt_route</span> Roadmap de Fases
+            </button>
+        </div>
+
+        <div class="nav-group">
+            <div class="nav-group-title">05 · Viabilidad</div>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-equipo', this)">
+                <span class="material-icons-round">badge</span> Equipo Fundador
+            </button>
+            <button class="nav-btn" onclick="cambiarDiapositiva('p-negocio', this)">
+                <span class="material-icons-round">monetization_on</span> Modelo de Negocio
+            </button>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div id="p-portada" class="page active">
+            <div class="hero-img">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=80"
+                    alt="Habitación universitaria Cusco">
+                <span class="hero-badge">Universidad Continental · Cusco, 2026</span>
+            </div>
+
+            <h1 class="page-title">CuscoRent<br><span>Gestor Integral de Habitaciones</span></h1>
+            <p class="page-sub">Plataforma digital diseñada para conectar de forma óptima y segura a estudiantes
+                universitarios de la región Cusco con arrendadores locales validados.</p>
+
+            <div class="grid-2">
+                <div class="callout">
+                    <h4>Misión</h4>
+                    <p>Facilitar el acceso a viviendas universitarias dignas mediante una interfaz intuitiva que
+                        promueva la transparencia en costos, ubicaciones reales y canales de comunicación moderados.</p>
+                </div>
+                <div class="callout callout-cyan">
+                    <h4>Visión</h4>
+                    <p>Consolidarse como el estándar tecnológico de habitabilidad estudiantil en el sur del Perú,
+                        mitigando los riesgos de estafas e informalidad presentes en el mercado inmobiliario actual.</p>
+                </div>
+            </div>
+
+            <div class="callout callout-green" style="margin-top:24px;">
+                <h4>Contexto Académico</h4>
+                <p><strong>Asignatura:</strong> Análisis de Software (NRC 29838) · <strong>Docente:</strong> Melisa
+                    Betys Holguin Herrera · <strong>Facultad:</strong> Ingeniería de Software</p>
+            </div>
+        </div>
+
+        <div id="p-problema" class="page">
+            <h1 class="page-title">El <span>Problema</span> y la Solución</h1>
+            <p class="page-sub">El mercado informal expone a los universitarios a condiciones de vulnerabilidad crítica
+                durante la búsqueda de alojamiento.</p>
+
+            <div class="grid-2">
+                <div class="card card-top-red">
+                    <h4><span class="card-icon ic-red"><span class="material-icons-round">gavel</span></span>El Mercado
+                        Informal</h4>
+                    <ul>
+                        <li>Altas tasas de estafas financieras y depósitos perdidos en grupos de Facebook.</li>
+                        <li>Información asimétrica: fotos desactualizadas o falsas de las habitaciones.</li>
+                        <li>Cobros arbitrarios y aumentos injustificados de tarifas de servicios básicos.</li>
+                        <li>Falta de validación de antecedentes e identidad de los arrendadores de cuartos.</li>
+                    </ul>
+                </div>
+                <div class="card card-top-green">
+                    <h4><span class="card-icon ic-green"><span
+                                class="material-icons-round">done_all</span></span>Estrategia CuscoRent</h4>
+                    <ul>
+                        <li>Filtros avanzados por precio, servicios incluidos y proximidad con mapas.</li>
+                        <li>Validación civil obligatoria mediante carga de DNI y carné universitario.</li>
+                        <li>Sistema exclusivo de opiniones protegido contra reseñas fraudulentas.</li>
+                        <li>Intermediación y confirmación transaccional inmediata mediante flujos de pago.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="callout callout-violet" style="margin-top:32px;">
+                <h4>Análisis Comparativo del Entorno Inmobiliario</h4>
+                <ul>
+                    <li><strong>Airbnb / Hotelería:</strong> Tarifas turísticas por noche inviables para presupuestos
+                        mensuales de estudiantes.</li>
+                    <li><strong>Portales Inmobiliarios Tradicionales:</strong> Enfoque corporativo en departamentos
+                        completos de alto costo; ignoran el nicho de habitaciones individuales.</li>
+                    <li><strong>CuscoRent:</strong> Arquitectura hiperlocal, especializada y con precios balanceados
+                        para el perfil universitario regional.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="p-actores" class="page">
+            <h1 class="page-title">Actores del <span>Sistema</span></h1>
+            <p class="page-sub">El ecosistema define roles operativos con permisos asimétricos validados por tokens de
+                seguridad.</p>
+
+            <div class="actors">
+                <div class="card card-top-cyan">
+                    <h4><span class="card-icon ic-cyan"><span
+                                class="material-icons-round">school</span></span>Estudiante (Inquilino)</h4>
+                    <p style="margin-bottom:16px;">Consulta el catálogo, aplica filtros avanzados de rango de precio,
+                        contacta de forma segura a ofertantes, ejecuta reservas y califica habitaciones.</p>
+                    <div>
+                        <span class="chip chip-cyan">Explorar</span>
+                        <span class="chip chip-cyan">Match Roommate</span>
+                        <span class="chip chip-cyan">Pago Yape</span>
+                    </div>
+                </div>
+                <div class="card card-top-primary">
+                    <h4><span class="card-icon ic-orange"><span
+                                class="material-icons-round">real_estate_agent</span></span>Arrendador (Propietario)
+                    </h4>
+                    <p style="margin-bottom:16px;">Efectúa la carga de sus propiedades (CRUD completo), gestiona
+                        solicitudes de arriendo, responde chats internos y valida la recepción de confirmaciones.</p>
+                    <div>
+                        <span class="chip chip-orange">Publicar</span>
+                        <span class="chip chip-orange">Control Reservas</span>
+                        <span class="chip chip-orange">Premium</span>
+                    </div>
+                </div>
+                <div class="card card-top-violet">
+                    <h4><span class="card-icon ic-violet"><span
+                                class="material-icons-round">shield</span></span>Administrador</h4>
+                    <p style="margin-bottom:16px;">Supervisa las métricas globales del sistema en tiempo real. Ejecuta
+                        acciones de moderación de anuncios falsos y eliminación de cuentas maliciosas.</p>
+                    <div>
+                        <span class="chip chip-violet">Dashboard</span>
+                        <span class="chip chip-violet">Moderar Posts</span>
+                        <span class="chip chip-violet">Gestión BD</span>
+                    </div>
+                </div>
+                <div class="card card-top-green">
+                    <h4><span class="card-icon ic-green"><span
+                                class="material-icons-round">qr_code_2</span></span>Validador API (Yape)</h4>
+                    <p style="margin-bottom:16px;">Pasarela externa simulada en el backend. Procesa transacciones
+                        monetarias mediante código de aprobación e inyecta la actualización del estado del cuarto.</p>
+                    <div>
+                        <span class="chip chip-green">Validar QR</span>
+                        <span class="chip chip-green">Inyectar Estado</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-mercado" class="page">
+            <h1 class="page-title">Validación de <span>Mercado</span></h1>
+            <p class="page-sub">Muestreo probabilístico aplicado directamente en el campus universitario de Cusco.</p>
+
+            <div class="stats">
+                <div class="stat">
+                    <div class="stat-val">75%</div>
+                    <div class="stat-lbl">Prioriza el costo exacto y los servicios incluidos (Wi-Fi, Agua Caliente) como
+                        factores determinantes.</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">62.5%</div>
+                    <div class="stat-lbl">Se hospeda con parientes o en entornos incómodos por el **alto temor a
+                        fraudes** en redes.</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-val">87.5%</div>
+                    <div class="stat-lbl">Busca activamente por internet: un **50% en Facebook** y un **37.5% mediante
+                        videos en TikTok**.</div>
+                </div>
+            </div>
+
+            <div class="callout callout-cyan">
+                <h4>Análisis Crítico de la Demanda</h4>
+                <p>La alta dependencia de canales digitales desestructurados como Facebook demuestra que el usuario
+                    natural requiere una solución web estructurada. CuscoRent formaliza esta demanda migrándola a un
+                    entorno seguro.</p>
+            </div>
+
+            <h2 class="section-h">Referencias Bibliográficas y Técnicas</h2>
+            <div class="body-text">
+                <p>Barrantes Castro, M. A. y Quintana Ruídias, H. D. (2025). <em>Modelo ProLab: InRoom, solución de
+                        habitabilidad para estudiantes.</em> Pontificia Universidad Católica del Perú.</p>
+                <p>Sommerville, I. (2011). <em>Ingeniería de Software.</em> Pearson Education. · Pressman, R. (2015).
+                    <em>Ingeniería de Software: Un enfoque práctico.</em> McGraw-Hill.</p>
+            </div>
+        </div>
+
+        <div id="p-foda" class="page">
+            <h1 class="page-title">FODA <span>Estratégico</span></h1>
+            <p class="page-sub">Evaluación interna de capacidades y diagnóstico del entorno competitivo para el
+                despliegue del software.</p>
+
+            <div class="grid-2">
+                <div class="card card-top-green">
+                    <h4><span class="card-icon ic-green"><span
+                                class="material-icons-round">trending_up</span></span>Fortalezas</h4>
+                    <ul>
+                        <li>Arquitectura modular orientada exclusivamente al nicho estudiantil.</li>
+                        <li>Filtros avanzados de precio real adaptados a la economía local.</li>
+                        <li>Validación cruzada de identidad antes de permitir el alta de información.</li>
+                        <li>Reseñas blindadas por histórico transaccional en la base de datos.</li>
+                    </ul>
+                </div>
+                <div class="card card-top-cyan">
+                    <h4><span class="card-icon ic-cyan"><span
+                                class="material-icons-round">lightbulb</span></span>Oportunidades</h4>
+                    <ul>
+                        <li>Alianzas con oficinas de bienestar universitario para captación orgánica.</li>
+                        <li>Crecimiento exponencial de tracción mediante marketing enfocado en TikTok.</li>
+                        <li>Expansión escalable del modelo hacia nodos universitarios vecinos (Arequipa, Puno).</li>
+                    </ul>
+                </div>
+                <div class="card card-top-primary">
+                    <h4><span class="card-icon ic-orange"><span
+                                class="material-icons-round">bar_chart</span></span>Debilidades</h4>
+                    <ul>
+                        <li>Fase inicial dependiente de la carga voluntaria de los arrendadores locales.</li>
+                        <li>Marca nueva sin reputación previa en el mercado de alquileres de Cusco.</li>
+                        <li>Validación inicial de documentos mediante supervisión administrativa interna.</li>
+                    </ul>
+                </div>
+                <div class="card card-top-red">
+                    <h4><span class="card-icon ic-red"><span class="material-icons-round">warning</span></span>Amenazas
+                    </h4>
+                    <ul>
+                        <li>Desviación de transacciones para evadir comisiones de intermediación.</li>
+                        <li>Brecha digital o resistencia tecnológica en arrendadores tradicionales de mayor edad.</li>
+                        <li>Marco regulatorio cambiante sobre retenciones e impuestos a servicios digitales.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-pestel" class="page">
+            <h1 class="page-title">Análisis <span>PESTEL</span></h1>
+            <p class="page-sub">Factores macroambientales que definen los criterios de cumplimiento y viabilidad del
+                sistema.</p>
+
+            <div style="display: flex; flex-direction: column; gap: 18px;">
+                <div class="callout">
+                    <h4>🏛️ Político-Legal</h4>
+                    <p>Cumplimiento estricto de las normativas de protección de datos civiles y las directrices de
+                        OSIPTEL contra el fraude digital. Preparación de la arquitectura para el registro formal de
+                        contratos.</p>
+                </div>
+                <div class="callout callout-cyan">
+                    <h4>💰 Económico</h4>
+                    <p>Estructuración financiera adaptada al **Decreto Legislativo N° 1623**, regulando la tasa
+                        impositiva del IGV para operaciones en plataformas web, asegurando la formalidad del ecosistema.
+                    </p>
+                </div>
+                <div class="callout var(--primary)">
+                    <h4>👥 Social y Tecnológico</h4>
+                    <p>Respuesta al déficit de vivienda segura para estudiantes migrantes en Cusco. Aprovechamiento de
+                        la expansión de redes de fibra óptica y conectividad móvil en la región para garantizar
+                        accesibilidad fluida.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-fase1" class="page">
+            <span class="chip chip-green">✓ IMPLEMENTADA</span>
+            <h1 class="page-title" style="margin-top:12px;">Fase 1: <span>Gestión e Inmuebles</span></h1>
+            <p class="page-sub">Estructura base del sistema que abarca el control de accesos, perfiles y publicación del
+                catálogo.</p>
+
+            <div class="grid-2">
+                <div class="card card-top-cyan">
+                    <h4><span class="card-icon ic-cyan"><span class="material-icons-round">lock</span></span>Módulo de
+                        Autenticación</h4>
+                    <p>Filtro de seguridad por roles (Estudiante, Arrendador, Admin). Registro cerrado para estudiantes
+                        mediante dominios institucionales de educación superior.</p>
+                </div>
+                <div class="card card-top-primary">
+                    <h4><span class="card-icon ic-orange"><span
+                                class="material-icons-round">travel_explore</span></span>Catálogo e Interfaz de Búsqueda
+                    </h4>
+                    <p>Deslizador de precios dinámico y selectores integrados con un mapa interactivo de Google Maps que
+                        actualiza las zonas universitarias seleccionadas.</p>
+                </div>
+                <div class="card card-top-violet">
+                    <h4><span class="card-icon ic-violet"><span
+                                class="material-icons-round">maps_home_work</span></span>Gestor de Inmuebles (CRUD)</h4>
+                    <p>Formulario con controles validados para arrendadores. Permite la carga estructurada de
+                        descripciones, precios, coordenadas y hasta 5 fotografías en la nube.</p>
+                </div>
+                <div class="card card-top-green">
+                    <h4><span class="card-icon ic-green"><span
+                                class="material-icons-round">folder</span></span>Repositorio Documental</h4>
+                    <p>Estructura modular en el backend que organiza, segmenta y almacena los archivos de identidad de
+                        los usuarios dentro de carpetas seguras.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-fase2" class="page">
+            <span class="chip chip-green">✓ IMPLEMENTADA</span>
+            <h1 class="page-title" style="margin-top:12px;">Fase 2: <span>Comunidad y Confianza</span></h1>
+            <p class="page-sub">Capas de interacción social diseñadas para mitigar la asimetría informativa del mercado
+                inmobiliario informal.</p>
+
+            <div class="grid-2">
+                <div class="card card-top-cyan">
+                    <h4><span class="card-icon ic-cyan"><span
+                                class="material-icons-round">handshake</span></span>Roommate Finder</h4>
+                    <p>Algoritmo de filtrado por preferencias que permite a los estudiantes identificar perfiles con
+                        hábitos de estudio y limpieza compatibles para compartir costos.</p>
+                </div>
+                <div class="card card-top-primary">
+                    <h4><span class="card-icon ic-orange"><span
+                                class="material-icons-round">chat</span></span>Mensajería Interna Segura</h4>
+                    <p>Canal de chat directo que resguarda la privacidad de los datos personales (como números
+                        telefónicos), registrando marcas de tiempo precisas para auditorías.</p>
+                </div>
+                <div class="card card-top-violet">
+                    <h4><span class="card-icon ic-violet"><span
+                                class="material-icons-round">stars</span></span>Opiniones Trazables</h4>
+                    <p>Inyección de reseñas protegida por base de datos: el sistema bloquea el formulario si el
+                        identificador del estudiante no registra una transacción aprobada.</p>
+                </div>
+                <div class="card card-top-red">
+                    <h4><span class="card-icon ic-red"><span class="material-icons-round">dashboard</span></span>Panel
+                        de Control Administrativo</h4>
+                    <p>Dashboard centralizado que procesa los indicadores globales del sistema y permite realizar
+                        acciones correctivas inmediatas sobre anuncios e identidades.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-fase3" class="page">
+            <span class="chip chip-orange">⚡ IMPLEMENTADA (SIMULACIÓN)</span>
+            <h1 class="page-title" style="margin-top:12px;">Fase 3: <span>Reservas y Pagos</span></h1>
+            <p class="page-sub">Automatización del ciclo transaccional completo del arriendo mediante flujos asíncronos.
+            </p>
+
+            <div class="callout callout-violet">
+                <h4>Flujo de Reserva y Notificación</h4>
+                <p>Al procesarse el pago simulado con el código de aprobación de Yape, el motor de ejecución invoca la
+                    función asíncrona `crearReserva()`. Esto actualiza el estado de la habitación a 'Ocupado' en la base
+                    de datos e inserta la transacción con su respectivo identificador en la tabla de control, disparando
+                    una alerta automatizada por correo al arrendador.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="card card-top-cyan">
+                    <h4>Historial Estudiantil</h4>
+                    <p>Módulo de consulta de reservas para alumnos, mostrando montos, códigos de operación y datos de
+                        contacto del propietario.</p>
+                </div>
+                <div class="card card-top-primary">
+                    <h4>Control de Solicitudes</h4>
+                    <p>Panel para el arrendador con el desglose de ingresos recibidos, cuentas institucionales de los
+                        inquilinos y estados de ocupación.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-seguridad" class="page">
+            <h1 class="page-title">Seguridad y <span>Moderación</span></h1>
+            <p class="page-sub">Políticas tecnológicas diseñadas para mantener la integridad de los datos y la
+                fiabilidad de la plataforma.</p>
+
+            <div class="body-text">
+                <h2 class="section-h">Blindaje contra Perfiles Falsos</h2>
+                <p>El registro exige la carga obligatoria de documentos de identidad civil y académica. El sistema
+                    restringe los accesos mediante validaciones estrictas de rol en las vistas de administración,
+                    impidiendo la manipulación de las bases de datos desde el cliente.</p>
+
+                <h2 class="section-h">Protección de Datos e Integridad</h2>
+                <p>La mensajería interna evita la exposición de números móviles, reduciendo los riesgos de acoso o
+                    extorsiones externas. Asimismo, la arquitectura de la base de datos impide la alteración del
+                    promedio de calificaciones mediante inyecciones de reseñas no enlazadas a reservas reales.</p>
+            </div>
+        </div>
+
+        <div id="p-tech" class="page">
+            <h1 class="page-title">Casos de Uso <span>(Caja Blanca)</span></h1>
+            <p class="page-sub">Análisis estructural y lógico de las principales operaciones del sistema en el backend.
+            </p>
+
+            <div class="grid-2">
+                <div class="card card-top-violet">
+                    <h4>Motor de Búsqueda</h4>
+                    <p>La función del servidor lee la matriz de datos de inmuebles, aplica filtros lógicos encadenados
+                        por demanda (precio, distrito, servicios) y estructura una respuesta optimizada en formato JSON.
+                    </p>
+                </div>
+                <div class="card card-top-cyan">
+                    <h4>Ciclo Transaccional de Pago</h4>
+                    <p>Ejecución secuencial protegida por bloques de captura de errores (Try/Catch). Valida la
+                        disponibilidad actual, inserta el registro de arriendo, bloquea el anuncio y genera la alerta
+                        SMTP.</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-roadmap" class="page">
+            <h1 class="page-title">Roadmap de <span>Desarrollo</span></h1>
+            <p class="page-sub">Progreso y planificación del ciclo de vida del software UniStay.</p>
+
+            <div class="timeline">
+                <div class="phase">
+                    <div class="phase-dot done">F1</div>
+                    <div class="phase-body">
+                        <div class="phase-label done">✓ Completada — Fase 1</div>
+                        <div class="phase-title">Infraestructura Core y Gestión</div>
+                        <div class="phase-desc">Lanzamiento de control de accesos por rol, catálogo con mapas
+                            interactivos de Google Maps y el panel de carga de inmuebles para propietarios con
+                            almacenamiento multimedia.</div>
+                    </div>
+                </div>
+                <div class="phase">
+                    <div class="phase-dot done">F2</div>
+                    <div class="phase-body">
+                        <div class="phase-label done">✓ Completada — Fase 2</div>
+                        <div class="phase-title">Módulos de Interacción y Confianza</div>
+                        <div class="phase-desc">Despliegue del chat interno, algoritmo del buscador de compañeros de
+                            cuarto (Roommates), reseñas protegidas contra fraude y el dashboard del administrador.</div>
+                    </div>
+                </div>
+                <div class="phase">
+                    <div class="phase-dot built">F3</div>
+                    <div class="phase-body">
+                        <div class="phase-label built">⚡ Implementada — Fase 3</div>
+                        <div class="phase-title">Cierre Transaccional y Monetización</div>
+                        <div class="phase-desc">Integración del flujo simulado de pago con Yape (códigos de aprobación y
+                            QR), control de estados automatizado y el sistema de alertas por correo electrónico.</div>
+                    </div>
+                </div>
+                <div class="phase">
+                    <div class="phase-dot next">F+</div>
+                    <div class="phase-body">
+                        <div class="phase-label next">📌 Próximo — Visión de Expansión</div>
+                        <div class="phase-title">Integraciones de Gobierno e IA</div>
+                        <div class="phase-desc">Conexión planeada con las APIs de RENIEC para reconocimiento biométrico,
+                            automatización tributaria con SUNAT para renta de primera categoría y desarrollo de
+                            aplicaciones móviles nativas.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-equipo" class="page">
+            <h1 class="page-title">Equipo <span>Fundador</span></h1>
+            <p class="page-sub">Estudiantes de Ingeniería de la Universidad Continental, sede Cusco. Diseñamos la
+                solución para el entorno que habitamos.</p>
+
+            <div class="team">
+                <div class="team-row">
+                    <div class="team-avatar">KO</div>
+                    <div>
+                        <div class="team-name">Kelmer W. Obregon</div>
+                        <div class="team-role">Facultad de Ingeniería · Cusco</div>
+                    </div>
+                </div>
+                <div class="team-row">
+                    <div class="team-avatar">BB</div>
+                    <div>
+                        <div class="team-name">Brayddy B. Beltran</div>
+                        <div class="team-role">Facultad de Ingeniería · Cusco</div>
+                    </div>
+                </div>
+                <div class="team-row">
+                    <div class="team-avatar">DQ</div>
+                    <div>
+                        <div class="team-name">Diego A. Quispe</div>
+                        <div class="team-role">Facultad de Ingeniería · Cusco</div>
+                    </div>
+                </div>
+                <div class="team-row">
+                    <div class="team-avatar">NL</div>
+                    <div>
+                        <div class="team-name">Niell D. Llancari</div>
+                        <div class="team-role">Facultad de Ingeniería · Cusco</div>
+                    </div>
+                </div>
+                <div class="team-row">
+                    <div class="team-avatar">JA</div>
+                    <div>
+                        <div class="team-name">Juan C. Auccatinco</div>
+                        <div class="team-role">Facultad de Ingeniería · Cusco</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="p-negocio" class="page">
+            <h1 class="page-title">Modelo de <span>Monetización</span></h1>
+            <p class="page-sub">Estrategia B2B orientada a la sostenibilidad del software sin afectar la economía del
+                estudiante.</p>
+
+            <div class="grid-2">
+                <div class="card card-top-primary">
+                    <h4>Suscripciones Premium</h4>
+                    <p>Los arrendadores pueden optar por planes mensuales para destacar sus anuncios en el catálogo,
+                        obteniendo una insignia de verificación prioritaria que incrementa la rotación de inquilinos.
+                    </p>
+                </div>
+                <div class="card card-top-cyan">
+                    <h4>Tasas de Intermediación</h4>
+                    <p>Comisión porcentual fija por cada transacción de separación o reserva procesada de forma segura
+                        mediante los canales integrados del software.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Se utiliza un nombre específico para evitar colisiones con funciones globales del DOM
+        function cambiarDiapositiva(idTarget, btnTarget) {
+            try {
+                // 1. Limpiar el estado activo de todos los elementos
+                document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+                document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+
+                // 2. Localizar la sección destino
+                const seccionDestino = document.getElementById(idTarget);
+
+                if (seccionDestino) {
+                    // 3. Aplicar clases de estado activo
+                    seccionDestino.classList.add('active');
+                    btnTarget.classList.add('active');
+
+                    // 4. Subir el scroll de la vista principal suavemente
+                    const mainContainer = document.querySelector('.main');
+                    if (mainContainer) {
+                        mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                } else {
+                    console.warn(`Alerta Frontend: No se encontró ninguna sección con el ID '${idTarget}'.`);
+                }
+            } catch (error) {
+                console.error("Error en la navegación del DOM:", error);
+            }
+        }
+    </script>
+</body>
+
+</html>

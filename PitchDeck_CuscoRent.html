@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pitch Deck - CuscoRent</title>
+    <style>
+        /* Variables y Tema Naranja - Pitch Deck */
+        :root {
+            --primary: #E65C00;
+            --primary-light: #FF8533;
+            --primary-dark: #B34700;
+            --bg-color: #FAFAFA;
+            --text-dark: #222222;
+            --text-gray: #666666;
+            --accent: #FFD2B3;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        body {
+            background-color: #2b2b2b;
+            color: var(--text-dark);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Slide Container Aspect Ratio 16:9 */
+        .deck-container {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--bg-color);
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Slides */
+        .slide {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s ease-in-out;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        /* Common Slide Layout */
+        .slide-header {
+            padding: 40px 60px 20px 60px;
+            border-bottom: 3px solid var(--primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .slide-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary-dark);
+            font-weight: bold;
+        }
+
+        .slide-header .slide-number {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .slide-body {
+            flex: 1;
+            padding: 40px 60px;
+            display: flex;
+            gap: 40px;
+        }
+
+        /* Text Column */
+        .text-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text-col ul {
+            list-style: none;
+        }
+
+        .text-col li {
+            font-size: 1.6rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            position: relative;
+            padding-left: 35px;
+        }
+
+        .text-col li::before {
+            content: "■";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            top: 2px;
+            font-size: 1.2rem;
+        }
+
+        .text-col li strong {
+            color: var(--primary-dark);
+            font-size: 1.8rem;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        /* Visual Column */
+        .visual-col {
+            flex: 1;
+            background-color: var(--accent);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: inset 0 0 20px rgba(230,92,0,0.1);
+        }
+
+        .visual-col img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Slide 1 - Title Slide Specifics */
+        .slide-1 {
+            background: linear-gradient(135deg, #FFF0E6 0%, #FFDAB9 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .slide-1 h1 {
+            font-size: 6rem;
+            color: var(--primary-dark);
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        .slide-1 p.tagline {
+            font-size: 2.2rem;
+            color: var(--text-dark);
+            font-style: italic;
+            max-width: 800px;
+        }
+
+        /* Speaker Notes Panel */
+        .notes-panel {
+            position: absolute;
+            bottom: -300px; /* Hidden by default */
+            left: 0;
+            width: 100%;
+            height: 250px;
+            background: #222;
+            color: #ddd;
+            padding: 30px 60px;
+            z-index: 100;
+            transition: bottom 0.3s ease;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+        }
+
+        .notes-panel.visible {
+            bottom: 0;
+        }
+
+        .notes-panel h3 {
+            color: var(--primary-light);
+            margin-bottom: 15px;
+            font-family: sans-serif;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+        }
+
+        .notes-panel p {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            font-family: sans-serif;
+        }
+
+        /* Controls outside the slide */
+        .global-controls {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            z-index: 200;
+        }
+
+        .global-controls button {
+            background: rgba(255,255,255,0.9);
+            color: var(--primary-dark);
+            border: 2px solid var(--primary);
+            padding: 10px 25px;
+            font-size: 1.2rem;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+            font-family: sans-serif;
+        }
+
+        .global-controls button:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-notes {
+            position: absolute;
+            right: 20px;
+            background: #333 !important;
+            color: white !important;
+            border-color: #555 !important;
+        }
+        .btn-notes:hover { background: #555 !important; }
+
+    </style>
+</head>
+<body>
+
+    <div class="deck-container">
+        
+        <!-- Diapositiva 1: Portada -->
+        <div class="slide slide-1 active" id="slide-1">
+            <h1>CuscoRent</h1>
+            <p class="tagline">Gestor Integral de Habitaciones de Alquiler para Estudiantes Universitarios</p>
+        </div>
+
+        <!-- Diapositiva 2 -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <h2>El Problema - Incertidumbre y Riesgo</h2>
+                <span class="slide-number">02</span>
+            </div>
+            <div class="slide-body">
+                <div class="text-col">
+                    <ul>
+                        <li><strong>Difícil acceso</strong> Estudiantes de provincias luchan por encontrar opciones remotamente.</li>
+                        <li><strong>Inseguridad</strong> Alta exposición a estafas y viviendas informales.</li>
+                        <li><strong>Presupuesto ciego</strong> Dificultad para alinear los costos reales con la economía estudiantil.</li>
+                    </ul>
+                </div>
+                <div class="visual-col">
+                    <img src="https://placehold.co/600x500/E65C00/FFF?text=Estudiante+Buscando&font=playfair-display" alt="Problema">
+                </div>
+            </div>
+        </div>
+
+        <!-- Diapositiva 3 -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <h2>La Solución - Transparencia y Conexión</h2>
+                <span class="slide-number">03</span>
+            </div>
+            <div class="slide-body">
+                <div class="text-col">
+                    <ul>
+                        <li><strong>Plataforma Centralizada</strong> Web y App que conectan oferta y demanda.</li>
+                        <li><strong>Comunicación Transparente</strong> Acceso claro a costos, reglas y datos del arrendador.</li>
+                        <li><strong>Visualización Real</strong> Estado verificado del domicilio antes del pago.</li>
+                    </ul>
+                </div>
+                <div class="visual-col">
+                    <img src="https://placehold.co/600x500/B34700/FFF?text=App+CuscoRent&font=playfair-display" alt="Solución">
+                </div>
+            </div>
+        </div>
+
+        <!-- Diapositiva 4 -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <h2>Funciones Core - Diseñado para Universitarios</h2>
+                <span class="slide-number">04</span>
+            </div>
+            <div class="slide-body">
+                <div class="text-col">
+                    <ul>
+                        <li><strong>Búsqueda Avanzada</strong> Filtros por distrito (Wanchaq, San Jerónimo), precio y servicios.</li>
+                        <li><strong>Gestión de Inmuebles</strong> Panel de control para propietarios con geolocalización.</li>
+                        <li><strong>Mensajería Integrada</strong> Chat seguro interno sin usar WhatsApp personal.</li>
+                    </ul>
+                </div>
+                <div class="visual-col">
+                    <img src="https://placehold.co/600x500/FF8533/FFF?text=Filtros+y+Gestión&font=playfair-display" alt="Core">
+                </div>
+            </div>
+        </div>
+
+        <!-- Diapositiva 5 -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <h2>Innovación Diferenciadora - Roommate Finder</h2>
+                <span class="slide-number">05</span>
+            </div>
+            <div class="slide-body">
+                <div class="text-col">
+                    <ul>
+                        <li><strong>Roommate Finder</strong> Conecta estudiantes de universidades cercanas.</li>
+                        <li><strong>Afinidad Inteligente</strong> Match basado en intereses y hábitos de estudio.</li>
+                        <li><strong>Economía Colaborativa</strong> División de gastos para reducir el costo de vida en Cusco.</li>
+                    </ul>
+                </div>
+                <div class="visual-col">
+                    <img src="https://placehold.co/600x500/E65C00/FFF?text=Match+Estudiantil&font=playfair-display" alt="Match">
+                </div>
+            </div>
+        </div>
+
+        <!-- Diapositiva 6 -->
+        <div class="slide" id="slide-6">
+            <div class="slide-header">
+                <h2>Seguridad y Confianza - Cero Estafas</h2>
+                <span class="slide-number">06</span>
+            </div>
+            <div class="slide-body">
+                <div class="text-col">
+                    <ul>
+                        <li><strong>Verificación de Identidad</strong> DNI/Título para dueños; correo .edu.pe para estudiantes.</li>
+                        <li><strong>Reseñas Bidireccionales</strong> Calificación de 1 a 5 estrellas para ambas partes.</li>
+                        <li><strong>Dashboard de Moderación</strong> Auditoría proactiva contra cuentas fraudulentas.</li>
+                    </ul>
+                </div>
+                <div class="visual-col">
+                    <img src="https://placehold.co/600x500/B34700/FFF?text=Escudo+de+Seguridad&font=playfair-display" alt="Seguridad">
+                </div>
+            </div>
+        </div>
+
+        <!-- Diapositiva 7 -->
+        <div class="slide" id="slide-7">
+            <div class="slide-header">
+                <h2>Modelo de Negocio - Monetización Escalonada</h2>
+                <span class="slide-number">07</span>
+            </div>
+            <div class="slide-body">
+                <div class="text-col">
+                    <ul>
+                        <li><strong>Mercado Objetivo</strong> [INSERTAR DATO] de mercado accesible estudiantil.</li>
+                        <li><strong>Monetización (Fase 3)</strong> Suscripciones Premium para Arrendadores.</li>
+                        <li><strong>Propuesta de Valor B2B</strong> Destacar anuncios en primeros lugares para mayor conversión.</li>
+                    </ul>
+                </div>
+                <div class="visual-col">
+                    <img src="https://placehold.co/600x500/FF8533/FFF?text=Embudo+de+Monetización&font=playfair-display" alt="Negocio">
+                </div>
+            </div>
+        </div>
+
+        <!-- Diapositiva 8 -->
+        <div class="slide" id="slide-8">
+            <div class="slide-header">
+                <h2>Roadmap y Pagos Digitales</h2>
+                <span class="slide-number">08</span>
+            </div>
+            <div class="slide-body">
+                <div class="text-col">
+                    <ul>
+                        <li><strong>Fases 1 y 2</strong> Plataforma activa y Match de Roommates completados.</li>
+                        <li><strong>Fase 3 (Actual)</strong> Integración tecnológica con Pasarelas de Pago locales.</li>
+                        <li><strong>Reservas Inmediatas</strong> Pago directo vía Yape o Plin desde la app.</li>
+                    </ul>
+                </div>
+                <div class="visual-col">
+                    <img src="https://placehold.co/600x500/E65C00/FFF?text=Yape+/+Plin&font=playfair-display" alt="Pagos">
+                </div>
+            </div>
+        </div>
+
+        <!-- Diapositiva 9 -->
+        <div class="slide" id="slide-9">
+            <div class="slide-header">
+                <h2>Visión de Expansión y Formalidad</h2>
+                <span class="slide-number">09</span>
+            </div>
+            <div class="slide-body">
+                <div class="text-col">
+                    <ul>
+                        <li><strong>Validación RENIEC</strong> Biometría para absoluta seguridad legal futura.</li>
+                        <li><strong>Alianza SUNAT</strong> Emisión de recibos de arrendamiento oficiales.</li>
+                        <li><strong>Arrendador Formal</strong> Insignia para fomento a la formalidad en el sector.</li>
+                    </ul>
+                </div>
+                <div class="visual-col">
+                    <img src="https://placehold.co/600x500/B34700/FFF?text=Instituciones+del+Estado&font=playfair-display" alt="Formalidad">
+                </div>
+            </div>
+        </div>
+
+        <!-- Diapositiva 10 -->
+        <div class="slide" id="slide-10">
+            <div class="slide-header">
+                <h2>El Equipo y La Inversión</h2>
+                <span class="slide-number">10</span>
+            </div>
+            <div class="slide-body">
+                <div class="text-col">
+                    <ul>
+                        <li><strong>Inversión solicitada</strong> $[INSERTAR DATO] (Etapa Semilla).</li>
+                        <li><strong>Destino de fondos</strong> Integración API de pagos, Marketing y Desarrollo legal.</li>
+                        <li><strong>Objetivo a 18 meses</strong> Alcanzar [INSERTAR DATO] arrendadores premium en la región.</li>
+                    </ul>
+                </div>
+                <div class="visual-col">
+                    <img src="https://placehold.co/600x500/FF8533/FFF?text=Gráfico+de+Inversión&font=playfair-display" alt="Inversión">
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Notas del Orador -->
+        <div class="notes-panel" id="notes-panel">
+            <h3>🗣️ Script del Orador</h3>
+            <p id="speaker-script">Cargando guion...</p>
+        </div>
+
+    </div>
+
+    <!-- Controles Globales -->
+    <div class="global-controls">
+        <button onclick="prevSlide()">← Anterior</button>
+        <button onclick="nextSlide()">Siguiente →</button>
+        <button class="btn-notes" onclick="toggleNotes()">Toggle Notas</button>
+    </div>
+
+    <script>
+        const scripts = [
+            "Hola a todos. Imaginen llegar a una nueva ciudad, lejos de casa, listos para estudiar, pero sin saber dónde van a dormir de forma segura. Nosotros somos CuscoRent, el primer Gestor Integral de Habitaciones de Alquiler diseñado exclusivamente para estudiantes universitarios. Nuestro objetivo es transformar el estrés de buscar vivienda en una experiencia transparente, segura y completamente digital.",
+            
+            "Para miles de estudiantes que viajan desde provincias hacia Cusco, el sueño universitario comienza con una pesadilla logística. Hoy en día, buscar una habitación a distancia es jugar a la ruleta rusa. Los jóvenes se enfrentan a una altísima dificultad para encontrar domicilios formales que se ajusten a su presupuesto estudiantil y, lo que es más crítico, están expuestos diariamente a estafas y engaños en redes sociales. El mercado actual está roto y carece de garantías.",
+            
+            "La solución es CuscoRent. Hemos construido una plataforma digital centralizada, disponible en Web y App, que conecta eficientemente a la comunidad estudiantil con los propietarios de inmuebles. Hemos eliminado a los intermediarios informales creando un entorno de comunicación 100% transparente: los estudiantes pueden ver los costos exactos, el estado real del domicilio y los datos del arrendador antes de tomar cualquier decisión o pago.",
+            
+            "Para que esto funcione, desarrollamos herramientas precisas. En las Fases 1 y 2 integramos una búsqueda avanzada donde el estudiante filtra por distrito, límite de precio y servicios específicos. Al mismo tiempo, le damos al arrendador un panel de control profesional para geolocalizar y subir hasta 5 fotos de su inmueble. Y para cuidar la privacidad, todo se negocia mediante un chat interno y seguro.",
+            
+            "Pero no nos quedamos solo en alquilar paredes. Sabemos que el presupuesto estudiantil es ajustado, por eso creamos nuestra mayor innovación: el 'Roommate Finder'. Es un módulo estilo 'Match' que conecta a estudiantes que asisten a universidades cercanas y comparten hábitos e intereses afines. Al unirlos, les permitimos alquilar habitaciones compartidas, dividiendo sus gastos y fomentando una verdadera comunidad colaborativa.",
+            
+            "Nuestro mayor valor es la confianza; en CuscoRent la seguridad no es opcional. Exigimos verificación estricta: los dueños deben subir su DNI y título de propiedad, y los estudiantes ingresan con su correo institucional. Además, implementamos un sistema de reseñas bidireccionales de 1 a 5 estrellas para crear un ecosistema autorregulado, respaldado siempre por nuestro Dashboard administrativo que elimina de inmediato cualquier intento de fraude.",
+            
+            "Tenemos acceso a un mercado masivo de estudiantes buscando vivienda en Cusco. Nuestro modelo de negocio es altamente escalable. En nuestra Fase 3 introducimos la monetización a través de Suscripciones Premium para los Arrendadores. Los dueños pagan una membresía recurrente para destacar sus anuncios con colores distintivos y asegurar los primeros lugares en los resultados de búsqueda. Les cobramos por brindarles liquidez.",
+            
+            "Ya hemos completado las fases de desarrollo de plataforma y comunidad. Nuestro siguiente paso, la Fase 3 tecnológica, es cerrar el ciclo de la transacción. Estamos integrando directamente pasarelas de pago locales líderes, como Yape y Plin. Esto permitirá a los estudiantes reservar sus habitaciones con un clic y pagar desde la app, generando una fricción cero y garantizando el ingreso inmediato para los arrendadores.",
+            
+            "Nuestra visión a largo plazo es liderar la formalización del sector de alquileres estudiantiles. Escalaremos nuestra plataforma mediante integraciones con APIs estatales: conectaremos con RENIEC para validación biométrica, y con la SUNAT para emitir recibos de arrendamiento automatizados. Esto nos permitirá otorgar la insignia exclusiva de 'Arrendador Formal' en los perfiles.",
+            
+            "Detrás de CuscoRent hay un equipo técnico y comercial comprometido que conoce de primera mano el dolor de este mercado. Hoy buscamos levantar $[INSERTAR DATO] en nuestra etapa semilla. Estos fondos irán directamente a consolidar la Fase 3, expandir agresivamente nuestra adquisición de usuarios e implementar las API estatales. Con su inversión, en 18 meses capturaremos a miles de arrendadores premium. Únanse a nosotros."
+        ];
+
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const scriptBox = document.getElementById('speaker-script');
+        const notesPanel = document.getElementById('notes-panel');
+
+        function updateSlide() {
+            slides.forEach((s, idx) => {
+                if(idx === currentSlide) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+            scriptBox.textContent = scripts[currentSlide];
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlide();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlide();
+            }
+        }
+
+        function toggleNotes() {
+            notesPanel.classList.toggle('visible');
+        }
+
+        // Initialize
+        updateSlide();
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if(e.key === 'ArrowRight' || e.key === 'Space') nextSlide();
+            else if(e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>

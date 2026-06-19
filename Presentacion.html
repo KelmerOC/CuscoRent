@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuscoRent - Presentación de Funciones</title>
+    <style>
+        /* Variables y Tema Naranja */
+        :root {
+            --primary: #E65C00;
+            --primary-light: #FF8533;
+            --primary-dark: #B34700;
+            --bg-body: #FFF0E6;
+            --text-dark: #2D1A11;
+            --text-muted: #5C3D2E;
+        }
+
+        /* Estilo de Letra: Times New Roman */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Times New Roman', Times, serif;
+        }
+
+        /* Fondo Estilizado */
+        body {
+            background: linear-gradient(135deg, #FFDAB9 0%, #FFA07A 50%, #FF8C00 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: var(--text-dark);
+        }
+
+        /* Contenedor Principal de Pestañas (App Window) */
+        .app-window {
+            width: 90vw;
+            max-width: 1400px;
+            height: 85vh;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 25px 60px rgba(179, 71, 0, 0.4);
+            display: flex;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        /* Barra Lateral (Botones / Pestañas) */
+        .sidebar {
+            width: 320px;
+            background: linear-gradient(to bottom, var(--primary), var(--primary-dark));
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            padding: 2.5rem 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .sidebar-header p {
+            color: #FFE6D9;
+            font-size: 1.1rem;
+            font-style: italic;
+        }
+
+        /* Botones Desplegables */
+        .tab-btn {
+            background: transparent;
+            color: rgba(255, 255, 255, 0.85);
+            border: none;
+            padding: 1.3rem 1.5rem;
+            text-align: left;
+            font-size: 1.25rem;
+            cursor: pointer;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .tab-btn::before {
+            content: "✦";
+            margin-right: 10px;
+            font-size: 1rem;
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        .tab-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            padding-left: 2rem;
+        }
+
+        .tab-btn.active {
+            background-color: white;
+            color: var(--primary-dark);
+            font-weight: bold;
+            padding-left: 2rem;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+        }
+
+        .tab-btn.active::before {
+            opacity: 1;
+            transform: translateX(0);
+            color: var(--primary);
+        }
+
+        /* Área de Contenido */
+        .content-area {
+            flex: 1;
+            position: relative;
+            background: #FFFFFF;
+            overflow-y: auto;
+        }
+
+        .tab-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            padding: 3rem 4rem;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateX(30px);
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tab-content.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(0);
+        }
+
+        /* Tipografía de Contenido */
+        .tab-content h2 {
+            font-size: 3rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+            border-bottom: 3px solid var(--primary-light);
+            padding-bottom: 10px;
+            display: inline-block;
+        }
+
+        /* Contenedor de Imagen */
+        .image-box {
+            width: 100%;
+            height: 350px;
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            border: 5px solid white;
+            position: relative;
+        }
+
+        .image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .image-box:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Textos */
+        .text-box {
+            font-size: 1.5rem;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .text-box p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .text-box ul {
+            margin-left: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .text-box li {
+            margin-bottom: 0.8rem;
+        }
+
+        .text-box li::marker {
+            color: var(--primary);
+            font-size: 1.2em;
+        }
+
+        /* Scrollbar de la Barra Lateral */
+        .sidebar::-webkit-scrollbar {
+            width: 8px;
+        }
+        .sidebar::-webkit-scrollbar-track {
+            background: var(--primary-dark);
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(255,255,255,0.4);
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="app-window">
+        
+        <!-- BARRA LATERAL CON BOTONES (PESTAÑAS) -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h1>CuscoRent</h1>
+                <p>Presentación Ejecutiva</p>
+            </div>
+
+            <button class="tab-btn active" onclick="openTab(event, 'tab0')">0. Propósito Empresarial</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab1')">1. Búsqueda Avanzada</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab2')">2. Verificación Segura</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab3')">3. Gestión de Arrendadores</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab4')">4. Reseñas y Calificaciones</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab5')">5. Roommate Finder</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab6')">6. Mensajería Integrada</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab7')">7. Pasarela de Pagos</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab8')">8. Suscripciones Premium</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab9')">9. Dashboard Moderación</button>
+            <button class="tab-btn" onclick="openTab(event, 'tab10')">10. Futuro y SUNAT</button>
+        </div>
+
+        <!-- ÁREA DE CONTENIDO -->
+        <div class="content-area">
+
+            <!-- Tab 0: Propósito -->
+            <div id="tab0" class="tab-content active">
+                <h2>Propósito y Misión</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/E65C00/FFFFFF?text=CuscoRent+-+Propósito+Empresarial&font=playfair-display" alt="Propósito">
+                </div>
+                <div class="text-box">
+                    <p><strong>Misión:</strong> Brindar una plataforma digital con funcionalidades de búsqueda y gestión de hospedaje que permita a los estudiantes universitarios y ofertantes un espacio de comunicación transparente en Cusco.</p>
+                    <p>Identificamos que los estudiantes que viajan desde provincias enfrentan grandes obstáculos para encontrar un alquiler seguro, por lo que CuscoRent centraliza y formaliza esta oferta en un entorno amigable y eficiente.</p>
+                </div>
+            </div>
+
+            <!-- Tab 1 -->
+            <div id="tab1" class="tab-content">
+                <h2>1. Búsqueda y Filtros Avanzados</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/FF8533/FFFFFF?text=Búsqueda+por+Filtros&font=playfair-display" alt="Búsqueda">
+                </div>
+                <div class="text-box">
+                    <p>Permite a los estudiantes navegar eficientemente por el catálogo de cuartos utilizando filtros rigurosos y específicos:</p>
+                    <ul>
+                        <li>Filtros por distrito (Wanchaq, San Jerónimo, Cusco, etc.).</li>
+                        <li>Configuración de precio mensual máximo.</li>
+                        <li>Selección de tipo de habitación (Individual o Compartida).</li>
+                        <li>Filtro por servicios incluidos (Wi-Fi, baño privado, lavandería).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab 2 -->
+            <div id="tab2" class="tab-content">
+                <h2>2. Verificación de Identidad</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/B34700/FFFFFF?text=Seguridad+Antifraude&font=playfair-display" alt="Seguridad">
+                </div>
+                <div class="text-box">
+                    <p>Para crear un ambiente 100% seguro y evitar estafas (una de las mayores amenazas identificadas en el FODA), el sistema exige validación de documentos:</p>
+                    <ul>
+                        <li><strong>Estudiantes:</strong> Verificación mediante correo institucional (.edu.pe) y carné universitario.</li>
+                        <li><strong>Arrendadores:</strong> Subida del DNI y título o comprobante de propiedad del inmueble.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab 3 -->
+            <div id="tab3" class="tab-content">
+                <h2>3. Gestión de Inmuebles</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/E65C00/FFFFFF?text=Panel+del+Arrendador&font=playfair-display" alt="Panel">
+                </div>
+                <div class="text-box">
+                    <p>El sistema cuenta con un panel dedicado exclusivamente para los propietarios. Funciones principales:</p>
+                    <ul>
+                        <li>Formularios intuitivos para crear, editar y eliminar publicaciones.</li>
+                        <li>Soporte para subir hasta 5 fotografías del estado real de la habitación.</li>
+                        <li>Declaración clara de costos, geolocalización (latitud/longitud) y detalles específicos de la oferta.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab 4 -->
+            <div id="tab4" class="tab-content">
+                <h2>4. Sistema de Reseñas</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/FF8533/FFFFFF?text=Calificaciones+y+Confianza&font=playfair-display" alt="Reseñas">
+                </div>
+                <div class="text-box">
+                    <p>La confianza es el pilar de CuscoRent. Implementamos un sistema de <strong>calificaciones bidireccionales</strong> (Estrellas del 1 al 5) para mantener la transparencia.</p>
+                    <p>Los estudiantes pueden leer comentarios previos antes de alquilar para saber cómo es el trato del dueño, mientras que los dueños pueden conocer el historial del estudiante antes de aceptarlo en su vivienda.</p>
+                </div>
+            </div>
+
+            <!-- Tab 5 -->
+            <div id="tab5" class="tab-content">
+                <h2>5. Roommate Finder</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/B34700/FFFFFF?text=Buscador+de+Compañeros&font=playfair-display" alt="Roommates">
+                </div>
+                <div class="text-box">
+                    <p>Innovador módulo estilo "Match" diseñado para ayudar a los jóvenes a independizarse con un presupuesto ajustado:</p>
+                    <ul>
+                        <li>Conecta estudiantes que asisten a universidades cercanas.</li>
+                        <li>Filtro por intereses, hábitos de estudio y estilos de vida.</li>
+                        <li>Permite alquilar habitaciones más grandes y dividir equitativamente los gastos.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab 6 -->
+            <div id="tab6" class="tab-content">
+                <h2>6. Mensajería Integrada</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/E65C00/FFFFFF?text=Chat+Interno&font=playfair-display" alt="Mensajería">
+                </div>
+                <div class="text-box">
+                    <p>Eliminamos la necesidad de usar WhatsApp o redes sociales personales para los contactos iniciales, protegiendo la privacidad de los usuarios.</p>
+                    <p>El chat interno seguro permite al estudiante enviar preguntas directas sobre el cuarto, negociar y al arrendador responder o rechazar la solicitud, todo gestionado dentro de la misma plataforma.</p>
+                </div>
+            </div>
+
+            <!-- Tab 7 -->
+            <div id="tab7" class="tab-content">
+                <h2>7. Pasarela de Pagos</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/FF8533/FFFFFF?text=Integración+con+Yape&font=playfair-display" alt="Pagos">
+                </div>
+                <div class="text-box">
+                    <p>Parte crucial de la <strong>Fase 3</strong> de desarrollo. Permite realizar reservas formales dentro de la plataforma sin efectivo físico.</p>
+                    <ul>
+                        <li>Simulación e integración con billeteras digitales locales como Yape y Plin.</li>
+                        <li>Notificación automática al arrendador cuando el pago ha sido exitoso.</li>
+                        <li>Actualización en tiempo real del estado de la habitación (pasa a estar "Ocupada").</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab 8 -->
+            <div id="tab8" class="tab-content">
+                <h2>8. Suscripciones Premium</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/B34700/FFFFFF?text=Monetización+Premium&font=playfair-display" alt="Premium">
+                </div>
+                <div class="text-box">
+                    <p>El modelo de negocio principal (Monetización) se centra en los arrendadores. Se habilitan planes de suscripción que brindan beneficios exclusivos:</p>
+                    <p>Al adquirir un paquete Premium, las habitaciones del propietario aparecen resaltadas en color distinto y fijadas en los primeros lugares de las búsquedas, aumentando su tasa de conversión y alquiler.</p>
+                </div>
+            </div>
+
+            <!-- Tab 9 -->
+            <div id="tab9" class="tab-content">
+                <h2>9. Dashboard de Moderación</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/E65C00/FFFFFF?text=Control+Administrativo&font=playfair-display" alt="Administrador">
+                </div>
+                <div class="text-box">
+                    <p>CuscoRent cuenta con un nivel de acceso "Administrador" (Superusuario) diseñado para mantener la integridad de la red.</p>
+                    <ul>
+                        <li>Revisión manual y automática de documentos subidos.</li>
+                        <li>Capacidad de eliminar publicaciones o cuentas que infrinjan los términos de servicio o intenten estafar.</li>
+                        <li>Estadísticas globales de uso de la plataforma.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab 10 -->
+            <div id="tab10" class="tab-content">
+                <h2>10. Expansión Tecnológica (SUNAT)</h2>
+                <div class="image-box">
+                    <img src="https://placehold.co/1000x400/FF8533/FFFFFF?text=Integración+Estatal+y+APIs&font=playfair-display" alt="Futuro">
+                </div>
+                <div class="text-box">
+                    <p>La etapa final de la plataforma involucra su adaptación al entorno gubernamental y legal:</p>
+                    <p>Integraciones con APIs públicas para conectar con la base de datos de <strong>RENIEC</strong> (validación dactilar/facial futura) y de la <strong>SUNAT</strong>, permitiendo emitir recibos de arrendamiento oficiales y otorgar la insignia de "Arrendador Formal" dentro de la app.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function openTab(evt, tabId) {
+            // Ocultar todos los contenidos de pestaña
+            var tabContents = document.getElementsByClassName("tab-content");
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            // Quitar clase "active" de todos los botones
+            var tabBtns = document.getElementsByClassName("tab-btn");
+            for (var i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            // Mostrar la pestaña actual y añadir "active" al botón
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+    </script>
+</body>
+</html>
