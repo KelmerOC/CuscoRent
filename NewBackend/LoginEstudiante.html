@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-
-<html class="light" lang="es">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Iniciar Sesión - Andean Modern</title>
+    <title>Iniciar Sesión - CuscoRent</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
         rel="stylesheet" />
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
@@ -20,100 +19,31 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "primary-container": "#ff9f1c",
-                        "error": "#ba1a1a",
-                        "on-tertiary-fixed": "#2c1600",
-                        "surface-container": "#eeeeed",
-                        "tertiary-fixed-dim": "#ffb86c",
-                        "on-secondary": "#ffffff",
-                        "tertiary-container": "#efa655",
-                        "surface-tint": "#895100",
-                        "surface-dim": "#dadad9",
-                        "outline-variant": "#dac2ae",
-                        "surface": "#f9f9f9",
-                        "on-tertiary-container": "#683c00",
-                        "surface-card": "#ffffff",
-                        "on-primary-fixed": "#2c1700",
-                        "on-background": "#1a1c1c",
-                        "on-error-container": "#93000a",
-                        "on-surface-variant": "#544434",
-                        "on-secondary-fixed-variant": "#004c69",
-                        "on-secondary-container": "#004d6a",
-                        "surface-bright": "#f9f9f9",
-                        "tertiary-fixed": "#ffdcbc",
-                        "outline-muted": "#dac2ae",
-                        "on-surface": "#1a1c1c",
-                        "inverse-surface": "#2f3131",
-                        "outline": "#877462",
-                        "inverse-on-surface": "#f1f1f0",
-                        "secondary-fixed": "#c4e7ff",
-                        "surface-container-highest": "#e2e2e2",
-                        "secondary-fixed-dim": "#7bd0ff",
-                        "error-container": "#ffdad6",
-                        "inverse-primary": "#ffb86b",
-                        "primary-fixed-dim": "#ffb86b",
-                        "secondary-container": "#40c2fd",
-                        "tertiary": "#895100",
-                        "surface-variant": "#e2e2e2",
-                        "on-secondary-fixed": "#001e2c",
-                        "icon-blue": "#38BDF8",
-                        "primary-fixed": "#ffdcbc",
-                        "background": "#f9f9f9",
-                        "on-tertiary-fixed-variant": "#683c00",
-                        "surface-container-lowest": "#ffffff",
-                        "on-primary-container": "#683c00",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-high": "#e8e8e8",
-                        "primary": "#895100",
-                        "on-error": "#ffffff",
-                        "surface-container-low": "#f4f3f3",
-                        "secondary": "#00668a",
-                        "surface-bg": "#f9f9f9",
-                        "on-primary-fixed-variant": "#683d00",
-                        "on-primary": "#ffffff"
+                    colors: {
+                        primary: '#c28e46',
+                        sidebar: '#45121a',
+                        secondary: '#b85151',
+                        terracotta: '#b85151',
+                        bglite: '#faf8f5',
+                        charcoal: '#211f1d',
+                        burgundy: '#45121a',
+                        sage: '#8fa08e',
+                        skyblue: '#3a82c4',
+                        'border-color': '#e6dec9'
                     },
-                    "borderRadius": {
-                        "DEFAULT": "1rem",
-                        "lg": "2rem",
-                        "xl": "3rem",
-                        "full": "9999px"
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     },
-                    "spacing": {
-                        "screen-margin": "20px",
-                        "stack-sm": "8px",
-                        "stack-lg": "24px",
-                        "chassis-padding": "12px",
-                        "stack-md": "16px",
-                        "gutter": "16px"
-                    },
-                    "fontFamily": {
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "body-lg": ["Plus Jakarta Sans"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "body-md": ["Plus Jakarta Sans"],
-                        "label-sm": ["Plus Jakarta Sans"],
-                        "label-lg": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
-                        "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
-                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    boxShadow: {
+                        'soft': '0 4px 12px rgba(0,0,0,0.05)',
+                        'card': '0 8px 30px rgb(0,0,0,0.04)',
                     }
                 }
             }
         }
     </script>
     <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
@@ -124,98 +54,102 @@
     </style>
 </head>
 
-<body class="bg-surface text-on-surface antialiased min-h-screen flex flex-col relative overflow-hidden">
+<body class="font-sans text-charcoal antialiased min-h-screen">
     <!-- Background Image -->
-    <div class="absolute inset-0 z-0">
+    <div class="fixed inset-0 z-0">
         <div class="bg-cover bg-center w-full h-full opacity-60"
             data-alt="A warm, atmospheric wide shot of the historic city of Cusco, Peru at golden hour. The sunlight casts long, soft shadows over the terracotta rooftops and ancient stone walls. The sky is a gradient of soft orange and sky blue. The scene is bright, inviting, and professional, perfectly suited as a modern background for a high-end application. The composition leaves plenty of negative space in the center."
             style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDPXQETFjjbk8NpOpyUHLRU2poIAIL0RoSat0TlEWqLZrrtu9Tgy_uPCok1h761ZpOfv2c-2dYgShSBzkR5cUB5E56zhcdG5A_f2EwaPwOOtlyjBzymaollivOoFBM7QoZPW5-9P5uyRTMaspJ_Bys5Eh5vEUfqgLB-eqK9bKs_AtTIPafsxQJOmTNfgQ4a1b4QjminAQmWfoc930rSnbz1dOQRjxuD-rbB7Yd45_q-Op5gTr9Ul0gNxODhZf_L0Rc8_cQQblVskIBG')">
         </div>
-        <div class="absolute inset-0 bg-gradient-to-t from-surface via-surface/80 to-surface/20"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/40 to-charcoal/10"></div>
     </div>
-    <!-- Main Content Canvas -->
-    <main class="flex-grow flex items-center justify-center relative z-10 px-screen-margin py-stack-lg">
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-center justify-center relative z-10 min-h-screen px-4 py-10">
         <!-- Login Card -->
-        <div
-            class="bg-surface-card w-full max-w-md rounded-lg shadow-2xl border border-outline-variant p-stack-lg flex flex-col gap-stack-lg relative overflow-hidden">
-            <!-- Decorative Top Accent -->
-            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary to-primary-container"></div>
+        <div class="bg-white rounded-[24px] shadow-xl w-full max-w-md p-8 relative overflow-hidden">
+            <!-- Accent Bar -->
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-terracotta to-skyblue"></div>
+
             <!-- Brand Header -->
-            <div class="text-center flex flex-col items-center gap-stack-sm mt-stack-sm">
-                <span class="material-symbols-outlined filled-icon text-4xl text-primary mb-2">location_city</span>
-                <h1 class="font-headline-lg text-headline-lg text-primary">Andean Modern</h1>
-                <p class="font-body-md text-body-md text-on-surface-variant">Encuentra tu hogar ideal para estudiar</p>
+            <div class="text-center flex flex-col items-center gap-2 mt-4 mb-2">
+                <span class="material-symbols-outlined filled-icon text-4xl text-primary mb-1">location_city</span>
+                <h1 class="text-2xl font-bold tracking-tight">
+                    <span class="font-serif text-charcoal">Cusco</span><span class="font-serif text-primary">Rent</span>
+                </h1>
+                <p class="text-sm text-gray-500">Encuentra tu hogar ideal para estudiar</p>
             </div>
+
             <!-- Login Form -->
-            <form action="#" class="flex flex-col gap-stack-md" method="POST">
+            <form action="#" class="flex flex-col gap-5 mt-6" method="POST">
                 <!-- Email Input -->
-                <div class="flex flex-col gap-stack-sm">
-                    <label class="font-label-lg text-label-lg text-on-surface" for="email">Correo Universitario</label>
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-semibold text-charcoal" for="email">Correo Universitario</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <span class="material-symbols-outlined text-on-surface-variant">school</span>
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400 text-xl">school</span>
                         </div>
                         <input
-                            class="bg-surface-container-low border border-outline-variant text-on-surface text-body-md font-body-md rounded-DEFAULT focus:ring-2 focus:ring-primary-container focus:border-primary-container block w-full pl-10 p-2.5 transition-colors"
+                            class="border border-gray-200 rounded-xl px-4 py-3.5 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all w-full pl-11 text-sm text-charcoal placeholder-gray-400"
                             id="email" name="email" placeholder="usuario@unsch.edu.pe" required="" type="email" />
                     </div>
                 </div>
+
                 <!-- Password Input -->
-                <div class="flex flex-col gap-stack-sm">
-                    <label class="font-label-lg text-label-lg text-on-surface" for="password">Contraseña</label>
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-semibold text-charcoal" for="password">Contraseña</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <span class="material-symbols-outlined text-on-surface-variant">lock</span>
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400 text-xl">lock</span>
                         </div>
                         <input
-                            class="bg-surface-container-low border border-outline-variant text-on-surface text-body-md font-body-md rounded-DEFAULT focus:ring-2 focus:ring-primary-container focus:border-primary-container block w-full pl-10 pr-10 p-2.5 transition-colors"
+                            class="border border-gray-200 rounded-xl px-4 py-3.5 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all w-full pl-11 pr-11 text-sm text-charcoal placeholder-gray-400"
                             id="password" name="password" placeholder="••••••••" required="" type="password" />
                         <button
-                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-on-surface-variant hover:text-primary transition-colors focus:outline-none"
+                            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-primary transition-colors focus:outline-none"
                             type="button">
-                            <span class="material-symbols-outlined">visibility_off</span>
+                            <span class="material-symbols-outlined text-xl">visibility_off</span>
                         </button>
                     </div>
                 </div>
+
                 <!-- Remember Me & Forgot Password -->
-                <div class="flex items-center justify-between mt-2">
+                <div class="flex items-center justify-between mt-1">
                     <div class="flex items-center">
                         <input
-                            class="h-4 w-4 text-primary-container focus:ring-primary border-outline-variant rounded bg-surface-container-low"
+                            class="h-4 w-4 text-primary focus:ring-primary/30 border-gray-300 rounded bg-gray-50"
                             id="remember-me" name="remember-me" type="checkbox" />
-                        <label class="ml-2 block font-body-md text-body-md text-on-surface-variant" for="remember-me">
+                        <label class="ml-2 block text-sm text-gray-500" for="remember-me">
                             Recordarme
                         </label>
                     </div>
                     <div class="text-sm">
-                        <a class="font-label-sm text-label-sm text-primary hover:text-primary-container transition-colors"
-                            href="#">
+                        <a class="font-medium text-primary hover:text-primary/80 transition-colors" href="#">
                             ¿Olvidaste tu contraseña?
                         </a>
                     </div>
                 </div>
+
                 <!-- Submit Button -->
                 <button
-                    class="mt-stack-sm w-full bg-primary-container text-on-primary font-label-lg text-label-lg py-3 px-4 rounded-full hover:bg-primary transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-container shadow-md active:scale-95 duration-150 flex justify-center items-center gap-2"
+                    class="bg-primary text-white rounded-full w-full py-3.5 font-semibold hover:bg-primary/90 active:scale-[0.97] transition-all shadow-md mt-2 flex justify-center items-center gap-2 text-sm"
                     type="submit">
                     Iniciar Sesión
-                    <span class="material-symbols-outlined">arrow_forward</span>
+                    <span class="material-symbols-outlined text-xl">arrow_forward</span>
                 </button>
             </form>
+
             <!-- Sign Up Link -->
-            <div class="text-center mt-stack-sm pt-stack-md border-t border-surface-container-highest">
-                <p class="font-body-md text-body-md text-on-surface-variant">
+            <div class="text-center mt-6 pt-5 border-t border-gray-100">
+                <p class="text-sm text-gray-500">
                     ¿Eres nuevo en Cusco?
-                    <a class="font-label-lg text-label-lg text-secondary hover:text-secondary-container transition-colors ml-1"
-                        href="#">
+                    <a class="font-semibold text-skyblue hover:text-skyblue/80 transition-colors ml-1" href="#">
                         Crear cuenta
                     </a>
                 </p>
             </div>
         </div>
     </main>
-    <!-- Footer Component Injection (Suppressed for Context) -->
-    <!-- Navigation Shells (Top/Side/Bottom) are correctly suppressed for a transactional Login page -->
 </body>
 
 </html>

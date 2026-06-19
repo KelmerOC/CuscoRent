@@ -14,7 +14,7 @@ function doGet(e) {
 
     return HtmlService.createTemplateFromFile(page)
         .evaluate()
-        .setTitle('UniStay — ' + page)
+        .setTitle('CuscoRent — ' + page)
         .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
         .addMetaTag('viewport', 'width=device-width, initial-scale=1.0');
 }

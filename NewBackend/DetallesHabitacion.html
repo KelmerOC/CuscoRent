@@ -1,19 +1,14 @@
 <!DOCTYPE html>
-
-<html class="light" lang="es">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Detalles de Habitación | Cusco Rent</title>
+    <title>Detalles de Habitación | CuscoRent</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap"
-        rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -21,17 +16,6 @@
 
         .fill-icon {
             font-variation-settings: 'FILL' 1;
-        }
-
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #f9f9f9;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
         }
 
         .custom-scrollbar::-webkit-scrollbar {
@@ -52,319 +36,246 @@
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "on-error": "#ffffff",
-                        "surface-dim": "#dadad9",
-                        "on-secondary-fixed-variant": "#004c69",
-                        "on-tertiary-fixed": "#2c1600",
-                        "tertiary-container": "#efa655",
-                        "outline-variant": "#dac2ae",
-                        "secondary-container": "#40c2fd",
-                        "surface-card": "#ffffff",
-                        "tertiary": "#895100",
-                        "secondary-fixed-dim": "#7bd0ff",
-                        "tertiary-fixed-dim": "#ffb86c",
-                        "surface-container-low": "#f4f3f3",
-                        "secondary-fixed": "#c4e7ff",
-                        "tertiary-fixed": "#ffdcbc",
-                        "primary-fixed-dim": "#ffb86b",
-                        "on-primary-fixed-variant": "#683d00",
-                        "icon-blue": "#38BDF8",
-                        "outline-muted": "#dac2ae",
-                        "on-tertiary-container": "#683c00",
-                        "inverse-primary": "#ffb86b",
-                        "primary": "#895100",
-                        "error": "#ba1a1a",
-                        "surface-container-highest": "#e2e2e2",
-                        "surface-container": "#eeeeee",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-tint": "#895100",
-                        "surface-container-high": "#e8e8e8",
-                        "on-secondary-fixed": "#001e2c",
-                        "surface-bg": "#f9f9f9",
-                        "secondary": "#00668a",
-                        "error-container": "#ffdad6",
-                        "on-primary": "#ffffff",
-                        "on-primary-fixed": "#2c1700",
-                        "surface": "#f9f9f9",
-                        "outline": "#877462",
-                        "surface-bright": "#f9f9f9",
-                        "surface-variant": "#e2e2e2",
-                        "inverse-surface": "#2f3131",
-                        "primary-fixed": "#ffdcbc",
-                        "on-surface-variant": "#544434",
-                        "on-secondary-container": "#004d6a",
-                        "on-surface": "#1a1c1c",
-                        "inverse-on-surface": "#f1f1f0",
-                        "on-secondary": "#ffffff",
-                        "on-primary-container": "#683c00",
-                        "primary-container": "#ff9f1c",
-                        "on-tertiary-fixed-variant": "#683c00",
-                        "on-background": "#1a1c1c",
-                        "on-tertiary": "#ffffff",
-                        "background": "#f9f9f9",
-                        "on-error-container": "#93000a"
+                    colors: {
+                        primary: '#c28e46',
+                        sidebar: '#45121a',
+                        secondary: '#b85151',
+                        terracotta: '#b85151',
+                        bglite: '#faf8f5',
+                        charcoal: '#211f1d',
+                        burgundy: '#45121a',
+                        sage: '#8fa08e',
+                        skyblue: '#3a82c4',
+                        'border-color': '#e6dec9'
                     },
-                    "borderRadius": {
-                        "DEFAULT": "1rem",
-                        "lg": "2rem",
-                        "xl": "3rem",
-                        "full": "9999px"
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     },
-                    "spacing": {
-                        "gutter": "16px",
-                        "chassis-padding": "12px",
-                        "stack-sm": "8px",
-                        "stack-lg": "24px",
-                        "stack-md": "16px",
-                        "screen-margin": "20px"
-                    },
-                    "fontFamily": {
-                        "body-lg": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"],
-                        "body-md": ["Plus Jakarta Sans"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "label-lg": ["Plus Jakarta Sans"],
-                        "label-sm": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
-                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    boxShadow: {
+                        'soft': '0 4px 12px rgba(0,0,0,0.05)',
+                        'card': '0 8px 30px rgb(0,0,0,0.04)',
                     }
-                },
-            },
+                }
+            }
         }
     </script>
 </head>
 
-<body class="bg-surface text-on-surface">
-    <!-- TopNavBar (Shared Component Logic) -->
-    <nav
-        class="flex justify-between items-center px-screen-margin py-stack-sm w-full sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
-        <div class="font-headline-md text-headline-md font-bold text-primary">Cusco Rent</div>
-        <div class="hidden md:flex items-center gap-stack-lg">
-            <a class="font-body-lg text-body-lg text-primary font-bold border-b-2 border-primary hover:text-primary transition-colors"
-                href="#">Explorar</a>
-            <a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors"
-                href="#">Favoritos</a>
-            <a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors"
-                href="#">Mensajes</a>
-        </div>
-        <div class="flex items-center gap-stack-md">
-            <div class="hidden md:block bg-surface-container-low rounded-full px-4 py-2 border border-outline-variant">
-                <div class="flex items-center gap-2 text-on-surface-variant">
-                    <span class="material-symbols-outlined text-[20px]">search</span>
-                    <span class="text-label-lg">Buscar alojamiento...</span>
+<body class="font-sans text-charcoal antialiased bg-bglite">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border-color">
+        <div class="max-w-[1440px] mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center gap-8">
+                <a href="#" class="flex items-center">
+                    <span class="font-serif text-charcoal text-xl">Cusco</span><span class="font-serif text-primary text-xl">Rent</span>
+                </a>
+                <div class="hidden md:flex items-center gap-6">
+                    <a class="text-sm font-medium text-charcoal hover:text-primary transition-colors" href="#">Explorar</a>
+                    <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors" href="#">Favoritos</a>
+                    <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors" href="#">Mensajes</a>
                 </div>
             </div>
-            <button class="scale-95 active:opacity-80 transition-all text-on-surface-variant">
-                <span class="material-symbols-outlined text-[32px]">account_circle</span>
-            </button>
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex bg-bglite rounded-full px-4 py-2 border border-border-color items-center gap-2">
+                    <span class="material-symbols-outlined text-charcoal/40 text-[18px]">search</span>
+                    <span class="text-sm text-charcoal/40">Buscar alojamiento...</span>
+                </div>
+                <button class="w-9 h-9 rounded-full bg-charcoal flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-[20px]">account_circle</span>
+                </button>
+            </div>
         </div>
     </nav>
-    <main class="max-w-[1440px] mx-auto px-screen-margin py-stack-lg">
+
+    <main class="max-w-[1440px] mx-auto px-6 py-8">
         <!-- Hero Gallery Section -->
-        <section class="grid grid-cols-4 grid-rows-2 gap-4 h-[500px] mb-stack-lg rounded-lg overflow-hidden">
-            <div class="col-span-2 row-span-2 relative group cursor-pointer overflow-hidden rounded-l-lg">
+        <section class="grid grid-cols-4 grid-rows-2 gap-3 h-[500px] rounded-[20px] overflow-hidden mb-8">
+            <div class="col-span-2 row-span-2 relative group cursor-pointer overflow-hidden rounded-l-[20px]">
                 <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     data-alt="A spacious sunlit master bedroom in a modern Cusco apartment, featuring high ceilings and dark wood Andean beams. The bed is dressed in crisp white linens with hand-woven colorful Peruvian textile accents. Warm golden hour sunlight streams through large windows, highlighting the clean white walls and polished concrete floors. The aesthetic is contemporary yet deeply rooted in local heritage, creating a peaceful and upscale atmosphere."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ5cD0FeZq8LlNu2qKTPtPq0mVmjof6JuQ0VNeGa8JoFOgDQXTCfpNTvgnfOR_Z_THvg19GNBd8TfgfpmDCMBHu-BTpAlqBghcpNws_aMT3o3ZM0x6c8c61lhnCm83_PSIPoeXhQVn5Jxm5SL2saiMN6rmF1Z8B2J8PkIfesCgqlHMXbC2jVwpR5X6AJvzFhtfev8sD6pmxVVTR5pu3q9qNR1lPX4uagvj1q4fg4XnNivtsEPzVtM6wzx7XfDc2sEJbk6fAhVT3VI_" />
                 <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors"></div>
             </div>
             <div class="col-span-1 row-span-1 overflow-hidden">
-                <img class="w-full h-full object-cover"
+                <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     data-alt="Close-up detail of a modern desk area in a student room. The desk is made of local warm-toned timber and features a sleek designer lamp and a succulent plant in a ceramic pot. Minimalist white shelving sits above it, holding a few select books and a framed Andean landscape photograph. Soft, diffuse lighting creates a focused yet calm study environment, perfectly suited for the Andean Modernity design theme."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK0u2AAxTl14Jur2KgbtTcIVgKz-bDMvto2E_EM5vq4mV5S2xVyWMlilQIdXzdGToxFaZvvt37YxE6IE683KADP5zY0vybOBJlHmAfl_Sgr_56wMD6LYsxL2kAi3tMZPY98oImEMmQYCoRkOrdAfESEf12e0Lo67fAOnM_mRs7HshYvdhl8FAwF9hkt-e7qzsFw0zGwqIQYtMok4oDBAlGcP6gmEpfCGhnoqjFgj0H1J5APE1nm82Xfx4e0sjVZCu9wNYmbF0WnrDh" />
             </div>
-            <div class="col-span-1 row-span-1 overflow-hidden rounded-tr-lg">
-                <img class="w-full h-full object-cover"
+            <div class="col-span-1 row-span-1 overflow-hidden rounded-tr-[20px]">
+                <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     data-alt="A luxurious private bathroom featuring modern terracotta tile accents and a walk-in shower with high-end black matte fixtures. The space is exceptionally clean, with a vanity made of natural stone and a large round mirror. Bright, cool-toned lighting emphasizes the high-quality materials and contemporary design, reflecting the sophisticated rental market for students in historic Cusco."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxZ3o04YAYZraXNNuZ2i8nn--kAyB9YoYe87-2wfjyOzeKy8vzRp2L69STzGLQiJN5IyvyNjxCH1sLJDz4GhQUBJk6cqe1XapdVs-7Xjvza8QZSwCfTq-90S6nX_u7bija4JzmiAIs0kLssZ6RuSDIlQxM0M3JBkmmRLzvIl3ZOYeLBNytyvTzj0kcZHTXqmv5rR94PxNzipm3aSnMe3Q5K7MRs91cCm-uEarEL5Ls-tnKYj2qJisZ_ifwab6-KoWyDgHRP5w9J4EF" />
             </div>
             <div class="col-span-1 row-span-1 overflow-hidden">
-                <img class="w-full h-full object-cover"
+                <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     data-alt="A cozy reading nook by a window overlooking the historic red tiled roofs of Cusco. The corner features a comfortable mid-century modern armchair in a deep teal fabric, draped with a traditional alpaca wool throw. A small side table holds a steaming cup of tea. The mood is tranquil and inviting, blending global design trends with the unique character of the high Andes."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJnVhCHPIm-ZvvuJUd6nz64ULvhqd-1VlulpDNrdTir5IuBXdo_ByqYUG3ZZsOHRNUWPgqWnpViLeO4gj9Vdx1Z6CJcq5Boji-WAbr4pLKvOtJKljA3TXrCgfgHsL5-6q_FqtKvLRhhlpLCgkd31ec_OFJXqNKzdvQS3Lw7lQ0Uot_RhZUxRfA7vAhW01znLJ3HMAF-bbR3P_EsdT4qE2rYRE2paIs8lcvxO098f5gOB5g1xWFqoqj6VbGEZKVxt6f35wPpQ8g55QG" />
             </div>
-            <div class="col-span-1 row-span-1 relative overflow-hidden rounded-br-lg cursor-pointer">
-                <img class="w-full h-full object-cover blur-[2px]"
+            <div class="col-span-1 row-span-1 relative overflow-hidden rounded-br-[20px] cursor-pointer">
+                <img class="w-full h-full object-cover blur-[2px] transition-transform duration-500 group-hover:scale-105"
                     data-alt="A perspective view of a shared modern kitchen with stainless steel appliances and a central island bar. The cabinetry is a sleek matte white with leather pulls. The background shows a dining area with a large wooden table and artistic pendant lights. The lighting is bright and architectural, showcasing a premium student living space that balances functionality with high-end Andean style."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuC8XUQKPp1ICnvHTJ95je8hMJvYUndcyBupyVM7YNbvIsR3NYWMRVVx08hAxbXL2GZ6peJWShMxu2vnAdmexb42olTYN2dRKJ4zPmQnZEzOCfPH7erED2CqChm9WZmffVu8mAMG9ais1z5-CJJtWkbmVBlwUIq_6ar78O-pTtCcBlFPULUlCgDA_lKDBAarRx7a-wPx-85qx3Kvv9rE4cBcT4lZIxGF8C2PzW8XiLBhdlzGcqfi-bxvuKvCu4lLlzteobTwBh_vJ9ci" />
-                <div
-                    class="absolute inset-0 flex items-center justify-center bg-black/40 text-white font-bold text-headline-md">
+                <div class="absolute inset-0 flex items-center justify-center bg-black/40 text-white font-bold text-lg">
                     +12 fotos
                 </div>
             </div>
         </section>
+
         <!-- Content Grid -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
             <!-- Left Column: Room Details -->
             <div class="lg:col-span-8 space-y-8">
                 <!-- Title & Basic Info -->
-                <div class="border-b border-outline-variant pb-8">
+                <div class="border-b border-border-color pb-8">
                     <div class="flex justify-between items-start gap-4 mb-2">
                         <div>
-                            <h1 class="font-headline-lg text-headline-lg text-on-surface mb-2">Habitación Suite en San
-                                Blas con Vista Panorámica</h1>
-                            <div class="flex items-center gap-2 text-on-surface-variant font-body-lg">
+                            <h1 class="font-serif text-charcoal text-3xl mb-2">Habitación Suite en San Blas con Vista Panorámica</h1>
+                            <div class="flex items-center gap-2 text-charcoal/60 text-sm">
                                 <span class="material-symbols-outlined text-[20px]">location_on</span>
                                 <span>Barrio de San Blas, Cusco, Perú</span>
                             </div>
                         </div>
                         <div class="flex flex-col items-end">
-                            <span
-                                class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full font-label-lg flex items-center gap-1">
+                            <span class="bg-sage/20 text-sage px-3 py-1 rounded-full text-sm font-medium flex items-center gap-1">
                                 <span class="material-symbols-outlined text-[18px] fill-icon">verified</span>
                                 Verificado
                             </span>
                         </div>
                     </div>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                        <div
-                            class="p-4 bg-surface-container-low rounded-DEFAULT flex flex-col items-center text-center">
+                        <div class="bg-white rounded-[16px] p-4 shadow-soft flex flex-col items-center text-center">
                             <span class="material-symbols-outlined text-primary mb-1">bed</span>
-                            <span class="font-label-lg">Cama Queen</span>
+                            <span class="text-sm font-medium">Cama Queen</span>
                         </div>
-                        <div
-                            class="p-4 bg-surface-container-low rounded-DEFAULT flex flex-col items-center text-center">
+                        <div class="bg-white rounded-[16px] p-4 shadow-soft flex flex-col items-center text-center">
                             <span class="material-symbols-outlined text-primary mb-1">shower</span>
-                            <span class="font-label-lg">Baño Privado</span>
+                            <span class="text-sm font-medium">Baño Privado</span>
                         </div>
-                        <div
-                            class="p-4 bg-surface-container-low rounded-DEFAULT flex flex-col items-center text-center">
+                        <div class="bg-white rounded-[16px] p-4 shadow-soft flex flex-col items-center text-center">
                             <span class="material-symbols-outlined text-primary mb-1">wifi</span>
-                            <span class="font-label-lg">Fibra Óptica</span>
+                            <span class="text-sm font-medium">Fibra Óptica</span>
                         </div>
-                        <div
-                            class="p-4 bg-surface-container-low rounded-DEFAULT flex flex-col items-center text-center">
+                        <div class="bg-white rounded-[16px] p-4 shadow-soft flex flex-col items-center text-center">
                             <span class="material-symbols-outlined text-primary mb-1">coffee</span>
-                            <span class="font-label-lg">Áreas Comunes</span>
+                            <span class="text-sm font-medium">Áreas Comunes</span>
                         </div>
                     </div>
                 </div>
+
                 <!-- Landlord Profile -->
-                <div
-                    class="flex items-center gap-4 p-6 bg-surface-container-lowest border border-outline-variant rounded-lg">
-                    <div class="w-16 h-16 rounded-full overflow-hidden">
+                <div class="flex items-center gap-4 p-6 bg-white border border-border-color rounded-[20px] shadow-soft">
+                    <div class="w-16 h-16 rounded-full overflow-hidden flex-shrink-0">
                         <img class="w-full h-full object-cover"
                             data-alt="A professional and friendly portrait of a female property manager in her late 30s. She is wearing a modern business casual outfit with subtle Andean silver jewelry. The background is a bright, out-of-focus modern office space with warm lighting. The image conveys trust, efficiency, and professional hospitality, matching the Cusco Rent brand identity."
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6QrNbdhwYDm7rNC0r_imJGH2SE9W9CLeTK9NqG_XWCX2eU6wB9dbUDPEbUCSfAseP3Yv0utRA7bsLum3_IRvDubkYD57abkAFIbRIrapIUPHemo8VWuDbWx6wYoe1pXytpNAy7iWP1nT9J8bBKBgNewt6hstycXMMpxY7i2IdMHFORSu3JPv__Htc2ZyEpprRWsojUOO-xw8CE2f6T2KZ016dzLT79LU1RzP31CyKwsG8gumkbExQaKPniSCVazE2wQq0k1LAaq2C" />
                     </div>
                     <div>
-                        <h3 class="font-headline-md text-headline-md text-on-surface">Arrendado por Martha Quispe</h3>
-                        <p class="text-on-surface-variant font-body-md">Súper Propietaria · 4 años de experiencia ·
-                            Responde en 1 hora</p>
+                        <h3 class="font-serif text-charcoal text-lg">Arrendado por Martha Quispe</h3>
+                        <p class="text-charcoal/60 text-sm">Súper Propietaria · 4 años de experiencia · Responde en 1 hora</p>
                     </div>
                 </div>
+
                 <!-- Description -->
                 <div class="space-y-4">
-                    <h2 class="font-headline-md text-headline-md">Acerca de esta habitación</h2>
-                    <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                    <h2 class="font-serif text-charcoal text-xl">Acerca de esta habitación</h2>
+                    <p class="text-charcoal/70 leading-relaxed">
                         Vive la esencia de Cusco en esta suite meticulosamente diseñada, ubicada en el corazón artístico
                         de San Blas. Esta habitación combina la calidez de la arquitectura colonial con la funcionalidad
                         de la vida moderna para estudiantes y nómadas digitales.
                     </p>
-                    <p class="font-body-lg text-on-surface-variant leading-relaxed">
+                    <p class="text-charcoal/70 leading-relaxed">
                         Cuenta con un escritorio ergonómico frente a la ventana con vistas a la catedral, armario
                         empotrado de madera local y calefacción inteligente para las noches andinas. El precio incluye
                         todos los servicios (Luz, agua, internet de alta velocidad y limpieza semanal).
                     </p>
                 </div>
+
                 <!-- House Rules -->
                 <div class="space-y-4 pt-4">
-                    <h2 class="font-headline-md text-headline-md">Reglas de la casa</h2>
+                    <h2 class="font-serif text-charcoal text-xl">Reglas de la casa</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-on-surface-variant">schedule</span>
-                            <span class="font-body-md">Check-in: Flexible entre 10:00 - 18:00</span>
+                            <span class="material-symbols-outlined text-charcoal/60">schedule</span>
+                            <span class="text-sm text-charcoal/70">Check-in: Flexible entre 10:00 - 18:00</span>
                         </div>
                         <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-on-surface-variant">smoke_free</span>
-                            <span class="font-body-md">No se permite fumar dentro de la habitación</span>
+                            <span class="material-symbols-outlined text-charcoal/60">smoke_free</span>
+                            <span class="text-sm text-charcoal/70">No se permite fumar dentro de la habitación</span>
                         </div>
                         <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-on-surface-variant">pets</span>
-                            <span class="font-body-md">Mascotas pequeñas son bienvenidas</span>
+                            <span class="material-symbols-outlined text-charcoal/60">pets</span>
+                            <span class="text-sm text-charcoal/70">Mascotas pequeñas son bienvenidas</span>
                         </div>
                         <div class="flex items-start gap-3">
-                            <span class="material-symbols-outlined text-on-surface-variant">group_off</span>
-                            <span class="font-body-md">No se permiten fiestas o eventos ruidosos</span>
+                            <span class="material-symbols-outlined text-charcoal/60">group_off</span>
+                            <span class="text-sm text-charcoal/70">No se permiten fiestas o eventos ruidosos</span>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- Right Column: Map & Booking Card -->
             <div class="lg:col-span-4 space-y-6 lg:sticky lg:top-24">
                 <!-- Map Card -->
-                <div
-                    class="bg-surface-container-lowest rounded-lg border border-outline-variant overflow-hidden shadow-sm">
-                    <div class="p-4 border-b border-outline-variant">
-                        <h3 class="font-headline-md text-headline-md">Ubicación</h3>
+                <div class="bg-white rounded-[20px] border border-border-color overflow-hidden shadow-soft">
+                    <div class="p-4 border-b border-border-color">
+                        <h3 class="font-serif text-charcoal text-lg">Ubicación</h3>
                     </div>
-                    <div class="h-64 bg-surface-container-high relative group">
-                        <img class="w-full h-full object-cover"
+                    <div class="h-64 bg-charcoal/5 relative group">
+                        <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                             data-alt="A stylized, clean map view of the San Blas neighborhood in Cusco. The map uses a soft color palette of grays and creams with primary tangerine highlights for the room's location. Famous landmarks like the Plaza de Armas and Limbus Restobar are indicated with subtle icons. The design is modern, professional, and easy to read, emphasizing the central yet quiet location of the rental property."
                             data-location="Cusco, Peru"
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuC18u13heiLWT7xzHJlrL-luG8VKoSx4cD_2v4er0INWOmxZuZVJ4-ERq2FVjs4F2gdw-EESonZGkDu3rvTijNSFcKukX1JDUSBYbJM8UUi2RHtQvKYnj6J7FTIej19QljVApFQwiKD008evca9LBLxPI3mh1LeCZdTCWuZ4bEr-LIltQFogYRPI644VJr282HFu4M2xkHRbsk1_XX2KqqkpsYvMXtn9d4WeWBCFoScNHjE4TCWbDZDK91cduZuRRWXN4VAhYNAz7Fb" />
-                        <button
-                            class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded-full shadow-lg font-label-lg text-primary flex items-center gap-2 hover:bg-primary-container hover:text-white transition-all">
+                        <button class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white px-6 py-2 rounded-full shadow-lg text-sm font-medium text-primary flex items-center gap-2 hover:bg-primary/5 transition-all">
                             <span class="material-symbols-outlined text-[20px]">fullscreen</span>
                             Ver Mapa Completo
                         </button>
                     </div>
                 </div>
+
                 <!-- Sticky Booking Card -->
-                <div
-                    class="bg-surface-container-lowest border border-outline-variant rounded-lg p-6 shadow-xl space-y-6">
+                <div class="bg-white rounded-[20px] shadow-card p-6 space-y-6">
                     <div class="flex justify-between items-baseline">
                         <div class="flex items-baseline gap-1">
-                            <span class="text-headline-lg font-bold text-on-surface">S/ 1,200</span>
-                            <span class="text-on-surface-variant font-body-md">/ mes</span>
+                            <span class="text-3xl font-bold text-charcoal">S/ 1,200</span>
+                            <span class="text-charcoal/60 text-sm">/ mes</span>
                         </div>
                         <div class="flex items-center gap-1 text-primary">
                             <span class="material-symbols-outlined fill-icon text-[18px]">star</span>
-                            <span class="font-label-lg">4.9</span>
-                            <span class="text-on-surface-variant text-[12px]">(24 reseñas)</span>
+                            <span class="text-sm font-medium">4.9</span>
+                            <span class="text-charcoal/40 text-xs">(24 reseñas)</span>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 border border-outline-variant rounded-DEFAULT overflow-hidden">
-                        <div class="p-3 border-r border-outline-variant space-y-1">
-                            <p class="text-[10px] uppercase font-bold text-on-surface-variant">Ingreso</p>
-                            <p class="font-body-md">01 Mar, 2024</p>
+                    <div class="grid grid-cols-2 border border-border-color rounded-[12px] overflow-hidden">
+                        <div class="p-3 border-r border-border-color space-y-1">
+                            <p class="text-[10px] uppercase font-bold text-charcoal/50">Ingreso</p>
+                            <p class="text-sm">01 Mar, 2024</p>
                         </div>
                         <div class="p-3 space-y-1">
-                            <p class="text-[10px] uppercase font-bold text-on-surface-variant">Estadía Mín.</p>
-                            <p class="font-body-md">3 Meses</p>
+                            <p class="text-[10px] uppercase font-bold text-charcoal/50">Estadía Mín.</p>
+                            <p class="text-sm">3 Meses</p>
                         </div>
                     </div>
                     <div class="space-y-3">
-                        <button
-                            class="w-full bg-primary-container text-on-primary-container h-14 rounded-DEFAULT font-headline-md flex items-center justify-center gap-2 hover:brightness-95 active:scale-[0.98] transition-all">
+                        <button class="bg-primary text-white rounded-full w-full py-4 font-semibold text-lg hover:bg-primary/90 active:scale-[0.97] transition-all shadow-md">
                             Pagar Mensualidad
                         </button>
-                        <button
-                            class="w-full border-2 border-primary text-primary h-14 rounded-DEFAULT font-headline-md flex items-center justify-center gap-2 hover:bg-primary-fixed transition-all">
-                            <span class="material-symbols-outlined">mail</span>
+                        <button class="border-2 border-skyblue text-skyblue rounded-full w-full py-4 font-semibold hover:bg-skyblue/5 transition-all">
                             Contactar Propietario
                         </button>
                     </div>
-                    <p class="text-center text-on-surface-variant text-label-sm">No se te cobrará nada todavía</p>
-                    <div class="pt-4 border-t border-outline-variant space-y-2">
-                        <div class="flex justify-between text-body-md">
-                            <span class="underline">Alquiler mensual</span>
+                    <p class="text-center text-charcoal/40 text-xs">No se te cobrará nada todavía</p>
+                    <div class="pt-4 border-t border-border-color space-y-2">
+                        <div class="flex justify-between text-sm">
+                            <span class="underline text-charcoal/70">Alquiler mensual</span>
                             <span>S/ 1,200</span>
                         </div>
-                        <div class="flex justify-between text-body-md">
-                            <span class="underline">Gastos de gestión Cusco Rent</span>
+                        <div class="flex justify-between text-sm">
+                            <span class="underline text-charcoal/70">Gastos de gestión CuscoRent</span>
                             <span>S/ 80</span>
                         </div>
-                        <div class="flex justify-between text-body-md font-bold pt-2 border-t border-outline-variant">
+                        <div class="flex justify-between text-sm font-bold pt-2 border-t border-border-color">
                             <span>Total primer mes</span>
                             <span>S/ 1,280</span>
                         </div>
@@ -373,25 +284,25 @@
             </div>
         </div>
     </main>
-    <!-- Footer (Shared Component Logic) -->
-    <footer
-        class="w-full py-stack-lg px-screen-margin flex flex-col md:flex-row justify-between items-center gap-stack-md bg-surface-container-high border-t border-outline-variant mt-stack-lg">
-        <div class="flex flex-col items-center md:items-start gap-1">
-            <div class="font-headline-md text-headline-md text-primary font-bold">Cusco Rent</div>
-            <p class="font-body-md text-body-md text-on-surface-variant">© 2024 Cusco Rent. Vivienda estudiantil con
-                alma andina.</p>
-        </div>
-        <div class="flex gap-stack-lg">
-            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container underline transition-all"
-                href="#">Nosotros</a>
-            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container underline transition-all"
-                href="#">Términos y Condiciones</a>
-            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container underline transition-all"
-                href="#">Privacidad</a>
-            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container underline transition-all"
-                href="#">Contacto</a>
+
+    <!-- Footer -->
+    <footer class="w-full bg-white border-t border-border-color mt-16 py-10 px-6">
+        <div class="max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col items-center md:items-start gap-1">
+                <div class="flex items-center">
+                    <span class="font-serif text-charcoal text-xl">Cusco</span><span class="font-serif text-primary text-xl">Rent</span>
+                </div>
+                <p class="text-sm text-charcoal/60">© 2024 CuscoRent. Vivienda estudiantil con alma andina.</p>
+            </div>
+            <div class="flex gap-6">
+                <a class="text-sm text-charcoal/60 hover:text-primary underline transition-all" href="#">Nosotros</a>
+                <a class="text-sm text-charcoal/60 hover:text-primary underline transition-all" href="#">Términos y Condiciones</a>
+                <a class="text-sm text-charcoal/60 hover:text-primary underline transition-all" href="#">Privacidad</a>
+                <a class="text-sm text-charcoal/60 hover:text-primary underline transition-all" href="#">Contacto</a>
+            </div>
         </div>
     </footer>
+
     <script>
         // Micro-interactions for gallery hover effects and buttons
         document.querySelectorAll('button').forEach(button => {

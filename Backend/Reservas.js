@@ -118,10 +118,10 @@ function notificarArrendadorReserva(arrendadorId, estudianteId, tituloHabitacion
         const correoEstudiante = estudiante ? estudiante.CorreoInstitucional : '';
         MailApp.sendEmail({
             to: arrendador.Email,
-            subject: '🏠 Nueva Reserva Confirmada — UniStay',
+            subject: '🏠 Nueva Reserva Confirmada — CuscoRent',
             htmlBody: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                    <h2 style="color: #FF9800; text-align: center;">UniStay — Nueva Reserva</h2>
+                    <h2 style="color: #c28e46; text-align: center;">CuscoRent — Nueva Reserva</h2>
                     <p>Hola <strong>${nombreArrendador}</strong>,</p>
                     <p>¡Tu habitación ha sido reservada! Aquí tienes los detalles:</p>
                     <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
@@ -133,7 +133,7 @@ function notificarArrendadorReserva(arrendadorId, estudianteId, tituloHabitacion
                         <p><strong>📅 Fecha:</strong> ${new Date().toLocaleString()}</p>
                     </div>
                     <p>Por favor, coordina con el estudiante para la entrega de llaves.</p>
-                    <p>Atentamente,<br>El equipo de UniStay</p>
+                    <p>Atentamente,<br>El equipo de CuscoRent</p>
                 </div>
             `
         });

@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Andean Modern - Selecciona tu Perfil</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>CuscoRent - Selecciona tu Perfil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
         rel="stylesheet" />
     <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
     <style>
         .material-symbols-outlined {
@@ -32,95 +32,34 @@
             -webkit-font-smoothing: antialiased;
         }
     </style>
-    <script id="tailwind-config">
+    <script>
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "primary-container": "#ff9f1c",
-                        "error": "#ba1a1a",
-                        "on-tertiary-fixed": "#2c1600",
-                        "surface-container": "#eeeeed",
-                        "tertiary-fixed-dim": "#ffb86c",
-                        "on-secondary": "#ffffff",
-                        "tertiary-container": "#efa655",
-                        "surface-tint": "#895100",
-                        "surface-dim": "#dadad9",
-                        "outline-variant": "#dac2ae",
-                        "surface": "#f9f9f9",
-                        "on-tertiary-container": "#683c00",
-                        "surface-card": "#ffffff",
-                        "on-primary-fixed": "#2c1700",
-                        "on-background": "#1a1c1c",
-                        "on-error-container": "#93000a",
-                        "on-surface-variant": "#544434",
-                        "on-secondary-fixed-variant": "#004c69",
-                        "on-secondary-container": "#004d6a",
-                        "surface-bright": "#f9f9f9",
-                        "tertiary-fixed": "#ffdcbc",
-                        "outline-muted": "#dac2ae",
-                        "on-surface": "#1a1c1c",
-                        "inverse-surface": "#2f3131",
-                        "outline": "#877462",
-                        "inverse-on-surface": "#f1f1f0",
-                        "secondary-fixed": "#c4e7ff",
-                        "surface-container-highest": "#e2e2e2",
-                        "secondary-fixed-dim": "#7bd0ff",
-                        "error-container": "#ffdad6",
-                        "inverse-primary": "#ffb86b",
-                        "primary-fixed-dim": "#ffb86b",
-                        "secondary-container": "#40c2fd",
-                        "tertiary": "#895100",
-                        "surface-variant": "#e2e2e2",
-                        "on-secondary-fixed": "#001e2c",
-                        "icon-blue": "#38BDF8",
-                        "primary-fixed": "#ffdcbc",
-                        "background": "#f9f9f9",
-                        "on-tertiary-fixed-variant": "#683c00",
-                        "surface-container-lowest": "#ffffff",
-                        "on-primary-container": "#683c00",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-high": "#e8e8e8",
-                        "primary": "#895100",
-                        "on-error": "#ffffff",
-                        "surface-container-low": "#f4f3f3",
-                        "secondary": "#00668a",
-                        "surface-bg": "#f9f9f9",
-                        "on-primary-fixed-variant": "#683d00",
-                        "on-primary": "#ffffff"
+                    colors: {
+                        primary: '#c28e46',
+                        sidebar: '#45121a',
+                        secondary: '#b85151',
+                        terracotta: '#b85151',
+                        bglite: '#faf8f5',
+                        charcoal: '#211f1d',
+                        burgundy: '#45121a',
+                        sage: '#8fa08e',
+                        skyblue: '#3a82c4',
+                        'border-color': '#e6dec9'
                     },
-                    "borderRadius": {
-                        "DEFAULT": "1rem",
-                        "lg": "2rem",
-                        "xl": "3rem",
-                        "full": "9999px"
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     },
-                    "spacing": {
-                        "screen-margin": "20px",
-                        "stack-sm": "8px",
-                        "stack-lg": "24px",
-                        "chassis-padding": "12px",
-                        "stack-md": "16px",
-                        "gutter": "16px"
+                    boxShadow: {
+                        'soft': '0 4px 12px rgba(0,0,0,0.05)',
+                        'card': '0 8px 30px rgb(0,0,0,0.04)',
+                        'card-hover': '0 20px 60px rgb(0,0,0,0.08)',
                     },
-                    "fontFamily": {
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "body-lg": ["Plus Jakarta Sans"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "body-md": ["Plus Jakarta Sans"],
-                        "label-sm": ["Plus Jakarta Sans"],
-                        "label-lg": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
-                        "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
-                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    borderRadius: {
+                        '2xl': '20px',
                     }
                 }
             }
@@ -128,81 +67,83 @@
     </script>
 </head>
 
-<body
-    class="bg-surface text-on-surface min-h-screen flex flex-col items-center justify-center p-screen-margin selection:bg-primary-container selection:text-on-primary-container">
-    <div class="text-center mb-12 flex flex-col items-center">
-        <h1 class="font-headline-lg text-headline-lg text-primary mb-stack-sm tracking-tight flex items-center gap-2">
-            <span class="material-symbols-outlined"
-                style="font-variation-settings: 'FILL' 1; font-size: 32px; color: #ff9f1c;">roofing</span>
-            Andean Modern
-        </h1>
-        <p class="font-body-lg text-body-lg text-on-surface-variant max-w-md mx-auto">
-            Bienvenido a la comunidad. Por favor, selecciona cómo deseas usar la plataforma hoy.
-        </p>
+<body class="bg-bglite font-sans text-charcoal antialiased min-h-screen flex flex-col items-center justify-center p-6">
+
+    <!-- Logo -->
+    <div class="mb-10 text-center">
+        <span class="font-serif text-charcoal text-3xl font-bold">Cusco</span><span
+            class="font-serif text-primary text-3xl font-bold">Rent</span>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg w-full max-w-5xl mx-auto">
+
+    <!-- Title -->
+    <h1 class="font-serif text-charcoal text-4xl md:text-5xl font-bold text-center mb-4">
+        ¿Cómo deseas usar CuscoRent?
+    </h1>
+    <p class="text-charcoal/60 text-lg text-center mb-12 max-w-lg">
+        Selecciona tu perfil para comenzar a explorar la mejor experiencia de alquiler estudiantil en Cusco.
+    </p>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+
+        <!-- Student Card -->
         <button
-            class="group text-left bg-surface-container-lowest border border-outline-variant/30 rounded-xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden flex flex-col focus:outline-none focus:ring-4 focus:ring-primary-container/50">
-            <div class="relative h-72 w-full overflow-hidden bg-surface-container-low">
+            class="group text-left bg-white rounded-[20px] shadow-card hover:shadow-card-hover hover:-translate-y-2 transition-all duration-500 border border-transparent hover:border-primary/30 overflow-hidden flex flex-col focus:outline-none focus:ring-4 focus:ring-primary/20">
+            <div class="relative aspect-[4/3] overflow-hidden rounded-t-[20px]">
                 <img alt="Habitación de estudiante en Cusco"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     data-alt="A bright, modern bedroom designed for a student, featuring elements of historic Cusco architecture like subtle stone textures combined with contemporary clean lines. Soft, optimistic light filters through a large window. The space feels highly organized, airy, and welcoming, decorated in a palette of warm whites, natural wood, and touches of tangerine and sky blue to match a corporate modern aesthetic."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuBn1DuOC67c9WELAX1gVCMqzpyINCuQcsYuJ4ETFTw9Cca42VSQ_aGK2WOKQzEArPxK3s8Q7ZELF5F1ETPAFMHSZj4gCznCyk0VUd-vSuh4P98jxXlda_Pax9e4vykmm5ElB84N25u11GBYi6Fdl8tvaJCBiWGOX4pxh4_ZJCiCGxosnfarpiJ11AtfrAVXlkx9X2BiczIFeN2YBbkXy8EarGM_kEJjBAKFLRSxZYy58q2PoSM7laPAaeaZaRaVSKIki08tBRX3S060" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent"></div>
-                <div class="absolute bottom-stack-md left-stack-md right-stack-md flex items-center justify-between">
-                    <span
-                        class="bg-surface-container-lowest text-primary font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">Buscando
-                        Hogar</span>
-                    <span class="material-symbols-outlined text-on-secondary"
-                        style="font-variation-settings: 'FILL' 1;">search</span>
-                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent"></div>
+                <span
+                    class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm text-charcoal text-sm font-medium px-4 py-1.5 rounded-full">Buscando
+                    Hogar</span>
             </div>
-            <div class="p-stack-lg flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
                 <h2
-                    class="font-headline-md text-headline-md text-primary mb-stack-sm group-hover:text-tertiary-container transition-colors">
+                    class="font-serif text-2xl text-charcoal mb-3 group-hover:text-primary transition-colors">
                     Soy Estudiante</h2>
-                <p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg flex-grow">
+                <p class="text-charcoal/60 mb-8 flex-grow leading-relaxed">
                     Explora habitaciones verificadas, conecta con arrendadores confiables y encuentra el espacio
                     perfecto cerca de tu universidad en Cusco.
                 </p>
-                <div
-                    class="inline-flex items-center self-start gap-2 bg-surface-container-low text-primary font-label-lg text-label-lg px-6 py-3 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+                <span
+                    class="inline-flex items-center gap-2 bg-primary text-white rounded-full px-8 py-3 font-medium self-start group-hover:bg-primary/90 active:scale-95 transition-all">
                     Continuar como Estudiante
                     <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </div>
+                </span>
             </div>
         </button>
+
+        <!-- Landlord Card -->
         <button
-            class="group text-left bg-surface-container-lowest border border-outline-variant/30 rounded-xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 ease-out overflow-hidden flex flex-col focus:outline-none focus:ring-4 focus:ring-primary-container/50">
-            <div class="relative h-72 w-full overflow-hidden bg-surface-container-low">
+            class="group text-left bg-white rounded-[20px] shadow-card hover:shadow-card-hover hover:-translate-y-2 transition-all duration-500 border border-transparent hover:border-primary/30 overflow-hidden flex flex-col focus:outline-none focus:ring-4 focus:ring-primary/20">
+            <div class="relative aspect-[4/3] overflow-hidden rounded-t-[20px]">
                 <img alt="Arrendador profesional en su propiedad"
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-in-out"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     data-alt="A professional yet approachable portrait of a property owner standing in a well-lit, contemporary apartment interior in Cusco. The individual exudes trust, reliability, and warmth. The background shows a beautifully maintained living space with clean white walls and modern furnishings. The lighting is high-key and flattering, emphasizing a clean, efficient, and welcoming atmosphere suitable for a premium rental platform."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuAN89iDbdVdyeziatyEiTPNRVfAekJAX8gIb7XVTfzvB_GlKUUOdO_O--bIKX7sFfO1npOJK6nLaimeyL6Ko8VMlWpc6NXybURjNL7t7yJbMZMVbAALJHmbjsOizyvNDeqewAYLuyFsi52lAFy3ulSeW0UtRg_lRGXk7f6aNCDeLjzVr03374SbLAFNzBY8nzN_evkrwstpc2GHAvIYxNqmjw6_cMVqBa2Ucx5OcobG-YHB3aDWvnKarxI-sEAbyXZgTJ7pX5PQFKSj" />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent"></div>
-                <div class="absolute bottom-stack-md left-stack-md right-stack-md flex items-center justify-between">
-                    <span
-                        class="bg-surface-container-lowest text-primary font-label-sm text-label-sm px-3 py-1 rounded-full shadow-sm">Ofreciendo
-                        Espacio</span>
-                    <span class="material-symbols-outlined text-on-secondary"
-                        style="font-variation-settings: 'FILL' 1;">add_home</span>
-                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent"></div>
+                <span
+                    class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm text-charcoal text-sm font-medium px-4 py-1.5 rounded-full">Ofreciendo
+                    Espacio</span>
             </div>
-            <div class="p-stack-lg flex flex-col flex-grow">
+            <div class="p-8 flex flex-col flex-grow">
                 <h2
-                    class="font-headline-md text-headline-md text-primary mb-stack-sm group-hover:text-tertiary-container transition-colors">
+                    class="font-serif text-2xl text-charcoal mb-3 group-hover:text-primary transition-colors">
                     Soy Arrendador</h2>
-                <p class="font-body-md text-body-md text-on-surface-variant mb-stack-lg flex-grow">
+                <p class="text-charcoal/60 mb-8 flex-grow leading-relaxed">
                     Publica tus propiedades, gestiona solicitudes fácilmente y alquila tus habitaciones a estudiantes
                     verificados de manera segura.
                 </p>
-                <div
-                    class="inline-flex items-center self-start gap-2 bg-surface-container-low text-primary font-label-lg text-label-lg px-6 py-3 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+                <span
+                    class="inline-flex items-center gap-2 bg-primary text-white rounded-full px-8 py-3 font-medium self-start group-hover:bg-primary/90 active:scale-95 transition-all">
                     Continuar como Arrendador
                     <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </div>
+                </span>
             </div>
         </button>
+
     </div>
 </body>
 

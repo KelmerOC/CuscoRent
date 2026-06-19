@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-
 <html lang="es">
 
 <head>
         <meta charset="utf-8" />
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <title>Andean Modern - Mensajes</title>
-        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-                rel="stylesheet" />
+        <title>CuscoRent - Mensajes</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
                 rel="stylesheet" />
         <script id="tailwind-config">
@@ -16,156 +15,31 @@
                         darkMode: "class",
                         theme: {
                                 extend: {
-                                        "colors": {
-                                                "primary-container": "#ff9f1c",
-                                                "error": "#ba1a1a",
-                                                "on-tertiary-fixed": "#2c1600",
-                                                "surface-container": "#eeeeed",
-                                                "tertiary-fixed-dim": "#ffb86c",
-                                                "on-secondary": "#ffffff",
-                                                "tertiary-container": "#efa655",
-                                                "surface-tint": "#895100",
-                                                "surface-dim": "#dadad9",
-                                                "outline-variant": "#dac2ae",
-                                                "surface": "#f9f9f9",
-                                                "on-tertiary-container": "#683c00",
-                                                "surface-card": "#ffffff",
-                                                "on-primary-fixed": "#2c1700",
-                                                "on-background": "#1a1c1c",
-                                                "on-error-container": "#93000a",
-                                                "on-surface-variant": "#544434",
-                                                "on-secondary-fixed-variant": "#004c69",
-                                                "on-secondary-container": "#004d6a",
-                                                "surface-bright": "#f9f9f9",
-                                                "tertiary-fixed": "#ffdcbc",
-                                                "outline-muted": "#dac2ae",
-                                                "on-surface": "#1a1c1c",
-                                                "inverse-surface": "#2f3131",
-                                                "outline": "#877462",
-                                                "inverse-on-surface": "#f1f1f0",
-                                                "secondary-fixed": "#c4e7ff",
-                                                "surface-container-highest": "#e2e2e2",
-                                                "secondary-fixed-dim": "#7bd0ff",
-                                                "error-container": "#ffdad6",
-                                                "inverse-primary": "#ffb86b",
-                                                "primary-fixed-dim": "#ffb86b",
-                                                "secondary-container": "#40c2fd",
-                                                "tertiary": "#895100",
-                                                "surface-variant": "#e2e2e2",
-                                                "on-secondary-fixed": "#001e2c",
-                                                "icon-blue": "#38BDF8",
-                                                "primary-fixed": "#ffdcbc",
-                                                "background": "#f9f9f9",
-                                                "on-tertiary-fixed-variant": "#683c00",
-                                                "surface-container-lowest": "#ffffff",
-                                                "on-primary-container": "#683c00",
-                                                "on-tertiary": "#ffffff",
-                                                "surface-container-high": "#e8e8e8",
-                                                "primary": "#895100",
-                                                "on-error": "#ffffff",
-                                                "surface-container-low": "#f4f3f3",
-                                                "secondary": "#00668a",
-                                                "surface-bg": "#f9f9f9",
-                                                "on-primary-fixed-variant": "#683d00",
-                                                "on-primary": "#ffffff"
+                                        colors: {
+                                                primary: '#c28e46',
+                                                sidebar: '#45121a',
+                                                secondary: '#b85151',
+                                                terracotta: '#b85151',
+                                                bglite: '#faf8f5',
+                                                charcoal: '#211f1d',
+                                                burgundy: '#45121a',
+                                                sage: '#8fa08e',
+                                                skyblue: '#3a82c4',
+                                                'border-color': '#e6dec9'
                                         },
-                                        "borderRadius": {
-                                                "DEFAULT": "1rem",
-                                                "lg": "2rem",
-                                                "xl": "3rem",
-                                                "full": "9999px"
+                                        fontFamily: {
+                                                sans: ['Inter', 'sans-serif'],
+                                                serif: ['Playfair Display', 'serif'],
                                         },
-                                        "spacing": {
-                                                "screen-margin": "20px",
-                                                "stack-sm": "8px",
-                                                "stack-lg": "24px",
-                                                "chassis-padding": "12px",
-                                                "stack-md": "16px",
-                                                "gutter": "16px"
-                                        },
-                                        "fontFamily": {
-                                                "headline-lg": [
-                                                        "Plus Jakarta Sans"
-                                                ],
-                                                "body-lg": [
-                                                        "Plus Jakarta Sans"
-                                                ],
-                                                "headline-md": [
-                                                        "Plus Jakarta Sans"
-                                                ],
-                                                "body-md": [
-                                                        "Plus Jakarta Sans"
-                                                ],
-                                                "label-sm": [
-                                                        "Plus Jakarta Sans"
-                                                ],
-                                                "label-lg": [
-                                                        "Plus Jakarta Sans"
-                                                ],
-                                                "headline-lg-mobile": [
-                                                        "Plus Jakarta Sans"
-                                                ]
-                                        },
-                                        "fontSize": {
-                                                "headline-lg": [
-                                                        "30px",
-                                                        {
-                                                                "lineHeight": "38px",
-                                                                "letterSpacing": "-0.02em",
-                                                                "fontWeight": "700"
-                                                        }
-                                                ],
-                                                "body-lg": [
-                                                        "16px",
-                                                        {
-                                                                "lineHeight": "24px",
-                                                                "fontWeight": "400"
-                                                        }
-                                                ],
-                                                "headline-md": [
-                                                        "20px",
-                                                        {
-                                                                "lineHeight": "28px",
-                                                                "fontWeight": "600"
-                                                        }
-                                                ],
-                                                "body-md": [
-                                                        "14px",
-                                                        {
-                                                                "lineHeight": "20px",
-                                                                "fontWeight": "400"
-                                                        }
-                                                ],
-                                                "label-sm": [
-                                                        "12px",
-                                                        {
-                                                                "lineHeight": "16px",
-                                                                "fontWeight": "500"
-                                                        }
-                                                ],
-                                                "label-lg": [
-                                                        "14px",
-                                                        {
-                                                                "lineHeight": "18px",
-                                                                "letterSpacing": "0.01em",
-                                                                "fontWeight": "600"
-                                                        }
-                                                ],
-                                                "headline-lg-mobile": [
-                                                        "24px",
-                                                        {
-                                                                "lineHeight": "30px",
-                                                                "letterSpacing": "-0.01em",
-                                                                "fontWeight": "700"
-                                                        }
-                                                ]
+                                        boxShadow: {
+                                                'soft': '0 4px 12px rgba(0,0,0,0.05)',
+                                                'card': '0 8px 30px rgb(0,0,0,0.04)',
                                         }
                                 }
                         }
                 }
         </script>
         <style>
-                /* Custom scrollbar for a cleaner look */
                 ::-webkit-scrollbar {
                         width: 6px;
                         height: 6px;
@@ -176,7 +50,7 @@
                 }
 
                 ::-webkit-scrollbar-thumb {
-                        background-color: #dac2ae;
+                        background-color: #c28e46;
                         border-radius: 9999px;
                 }
 
@@ -190,301 +64,241 @@
         </style>
 </head>
 
-<body class="bg-surface font-sans text-on-surface h-screen flex flex-col overflow-hidden">
-        <!-- TopNavBar (Shared Component Anchor) -->
-        <nav
-                class="sticky top-0 w-full border-b border-outline-variant shadow-sm bg-surface-container-lowest flex justify-between items-center px-screen-margin py-stack-md max-w-full mx-auto z-50 shrink-0">
+<body class="font-sans text-charcoal antialiased bg-bglite h-screen flex flex-col overflow-hidden">
+        <!-- Navbar -->
+        <nav class="sticky top-0 w-full bg-white border-b border-border-color shadow-soft flex justify-between items-center px-6 py-3 z-50 shrink-0">
                 <!-- Brand -->
-                <div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
-                        <span class="material-symbols-outlined icon-filled text-primary-container">home_work</span>
-                        Andean Modern
+                <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined icon-filled text-primary text-[28px]">home_work</span>
+                        <span class="font-serif text-[22px] font-bold"><span class="text-charcoal">Cusco</span><span class="text-primary">Rent</span></span>
                 </div>
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-stack-lg">
-                        <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 duration-150"
-                                href="#">Explorar</a>
-                        <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 duration-150"
-                                href="#">Favoritos</a>
-                        <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 duration-150"
-                                href="#">Mis Reservas</a>
-                        <a class="font-label-lg text-label-lg text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer active:scale-95 duration-150"
-                                href="#">Mensajes</a>
+                <div class="hidden md:flex items-center gap-8">
+                        <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors cursor-pointer border-b-2 border-transparent pb-1" href="#">Explorar</a>
+                        <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors cursor-pointer border-b-2 border-transparent pb-1" href="#">Favoritos</a>
+                        <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors cursor-pointer border-b-2 border-transparent pb-1" href="#">Mis Reservas</a>
+                        <a class="text-sm font-semibold text-primary border-b-2 border-primary pb-1 cursor-pointer" href="#">Mensajes</a>
                 </div>
                 <!-- Trailing Actions -->
-                <div class="flex items-center gap-stack-md">
-                        <button
-                                class="text-on-surface-variant hover:bg-surface-container-low transition-all p-2 rounded-full cursor-pointer active:scale-95 duration-150 flex items-center justify-center">
-                                <span class="material-symbols-outlined">notifications</span>
+                <div class="flex items-center gap-3">
+                        <button class="text-charcoal/60 hover:text-primary hover:bg-primary/10 p-2 rounded-full transition-colors cursor-pointer flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[22px]">notifications</span>
                         </button>
-                        <button
-                                class="hidden md:block font-label-lg text-label-lg bg-surface-container-highest text-on-surface px-4 py-2 rounded-full hover:bg-surface-variant transition-all cursor-pointer active:scale-95 duration-150">
+                        <button class="hidden md:block text-sm font-semibold bg-primary text-white px-5 py-2 rounded-full hover:bg-primary/90 transition-all cursor-pointer active:scale-95 duration-150">
                                 Publicar Anuncio
                         </button>
-                        <button
-                                class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-primary-container transition-colors focus:outline-none">
+                        <button class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-primary/30 hover:border-primary transition-colors focus:outline-none">
                                 <img alt="Avatar del usuario" class="w-full h-full object-cover"
                                         data-alt="A bright, high-quality headshot of a young university student with a friendly smile, wearing a casual light blue sweater. The lighting is soft and even, casting a modern, optimistic glow. The background is a clean, solid light grey, perfect for a user interface avatar in a premium application."
                                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIjwXqnNAaBJluyuS6-t0FyRsk8INB2CudUez6WN3sPfPg5GZc2Ee8POLDinlmFkNY1TpC1yg1s5c6OVBadG7EWaUL5jPAi5Rq_pTFKqf0oFzR6DCngKO7ocLvTnZXHt140vNuA8UUVbBHcYpkopuZbBoKlQTmgA3MEivKbDJfLNEteQ49IE5-W0uzIkjqggtpr9gBOO0f_en7TiAglpxTdKpNODwgDmLcJ6i778CxXxAfFhoeatgbBITfMPr1_XmiIQYP7CU37lDk" />
                         </button>
                 </div>
         </nav>
+
         <!-- Main Chat Workspace -->
-        <div class="flex-1 flex overflow-hidden w-full max-w-[1600px] mx-auto">
+        <div class="flex-1 flex overflow-hidden max-w-[1600px] mx-auto w-full">
                 <!-- Left Sidebar: Conversations List -->
-                <aside
-                        class="w-full md:w-[380px] bg-surface-container-lowest border-r border-outline-variant flex flex-col shrink-0 z-40">
+                <aside class="w-full md:w-[380px] bg-white border-r border-border-color flex flex-col shrink-0 z-40">
                         <!-- Sidebar Header & Search -->
-                        <div class="p-stack-md border-b border-surface-container-high shrink-0">
-                                <h1 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Mensajes</h1>
+                        <div class="p-4 border-b border-border-color shrink-0">
+                                <h1 class="text-xl font-bold text-charcoal mb-4">Mensajes</h1>
                                 <div class="relative w-full">
-                                        <span
-                                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-                                        <input class="w-full bg-surface-container-low border-none rounded-full py-3 pl-12 pr-4 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary-container focus:outline-none transition-all"
+                                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40">search</span>
+                                        <input class="w-full bg-gray-100 border-none rounded-full py-3 pl-12 pr-4 text-sm text-charcoal placeholder:text-charcoal/40 focus:ring-2 focus:ring-primary focus:outline-none transition-all"
                                                 placeholder="Buscar conversaciones..." type="text" />
                                 </div>
                                 <!-- Filter Chips -->
-                                <div class="flex gap-2 mt-stack-md overflow-x-auto pb-1 hide-scrollbar">
-                                        <button
-                                                class="font-label-sm text-label-sm bg-primary-container text-on-primary-container px-4 py-1.5 rounded-full whitespace-nowrap">Todos</button>
-                                        <button
-                                                class="font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-variant px-4 py-1.5 rounded-full whitespace-nowrap transition-colors">No
-                                                leídos</button>
-                                        <button
-                                                class="font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-variant px-4 py-1.5 rounded-full whitespace-nowrap transition-colors">Propietarios</button>
+                                <div class="flex gap-2 mt-4 overflow-x-auto pb-1 hide-scrollbar">
+                                        <button class="text-xs font-medium bg-primary text-white px-4 py-1.5 rounded-full whitespace-nowrap">Todos</button>
+                                        <button class="text-xs font-medium bg-gray-100 text-charcoal/60 hover:bg-gray-200 px-4 py-1.5 rounded-full whitespace-nowrap transition-colors">No leídos</button>
+                                        <button class="text-xs font-medium bg-gray-100 text-charcoal/60 hover:bg-gray-200 px-4 py-1.5 rounded-full whitespace-nowrap transition-colors">Propietarios</button>
                                 </div>
                         </div>
                         <!-- Conversations List -->
                         <div class="flex-1 overflow-y-auto">
                                 <!-- Active Conversation Item -->
-                                <div
-                                        class="p-stack-md flex gap-stack-md items-center cursor-pointer bg-primary-container/10 border-l-4 border-primary-container hover:bg-primary-container/20 transition-colors">
+                                <div class="p-4 flex gap-3 items-center cursor-pointer bg-primary/10 border-l-4 border-primary hover:bg-primary/15 transition-colors">
                                         <div class="relative shrink-0">
-                                                <img class="w-14 h-14 rounded-full object-cover border-2 border-surface-container-lowest"
+                                                <img class="w-14 h-14 rounded-full object-cover border-2 border-white"
                                                         data-alt="A professional portrait of a welcoming middle-aged property owner, wearing a smart casual linen shirt. The lighting is bright and warm, evoking a trustworthy and approachable persona typical of a high-quality rental service. Set against a clean, softly blurred background of a traditional courtyard."
                                                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIxdznBQHgu4leMB9StjA10OG6yGM9CsQqvPedJqz74tMqMoodR6Q0mcWuIbW3Uv55faKvhjRtUCFym7LglnX6oOwova978jD2vJ-AJeMScGpfD-3QM9TOPEtUg5QABPcDp5UvCRWB9OH6uAzmHZL4aiEEYluyCSB1cvs20qCfpXaa4w1hykv7qMwAxQEHA9DuUNeTZrNkdkvT1HNJq2X3-CawfWbYqNDz8_ymIIlV3laCE223gvLar4W4s9n6dFD-Kw_itv4JUhFp" />
-                                                <div
-                                                        class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-surface-container-lowest">
-                                                </div>
+                                                <div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white"></div>
                                         </div>
                                         <div class="flex-1 min-w-0">
                                                 <div class="flex justify-between items-baseline mb-1">
-                                                        <h3
-                                                                class="font-label-lg text-label-lg text-on-surface truncate pr-2">
-                                                                Carlos Mendoza</h3>
-                                                        <span class="font-label-sm text-label-sm text-primary">10:42
-                                                                AM</span>
+                                                        <h3 class="text-sm font-semibold text-charcoal truncate pr-2">Carlos Mendoza</h3>
+                                                        <span class="text-xs text-primary font-medium">10:42 AM</span>
                                                 </div>
-                                                <p class="font-body-md text-body-md text-on-surface-variant truncate">
-                                                        ¡Perfecto! Te espero mañana a las 3 PM para ver el departamento.
-                                                </p>
+                                                <p class="text-sm text-charcoal/60 truncate">¡Perfecto! Te espero mañana a las 3 PM para ver el departamento.</p>
                                         </div>
                                 </div>
                                 <!-- Inactive Conversation Item -->
-                                <div
-                                        class="p-stack-md flex gap-stack-md items-center cursor-pointer hover:bg-surface-container-low transition-colors border-l-4 border-transparent">
+                                <div class="p-4 flex gap-3 items-center cursor-pointer hover:bg-gray-50 transition-colors border-l-4 border-transparent">
                                         <div class="relative shrink-0">
-                                                <img class="w-14 h-14 rounded-full object-cover border border-outline-variant"
+                                                <img class="w-14 h-14 rounded-full object-cover border border-border-color"
                                                         data-alt="A vibrant headshot of a young university student with a friendly expression, wearing a colorful knitted beanie. The lighting is natural and high-key, creating a clean, modern look. The background is a crisp, solid pastel color to ensure the subject stands out perfectly as a user interface avatar."
                                                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG0eDV23N3FtHQN5_fQjNL4mFtd-mJEfZ6amzQb6RlSEru3hNDe9xtgabcIVXhe20_tUsxuV7iH6Ap4hCKsc6MMSf6exHUmMirtRNx-Q56nZdRExoKMvZt6DnppAQjFjlsxN5C4RFcAhqT1XNnHLWiC6J9Ta27qAkVg1Cu8INlhs3R7WYAvoLYOVKIPX2xk70Nz1SS_MQnuY6YsJ9hogPXGlISr8mAPzayAV-IPPMsYUhm0hbVucw5Vl3Wb0c03HCWWbJLwR0aXSw4" />
                                         </div>
                                         <div class="flex-1 min-w-0">
                                                 <div class="flex justify-between items-baseline mb-1">
-                                                        <h3
-                                                                class="font-label-lg text-label-lg text-on-surface truncate pr-2">
-                                                                Lucía Vargas</h3>
-                                                        <span
-                                                                class="font-label-sm text-label-sm text-on-surface-variant">Ayer</span>
+                                                        <h3 class="text-sm font-medium text-charcoal truncate pr-2">Lucía Vargas</h3>
+                                                        <span class="text-xs text-charcoal/40">Ayer</span>
                                                 </div>
-                                                <p class="font-body-md text-body-md text-on-surface-variant truncate">
-                                                        Gracias por la información sobre los servicios incluidos.</p>
+                                                <p class="text-sm text-charcoal/60 truncate">Gracias por la información sobre los servicios incluidos.</p>
                                         </div>
                                 </div>
                                 <!-- Inactive Conversation Item (Unread) -->
-                                <div
-                                        class="p-stack-md flex gap-stack-md items-center cursor-pointer hover:bg-surface-container-low transition-colors border-l-4 border-transparent">
+                                <div class="p-4 flex gap-3 items-center cursor-pointer hover:bg-gray-50 transition-colors border-l-4 border-transparent">
                                         <div class="relative shrink-0">
-                                                <img class="w-14 h-14 rounded-full object-cover border border-outline-variant"
+                                                <img class="w-14 h-14 rounded-full object-cover border border-border-color"
                                                         data-alt="A casual portrait of a young student wearing glasses, smiling gently at the camera. The setting features soft, diffused daylight that highlights a relaxed and reliable personality. The background is intentionally blurred to keep the focus on the face, fitting seamlessly into a modern, light-mode chat interface."
                                                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-YV9tew_HphKV3gF7LnXBiqDDvNtjMdH5IqHsZN5OEFObGfa52VctzEExtvAIqug2P3l4VS5WkBycBV9ZcKut48X98xf-XzpWdPEr5g2SZgad3caRqmtv-fWA_2PJ5EekowYv8cHEH_bCwZCb1Wz7owcjYxT1Yy3Z81DvbLj_d5qy4QQ8Yk1zTMnEoUUkuRoxB-4D84hDpr04yWdwkDT-iUpT_XgaMxmVaN6rw_Yy-Ov1LG0DP0T4WLMeJG2FdhCIj03f_tQxAoI4" />
-                                                <div
-                                                        class="absolute top-0 right-0 w-3 h-3 bg-primary-container rounded-full border-2 border-surface-container-lowest">
-                                                </div>
+                                                <div class="absolute top-0 right-0 w-3 h-3 bg-primary rounded-full border-2 border-white"></div>
                                         </div>
                                         <div class="flex-1 min-w-0">
                                                 <div class="flex justify-between items-baseline mb-1">
-                                                        <h3
-                                                                class="font-label-lg text-label-lg text-on-surface font-bold truncate pr-2">
-                                                                Mateo Quispe</h3>
-                                                        <span
-                                                                class="font-label-sm text-label-sm text-on-surface font-bold">Mar
-                                                                12</span>
+                                                        <h3 class="text-sm font-bold text-charcoal truncate pr-2">Mateo Quispe</h3>
+                                                        <span class="text-xs text-charcoal font-bold">Mar 12</span>
                                                 </div>
-                                                <p
-                                                        class="font-body-md text-body-md text-on-surface font-medium truncate">
-                                                        Hola, ¿sigue disponible la habitación con balcón?</p>
+                                                <p class="text-sm text-charcoal/80 font-medium truncate">Hola, ¿sigue disponible la habitación con balcón?</p>
                                         </div>
                                 </div>
                         </div>
                 </aside>
+
                 <!-- Right Main Area: Active Chat Canvas -->
-                <main class="hidden md:flex flex-1 flex-col bg-[#f0f2f5] relative">
+                <main class="hidden md:flex flex-1 flex-col bg-bglite relative">
                         <!-- Chat Header -->
-                        <header
-                                class="bg-surface-container-lowest border-b border-outline-variant px-stack-lg py-3 flex justify-between items-center shrink-0 shadow-sm z-10">
-                                <div class="flex items-center gap-stack-md">
+                        <header class="bg-white border-b border-border-color px-6 py-3 flex justify-between items-center shrink-0 shadow-soft z-10">
+                                <div class="flex items-center gap-3">
                                         <div class="relative">
-                                                <img class="w-12 h-12 rounded-full object-cover border border-surface-container-high"
+                                                <img class="w-12 h-12 rounded-full object-cover border border-border-color"
                                                         data-alt="A professional portrait of a welcoming middle-aged property owner, wearing a smart casual linen shirt. The lighting is bright and warm, evoking a trustworthy and approachable persona typical of a high-quality rental service. Set against a clean, softly blurred background of a traditional courtyard."
                                                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpXPltGRHY0CBHFy11IV7ltEUJ_nSdXt7GyuLU2HSWzEPAG_YJACrWlgZCAIDcgaPU49fwlpEONSXVP2oSNgpOhTTLs_djimJ1zOiBTVv_XYHjqpM2SUBlN7uWnZyKOGMQQntmZDRvjGWDVXUTafs0O5vEh0wqFb_rI8nwn6ECtUyLcMlxw97pMJnCxyL5vVu3QSADPRO2w3xh1AGQf4iZoDw8GXNR6EGeIENJ6OK0KhC6qn9sDKcybgqF6j1jsA8ZHnETmRpD1v_w" />
-                                                <div
-                                                        class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-surface-container-lowest">
-                                                </div>
+                                                <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></div>
                                         </div>
                                         <div>
-                                                <h2
-                                                        class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                                                <h2 class="text-base font-bold text-charcoal flex items-center gap-2">
                                                         Carlos Mendoza
-                                                        <span class="material-symbols-outlined text-icon-blue text-[18px] icon-filled"
-                                                                title="Propietario Verificado">verified</span>
+                                                        <span class="material-symbols-outlined text-skyblue text-[18px] icon-filled" title="Propietario Verificado">verified</span>
                                                 </h2>
-                                                <p
-                                                        class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
-                                                        En línea ahora <span
-                                                                class="w-1 h-1 bg-on-surface-variant rounded-full"></span>
-                                                        Responde en ~1h
+                                                <p class="text-xs text-charcoal/50 flex items-center gap-1">
+                                                        En línea ahora <span class="w-1 h-1 bg-charcoal/30 rounded-full"></span> Responde en ~1h
                                                 </p>
                                         </div>
                                 </div>
                                 <div class="flex items-center gap-2">
-                                        <button
-                                                class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
-                                                <span class="material-symbols-outlined">call</span>
+                                        <button class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
+                                                <span class="material-symbols-outlined text-[20px]">call</span>
                                         </button>
-                                        <button
-                                                class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
-                                                <span class="material-symbols-outlined">videocam</span>
+                                        <button class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
+                                                <span class="material-symbols-outlined text-[20px]">videocam</span>
                                         </button>
-                                        <div class="w-px h-6 bg-outline-variant mx-2"></div>
-                                        <button
-                                                class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
-                                                <span class="material-symbols-outlined">info</span>
+                                        <div class="w-px h-6 bg-border-color mx-2"></div>
+                                        <button class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
+                                                <span class="material-symbols-outlined text-[20px]">info</span>
                                         </button>
                                 </div>
                         </header>
+
                         <!-- Scrollable Messages Area -->
-                        <div class="flex-1 overflow-y-auto p-stack-lg flex flex-col gap-stack-md" id="chat-messages">
+                        <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-4" id="chat-messages">
                                 <!-- Date Divider -->
-                                <div class="flex justify-center my-stack-sm">
-                                        <span
-                                                class="bg-surface-container-highest text-on-surface-variant font-label-sm text-label-sm px-4 py-1.5 rounded-full shadow-sm">Hoy,
-                                                24 de Octubre</span>
+                                <div class="flex justify-center my-2">
+                                        <span class="bg-white text-charcoal/50 text-xs font-medium px-4 py-1.5 rounded-full shadow-soft border border-border-color">Hoy, 24 de Octubre</span>
                                 </div>
-                                <!-- Property Context Card (Optional high-end UI detail) -->
-                                <div
-                                        class="self-center w-full max-w-md bg-surface-container-lowest rounded-xl p-3 shadow-sm border border-outline-variant flex gap-4 items-center mb-4">
-                                        <div class="w-16 h-16 rounded-lg bg-surface-container overflow-hidden shrink-0">
+
+                                <!-- Property Context Card -->
+                                <div class="self-center w-full max-w-md bg-white rounded-xl p-3 shadow-card border border-border-color flex gap-4 items-center mb-4">
+                                        <div class="w-16 h-16 rounded-lg bg-gray-100 overflow-hidden shrink-0">
                                                 <img class="w-full h-full object-cover"
                                                         data-alt="A beautifully lit, high-resolution interior shot of a modern student apartment bedroom in an Andean city. The room features warm wood accents, a large window letting in natural light, a neat desk setup, and a cozy bed. The aesthetic is clean, premium, and welcoming."
                                                         src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcJ5RZdSfNf-yeSONX6ucavYAgiZ3pSVyUQIpFX9cMziRkN9A0CGH94LfaKU71xYe2QS1DvkQ2PPkW4lKTsJT1MQcVO0Tza1Gb_pzReqGYk7nSbrBrYzzMzQRfqACsCE406IBdx90JrpGIDLHDNMwOqGfnU-nMhngPQbqAneGC9kfcWdMdQUUpDWDMcPv6weNKRD7p1EyGbNXk4lSYerWREBJklo4UesEt4Q-3duHj-sWC638lMKyYwPQP2dH9SbbJivSRrOGUFenN" />
                                         </div>
                                         <div class="flex-1">
-                                                <h4 class="font-label-lg text-label-lg text-on-surface">Suite San Blas
-                                                        con Balcón</h4>
-                                                <p class="font-body-md text-body-md text-on-surface-variant">S/ 850 /
-                                                        mes • Cusco Centro</p>
+                                                <h4 class="text-sm font-semibold text-charcoal">Suite San Blas con Balcón</h4>
+                                                <p class="text-sm text-charcoal/50">S/ 850 / mes · Cusco Centro</p>
                                         </div>
-                                        <button
-                                                class="text-primary hover:bg-primary-container/10 p-2 rounded-full transition-colors">
-                                                <span class="material-symbols-outlined">chevron_right</span>
+                                        <button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+                                                <span class="material-symbols-outlined text-[20px]">chevron_right</span>
                                         </button>
                                 </div>
+
                                 <!-- Message Received (Landlord) -->
                                 <div class="flex flex-col gap-1 items-start max-w-[75%]">
-                                        <div
-                                                class="bg-surface-container-lowest text-on-surface font-body-md text-body-md p-4 rounded-xl rounded-tl-sm shadow-sm border border-surface-container-high relative group">
+                                        <div class="bg-white text-charcoal text-sm p-4 rounded-2xl rounded-tl-sm shadow-soft border border-border-color relative group">
                                                 Hola, vi que estás interesado en la Suite San Blas. ¿Tienes alguna
                                                 pregunta específica sobre la ubicación o los servicios?
                                         </div>
-                                        <span class="font-label-sm text-label-sm text-on-surface-variant ml-1">10:30
-                                                AM</span>
+                                        <span class="text-xs text-charcoal/40 ml-1">10:30 AM</span>
                                 </div>
+
                                 <!-- Message Sent (User) -->
                                 <div class="flex flex-col gap-1 items-end max-w-[75%] self-end">
-                                        <div
-                                                class="bg-primary-container text-on-primary-container font-body-md text-body-md p-4 rounded-xl rounded-tr-sm shadow-sm relative group">
+                                        <div class="bg-primary/10 text-charcoal text-sm p-4 rounded-2xl rounded-tr-sm relative group">
                                                 ¡Hola Carlos! Sí, me encanta el departamento. Quería confirmar si el
                                                 precio incluye el servicio de internet y agua.
                                         </div>
-                                        <span
-                                                class="font-label-sm text-label-sm text-on-surface-variant mr-1 flex items-center gap-1">
-                                                10:35 AM <span
-                                                        class="material-symbols-outlined text-[14px] text-icon-blue icon-filled">done_all</span>
+                                        <span class="text-xs text-charcoal/40 mr-1 flex items-center gap-1">
+                                                10:35 AM <span class="material-symbols-outlined text-[14px] text-skyblue icon-filled">done_all</span>
                                         </span>
                                 </div>
+
                                 <!-- Message Received (Landlord) -->
                                 <div class="flex flex-col gap-1 items-start max-w-[75%]">
-                                        <div
-                                                class="bg-surface-container-lowest text-on-surface font-body-md text-body-md p-4 rounded-xl rounded-tl-sm shadow-sm border border-surface-container-high relative group">
+                                        <div class="bg-white text-charcoal text-sm p-4 rounded-2xl rounded-tl-sm shadow-soft border border-border-color relative group">
                                                 Sí, el internet de fibra óptica (100Mbps) y el agua están incluidos en
                                                 el costo mensual. La luz se paga aparte según tu propio medidor.
                                         </div>
-                                        <span class="font-label-sm text-label-sm text-on-surface-variant ml-1">10:38
-                                                AM</span>
+                                        <span class="text-xs text-charcoal/40 ml-1">10:38 AM</span>
                                 </div>
+
                                 <!-- Message Sent (User) -->
                                 <div class="flex flex-col gap-1 items-end max-w-[75%] self-end">
-                                        <div
-                                                class="bg-primary-container text-on-primary-container font-body-md text-body-md p-4 rounded-xl rounded-tr-sm shadow-sm relative group">
+                                        <div class="bg-primary/10 text-charcoal text-sm p-4 rounded-2xl rounded-tr-sm relative group">
                                                 Genial, eso suena perfecto. ¿Sería posible visitar el lugar mañana por
                                                 la tarde?
                                         </div>
-                                        <span
-                                                class="font-label-sm text-label-sm text-on-surface-variant mr-1 flex items-center gap-1">
-                                                10:40 AM <span
-                                                        class="material-symbols-outlined text-[14px] text-icon-blue icon-filled">done_all</span>
+                                        <span class="text-xs text-charcoal/40 mr-1 flex items-center gap-1">
+                                                10:40 AM <span class="material-symbols-outlined text-[14px] text-skyblue icon-filled">done_all</span>
                                         </span>
                                 </div>
+
                                 <!-- Message Received (Landlord) -->
                                 <div class="flex flex-col gap-1 items-start max-w-[75%]">
-                                        <div
-                                                class="bg-surface-container-lowest text-on-surface font-body-md text-body-md p-4 rounded-xl rounded-tl-sm shadow-sm border border-surface-container-high relative group">
+                                        <div class="bg-white text-charcoal text-sm p-4 rounded-2xl rounded-tl-sm shadow-soft border border-border-color relative group">
                                                 ¡Perfecto! Te espero mañana a las 3 PM para ver el departamento.
                                         </div>
-                                        <span class="font-label-sm text-label-sm text-on-surface-variant ml-1">10:42
-                                                AM</span>
+                                        <span class="text-xs text-charcoal/40 ml-1">10:42 AM</span>
                                 </div>
-                                <!-- Spacer to push content up if needed -->
+
+                                <!-- Spacer -->
                                 <div class="h-2"></div>
                         </div>
+
                         <!-- Input Area -->
-                        <div
-                                class="bg-surface-container-lowest border-t border-outline-variant p-4 shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+                        <div class="bg-white border-t border-border-color p-4 shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
                                 <div class="flex items-end gap-3 max-w-4xl mx-auto">
                                         <!-- Attachments Button -->
-                                        <button
-                                                class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container">
-                                                <span class="material-symbols-outlined">add_circle</span>
+                                        <button class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
+                                                <span class="material-symbols-outlined text-[22px]">add_circle</span>
                                         </button>
                                         <!-- Text Input Container -->
-                                        <div
-                                                class="flex-1 bg-surface-container-low rounded-xl border border-transparent focus-within:border-primary-container focus-within:bg-surface-container-lowest transition-all shadow-sm flex items-end min-h-[48px] p-1">
+                                        <div class="flex-1 bg-gray-100 rounded-2xl border border-transparent focus-within:border-primary focus-within:bg-white transition-all shadow-sm flex items-end min-h-[48px] p-1">
                                                 <textarea
-                                                        class="w-full bg-transparent border-none resize-none font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant py-3 px-4 focus:ring-0 max-h-32 overflow-y-auto leading-relaxed"
+                                                        class="w-full bg-transparent border-none resize-none text-sm text-charcoal placeholder:text-charcoal/40 py-3 px-4 focus:ring-0 max-h-32 overflow-y-auto leading-relaxed"
                                                         placeholder="Escribe un mensaje..." rows="1"
                                                         style="min-height: 40px;"></textarea>
                                                 <!-- Inline Actions -->
                                                 <div class="flex items-center pr-2 pb-1 gap-1 shrink-0">
-                                                        <button
-                                                                class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-colors">
-                                                                <span
-                                                                        class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
+                                                        <button class="w-8 h-8 rounded-full flex items-center justify-center text-charcoal/40 hover:bg-gray-200 transition-colors">
+                                                                <span class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
                                                         </button>
                                                 </div>
                                         </div>
                                         <!-- Send Button -->
-                                        <button
-                                                class="w-12 h-12 shrink-0 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-tertiary-container hover:shadow-md transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-container shadow-sm">
-                                                <span class="material-symbols-outlined icon-filled">send</span>
+                                        <button class="w-12 h-12 shrink-0 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90 hover:shadow-md transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm">
+                                                <span class="material-symbols-outlined icon-filled text-[20px]">send</span>
                                         </button>
                                 </div>
                         </div>

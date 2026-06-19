@@ -1,265 +1,229 @@
 <!DOCTYPE html>
-
-<html class="light" lang="es">
-
+<html lang="es">
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Andean Modern - Verificación de Identidad</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-        rel="stylesheet" />
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary-container": "#ff9f1c",
-                        "error": "#ba1a1a",
-                        "on-tertiary-fixed": "#2c1600",
-                        "surface-container": "#eeeeed",
-                        "tertiary-fixed-dim": "#ffb86c",
-                        "on-secondary": "#ffffff",
-                        "tertiary-container": "#efa655",
-                        "surface-tint": "#895100",
-                        "surface-dim": "#dadad9",
-                        "outline-variant": "#dac2ae",
-                        "surface": "#f9f9f9",
-                        "on-tertiary-container": "#683c00",
-                        "surface-card": "#ffffff",
-                        "on-primary-fixed": "#2c1700",
-                        "on-background": "#1a1c1c",
-                        "on-error-container": "#93000a",
-                        "on-surface-variant": "#544434",
-                        "on-secondary-fixed-variant": "#004c69",
-                        "on-secondary-container": "#004d6a",
-                        "surface-bright": "#f9f9f9",
-                        "tertiary-fixed": "#ffdcbc",
-                        "outline-muted": "#dac2ae",
-                        "on-surface": "#1a1c1c",
-                        "inverse-surface": "#2f3131",
-                        "outline": "#877462",
-                        "inverse-on-surface": "#f1f1f0",
-                        "secondary-fixed": "#c4e7ff",
-                        "surface-container-highest": "#e2e2e2",
-                        "secondary-fixed-dim": "#7bd0ff",
-                        "error-container": "#ffdad6",
-                        "inverse-primary": "#ffb86b",
-                        "primary-fixed-dim": "#ffb86b",
-                        "secondary-container": "#40c2fd",
-                        "tertiary": "#895100",
-                        "surface-variant": "#e2e2e2",
-                        "on-secondary-fixed": "#001e2c",
-                        "icon-blue": "#38BDF8",
-                        "primary-fixed": "#ffdcbc",
-                        "background": "#f9f9f9",
-                        "on-tertiary-fixed-variant": "#683c00",
-                        "surface-container-lowest": "#ffffff",
-                        "on-primary-container": "#683c00",
-                        "on-tertiary": "#ffffff",
-                        "surface-container-high": "#e8e8e8",
-                        "primary": "#895100",
-                        "on-error": "#ffffff",
-                        "surface-container-low": "#f4f3f3",
-                        "secondary": "#00668a",
-                        "surface-bg": "#f9f9f9",
-                        "on-primary-fixed-variant": "#683d00",
-                        "on-primary": "#ffffff",
-                        "success-container": "#d3f5d5",
-                        "on-success-container": "#0b5c10"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "1rem",
-                        "lg": "2rem",
-                        "xl": "3rem",
-                        "full": "9999px"
-                    },
-                    "spacing": {
-                        "screen-margin": "20px",
-                        "stack-sm": "8px",
-                        "stack-lg": "24px",
-                        "chassis-padding": "12px",
-                        "stack-md": "16px",
-                        "gutter": "16px"
-                    },
-                    "fontFamily": {
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "body-lg": ["Plus Jakarta Sans"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "body-md": ["Plus Jakarta Sans"],
-                        "label-sm": ["Plus Jakarta Sans"],
-                        "label-lg": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
-                        "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
-                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
-                    }
-                }
-            }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuscoRent — Verificación de Identidad</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: '#c28e46',
+            sidebar: '#45121a',
+            secondary: '#b85151',
+            terracotta: '#b85151',
+            bglite: '#faf8f5',
+            charcoal: '#211f1d',
+            burgundy: '#45121a',
+            sage: '#8fa08e',
+            skyblue: '#3a82c4',
+            'border-color': '#e6dec9'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          },
+          boxShadow: {
+            'soft': '0 4px 12px rgba(0,0,0,0.05)',
+            'card': '0 8px 30px rgb(0,0,0,0.04)',
+          }
         }
-    </script>
-    <style>
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-    </style>
+      }
+    }
+  </script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+  </style>
 </head>
+<body class="font-sans text-charcoal antialiased bg-bglite min-h-screen flex flex-col">
 
-<body class="bg-surface text-on-surface min-h-screen flex flex-col">
-    <!-- Top Navigation (Transactional/Linear flow, so we only show minimal branding, suppressing full nav) -->
-    <header
-        class="bg-surface-container-lowest sticky top-0 w-full border-b border-outline-variant shadow-sm z-50 px-screen-margin py-stack-md flex justify-between items-center max-w-full mx-auto">
-        <div class="flex items-center gap-stack-sm">
-            <span class="material-symbols-outlined text-primary"
-                style="font-variation-settings: 'FILL' 1;">other_houses</span>
-            <span class="font-headline-md text-headline-md font-bold text-primary">Andean Modern</span>
+  <!-- Top Bar -->
+  <header class="bg-white border-b border-border-color">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2.5">
+        <svg class="w-8 h-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 2L4 10v12l12 8 12-8V10L16 2z" fill="currentColor" opacity="0.15"/>
+          <path d="M16 4L6 11v10l10 6.5L26 21V11L16 4z" stroke="currentColor" stroke-width="1.5" fill="none"/>
+          <path d="M10 14h12M10 18h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="text-lg font-semibold tracking-tight">
+          <span class="font-serif text-charcoal">Cusco</span><span class="font-serif text-primary">Rent</span>
+        </span>
+      </a>
+      <button class="inline-flex items-center gap-2 text-sm text-charcoal/60 hover:text-charcoal transition-colors">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+        Cancelar
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex items-start justify-center px-4 py-10 md:py-14">
+    <div class="w-full max-w-3xl bg-white rounded-[24px] shadow-card overflow-hidden">
+
+      <!-- Progress Header -->
+      <div class="bg-gray-50 px-8 py-6 border-b border-border-color">
+        <div class="flex items-center justify-between mb-6">
+          <h1 class="font-serif text-2xl text-charcoal">Verificación de Identidad</h1>
+          <span class="inline-flex items-center gap-1.5 bg-sage/20 text-sage text-xs font-medium px-3 py-1 rounded-full">
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.67-3.13 9.06-7 10.18-3.87-1.12-7-5.51-7-10.18V6.3l7-3.12z"/>
+              <path d="M10 12l-1.5-1.5L7 12l3 3 5-5-1.5-1.5L10 12z"/>
+            </svg>
+            Seguro
+          </span>
         </div>
-        <button
-            class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-2 font-label-lg text-label-lg cursor-pointer active:scale-95 duration-150">
-            <span class="material-symbols-outlined">close</span>
-            Cancelar
+
+        <!-- Wizard Steps -->
+        <div class="flex items-center justify-between">
+          <!-- Step 1: Completed -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-sage text-white flex items-center justify-center">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <span class="text-xs font-medium text-sage">Cuenta</span>
+          </div>
+
+          <!-- Connector: completed -->
+          <div class="flex-1 h-0.5 bg-sage mx-3 mt-[-1.5rem]"></div>
+
+          <!-- Step 2: Active -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center ring-4 ring-primary/20">
+              <span class="text-sm font-bold">2</span>
+            </div>
+            <span class="text-xs font-semibold text-primary">Identidad</span>
+          </div>
+
+          <!-- Connector: pending -->
+          <div class="flex-1 h-0.5 bg-gray-200 mx-3 mt-[-1.5rem]"></div>
+
+          <!-- Step 3: Pending -->
+          <div class="flex flex-col items-center gap-2">
+            <div class="w-10 h-10 rounded-full bg-gray-200 text-charcoal/40 flex items-center justify-center">
+              <span class="text-sm font-bold">3</span>
+            </div>
+            <span class="text-xs font-medium text-charcoal/40">Documentos</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Content Area -->
+      <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Left Column: Instructions -->
+        <div class="space-y-6">
+          <div>
+            <h2 class="font-serif text-xl text-charcoal mb-3">Paso 2: Eres un estudiante verificado</h2>
+            <p class="text-sm text-charcoal/60 leading-relaxed">
+              Sube una foto de perfil y confirma tu correo institucional universitario. Esto garantiza que solo estudiantes reales puedan acceder a las habitaciones disponibles.
+            </p>
+          </div>
+
+          <div class="bg-gray-50 border border-border-color rounded-xl p-4">
+            <div class="flex items-start gap-3">
+              <div class="w-9 h-9 rounded-lg bg-sage/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-5 h-5 text-sage" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                </svg>
+              </div>
+              <div>
+                <p class="text-sm font-medium text-charcoal mb-1">Privacidad garantizada</p>
+                <p class="text-xs text-charcoal/50 leading-relaxed">
+                  Tu información personal está protegida y solo se usa para verificar tu condición de estudiante. Nunca se comparte con terceros.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column: Form -->
+        <div class="space-y-8">
+
+          <!-- Profile Photo Upload -->
+          <div class="flex flex-col items-center gap-3">
+            <label class="relative cursor-pointer group">
+              <input type="file" accept="image/*" class="sr-only">
+              <div class="w-28 h-28 rounded-full border-2 border-dashed border-gray-300 group-hover:border-primary group-hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-1">
+                <svg class="w-7 h-7 text-charcoal/30 group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                  <circle cx="12" cy="7" r="4"/>
+                </svg>
+                <span class="text-[10px] text-charcoal/30 group-hover:text-primary transition-colors font-medium">Foto</span>
+              </div>
+              <div class="absolute bottom-0 right-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center shadow-soft group-hover:scale-110 transition-transform">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                  <circle cx="12" cy="13" r="4"/>
+                </svg>
+              </div>
+            </label>
+            <p class="text-xs text-charcoal/40">Foto de perfil</p>
+          </div>
+
+          <!-- University Email -->
+          <div>
+            <label class="block text-sm font-medium text-charcoal mb-2">Correo Universitario</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <svg class="w-5 h-5 text-charcoal/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                  <polyline points="22,6 12,13 2,6"/>
+                </svg>
+              </div>
+              <input
+                type="email"
+                placeholder="tu@universidad.edu.pe"
+                class="w-full rounded-full border border-border-color bg-white pl-11 pr-5 py-3 text-sm text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+              >
+            </div>
+            <p class="mt-2 text-xs text-charcoal/40 flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-skyblue" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+              Debe ser un correo institucional (*.edu.pe o *.edu)
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer Actions -->
+      <div class="bg-gray-50 px-8 py-6 border-t border-border-color flex items-center justify-between">
+        <button class="text-sm font-medium text-charcoal/60 hover:text-charcoal transition-colors inline-flex items-center gap-1.5">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"/>
+            <polyline points="12 19 5 12 12 5"/>
+          </svg>
+          Atrás
         </button>
-    </header>
-    <main class="flex-grow flex items-center justify-center p-screen-margin py-12 md:py-20">
-        <div
-            class="max-w-3xl w-full bg-surface-container-lowest rounded-lg border border-outline-variant shadow-sm flex flex-col overflow-hidden">
-            <!-- Progress Header -->
-            <div class="bg-surface-container-low px-8 py-6 border-b border-outline-variant">
-                <div class="flex items-center justify-between mb-4">
-                    <h1 class="font-headline-lg text-headline-lg text-on-surface">Verificación de Identidad</h1>
-                    <div
-                        class="flex items-center gap-2 px-3 py-1 bg-success-container rounded-full text-on-success-container font-label-sm text-label-sm">
-                        <span class="material-symbols-outlined" style="font-size: 16px;">lock</span>
-                        Seguro
-                    </div>
-                </div>
-                <!-- Wizard Steps -->
-                <div class="flex items-center w-full mt-6">
-                    <div class="flex flex-col items-center flex-1">
-                        <div
-                            class="w-8 h-8 rounded-full bg-success-container text-on-success-container flex items-center justify-center font-label-lg text-label-lg mb-2">
-                            <span class="material-symbols-outlined" style="font-size: 18px;">check</span>
-                        </div>
-                        <span class="font-label-sm text-label-sm text-on-surface">Cuenta</span>
-                    </div>
-                    <div class="h-1 bg-success-container flex-1 mx-2 rounded"></div>
-                    <div class="flex flex-col items-center flex-1">
-                        <div
-                            class="w-8 h-8 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-lg text-label-lg mb-2 shadow-sm ring-4 ring-primary-container/20">
-                            2
-                        </div>
-                        <span class="font-label-sm text-label-sm text-primary font-bold">Identidad</span>
-                    </div>
-                    <div class="h-1 bg-surface-variant flex-1 mx-2 rounded"></div>
-                    <div class="flex flex-col items-center flex-1 opacity-50">
-                        <div
-                            class="w-8 h-8 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-lg text-label-lg mb-2 border border-outline-muted">
-                            3
-                        </div>
-                        <span class="font-label-sm text-label-sm text-on-surface-variant">Documentos</span>
-                    </div>
-                </div>
-            </div>
-            <!-- Content Area -->
-            <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
-                <!-- Left Column: Instructions & Trust -->
-                <div class="flex flex-col gap-stack-md">
-                    <h2 class="font-headline-md text-headline-md text-on-surface">Paso 2: Eres un estudiante verificado
-                    </h2>
-                    <p class="font-body-md text-body-md text-on-surface-variant">
-                        Para mantener la confianza en nuestra comunidad, necesitamos verificar tu identidad estudiantil.
-                        Tu información está cifrada y nunca se compartirá públicamente.
-                    </p>
-                    <div
-                        class="mt-4 bg-surface-bright border border-outline-muted rounded-DEFAULT p-stack-md flex gap-stack-md items-start">
-                        <span class="material-symbols-outlined text-secondary"
-                            style="font-variation-settings: 'FILL' 1;">shield_locked</span>
-                        <div>
-                            <h3 class="font-label-lg text-label-lg text-on-surface mb-1">Privacidad Garantizada</h3>
-                            <p class="font-body-md text-body-md text-on-surface-variant text-sm">Tus datos están
-                                protegidos bajo estrictos estándares de seguridad y solo se usan para confirmar tu
-                                perfil.</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- Right Column: Form Inputs -->
-                <div
-                    class="flex flex-col gap-stack-lg bg-surface-bright rounded-DEFAULT p-stack-md border border-surface-container-high shadow-sm">
-                    <!-- Profile Photo Upload -->
-                    <div>
-                        <label class="block font-label-lg text-label-lg text-on-surface mb-stack-sm">Foto de
-                            Perfil</label>
-                        <p class="font-body-md text-body-md text-on-surface-variant mb-4 text-sm">Sube una foto clara
-                            donde se vea tu rostro.</p>
-                        <div class="flex items-center gap-stack-lg">
-                            <div
-                                class="w-24 h-24 rounded-full bg-surface-container border-2 border-dashed border-outline-muted flex items-center justify-center text-on-surface-variant overflow-hidden cursor-pointer hover:border-primary hover:text-primary transition-colors relative group">
-                                <span class="material-symbols-outlined" style="font-size: 32px;">add_a_photo</span>
-                                <!-- Hidden input for actual file upload functionality -->
-                                <input accept="image/*" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                                    type="file" />
-                            </div>
-                            <div class="flex flex-col gap-2">
-                                <button
-                                    class="font-label-lg text-label-lg text-primary border border-outline-variant rounded-full px-4 py-2 hover:bg-surface-variant transition-colors active:scale-95">
-                                    Subir Foto
-                                </button>
-                                <span class="font-label-sm text-label-sm text-on-surface-variant">Max 5MB. JPG o
-                                    PNG.</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="h-px bg-surface-container-high w-full"></div>
-                    <!-- University Email Input -->
-                    <div>
-                        <label class="block font-label-lg text-label-lg text-on-surface mb-stack-sm">Correo
-                            Institucional (.edu.pe)</label>
-                        <div class="relative">
-                            <span
-                                class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">school</span>
-                            <input
-                                class="w-full bg-surface-container-lowest border border-outline-variant rounded-full py-3 pl-12 pr-4 font-body-md text-body-md text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-shadow"
-                                placeholder="tu.nombre@universidad.edu.pe" type="email" />
-                        </div>
-                        <p class="font-label-sm text-label-sm text-on-surface-variant mt-2 ml-4">Enviaremos un código a
-                            este correo para validarlo.</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Footer Actions -->
-            <div
-                class="bg-surface-container-low px-8 py-6 border-t border-outline-variant flex justify-between items-center">
-                <button
-                    class="font-label-lg text-label-lg text-on-surface-variant hover:text-on-surface px-4 py-2 transition-colors active:scale-95">
-                    Atrás
-                </button>
-                <button
-                    class="bg-primary-container text-on-primary-container font-label-lg text-label-lg font-bold rounded-full px-8 py-3 hover:shadow-md hover:bg-primary-container/90 transition-all active:scale-95 flex items-center gap-2">
-                    Verificar Identidad
-                    <span class="material-symbols-outlined" style="font-size: 20px;">arrow_forward</span>
-                </button>
-            </div>
-        </div>
-    </main>
-    <!-- Footer (Minimal for transactional flow) -->
-    <footer
-        class="bg-surface-container-highest dark:bg-inverse-surface w-full py-stack-md px-screen-margin text-center">
-        <p class="font-label-sm text-label-sm text-on-surface-variant">© 2024 Andean Modern Student Rentals. Cusco,
-            Perú.</p>
-    </footer>
-</body>
+        <button class="bg-primary text-white rounded-full px-8 py-3 text-sm font-semibold hover:bg-primary/90 active:scale-95 transition-all shadow-soft inline-flex items-center gap-2">
+          Verificar Identidad
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </button>
+      </div>
 
+    </div>
+  </main>
+
+  <!-- Minimal Footer -->
+  <footer class="py-6 text-center">
+    <p class="text-xs text-charcoal/30">© 2024 CuscoRent. Cusco, Perú.</p>
+  </footer>
+
+</body>
 </html>

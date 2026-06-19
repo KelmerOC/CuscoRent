@@ -1,112 +1,43 @@
 <!DOCTYPE html>
-
-<html class="light" lang="es">
+<html lang="es">
 
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Cusco Rent | Encuentra tu hogar estudiantil</title>
+    <title>CuscoRent | Encuentra tu hogar estudiantil</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
         rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&display=swap"
-        rel="stylesheet" />
-    <!-- Tailwind Configuration -->
     <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "on-error": "#ffffff",
-                        "surface-dim": "#dadad9",
-                        "on-secondary-fixed-variant": "#004c69",
-                        "on-tertiary-fixed": "#2c1600",
-                        "tertiary-container": "#efa655",
-                        "outline-variant": "#dac2ae",
-                        "secondary-container": "#40c2fd",
-                        "surface-card": "#ffffff",
-                        "tertiary": "#895100",
-                        "secondary-fixed-dim": "#7bd0ff",
-                        "tertiary-fixed-dim": "#ffb86c",
-                        "surface-container-low": "#f4f3f3",
-                        "secondary-fixed": "#c4e7ff",
-                        "tertiary-fixed": "#ffdcbc",
-                        "primary-fixed-dim": "#ffb86b",
-                        "on-primary-fixed-variant": "#683d00",
-                        "icon-blue": "#38BDF8",
-                        "outline-muted": "#dac2ae",
-                        "on-tertiary-container": "#683c00",
-                        "inverse-primary": "#ffb86b",
-                        "primary": "#895100",
-                        "error": "#ba1a1a",
-                        "surface-container-highest": "#e2e2e2",
-                        "surface-container": "#eeeeee",
-                        "surface-container-lowest": "#ffffff",
-                        "surface-tint": "#895100",
-                        "surface-container-high": "#e8e8e8",
-                        "on-secondary-fixed": "#001e2c",
-                        "surface-bg": "#f9f9f9",
-                        "secondary": "#00668a",
-                        "error-container": "#ffdad6",
-                        "on-primary": "#ffffff",
-                        "on-primary-fixed": "#2c1700",
-                        "surface": "#f9f9f9",
-                        "outline": "#877462",
-                        "surface-bright": "#f9f9f9",
-                        "surface-variant": "#e2e2e2",
-                        "inverse-surface": "#2f3131",
-                        "primary-fixed": "#ffdcbc",
-                        "on-surface-variant": "#544434",
-                        "on-secondary-container": "#004d6a",
-                        "on-surface": "#1a1c1c",
-                        "inverse-on-surface": "#f1f1f0",
-                        "on-secondary": "#ffffff",
-                        "on-primary-container": "#683c00",
-                        "primary-container": "#ff9f1c",
-                        "on-tertiary-fixed-variant": "#683c00",
-                        "on-background": "#1a1c1c",
-                        "on-tertiary": "#ffffff",
-                        "background": "#f9f9f9",
-                        "on-error-container": "#93000a"
+                    colors: {
+                        primary: '#c28e46',
+                        sidebar: '#45121a',
+                        secondary: '#b85151',
+                        terracotta: '#b85151',
+                        bglite: '#faf8f5',
+                        charcoal: '#211f1d',
+                        burgundy: '#45121a',
+                        sage: '#8fa08e',
+                        skyblue: '#3a82c4',
+                        'border-color': '#e6dec9'
                     },
-                    "borderRadius": {
-                        "DEFAULT": "1rem",
-                        "lg": "2rem",
-                        "xl": "3rem",
-                        "full": "9999px"
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
                     },
-                    "spacing": {
-                        "gutter": "16px",
-                        "chassis-padding": "12px",
-                        "stack-sm": "8px",
-                        "stack-lg": "24px",
-                        "stack-md": "16px",
-                        "screen-margin": "20px"
-                    },
-                    "fontFamily": {
-                        "body-lg": ["Plus Jakarta Sans"],
-                        "headline-lg-mobile": ["Plus Jakarta Sans"],
-                        "body-md": ["Plus Jakarta Sans"],
-                        "headline-md": ["Plus Jakarta Sans"],
-                        "headline-lg": ["Plus Jakarta Sans"],
-                        "label-lg": ["Plus Jakarta Sans"],
-                        "label-sm": ["Plus Jakarta Sans"]
-                    },
-                    "fontSize": {
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
-                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }]
+                    boxShadow: {
+                        'soft': '0 4px 12px rgba(0,0,0,0.05)',
+                        'card': '0 8px 30px rgb(0,0,0,0.04)',
+                        'card-hover': '0 20px 60px rgb(0,0,0,0.08)',
                     }
-                },
-            },
+                }
+            }
         }
     </script>
     <style>
@@ -124,7 +55,7 @@
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #dac2ae;
+            background: #e6dec9;
             border-radius: 10px;
         }
 
@@ -139,245 +70,205 @@
     </style>
 </head>
 
-<body
-    class="bg-surface font-body-lg text-on-background selection:bg-primary-container selection:text-on-primary-container">
-    <!-- TopNavBar (Shared Component Execution) -->
-    <nav
-        class="flex justify-between items-center px-screen-margin py-stack-sm w-full sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
-        <div class="flex items-center gap-stack-md">
-            <span class="font-headline-md text-headline-md font-bold text-primary">Cusco Rent</span>
-        </div>
-        <div class="hidden md:flex items-center gap-stack-lg">
-            <a class="font-body-lg text-body-lg text-primary font-bold border-b-2 border-primary transition-all"
-                href="#">Explorar</a>
-            <a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors"
-                href="#">Favoritos</a>
-            <a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors"
-                href="#">Mensajes</a>
-        </div>
-        <div class="flex items-center gap-stack-md">
-            <div class="relative hidden lg:block">
-                <input
-                    class="bg-surface-container-low border-none rounded-full px-6 py-2 w-64 focus:ring-2 focus:ring-primary-container font-body-md text-body-md"
-                    placeholder="Buscar barrio..." type="text" />
-                <span
-                    class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<body class="font-sans text-charcoal antialiased bg-bglite">
+    <!-- Navbar -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border-color shadow-soft">
+        <div class="flex items-center justify-between px-6 py-3">
+            <a href="#" class="flex items-center">
+                <span class="font-serif text-charcoal text-xl font-bold">Cusco</span><span class="font-serif text-primary text-xl font-bold">Rent</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#" class="text-primary border-b-2 border-primary pb-0.5 font-medium text-sm transition-all">Explorar</a>
+                <a href="#" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Favoritos</a>
+                <a href="#" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Mensajes</a>
             </div>
-            <button class="transition-all scale-95 active:opacity-80">
-                <span class="material-symbols-outlined text-primary text-3xl">account_circle</span>
-            </button>
+            <div class="flex items-center gap-3">
+                <div class="relative hidden lg:block">
+                    <input
+                        class="rounded-full bg-gray-100 border-none px-5 py-2 w-64 text-sm focus:ring-2 focus:ring-primary/30 placeholder:text-charcoal/40"
+                        placeholder="Buscar barrio..." type="text" />
+                    <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-charcoal/40 text-xl">search</span>
+                </div>
+                <button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
+                    <span class="material-symbols-outlined text-primary text-3xl">account_circle</span>
+                </button>
+            </div>
         </div>
     </nav>
+
     <main class="flex h-[calc(100vh-64px)] overflow-hidden">
-        <!-- Left Side: Property List & Filters -->
-        <section class="w-full lg:w-2/5 flex flex-col bg-white border-r border-outline-variant z-10 relative">
+        <!-- Left Panel: Property List -->
+        <section class="w-full lg:w-2/5 flex flex-col bg-white border-r border-border-color z-10 relative">
             <!-- Filter Bar -->
-            <div class="p-screen-margin border-b border-outline-variant bg-white/95 backdrop-blur-sm sticky top-0">
-                <h1 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Habitaciones en Cusco</h1>
-                <div class="flex flex-wrap gap-stack-sm">
+            <div class="px-5 py-4 border-b border-border-color bg-white/95 backdrop-blur-sm sticky top-0">
+                <h1 class="font-serif text-charcoal text-xl mb-3">Habitaciones en Cusco</h1>
+                <div class="flex flex-wrap gap-2">
                     <button
-                        class="px-4 py-2 bg-primary-container text-on-primary-container rounded-full flex items-center gap-2 font-label-lg text-label-lg shadow-sm transition-all hover:brightness-105">
-                        <span class="material-symbols-outlined text-[18px]">payments</span>
+                        class="px-4 py-2 bg-primary text-white rounded-full flex items-center gap-2 text-sm font-medium shadow-sm transition-all hover:brightness-105">
+                        <span class="material-symbols-outlined text-[16px]">payments</span>
                         Precio
                     </button>
                     <button
-                        class="px-4 py-2 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full flex items-center gap-2 font-label-lg text-label-lg hover:bg-surface-container-high transition-all">
-                        <span class="material-symbols-outlined text-[18px]">bed</span>
+                        class="px-4 py-2 bg-gray-100 text-charcoal/70 rounded-full border border-border-color flex items-center gap-2 text-sm font-medium hover:bg-gray-200 transition-all">
+                        <span class="material-symbols-outlined text-[16px]">bed</span>
                         Tipo de Cuarto
                     </button>
                     <button
-                        class="px-4 py-2 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full flex items-center gap-2 font-label-lg text-label-lg hover:bg-surface-container-high transition-all">
-                        <span class="material-symbols-outlined text-[18px]">group</span>
+                        class="px-4 py-2 bg-gray-100 text-charcoal/70 rounded-full border border-border-color flex items-center gap-2 text-sm font-medium hover:bg-gray-200 transition-all">
+                        <span class="material-symbols-outlined text-[16px]">group</span>
                         Roommates
                     </button>
                     <button
-                        class="p-2 bg-surface-container-low text-on-surface-variant border border-outline-variant rounded-full hover:bg-surface-container-high transition-all">
+                        class="p-2 bg-gray-100 text-charcoal/70 rounded-full border border-border-color hover:bg-gray-200 transition-all">
                         <span class="material-symbols-outlined">tune</span>
                     </button>
                 </div>
             </div>
             <!-- Scrollable Cards -->
-            <div class="flex-1 overflow-y-auto custom-scrollbar p-screen-margin space-y-stack-lg">
+            <div class="flex-1 overflow-y-auto custom-scrollbar p-5 space-y-5">
                 <!-- Card 1 -->
-                <div
-                    class="group flex flex-col bg-white border border-outline-variant rounded-DEFAULT overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                <div class="group bg-white rounded-[20px] shadow-card hover:shadow-card-hover overflow-hidden cursor-pointer transition-all duration-300">
                     <div class="relative aspect-[4/3] overflow-hidden">
                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             data-alt="A modern and bright student bedroom in a historic Cusco building, featuring warm wood accents and Andean textile pillows. Large colonial windows let in golden morning sunlight, illuminating a clean white workspace. The aesthetic is Andean Modernity with minimal furniture and vibrant orange accents in the decor."
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4hGLwA6qZr-gqrv7QHpSIcvWwkRU4IRpIGAkLpzBcBWVM9tvjZ0e29MfdjH3zsizGmD2gSfQeduw32O6tBg746OYrozXeq9E1ZC-j-aOW31XjS5BsSfrZcuu_JipbZQ9lTuryIzIptRH8jK56dfEYlYCRWxlYWRYVukypa26P_QlhWfTz--F8wNjzTdm2j8lQG8AH6FgJU9mLUIGaukqCKD27ofNbA7IKYFmcgeH_pqU0p5UpRFKyAfAvV1yEOm1u2XzXPlz_WDRM" />
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                            <span class="material-symbols-outlined text-primary-container text-[16px]"
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-primary text-[14px]"
                                 style="font-variation-settings: 'FILL' 1;">star</span>
-                            <span class="font-label-lg text-label-lg text-on-surface">4.9</span>
+                            <span class="text-sm font-semibold text-charcoal">4.9</span>
                         </div>
                     </div>
-                    <div class="p-stack-md">
+                    <div class="p-5">
                         <div class="flex justify-between items-start mb-1">
-                            <h3 class="font-headline-md text-headline-md text-on-surface">Suite San Blas</h3>
-                            <span class="font-headline-md text-headline-md text-primary">S/ 750</span>
+                            <h3 class="font-semibold text-charcoal text-lg">Suite San Blas</h3>
+                            <span class="font-bold text-primary text-lg">S/ 750</span>
                         </div>
-                        <p
-                            class="font-body-md text-body-md text-on-surface-variant mb-stack-md flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[18px]">location_on</span> San Blas, Centro
-                            Histórico
+                        <p class="text-charcoal/50 text-sm mb-3 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">location_on</span> San Blas, Centro Histórico
                         </p>
-                        <div class="flex items-center gap-stack-md pt-stack-sm border-t border-outline-variant">
-                            <div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
-                                <span class="material-symbols-outlined text-[16px]">wifi</span> Fibra Óptica
-                            </div>
-                            <div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
-                                <span class="material-symbols-outlined text-[16px]">laundry</span> Lavandería
-                            </div>
+                        <div class="flex items-center gap-4 pt-3 border-t border-border-color">
+                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">wifi</span> Fibra Óptica</span>
+                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">laundry</span> Lavandería</span>
                         </div>
                     </div>
                 </div>
                 <!-- Card 2 -->
-                <div
-                    class="group flex flex-col bg-white border border-outline-variant rounded-DEFAULT overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                <div class="group bg-white rounded-[20px] shadow-card hover:shadow-card-hover overflow-hidden cursor-pointer transition-all duration-300">
                     <div class="relative aspect-[4/3] overflow-hidden">
                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             data-alt="A cozy shared living room in a Cusco student apartment with traditional stone walls integrated into modern white plaster. Stylish mid-century modern furniture is paired with colorful Peruvian rugs. The space feels warm and inviting, illuminated by soft sky blue and tangerine accent lights, perfect for a trustworthy and professional rental platform."
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCccgNNMrjLdHJ2YNJEn4M3Qgxa_bee0hXyiI8fJlHyuPMtriZRQjugNUB0fXkap8PeIm-uxwpGH1p8EIKTHYb0rRj0xRoreM-URYm49vG-aHbBgT09USns4m_km4MU0vYjigc32zizGxv47H86dfeKlKBNZJQJi113qveKvM6N8D5BVcWN_TbPCsIvHejAP7CArznchpFLSycV1Oppkxq0xiyLP_LxbrSQerVS8yZqHMjrsaxrfjTkV2W94SwaNsoAsyz6U9MWkdNU" />
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                            <span class="material-symbols-outlined text-primary-container text-[16px]"
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-primary text-[14px]"
                                 style="font-variation-settings: 'FILL' 1;">star</span>
-                            <span class="font-label-lg text-label-lg text-on-surface">4.7</span>
+                            <span class="text-sm font-semibold text-charcoal">4.7</span>
                         </div>
                     </div>
-                    <div class="p-stack-md">
+                    <div class="p-5">
                         <div class="flex justify-between items-start mb-1">
-                            <h3 class="font-headline-md text-headline-md text-on-surface">Habitación Arcopata</h3>
-                            <span class="font-headline-md text-headline-md text-primary">S/ 480</span>
+                            <h3 class="font-semibold text-charcoal text-lg">Habitación Arcopata</h3>
+                            <span class="font-bold text-primary text-lg">S/ 480</span>
                         </div>
-                        <p
-                            class="font-body-md text-body-md text-on-surface-variant mb-stack-md flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[18px]">location_on</span> Arcopata, Cusco
+                        <p class="text-charcoal/50 text-sm mb-3 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">location_on</span> Arcopata, Cusco
                         </p>
-                        <div class="flex items-center gap-stack-md pt-stack-sm border-t border-outline-variant">
-                            <div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
-                                <span class="material-symbols-outlined text-[16px]">kitchen</span> Cocina Equipada
-                            </div>
-                            <div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
-                                <span class="material-symbols-outlined text-[16px]">bolt</span> Todo Incluido
-                            </div>
+                        <div class="flex items-center gap-4 pt-3 border-t border-border-color">
+                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">kitchen</span> Cocina Equipada</span>
+                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bolt</span> Todo Incluido</span>
                         </div>
                     </div>
                 </div>
                 <!-- Card 3 -->
-                <div
-                    class="group flex flex-col bg-white border border-outline-variant rounded-DEFAULT overflow-hidden hover:shadow-lg transition-shadow cursor-pointer">
+                <div class="group bg-white rounded-[20px] shadow-card hover:shadow-card-hover overflow-hidden cursor-pointer transition-all duration-300">
                     <div class="relative aspect-[4/3] overflow-hidden">
                         <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                             data-alt="A minimalist studio apartment for students in Cusco with a breathtaking view of the Andes through large glass doors. The interior features polished concrete floors, warm timber shelving, and organized study spaces. Lighting is natural and bright, emphasizing a professional yet approachable living environment for young professionals or students."
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-A6H95oq8eEBNO1YbPVoBZ71wK8-xm48xKo1NtSjPUI1MMRKkpsP9ame1FsCoQMivJDN082EFPSS4hTKRTUHzPo2gd4knB28tB6FBPPpzC1m2n66VWURTCVwlly9y0rxIke0-9fl3ttIl75sCPspvhjHP-tz7jKjJDRRfHgEkWLZqSxdZ-0k4VmAK3hT6rzXhyhr75xO-OY8J4rF30YEw5BBDW6NXGiHzqWwDeCcApY2MG3qtej1PAxHZFCOCCpVpFRDpSdETRocz" />
-                        <div
-                            class="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                            <span class="material-symbols-outlined text-primary-container text-[16px]"
+                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
+                            <span class="material-symbols-outlined text-primary text-[14px]"
                                 style="font-variation-settings: 'FILL' 1;">star</span>
-                            <span class="font-label-lg text-label-lg text-on-surface">4.8</span>
+                            <span class="text-sm font-semibold text-charcoal">4.8</span>
                         </div>
                     </div>
-                    <div class="p-stack-md">
+                    <div class="p-5">
                         <div class="flex justify-between items-start mb-1">
-                            <h3 class="font-headline-md text-headline-md text-on-surface">Loft Universitario</h3>
-                            <span class="font-headline-md text-headline-md text-primary">S/ 900</span>
+                            <h3 class="font-semibold text-charcoal text-lg">Loft Universitario</h3>
+                            <span class="font-bold text-primary text-lg">S/ 900</span>
                         </div>
-                        <p
-                            class="font-body-md text-body-md text-on-surface-variant mb-stack-md flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[18px]">location_on</span> Magisterio, Cusco
+                        <p class="text-charcoal/50 text-sm mb-3 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[16px]">location_on</span> Magisterio, Cusco
                         </p>
-                        <div class="flex items-center gap-stack-md pt-stack-sm border-t border-outline-variant">
-                            <div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
-                                <span class="material-symbols-outlined text-[16px]">shield</span> Seguridad 24/7
-                            </div>
-                            <div class="flex items-center gap-1 text-on-surface-variant font-label-sm text-label-sm">
-                                <span class="material-symbols-outlined text-[16px]">fitness_center</span> Gimnasio
-                            </div>
+                        <div class="flex items-center gap-4 pt-3 border-t border-border-color">
+                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">shield</span> Seguridad 24/7</span>
+                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">fitness_center</span> Gimnasio</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <!-- Right Side: Interactive Map -->
-        <section class="hidden lg:block lg:w-3/5 relative bg-surface-container">
-            <!-- Map Placeholder with Location Marker styling -->
-            <div class="w-full h-full grayscale opacity-80" data-location="Cusco, Peru" style="">
+
+        <!-- Right Panel: Map -->
+        <section class="hidden lg:block lg:w-3/5 relative bg-bglite">
+            <div class="w-full h-full grayscale opacity-80" data-location="Cusco, Peru">
                 <img class="w-full h-full object-cover"
                     data-alt="An illustrative architectural map of Cusco city, rendered in a clean, professional vector style. The map shows historic streets of San Blas and the Plaza de Armas using a minimalist color palette of light greys and whites. High-energy tangerine price bubbles are scattered across the map, creating an interactive data-rich appearance."
                     src="https://lh3.googleusercontent.com/aida-public/AB6AXuApP7d2lmnfyacfQLs_HBOjKCXuTgPgf_KmQiPckPqXJzR8Jn4bELD3_PTPrYeSDg34hX7q4co7kEiHP136dplCxn0UdGoCMh25yCV9RT8nYgvJtyWTdBJcIZmyMmIk4et4g4l3cPjhscfzY_gFBbo3QwE5dtugjuTtkiCFNv2G5JbUCJT48ai0RKuRfOuVAM-wDBWKQ1J01NIsCJmMls18ZL42dogJce536EKjKvXbaCnljW3hYJSK9uZs3gkGqCfFDN6ce3Le3Fdu" />
             </div>
             <!-- Custom Floating Markers -->
             <div class="absolute inset-0 pointer-events-none">
-                <!-- Marker 1 -->
-                <button
-                    class="map-marker pointer-events-auto absolute top-1/4 left-1/3 bg-white text-on-surface font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary-container">
+                <button class="map-marker pointer-events-auto absolute top-1/4 left-1/3 bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
                     S/ 750
                 </button>
-                <!-- Marker 2 -->
-                <button
-                    class="map-marker pointer-events-auto absolute top-1/2 left-1/2 bg-white text-on-surface font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary-container">
+                <button class="map-marker pointer-events-auto absolute top-1/2 left-1/2 bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
                     S/ 480
                 </button>
-                <!-- Marker 3 -->
-                <button
-                    class="map-marker pointer-events-auto absolute top-[60%] left-[20%] bg-white text-on-surface font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary-container">
+                <button class="map-marker pointer-events-auto absolute top-[60%] left-[20%] bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
                     S/ 450
                 </button>
-                <!-- Marker 4 -->
-                <button
-                    class="map-marker pointer-events-auto absolute top-[30%] left-[70%] bg-white text-on-surface font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary-container">
+                <button class="map-marker pointer-events-auto absolute top-[30%] left-[70%] bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
                     S/ 900
                 </button>
-                <!-- Marker 5 -->
-                <button
-                    class="map-marker pointer-events-auto absolute top-[75%] left-[65%] bg-white text-on-surface font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary-container">
+                <button class="map-marker pointer-events-auto absolute top-[75%] left-[65%] bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
                     S/ 520
                 </button>
             </div>
             <!-- Map Controls -->
-            <div class="absolute right-6 top-6 flex flex-col gap-stack-sm pointer-events-auto">
-                <button
-                    class="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-surface-container-low transition-all">
+            <div class="absolute right-6 top-6 flex flex-col gap-2 pointer-events-auto">
+                <button class="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-gray-50 transition-all">
                     <span class="material-symbols-outlined text-primary">add</span>
                 </button>
-                <button
-                    class="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-surface-container-low transition-all">
+                <button class="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-gray-50 transition-all">
                     <span class="material-symbols-outlined text-primary">remove</span>
                 </button>
-                <button
-                    class="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-surface-container-low transition-all mt-4">
+                <button class="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-gray-50 transition-all mt-4">
                     <span class="material-symbols-outlined text-primary">my_location</span>
                 </button>
             </div>
         </section>
     </main>
-    <!-- FAB (Contextual) -->
-    <button
-        class="fixed bottom-10 left-1/2 -translate-x-1/2 lg:left-[calc(20%+8px)] lg:translate-x-0 z-50 bg-primary-container text-on-primary-container px-8 py-4 rounded-full font-label-lg text-label-lg flex items-center gap-3 shadow-2xl hover:scale-105 active:scale-95 transition-all">
+
+    <!-- FAB Button -->
+    <button class="fixed bottom-10 left-1/2 -translate-x-1/2 lg:left-[calc(20%+8px)] lg:translate-x-0 z-50 bg-primary text-white rounded-full px-8 py-4 shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 font-medium">
         <span class="material-symbols-outlined">map</span>
         Ver Mapa Completo
     </button>
-    <!-- Footer (Shared Component Execution) -->
-    <footer
-        class="w-full py-stack-lg px-screen-margin flex flex-col md:flex-row justify-between items-center gap-stack-md bg-surface-container-high border-t border-outline-variant relative z-40">
-        <div class="flex flex-col md:items-start items-center">
-            <span class="font-headline-md text-headline-md text-primary font-bold">Cusco Rent</span>
-            <p class="font-body-md text-body-md text-on-surface-variant max-w-xs mt-1 text-center md:text-left">© 2024
-                Cusco Rent. Vivienda estudiantil con alma andina.</p>
-        </div>
-        <div class="flex gap-stack-lg">
-            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-all"
-                href="#">Nosotros</a>
-            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-all"
-                href="#">Términos</a>
-            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-all"
-                href="#">Privacidad</a>
-            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-all"
-                href="#">Contacto</a>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-border-color py-8 px-6 relative z-40">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="flex flex-col md:items-start items-center">
+                <span class="font-serif text-charcoal text-lg font-bold">Cusco</span><span class="font-serif text-primary text-lg font-bold -mt-4">Rent</span>
+                <p class="text-charcoal/50 text-sm mt-2 text-center md:text-left">© 2024 CuscoRent. Vivienda estudiantil con alma andina.</p>
+            </div>
+            <div class="flex gap-6">
+                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Nosotros</a>
+                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Términos</a>
+                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Privacidad</a>
+                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Contacto</a>
+            </div>
         </div>
     </footer>
+
     <script>
         // Micro-interactions for map markers
         document.querySelectorAll('.map-marker').forEach(marker => {

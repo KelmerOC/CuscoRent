@@ -85,17 +85,17 @@ function recuperarCuenta(email) {
     try {
         MailApp.sendEmail({
             to: email,
-            subject: 'Recuperación de Contraseña - UniStay',
+            subject: 'Recuperación de Contraseña - CuscoRent',
             htmlBody: `
                 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eee; border-radius: 10px;">
-                    <h2 style="color: #FF9800; text-align: center;">UniStay</h2>
+                    <h2 style="color: #c28e46; text-align: center;">CuscoRent</h2>
                     <p>Hola <strong>${nombre}</strong>,</p>
                     <p>Has solicitado recuperar tu contraseña. Aquí tienes tus datos de acceso:</p>
                     <div style="background-color: #f9f9f9; padding: 15px; border-radius: 5px; text-align: center; font-size: 18px; margin: 20px 0;">
                         <strong>Contraseña:</strong> ${password}
                     </div>
                     <p>Si no fuiste tú quien solicitó esto, por favor ignora este correo.</p>
-                    <p>Atentamente,<br>El equipo de UniStay</p>
+                    <p>Atentamente,<br>El equipo de CuscoRent</p>
                 </div>
             `
         });
