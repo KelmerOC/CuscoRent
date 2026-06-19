@@ -7,7 +7,16 @@ function doGet(e) {
         page = e.parameter.page;
     }
     
-    const validPages = ['Login', 'Estudiante', 'Arrendador', 'Administrador'];
+    const validPages = [
+        'Login', 
+        'HomeEstudiante', 
+        'DashboardArrendador', 
+        'Administrador',
+        'ChatWEB',
+        'DetallesHabitacion',
+        'PerfilEstudiante',
+        'VerificacionIdentidad'
+    ];
     if (!validPages.includes(page)) {
         page = 'Login';
     }

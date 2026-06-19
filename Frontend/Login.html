@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CuscoRent — Login</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Iniciar Sesión - CuscoRent</title>
     <?!= include('Estilos'); ?>
 </head>
-<body class="font-sans text-charcoal antialiased min-h-screen">
 
+<body class="font-sans text-charcoal antialiased min-h-screen">
     <!-- Modales Globales -->
     <div id="toastContainer"></div>
     <div id="overlayLoader" class="fixed inset-0 bg-white/80 z-[9999] hidden flex-col items-center justify-center backdrop-blur-sm">
@@ -25,88 +25,99 @@
 
     <!-- MAIN LOGIN SCREEN -->
     <main class="flex-grow flex items-center justify-center relative z-10 min-h-screen px-4 py-10">
-        <div id="loginScreen" class="w-full max-w-md relative">
-            <div class="bg-white rounded-[24px] shadow-xl p-8 w-full relative overflow-hidden">
-                <!-- Accent Bar -->
-                <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-terracotta to-skyblue"></div>
+        <div class="bg-white rounded-[24px] shadow-xl w-full max-w-md p-8 relative overflow-hidden">
+            <!-- Accent Bar -->
+            <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-primary via-terracotta to-skyblue"></div>
 
-                <!-- Brand Header -->
-                <div class="text-center flex flex-col items-center gap-2 mt-4 mb-2">
-                    <span class="material-symbols-outlined filled-icon text-4xl text-primary mb-1">location_city</span>
-                    <h1 class="text-2xl font-bold tracking-tight">
-                        <span class="font-serif text-charcoal">Cusco</span><span class="font-serif text-primary">Rent</span>
-                    </h1>
-                </div>
-                
-                <div class="text-center mb-6 mt-4">
-                    <h2 id="loginTitle" class="text-xl font-bold text-gray-900 mb-1">Iniciar Sesión</h2>
-                    <p id="loginSubtitle" class="text-sm text-gray-500">Encuentra tu hogar ideal para estudiar</p>
-                </div>
+            <!-- Brand Header -->
+            <div class="text-center flex flex-col items-center gap-2 mt-4 mb-2">
+                <span class="material-symbols-outlined filled-icon text-4xl text-primary mb-1">location_city</span>
+                <h1 class="text-2xl font-bold tracking-tight">
+                    <span class="font-serif text-charcoal">Cusco</span><span class="font-serif text-primary">Rent</span>
+                </h1>
+                <p class="text-sm text-gray-500">Encuentra tu espacio ideal</p>
+            </div>
 
-                <!-- Role Selector para Login -->
-                <div class="flex gap-2 p-1 bg-gray-100 rounded-2xl mb-6">
-                    <button type="button" class="flex-1 py-2.5 px-3 flex items-center justify-center gap-1.5 rounded-xl text-sm font-medium transition-all duration-200 bg-white shadow text-primary" id="btnLoginEstudiante" onclick="seleccionarRolUI_Login('estudiante')">
-                        <span class="material-symbols-outlined text-lg">school</span> Estudiante
-                    </button>
-                    <button type="button" class="flex-1 py-2.5 px-3 flex items-center justify-center gap-1.5 rounded-xl text-sm font-medium transition-all duration-200 text-gray-500 hover:text-gray-900" id="btnLoginArrendador" onclick="seleccionarRolUI_Login('arrendador')">
-                        <span class="material-symbols-outlined text-lg">home_work</span> Arrendador
-                    </button>
-                    <button type="button" class="flex-1 py-2.5 px-3 flex items-center justify-center gap-1.5 rounded-xl text-sm font-medium transition-all duration-200 text-gray-500 hover:text-gray-900 hidden" id="btnLoginAdmin" onclick="seleccionarRolUI_Login('administrador')">
-                        <span class="material-symbols-outlined text-lg">admin_panel_settings</span> Admin
-                    </button>
-                </div>
+            <!-- Role Selector para Login -->
+            <div class="flex gap-2 p-1 bg-gray-100 rounded-2xl mt-4 mb-6">
+                <button type="button" class="flex-1 py-2.5 px-3 flex items-center justify-center gap-1.5 rounded-xl text-sm font-medium transition-all duration-200 bg-white shadow text-primary" id="btnLoginEstudiante" onclick="seleccionarRolUI_Login('estudiante')">
+                    <span class="material-symbols-outlined text-lg">school</span> Estudiante
+                </button>
+                <button type="button" class="flex-1 py-2.5 px-3 flex items-center justify-center gap-1.5 rounded-xl text-sm font-medium transition-all duration-200 text-gray-500 hover:text-gray-900" id="btnLoginArrendador" onclick="seleccionarRolUI_Login('arrendador')">
+                    <span class="material-symbols-outlined text-lg">home_work</span> Arrendador
+                </button>
+                <button type="button" class="flex-1 py-2.5 px-3 flex items-center justify-center gap-1.5 rounded-xl text-sm font-medium transition-all duration-200 text-gray-500 hover:text-gray-900 hidden" id="btnLoginAdmin" onclick="seleccionarRolUI_Login('administrador')">
+                    <span class="material-symbols-outlined text-lg">admin_panel_settings</span> Admin
+                </button>
+            </div>
 
-                <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
-                    <div class="flex flex-col gap-1.5">
-                        <label for="authEmail" class="text-sm font-semibold text-charcoal">Correo electrónico</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                                <span class="material-symbols-outlined text-gray-400 text-xl">mail</span>
-                            </div>
-                            <input type="email" id="authEmail" placeholder="usuario@unsch.edu.pe" required 
-                                class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-charcoal placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+            <!-- Login Form -->
+            <form id="loginForm" onsubmit="handleLogin(event)" class="flex flex-col gap-5">
+                <!-- Email Input -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-semibold text-charcoal" for="authEmail">Correo electrónico</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400 text-xl">mail</span>
                         </div>
+                        <input
+                            class="border border-gray-200 rounded-xl px-4 py-3.5 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all w-full pl-11 text-sm text-charcoal placeholder-gray-400"
+                            id="authEmail" name="email" placeholder="usuario@correo.com" required="" type="email" />
                     </div>
-                    
-                    <div class="flex flex-col gap-1.5">
-                        <label for="authPassword" class="text-sm font-semibold text-charcoal">Contraseña</label>
-                        <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-                                <span class="material-symbols-outlined text-gray-400 text-xl">lock</span>
-                            </div>
-                            <input type="password" id="authPassword" placeholder="••••••••" required 
-                                class="w-full pl-11 pr-11 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm text-charcoal placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
-                            <button type="button" onclick="togglePasswordVisibility()" class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-primary transition-colors focus:outline-none">
-                                <span class="material-symbols-outlined text-xl" id="passwordToggleIcon">visibility_off</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center justify-between mt-1">
-                        <button type="button" onclick="openForgotModal()" class="text-sm font-medium text-primary hover:text-primary/80 transition-colors">¿Olvidaste tu contraseña?</button>
-                    </div>
-
-                    <button type="submit" id="authSubmitBtn" 
-                        class="w-full bg-primary text-white rounded-full py-3.5 font-semibold hover:bg-primary/90 active:scale-[0.97] transition-all shadow-md mt-2 flex justify-center items-center gap-2 text-sm">
-                        <span class="material-symbols-outlined text-xl">arrow_forward</span>
-                        <span id="authSubmitText">Iniciar Sesión</span>
-                    </button>
-                </form>
-
-                <div class="mt-6 pt-5 border-t border-gray-100 text-center">
-                    <p class="text-sm text-gray-500">
-                        <span id="toggleText">¿No tienes cuenta?</span>
-                        <button type="button" onclick="openRegisterModal()" id="toggleLink" class="text-primary font-semibold hover:underline ml-1">Regístrate aquí</button>
-                    </p>
-                    <button type="button" onclick="document.getElementById('btnLoginAdmin').classList.toggle('hidden')" class="text-xs text-gray-300 mt-4 hover:text-gray-400">Acceso Administrativo</button>
                 </div>
+
+                <!-- Password Input -->
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-sm font-semibold text-charcoal" for="authPassword">Contraseña</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <span class="material-symbols-outlined text-gray-400 text-xl">lock</span>
+                        </div>
+                        <input
+                            class="border border-gray-200 rounded-xl px-4 py-3.5 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all w-full pl-11 pr-11 text-sm text-charcoal placeholder-gray-400"
+                            id="authPassword" name="password" placeholder="••••••••" required="" type="password" />
+                        <button
+                            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-gray-400 hover:text-primary transition-colors focus:outline-none"
+                            type="button" onclick="togglePasswordVisibility('authPassword', 'passwordToggleIcon')">
+                            <span class="material-symbols-outlined text-xl" id="passwordToggleIcon">visibility_off</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Forgot Password -->
+                <div class="flex items-center justify-end mt-1">
+                    <div class="text-sm">
+                        <button type="button" class="font-medium text-primary hover:text-primary/80 transition-colors" onclick="openForgotModal()">
+                            ¿Olvidaste tu contraseña?
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                    class="bg-primary text-white rounded-full w-full py-3.5 font-semibold hover:bg-primary/90 active:scale-[0.97] transition-all shadow-md mt-2 flex justify-center items-center gap-2 text-sm"
+                    type="submit">
+                    Iniciar Sesión
+                    <span class="material-symbols-outlined text-xl">arrow_forward</span>
+                </button>
+            </form>
+
+            <!-- Sign Up Link -->
+            <div class="text-center mt-6 pt-5 border-t border-gray-100">
+                <p class="text-sm text-gray-500">
+                    ¿No tienes cuenta?
+                    <button type="button" class="font-semibold text-skyblue hover:text-skyblue/80 transition-colors ml-1" onclick="openRegisterModal()">
+                        Crear cuenta
+                    </button>
+                </p>
+                <button type="button" onclick="document.getElementById('btnLoginAdmin').classList.toggle('hidden')" class="text-xs text-gray-300 mt-4 hover:text-gray-400">Acceso Administrativo</button>
             </div>
         </div>
     </main>
 
-    <!-- MODAL DE REGISTRO (OVERLAY PANEL) -->
+    <!-- MODAL DE REGISTRO -->
     <div id="registerModal" class="fixed inset-0 bg-charcoal/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-[24px] shadow-2xl p-8 w-full max-w-md max-h-[90vh] overflow-y-auto relative animate-in zoom-in-95 duration-200">
+        <div class="bg-white rounded-[24px] shadow-2xl p-8 w-full max-w-md max-h-[90vh] overflow-y-auto relative transition-all duration-200">
             <button type="button" onclick="closeRegisterModal()" class="absolute top-4 right-4 p-2 text-gray-400 hover:bg-gray-100 rounded-full transition-colors">
                 <span class="material-symbols-outlined">close</span>
             </button>
@@ -124,33 +135,33 @@
                 
                 <!-- Role Selector para Registro -->
                 <div class="flex gap-2 p-1 bg-gray-100 rounded-2xl mb-4">
-                    <button type="button" data-role="estudiante" class="role-btn-reg flex-1 py-2 px-3 flex items-center justify-center gap-1 rounded-xl text-sm font-medium transition-all duration-200" onclick="seleccionarRolUI_Reg('estudiante')">
-                        <span class="material-icons-round text-lg">school</span> Soy Estudiante
+                    <button type="button" data-role="estudiante" class="role-btn-reg flex-1 py-2 px-3 flex items-center justify-center gap-1 rounded-xl text-sm font-medium transition-all duration-200 bg-white shadow text-primary" onclick="seleccionarRolUI_Reg('estudiante')">
+                        <span class="material-symbols-outlined text-lg">school</span> Soy Estudiante
                     </button>
                     <button type="button" data-role="arrendador" class="role-btn-reg flex-1 py-2 px-3 flex items-center justify-center gap-1 rounded-xl text-sm font-medium transition-all duration-200 text-gray-500 hover:text-gray-900" onclick="seleccionarRolUI_Reg('arrendador')">
-                        <span class="material-icons-round text-lg">home_work</span> Soy Arrendador
+                        <span class="material-symbols-outlined text-lg">home_work</span> Soy Arrendador
                     </button>
                 </div>
 
                 <div>
-                    <label for="regNombre" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+                    <label for="regNombre" class="block text-sm font-semibold text-gray-700 mb-1">Nombre completo</label>
                     <input type="text" id="regNombre" placeholder="Ej: Juan Pérez" required 
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-white">
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-gray-50 text-sm">
                 </div>
                 <div>
-                    <label for="regTelefono" class="block text-sm font-medium text-gray-700 mb-1">Teléfono</label>
+                    <label for="regTelefono" class="block text-sm font-semibold text-gray-700 mb-1">Teléfono</label>
                     <input type="tel" id="regTelefono" placeholder="Ej: 987654321" required
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-white">
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-gray-50 text-sm">
                 </div>
                 <div>
-                    <label for="regEmail" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                    <label for="regEmail" class="block text-sm font-semibold text-gray-700 mb-1">Correo electrónico</label>
                     <input type="email" id="regEmail" placeholder="tu@correo.com" required 
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-white">
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-gray-50 text-sm">
                 </div>
                 <div>
-                    <label for="regPassword" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                    <label for="regPassword" class="block text-sm font-semibold text-gray-700 mb-1">Contraseña</label>
                     <input type="password" id="regPassword" placeholder="••••••••" required 
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-white">
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-gray-50 text-sm">
                 </div>
                 
                 <div id="estudianteExtraFields" class="space-y-4 pt-2 border-t border-gray-100 hidden">
@@ -159,14 +170,14 @@
                         <span class="text-sm font-medium text-gray-700">¿Buscas Roommate para dividir gastos?</span>
                     </label>
                     <div>
-                        <label for="regIntereses" class="block text-sm font-medium text-gray-700 mb-1">Mis Intereses (Opcional)</label>
+                        <label for="regIntereses" class="block text-sm font-semibold text-gray-700 mb-1">Mis Intereses (Opcional)</label>
                         <input type="text" id="regIntereses" placeholder="Ej: Lectura, ordenado, videojuegos..." 
-                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-white">
+                            class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-gray-50 text-sm">
                     </div>
                 </div>
 
-                <button type="submit" class="w-full py-3.5 px-4 bg-primary hover:bg-primary/90 text-white font-semibold rounded-full shadow-lg shadow-primary/20 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 mt-6">
-                    <span class="material-icons-round">person_add</span>
+                <button type="submit" class="w-full py-3.5 px-4 bg-primary hover:bg-primary/90 text-white font-semibold rounded-full shadow-lg shadow-primary/20 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 mt-6 text-sm">
+                    <span class="material-symbols-outlined">person_add</span>
                     Completar Registro
                 </button>
             </form>
@@ -175,7 +186,7 @@
 
     <!-- MODAL DE RECUPERACIÓN DE CONTRASEÑA -->
     <div id="forgotModal" class="fixed inset-0 bg-charcoal/40 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-[24px] shadow-2xl p-8 w-full max-w-sm relative animate-in zoom-in-95 duration-200">
+        <div class="bg-white rounded-[24px] shadow-2xl p-8 w-full max-w-sm relative transition-all duration-200">
             <button type="button" onclick="closeForgotModal()" class="absolute top-4 right-4 p-2 text-gray-400 hover:bg-gray-100 rounded-full transition-colors">
                 <span class="material-symbols-outlined">close</span>
             </button>
@@ -188,11 +199,11 @@
             </div>
             <form id="forgotForm" onsubmit="handleForgot(event)" class="space-y-4">
                 <div>
-                    <label for="forgotEmail" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                    <label for="forgotEmail" class="block text-sm font-semibold text-gray-700 mb-1">Correo electrónico</label>
                     <input type="email" id="forgotEmail" placeholder="tu@correo.com" required 
-                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-white">
+                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none transition-all bg-gray-50 text-sm">
                 </div>
-                <button type="submit" class="w-full py-3.5 px-4 bg-primary hover:bg-primary/90 text-white font-semibold rounded-full shadow-lg shadow-primary/20 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 mt-6">
+                <button type="submit" class="w-full py-3.5 px-4 bg-primary hover:bg-primary/90 text-white font-semibold rounded-full shadow-lg shadow-primary/20 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 mt-6 text-sm">
                     <span class="material-symbols-outlined">send</span>
                     Recuperar
                 </button>
@@ -204,6 +215,11 @@
     <script>
       const SCRIPT_URL = "<?= getScriptUrl() ?>";
       
+      // Select Estudiante by default on load
+      document.addEventListener('DOMContentLoaded', () => {
+          seleccionarRolUI_Login('estudiante');
+      });
+
       function seleccionarRolUI_Login(role) {
           APP.selectedRole = role;
           const btnEstudiante = document.getElementById('btnLoginEstudiante');
@@ -223,9 +239,9 @@
           if(role === 'administrador') { btnAdmin.classList.add(...activeClass); btnAdmin.classList.remove(...inactiveClass); }
       }
 
-      function togglePasswordVisibility() {
-          const input = document.getElementById('authPassword');
-          const icon = document.getElementById('passwordToggleIcon');
+      function togglePasswordVisibility(inputId, iconId) {
+          const input = document.getElementById(inputId);
+          const icon = document.getElementById(iconId);
           if (input.type === 'password') {
               input.type = 'text';
               icon.textContent = 'visibility';

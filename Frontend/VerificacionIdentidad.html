@@ -4,42 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CuscoRent — Verificación de Identidad</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          colors: {
-            primary: '#c28e46',
-            sidebar: '#45121a',
-            secondary: '#b85151',
-            terracotta: '#b85151',
-            bglite: '#faf8f5',
-            charcoal: '#211f1d',
-            burgundy: '#45121a',
-            sage: '#8fa08e',
-            skyblue: '#3a82c4',
-            'border-color': '#e6dec9'
-          },
-          fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            serif: ['Playfair Display', 'serif'],
-          },
-          boxShadow: {
-            'soft': '0 4px 12px rgba(0,0,0,0.05)',
-            'card': '0 8px 30px rgb(0,0,0,0.04)',
-          }
-        }
-      }
-    }
-  </script>
+  
+  
+  
+  
+  
   <style>
     body { font-family: 'Inter', sans-serif; }
   </style>
+    <?!= include('Estilos'); ?>
 </head>
 <body class="font-sans text-charcoal antialiased bg-bglite min-h-screen flex flex-col">
 
@@ -225,5 +198,6 @@
     <p class="text-xs text-charcoal/30">© 2024 CuscoRent. Cusco, Perú.</p>
   </footer>
 
+    <?!= include('Scripts'); ?>
 </body>
 </html>

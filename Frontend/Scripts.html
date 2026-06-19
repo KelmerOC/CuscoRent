@@ -248,7 +248,7 @@
         APP.currentUser = user;
         localStorage.setItem('user', JSON.stringify(user));
         
-        let page = role === 'estudiante' ? 'Estudiante' : role === 'arrendador' ? 'Arrendador' : 'Administrador';
+        let page = role === 'estudiante' ? 'HomeEstudiante' : role === 'arrendador' ? 'DashboardArrendador' : 'Administrador';
         try {
             redirectTop(SCRIPT_URL + '?page=' + page);
         } catch(e) {

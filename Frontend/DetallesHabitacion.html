@@ -5,10 +5,10 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Detalles de Habitación | CuscoRent</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    
+    
+    
     <style>
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -31,35 +31,8 @@
             border-radius: 10px;
         }
     </style>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#c28e46',
-                        sidebar: '#45121a',
-                        secondary: '#b85151',
-                        terracotta: '#b85151',
-                        bglite: '#faf8f5',
-                        charcoal: '#211f1d',
-                        burgundy: '#45121a',
-                        sage: '#8fa08e',
-                        skyblue: '#3a82c4',
-                        'border-color': '#e6dec9'
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    boxShadow: {
-                        'soft': '0 4px 12px rgba(0,0,0,0.05)',
-                        'card': '0 8px 30px rgb(0,0,0,0.04)',
-                    }
-                }
-            }
-        }
-    </script>
+    
+    <?!= include('Estilos'); ?>
 </head>
 
 <body class="font-sans text-charcoal antialiased bg-bglite">
@@ -323,6 +296,7 @@
             { threshold: [1] }
         );
     </script>
+    <?!= include('Scripts'); ?>
 </body>
 
 </html>
