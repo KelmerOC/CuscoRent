@@ -84,5 +84,28 @@ function eliminarEstudiante(estudianteId) {
  */
 function eliminarArrendador(arrendadorId) {
     const success = eliminarFilaPorId('Arrendadores', 'ArrendadorID', arrendadorId);
-    return { success: success, message: success ? 'Arrendador eliminado correctamente.' : 'Arrendador no encontrado.' };
+
+    if (success) {
+        // Borrado en cascada de Habitaciones (Hospedajes)
+        try {
+            const sheet = getSpreadsheet().getSheetByName('Hospedajes');
+            if (sheet) {
+                const data = sheet.getDataRange().getValues();
+                const headers = data[0];
+                const arrIndex = headers.indexOf('ArrendadorID');
+
+                if (arrIndex !== -1) {
+                    for (let i = data.length - 1; i >= 1; i--) {
+                        if (String(data[i][arrIndex]) === String(arrendadorId)) {
+                            sheet.deleteRow(i + 1);
+                        }
+                    }
+                }
+            }
+        } catch (e) {
+            Logger.log("Error al eliminar habitaciones del arrendador: " + e.message);
+        }
+    }
+
+    return { success: success, message: success ? 'Arrendador y sus habitaciones eliminados correctamente.' : 'Arrendador no encontrado.' };
 }

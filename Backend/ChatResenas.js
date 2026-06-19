@@ -60,6 +60,9 @@ function addResena(estudianteId, hospedajeId, arrendadorId, puntuacion, comentar
     // Recalcular promedio de calificación del hospedaje
     if (success) {
         try {
+            // Forzar actualización de Sheets antes de leer los datos de nuevo
+            SpreadsheetApp.flush();
+            
             const todasResenas = getSheetData('Resenas').filter(r => String(r.HospedajeID) === String(hospedajeId));
             const promedio = todasResenas.reduce((sum, r) => sum + Number(r.Puntuacion), 0) / todasResenas.length;
             const sheet = getSpreadsheet().getSheetByName('Hospedajes');

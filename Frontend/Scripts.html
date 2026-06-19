@@ -65,8 +65,8 @@
     let modalCallback = null;
     function mostrarModal(titulo, mensaje, onConfirm) {
         // En esta versión se puede usar el confirm nativo o un toast, ya que el confirmModal html se removió en Tailwind
-        if(confirm(`${titulo}\n\n${mensaje}`)) {
-            if(onConfirm) onConfirm();
+        if(confirm(titulo + '\\n\\n' + mensaje)) {
+            if(typeof onConfirm === 'function') onConfirm();
         }
     }
 

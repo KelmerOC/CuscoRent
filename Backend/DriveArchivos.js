@@ -79,10 +79,10 @@ function crearSheetPlaceholderSiNoExiste(carpeta, identificador) {
     if (archivos.hasNext()) return; // Ya existe al menos uno
     const sheet = SpreadsheetApp.create('Placeholder_' + identificador);
     const archivo = DriveApp.getFileById(sheet.getId());
-    carpeta.addFile(archivo);
-    // Remover de la raíz del Drive del propietario
-    const rootFolder = DriveApp.getRootFolder();
-    rootFolder.removeFile(archivo);
+
+    // Usar moveTo() que es el método soportado actualmente,
+    // reemplazando a los deprecados addFile/removeFile.
+    archivo.moveTo(carpeta);
 }
 /**
  * Lista los Sheets placeholder de un arrendador.
