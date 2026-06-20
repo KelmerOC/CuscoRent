@@ -1,279 +1,742 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>CuscoRent | Encuentra tu hogar estudiantil</title>
-    
-    
-    
-    
-    
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuscoRent — Inicio Estudiante</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+  <style>
+    :root {
+      --green-dark: #22c55e;
+      --green-main: #4ade80;
+      --green-light: #bbf7d0;
+      --green-bg: #f0fdf4;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: #f8f9fa; }
 
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
+    /* ── NAVBAR ── */
+    .navbar {
+      background: white;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #e5e7eb;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: #1a1a2e;
+    }
+    .nav-logo span { color: var(--green-dark); }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: .25rem;
+    }
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      padding: .6rem 1.1rem;
+      border-radius: 10px;
+      font-size: .88rem;
+      font-weight: 600;
+      color: #555;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: background .2s, color .2s;
+    }
+    .nav-link:hover { background: var(--green-bg); color: #1a1a2e; }
+    .nav-link.active { background: var(--green-main); color: #fff; }
 
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
 
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e6dec9;
-            border-radius: 10px;
-        }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #f1f3f4;
+      border-radius: 25px;
+      padding: .5rem 1rem;
+      gap: .5rem;
+    }
+    .search-box input {
+      border: none;
+      background: none;
+      outline: none;
+      font-size: .85rem;
+      width: 200px;
+    }
+    .search-box .material-icons-outlined { color: #999; font-size: 20px; }
 
-        .map-marker {
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: #f1f3f4;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+      font-size: 22px;
+      transition: background .2s, color .2s;
+      position: relative;
+    }
+    .icon-btn:hover { background: var(--green-light); color: #166534; }
 
-        .map-marker:hover {
-            transform: scale(1.1) translateY(-4px);
-            z-index: 50;
-        }
-    </style>
-    <?!= include('Estilos'); ?>
+    .avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .avatar img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── CONTENIDO ── */
+    .content { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+    .seccion { display: none; }
+    .seccion.active { display: block; }
+
+    /* ── FILTROS INLINE ── */
+    .filtros-bar {
+      display: none;
+      background: white;
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,.04);
+    }
+    .filtros-bar.visible { display: block; }
+    .filtros-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .filtro-grupo label {
+      display: block;
+      font-size: .78rem;
+      font-weight: 700;
+      color: #555;
+      margin-bottom: .4rem;
+      text-transform: uppercase;
+      letter-spacing: .3px;
+    }
+    .filtro-grupo select,
+    .filtro-grupo input[type="range"] {
+      width: 100%;
+      padding: .5rem .7rem;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      font-size: .85rem;
+      background: #fafafa;
+    }
+    .filtro-grupo input[type="range"] { padding: 0; }
+    .precio-valor { font-size: .8rem; color: #888; margin-top: .25rem; }
+    .servicios-chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .35rem; }
+    .chip {
+      padding: .35rem .7rem;
+      border-radius: 20px;
+      border: 1px solid #e5e7eb;
+      font-size: .78rem;
+      cursor: pointer;
+      background: white;
+      transition: all .15s;
+      user-select: none;
+    }
+    .chip.selected { background: var(--green-main); color: white; border-color: var(--green-main); }
+
+    .filtro-botones {
+      display: flex;
+      gap: .5rem;
+      margin-top: 1rem;
+      justify-content: flex-end;
+    }
+    .btn-primary {
+      background: var(--green-dark);
+      color: white;
+      border: none;
+      padding: .6rem 1.5rem;
+      border-radius: 10px;
+      font-weight: 600;
+      font-size: .88rem;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .btn-primary:hover { background: #16a34a; }
+    .btn-ghost {
+      background: none;
+      color: #888;
+      border: 1px solid #e5e7eb;
+      padding: .6rem 1.2rem;
+      border-radius: 10px;
+      font-size: .85rem;
+      cursor: pointer;
+    }
+
+    /* ── GRID CATÁLOGO ── */
+    .catalogo-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1rem;
+    }
+    .room-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      position: relative;
+    }
+    .room-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(0,0,0,.1);
+    }
+    .room-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+    .heart-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.85);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: #bbb;
+      transition: color .2s;
+    }
+    .heart-btn.fav { color: #ef4444; }
+    .room-info {
+      padding: .6rem .7rem .75rem;
+    }
+    .room-tipo {
+      font-size: .65rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      text-transform: uppercase;
+      letter-spacing: .3px;
+    }
+    .room-precio {
+      font-size: .95rem;
+      font-weight: 800;
+      color: #1a1a2e;
+      margin-top: .2rem;
+    }
+    .room-precio span { font-size: .7rem; font-weight: 500; color: #999; }
+    .room-barrio {
+      font-size: .72rem;
+      color: #999;
+      margin-top: .15rem;
+    }
+    .room-rating {
+      display: flex;
+      align-items: center;
+      gap: .2rem;
+      margin-top: .25rem;
+      font-size: .72rem;
+      color: #f59e0b;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #999;
+    }
+
+    /* ── FAVORITOS GRID ── */
+    .favoritos-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .fav-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+      display: flex;
+      gap: 0;
+    }
+    .fav-card-img {
+      width: 140px;
+      min-height: 120px;
+      object-fit: cover;
+      background: #e2e8f0;
+    }
+    .fav-card-body {
+      padding: 1rem;
+      flex: 1;
+    }
+
+    /* ── MENSAJES ── */
+    .mensajes-lista { display: flex; flex-direction: column; gap: .75rem; }
+    .msg-card {
+      background: white;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      box-shadow: 0 1px 6px rgba(0,0,0,.04);
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .msg-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      color: #166534;
+      flex-shrink: 0;
+    }
+    .msg-content { flex: 1; }
+    .msg-header { display: flex; justify-content: space-between; margin-bottom: .25rem; }
+    .msg-name { font-weight: 700; font-size: .88rem; color: #1a1a2e; }
+    .msg-time { font-size: .72rem; color: #bbb; }
+    .msg-text { font-size: .84rem; color: #555; line-height: 1.4; }
+    .msg-badge {
+      display: inline-block;
+      padding: .15rem .5rem;
+      border-radius: 8px;
+      font-size: .65rem;
+      font-weight: 600;
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    /* ── ROOMMATES ── */
+    .roommates-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+    .rm-card {
+      background: white;
+      border-radius: 14px;
+      padding: 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
+    }
+    .rm-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: var(--green-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto .75rem;
+      font-weight: 800;
+      color: #166534;
+      font-size: 1.4rem;
+    }
+    .rm-name { font-weight: 700; color: #1a1a2e; font-size: .95rem; }
+    .rm-info { font-size: .8rem; color: #999; margin-top: .2rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1200px) {
+      .catalogo-grid { grid-template-columns: repeat(4, 1fr); }
+      .filtros-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .catalogo-grid { grid-template-columns: repeat(2, 1fr); }
+      .filtros-grid { grid-template-columns: 1fr; }
+      .favoritos-grid, .roommates-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
+<body>
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <nav class="navbar">
+    <div class="nav-logo"><span>Cusco</span>Rent</div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="switchSection('catalogo')">
+        <span class="material-icons-outlined">explore</span> Explorar
+      </button>
+      <button class="nav-link" onclick="switchSection('favoritos')">
+        <span class="material-icons-outlined">favorite_border</span> Favoritos
+      </button>
+      <button class="nav-link" onclick="switchSection('roommates')">
+        <span class="material-icons-outlined">people</span> Roommates
+      </button>
+      <button class="nav-link" onclick="switchSection('mensajes')">
+        <span class="material-icons-outlined">chat_bubble_outline</span> Mensajes
+      </button>
+    </div>
+    <div class="nav-right">
+      <div class="search-box">
+        <span class="material-icons-outlined">search</span>
+        <input type="text" placeholder="Buscar barrio..." id="buscadorBarrio" oninput="buscarBarrio()">
+      </div>
+      <button class="icon-btn" onclick="toggleFiltros()" title="Filtros">
+        <span class="material-icons-outlined">tune</span>
+      </button>
+      <button class="icon-btn" onclick="location.href='<?= getScriptUrl() ?>?page=PerfilEstudiante'" title="Mi perfil">
+        <span class="material-icons-outlined">account_circle</span>
+      </button>
+    </div>
+  </nav>
 
-<body class="font-sans text-charcoal antialiased bg-bglite">
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border-color shadow-soft">
-        <div class="flex items-center justify-between px-6 py-3">
-            <a href="#" class="flex items-center">
-                <span class="font-serif text-charcoal text-xl font-bold">Cusco</span><span class="font-serif text-primary text-xl font-bold">Rent</span>
-            </a>
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#" class="text-primary border-b-2 border-primary pb-0.5 font-medium text-sm transition-all">Explorar</a>
-                <a href="#" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Favoritos</a>
-                <a href="#" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Mensajes</a>
-            </div>
-            <div class="flex items-center gap-3">
-                <div class="relative hidden lg:block">
-                    <input
-                        class="rounded-full bg-gray-100 border-none px-5 py-2 w-64 text-sm focus:ring-2 focus:ring-primary/30 placeholder:text-charcoal/40"
-                        placeholder="Buscar barrio..." type="text" />
-                    <span class="material-symbols-outlined absolute right-4 top-1/2 -translate-y-1/2 text-charcoal/40 text-xl">search</span>
-                </div>
-                <button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
-                    <span class="material-symbols-outlined text-primary text-3xl">account_circle</span>
-                </button>
-            </div>
+  <!-- ═══════════════ CONTENIDO ═══════════════ -->
+  <div class="content">
+    <!-- FILTROS INLINE -->
+    <div class="filtros-bar" id="filtrosBar">
+      <div class="filtros-grid">
+        <div class="filtro-grupo">
+          <label>Distrito</label>
+          <select id="filtroDistrito" onchange="aplicarFiltros()">
+            <option value="Todos">Todos los distritos</option>
+            <option value="Cusco">Cusco</option>
+            <option value="Wanchaq">Wanchaq</option>
+            <option value="Santiago">Santiago</option>
+            <option value="San Sebastián">San Sebastián</option>
+            <option value="San Jerónimo">San Jerónimo</option>
+            <option value="Saylla">Saylla</option>
+            <option value="Poroy">Poroy</option>
+          </select>
         </div>
-    </nav>
-
-    <main class="flex h-[calc(100vh-64px)] overflow-hidden">
-        <!-- Left Panel: Property List -->
-        <section class="w-full lg:w-2/5 flex flex-col bg-white border-r border-border-color z-10 relative">
-            <!-- Filter Bar -->
-            <div class="px-5 py-4 border-b border-border-color bg-white/95 backdrop-blur-sm sticky top-0">
-                <h1 class="font-serif text-charcoal text-xl mb-3">Habitaciones en Cusco</h1>
-                <div class="flex flex-wrap gap-2">
-                    <button
-                        class="px-4 py-2 bg-primary text-white rounded-full flex items-center gap-2 text-sm font-medium shadow-sm transition-all hover:brightness-105">
-                        <span class="material-symbols-outlined text-[16px]">payments</span>
-                        Precio
-                    </button>
-                    <button
-                        class="px-4 py-2 bg-gray-100 text-charcoal/70 rounded-full border border-border-color flex items-center gap-2 text-sm font-medium hover:bg-gray-200 transition-all">
-                        <span class="material-symbols-outlined text-[16px]">bed</span>
-                        Tipo de Cuarto
-                    </button>
-                    <button
-                        class="px-4 py-2 bg-gray-100 text-charcoal/70 rounded-full border border-border-color flex items-center gap-2 text-sm font-medium hover:bg-gray-200 transition-all">
-                        <span class="material-symbols-outlined text-[16px]">group</span>
-                        Roommates
-                    </button>
-                    <button
-                        class="p-2 bg-gray-100 text-charcoal/70 rounded-full border border-border-color hover:bg-gray-200 transition-all">
-                        <span class="material-symbols-outlined">tune</span>
-                    </button>
-                </div>
-            </div>
-            <!-- Scrollable Cards -->
-            <div class="flex-1 overflow-y-auto custom-scrollbar p-5 space-y-5">
-                <!-- Card 1 -->
-                <div class="group bg-white rounded-[20px] shadow-card hover:shadow-card-hover overflow-hidden cursor-pointer transition-all duration-300">
-                    <div class="relative aspect-[4/3] overflow-hidden">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="A modern and bright student bedroom in a historic Cusco building, featuring warm wood accents and Andean textile pillows. Large colonial windows let in golden morning sunlight, illuminating a clean white workspace. The aesthetic is Andean Modernity with minimal furniture and vibrant orange accents in the decor."
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4hGLwA6qZr-gqrv7QHpSIcvWwkRU4IRpIGAkLpzBcBWVM9tvjZ0e29MfdjH3zsizGmD2gSfQeduw32O6tBg746OYrozXeq9E1ZC-j-aOW31XjS5BsSfrZcuu_JipbZQ9lTuryIzIptRH8jK56dfEYlYCRWxlYWRYVukypa26P_QlhWfTz--F8wNjzTdm2j8lQG8AH6FgJU9mLUIGaukqCKD27ofNbA7IKYFmcgeH_pqU0p5UpRFKyAfAvV1yEOm1u2XzXPlz_WDRM" />
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                            <span class="material-symbols-outlined text-primary text-[14px]"
-                                style="font-variation-settings: 'FILL' 1;">star</span>
-                            <span class="text-sm font-semibold text-charcoal">4.9</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-1">
-                            <h3 class="font-semibold text-charcoal text-lg">Suite San Blas</h3>
-                            <span class="font-bold text-primary text-lg">S/ 750</span>
-                        </div>
-                        <p class="text-charcoal/50 text-sm mb-3 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px]">location_on</span> San Blas, Centro Histórico
-                        </p>
-                        <div class="flex items-center gap-4 pt-3 border-t border-border-color">
-                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">wifi</span> Fibra Óptica</span>
-                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">laundry</span> Lavandería</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 2 -->
-                <div class="group bg-white rounded-[20px] shadow-card hover:shadow-card-hover overflow-hidden cursor-pointer transition-all duration-300">
-                    <div class="relative aspect-[4/3] overflow-hidden">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="A cozy shared living room in a Cusco student apartment with traditional stone walls integrated into modern white plaster. Stylish mid-century modern furniture is paired with colorful Peruvian rugs. The space feels warm and inviting, illuminated by soft sky blue and tangerine accent lights, perfect for a trustworthy and professional rental platform."
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCccgNNMrjLdHJ2YNJEn4M3Qgxa_bee0hXyiI8fJlHyuPMtriZRQjugNUB0fXkap8PeIm-uxwpGH1p8EIKTHYb0rRj0xRoreM-URYm49vG-aHbBgT09USns4m_km4MU0vYjigc32zizGxv47H86dfeKlKBNZJQJi113qveKvM6N8D5BVcWN_TbPCsIvHejAP7CArznchpFLSycV1Oppkxq0xiyLP_LxbrSQerVS8yZqHMjrsaxrfjTkV2W94SwaNsoAsyz6U9MWkdNU" />
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                            <span class="material-symbols-outlined text-primary text-[14px]"
-                                style="font-variation-settings: 'FILL' 1;">star</span>
-                            <span class="text-sm font-semibold text-charcoal">4.7</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-1">
-                            <h3 class="font-semibold text-charcoal text-lg">Habitación Arcopata</h3>
-                            <span class="font-bold text-primary text-lg">S/ 480</span>
-                        </div>
-                        <p class="text-charcoal/50 text-sm mb-3 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px]">location_on</span> Arcopata, Cusco
-                        </p>
-                        <div class="flex items-center gap-4 pt-3 border-t border-border-color">
-                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">kitchen</span> Cocina Equipada</span>
-                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">bolt</span> Todo Incluido</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Card 3 -->
-                <div class="group bg-white rounded-[20px] shadow-card hover:shadow-card-hover overflow-hidden cursor-pointer transition-all duration-300">
-                    <div class="relative aspect-[4/3] overflow-hidden">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            data-alt="A minimalist studio apartment for students in Cusco with a breathtaking view of the Andes through large glass doors. The interior features polished concrete floors, warm timber shelving, and organized study spaces. Lighting is natural and bright, emphasizing a professional yet approachable living environment for young professionals or students."
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-A6H95oq8eEBNO1YbPVoBZ71wK8-xm48xKo1NtSjPUI1MMRKkpsP9ame1FsCoQMivJDN082EFPSS4hTKRTUHzPo2gd4knB28tB6FBPPpzC1m2n66VWURTCVwlly9y0rxIke0-9fl3ttIl75sCPspvhjHP-tz7jKjJDRRfHgEkWLZqSxdZ-0k4VmAK3hT6rzXhyhr75xO-OY8J4rF30YEw5BBDW6NXGiHzqWwDeCcApY2MG3qtej1PAxHZFCOCCpVpFRDpSdETRocz" />
-                        <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
-                            <span class="material-symbols-outlined text-primary text-[14px]"
-                                style="font-variation-settings: 'FILL' 1;">star</span>
-                            <span class="text-sm font-semibold text-charcoal">4.8</span>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <div class="flex justify-between items-start mb-1">
-                            <h3 class="font-semibold text-charcoal text-lg">Loft Universitario</h3>
-                            <span class="font-bold text-primary text-lg">S/ 900</span>
-                        </div>
-                        <p class="text-charcoal/50 text-sm mb-3 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[16px]">location_on</span> Magisterio, Cusco
-                        </p>
-                        <div class="flex items-center gap-4 pt-3 border-t border-border-color">
-                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">shield</span> Seguridad 24/7</span>
-                            <span class="text-xs text-charcoal/50 flex items-center gap-1"><span class="material-symbols-outlined text-[14px]">fitness_center</span> Gimnasio</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Right Panel: Map -->
-        <section class="hidden lg:block lg:w-3/5 relative bg-bglite">
-            <div class="w-full h-full grayscale opacity-80" data-location="Cusco, Peru">
-                <img class="w-full h-full object-cover"
-                    data-alt="An illustrative architectural map of Cusco city, rendered in a clean, professional vector style. The map shows historic streets of San Blas and the Plaza de Armas using a minimalist color palette of light greys and whites. High-energy tangerine price bubbles are scattered across the map, creating an interactive data-rich appearance."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuApP7d2lmnfyacfQLs_HBOjKCXuTgPgf_KmQiPckPqXJzR8Jn4bELD3_PTPrYeSDg34hX7q4co7kEiHP136dplCxn0UdGoCMh25yCV9RT8nYgvJtyWTdBJcIZmyMmIk4et4g4l3cPjhscfzY_gFBbo3QwE5dtugjuTtkiCFNv2G5JbUCJT48ai0RKuRfOuVAM-wDBWKQ1J01NIsCJmMls18ZL42dogJce536EKjKvXbaCnljW3hYJSK9uZs3gkGqCfFDN6ce3Le3Fdu" />
-            </div>
-            <!-- Custom Floating Markers -->
-            <div class="absolute inset-0 pointer-events-none">
-                <button class="map-marker pointer-events-auto absolute top-1/4 left-1/3 bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
-                    S/ 750
-                </button>
-                <button class="map-marker pointer-events-auto absolute top-1/2 left-1/2 bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
-                    S/ 480
-                </button>
-                <button class="map-marker pointer-events-auto absolute top-[60%] left-[20%] bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
-                    S/ 450
-                </button>
-                <button class="map-marker pointer-events-auto absolute top-[30%] left-[70%] bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
-                    S/ 900
-                </button>
-                <button class="map-marker pointer-events-auto absolute top-[75%] left-[65%] bg-white text-charcoal font-bold px-3 py-1.5 rounded-full shadow-xl border-2 border-primary">
-                    S/ 520
-                </button>
-            </div>
-            <!-- Map Controls -->
-            <div class="absolute right-6 top-6 flex flex-col gap-2 pointer-events-auto">
-                <button class="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-gray-50 transition-all">
-                    <span class="material-symbols-outlined text-primary">add</span>
-                </button>
-                <button class="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-gray-50 transition-all">
-                    <span class="material-symbols-outlined text-primary">remove</span>
-                </button>
-                <button class="w-12 h-12 bg-white rounded-full shadow-xl flex items-center justify-center hover:bg-gray-50 transition-all mt-4">
-                    <span class="material-symbols-outlined text-primary">my_location</span>
-                </button>
-            </div>
-        </section>
-    </main>
-
-    <!-- FAB Button -->
-    <button class="fixed bottom-10 left-1/2 -translate-x-1/2 lg:left-[calc(20%+8px)] lg:translate-x-0 z-50 bg-primary text-white rounded-full px-8 py-4 shadow-2xl hover:scale-105 active:scale-95 transition-all flex items-center gap-3 font-medium">
-        <span class="material-symbols-outlined">map</span>
-        Ver Mapa Completo
-    </button>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-border-color py-8 px-6 relative z-40">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex flex-col md:items-start items-center">
-                <span class="font-serif text-charcoal text-lg font-bold">Cusco</span><span class="font-serif text-primary text-lg font-bold -mt-4">Rent</span>
-                <p class="text-charcoal/50 text-sm mt-2 text-center md:text-left">© 2024 CuscoRent. Vivienda estudiantil con alma andina.</p>
-            </div>
-            <div class="flex gap-6">
-                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Nosotros</a>
-                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Términos</a>
-                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Privacidad</a>
-                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Contacto</a>
-            </div>
+        <div class="filtro-grupo">
+          <label>Precio máximo: S/ <span id="precioValor">2000</span></label>
+          <input type="range" id="filtroPrecio" min="100" max="2000" step="50" value="2000" oninput="document.getElementById('precioValor').textContent=this.value; aplicarFiltros()">
         </div>
-    </footer>
+        <div class="filtro-grupo">
+          <label>Tipo de cuarto</label>
+          <select id="filtroTipo" onchange="aplicarFiltros()">
+            <option value="Todos">Todos</option>
+            <option value="Individual">Individual</option>
+            <option value="Compartido">Compartido</option>
+            <option value="Departamento">Departamento</option>
+            <option value="Studio">Studio</option>
+          </select>
+        </div>
+        <div class="filtro-grupo">
+          <label>Servicios</label>
+          <div class="servicios-chips" id="serviciosChips">
+            <span class="chip" onclick="toggleChip(this)" data-valor="Wifi">Wifi</span>
+            <span class="chip" onclick="toggleChip(this)" data-valor="Agua">Agua</span>
+            <span class="chip" onclick="toggleChip(this)" data-valor="Luz">Luz</span>
+            <span class="chip" onclick="toggleChip(this)" data-valor="Gas">Gas</span>
+            <span class="chip" onclick="toggleChip(this)" data-valor="Estudio">Estudio</span>
+            <span class="chip" onclick="toggleChip(this)" data-valor="Lavandería">Lavandería</span>
+          </div>
+        </div>
+      </div>
+      <div class="filtro-botones">
+        <button class="btn-ghost" onclick="limpiarFiltros()">Limpiar filtros</button>
+        <button class="btn-primary" onclick="aplicarFiltros()">Aplicar filtros</button>
+      </div>
+    </div>
 
-    <script>
-        window.addEventListener('DOMContentLoaded', () => {
-            const userStr = localStorage.getItem('user');
-            if (!userStr) {
-                cerrarSesion();
-                return;
-            }
-            const user = JSON.parse(userStr);
-            APP.currentUser = user;
-            APP.currentEmail = user.CorreoInstitucional;
-            APP.currentRole = 'estudiante';
-        });
+    <!-- ══ SECCIÓN: CATÁLOGO ══ -->
+    <div class="seccion active" id="seccion-catalogo">
+      <div class="catalogo-grid" id="catalogoGrid">
+        <!-- Se llena dinámicamente -->
+      </div>
+    </div>
 
-        // Micro-interactions for map markers
-        document.querySelectorAll('.map-marker').forEach(marker => {
-            marker.addEventListener('click', () => {
-                // Visual feedback
-                marker.classList.toggle('bg-primary-container');
-                marker.classList.toggle('text-on-primary-container');
-                marker.classList.toggle('bg-white');
-                marker.classList.toggle('text-on-surface');
-            });
-        });
+    <!-- ══ SECCIÓN: FAVORITOS ══ -->
+    <div class="seccion" id="seccion-favoritos">
+      <h2 style="margin-bottom:1rem; color:#1a1a2e;">Mis Favoritos</h2>
+      <div class="favoritos-grid" id="favoritosGrid"></div>
+    </div>
 
-        // Search bar interaction
-        const searchInput = document.querySelector('input[type="text"]');
-        searchInput.addEventListener('focus', () => {
-            searchInput.parentElement.classList.add('ring-2', 'ring-primary-container');
-        });
-        searchInput.addEventListener('blur', () => {
-            searchInput.parentElement.classList.remove('ring-2', 'ring-primary-container');
-        });
-    </script>
-    <?!= include('Scripts'); ?>
+    <!-- ══ SECCIÓN: ROOMMATES ══ -->
+    <div class="seccion" id="seccion-roommates">
+      <h2 style="margin-bottom:1rem; color:#1a1a2e;">Roommates Disponibles</h2>
+      <div class="roommates-grid" id="roommatesGrid"></div>
+    </div>
+
+    <!-- ══ SECCIÓN: MENSAJES ══ -->
+    <div class="seccion" id="seccion-mensajes">
+      <h2 style="margin-bottom:1rem; color:#1a1a2e;">Mensajes</h2>
+      <div class="mensajes-lista" id="mensajesLista"></div>
+    </div>
+  </div>
+
+  <script>
+    /* ═══════════════════════════════════════
+       VARIABLES GLOBALES
+    ═══════════════════════════════════════ */
+    let hospedajesGlobal = [];
+    let favoritos = JSON.parse(localStorage.getItem('favoritos') || '[]');
+    let currentUser = null;
+
+    /* ═══════════════════════════════════════
+       INICIALIZACIÓN
+    ═══════════════════════════════════════ */
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        currentUser = JSON.parse(localStorage.getItem('user'));
+      } catch(e) { currentUser = null; }
+      if (!currentUser || !currentUser.EstudianteID) {
+        window.location.href = '<?= getScriptUrl() ?>?page=Login';
+        return;
+      }
+      cargarCatalogo();
+      renderFavoritos();
+    });
+
+    /* ═══════════════════════════════════════
+       NAVEGACIÓN ENTRE SECCIONES
+    ═══════════════════════════════════════ */
+    function switchSection(section) {
+      document.querySelectorAll('.seccion').forEach(s => s.classList.remove('active'));
+      document.getElementById('seccion-' + section).classList.add('active');
+      document.querySelectorAll('.nav-link').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      if (section === 'roommates') cargarRoommates();
+      if (section === 'mensajes') cargarMensajes();
+      if (section === 'favoritos') renderFavoritos();
+    }
+
+    /* ═══════════════════════════════════════
+       FILTROS
+    ═══════════════════════════════════════ */
+    function toggleFiltros() {
+      document.getElementById('filtrosBar').classList.toggle('visible');
+    }
+
+    function toggleChip(el) {
+      el.classList.toggle('selected');
+      aplicarFiltros();
+    }
+
+    function aplicarFiltros() {
+      const distrito = document.getElementById('filtroDistrito').value;
+      const precioMax = Number(document.getElementById('filtroPrecio').value);
+      const tipo = document.getElementById('filtroTipo').value;
+      const servicios = [];
+      document.querySelectorAll('#serviciosChips .chip.selected').forEach(c => servicios.push(c.dataset.valor));
+
+      let filtered = hospedajesGlobal.filter(h => {
+        if (distrito !== 'Todos' && h.Distrito !== distrito) return false;
+        if (Number(h.PrecioMensual) > precioMax) return false;
+        if (tipo !== 'Todos' && h.TipoHabitacion !== tipo) return false;
+        if (servicios.length > 0) {
+          const hServicios = (h.Servicios || '').toLowerCase();
+          for (const s of servicios) {
+            if (!hServicios.includes(s.toLowerCase())) return false;
+          }
+        }
+        return true;
+      });
+      renderCatalogo(filtered);
+    }
+
+    function limpiarFiltros() {
+      document.getElementById('filtroDistrito').value = 'Todos';
+      document.getElementById('filtroPrecio').value = 2000;
+      document.getElementById('precioValor').textContent = '2000';
+      document.getElementById('filtroTipo').value = 'Todos';
+      document.querySelectorAll('#serviciosChips .chip').forEach(c => c.classList.remove('selected'));
+      document.getElementById('buscadorBarrio').value = '';
+      renderCatalogo(hospedajesGlobal);
+    }
+
+    /* ═══════════════════════════════════════
+       BÚSQUEDA POR BARRIO
+    ═══════════════════════════════════════ */
+    function buscarBarrio() {
+      const q = document.getElementById('buscadorBarrio').value.toLowerCase().trim();
+      if (!q) {
+        renderCatalogo(hospedajesGlobal);
+        return;
+      }
+      const filtered = hospedajesGlobal.filter(h =>
+        (h.Distrito || '').toLowerCase().includes(q) ||
+        (h.Titulo || '').toLowerCase().includes(q) ||
+        (h.Direccion || '').toLowerCase().includes(q)
+      );
+      renderCatalogo(filtered);
+    }
+
+    /* ═══════════════════════════════════════
+       CATÁLOGO
+    ═══════════════════════════════════════ */
+    function cargarCatalogo() {
+      google.script.run
+        .withSuccessHandler(function(data) {
+          hospedajesGlobal = data || [];
+          renderCatalogo(hospedajesGlobal);
+        })
+        .withFailureHandler(function(err) {
+          console.error('Error cargando catálogo:', err);
+          document.getElementById('catalogoGrid').innerHTML = '<div class="empty-state">Error al cargar habitaciones</div>';
+        })
+        .getHospedajes();
+    }
+
+    function renderCatalogo(list) {
+      const grid = document.getElementById('catalogoGrid');
+      if (!list || list.length === 0) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">No se encontraron habitaciones</div>';
+        return;
+      }
+      grid.innerHTML = list.map(function(h) {
+        const isFav = favoritos.includes(h.HospedajeID);
+        const imgSrc = (h.ImagenURL || h.FotoURL || h.Imagen || '').split(',')[0].trim();
+        return '<div class="room-card" onclick="abrirDetalles(\'' + h.HospedajeID + '\')">' +
+          '<img class="room-img" src="' + (imgSrc || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop') + '" alt="Habitación">' +
+          '<button class="heart-btn ' + (isFav ? 'fav' : '') + '" onclick="event.stopPropagation(); toggleFavorito(\'' + h.HospedajeID + '\', this)">' +
+            '<span class="material-icons-outlined" style="font-size:16px">' + (isFav ? 'favorite' : 'favorite_border') + '</span>' +
+          '</button>' +
+          '<div class="room-info">' +
+            '<div class="room-tipo">' + (h.TipoHabitacion || 'Habitación') + '</div>' +
+            '<div class="room-precio">S/ ' + (h.PrecioMensual || '---') + ' <span>/mes</span></div>' +
+            '<div class="room-barrio">' + (h.Distrito || 'Cusco') + '</div>' +
+            '<div class="room-rating">' +
+              '<span class="material-icons-outlined" style="font-size:14px">star</span> ' + (h.CalificacionPromedio || 'Nuevo') +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    /* ═══════════════════════════════════════
+       FAVORITOS
+    ═══════════════════════════════════════ */
+    function toggleFavorito(hospedajeId, btn) {
+      const idx = favoritos.indexOf(hospedajeId);
+      if (idx > -1) {
+        favoritos.splice(idx, 1);
+        btn.classList.remove('fav');
+        btn.querySelector('span').textContent = 'favorite_border';
+      } else {
+        favoritos.push(hospedajeId);
+        btn.classList.add('fav');
+        btn.querySelector('span').textContent = 'favorite';
+      }
+      localStorage.setItem('favoritos', JSON.stringify(favoritos));
+    }
+
+    function renderFavoritos() {
+      const grid = document.getElementById('favoritosGrid');
+      const favHospedajes = hospedajesGlobal.filter(h => favoritos.includes(h.HospedajeID));
+      if (favHospedajes.length === 0) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">No tienes favoritos aún. ¡Explora y dale corazón!</div>';
+        return;
+      }
+      grid.innerHTML = favHospedajes.map(function(h) {
+        const imgSrc = (h.ImagenURL || h.FotoURL || h.Imagen || '').split(',')[0].trim();
+        return '<div class="fav-card" onclick="abrirDetalles(\'' + h.HospedajeID + '\')">' +
+          '<img class="fav-card-img" src="' + (imgSrc || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=400&h=300&fit=crop') + '" alt="">' +
+          '<div class="fav-card-body">' +
+            '<div class="room-tipo">' + (h.TipoHabitacion || 'Habitación') + '</div>' +
+            '<div class="room-precio">S/ ' + (h.PrecioMensual || '---') + ' <span>/mes</span></div>' +
+            '<div class="room-barrio">' + (h.Distrito || 'Cusco') + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    /* ═══════════════════════════════════════
+       ROOMMATES
+    ═══════════════════════════════════════ */
+    function cargarRoommates() {
+      google.script.run
+        .withSuccessHandler(function(data) {
+          renderRoommates(data || []);
+        })
+        .withFailureHandler(function(err) {
+          console.error('Error cargando roommates:', err);
+          document.getElementById('roommatesGrid').innerHTML = '<div class="empty-state">Error al cargar roommates</div>';
+        })
+        .getRoommatesDisponibles();
+    }
+
+    function renderRoommates(list) {
+      const grid = document.getElementById('roommatesGrid');
+      if (!list || list.length === 0) {
+        grid.innerHTML = '<div class="empty-state" style="grid-column:1/-1">No hay roommates disponibles en este momento</div>';
+        return;
+      }
+      grid.innerHTML = list.map(function(rm) {
+        const iniciales = (rm.NombreCompleto || 'R').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+        return '<div class="rm-card">' +
+          '<div class="rm-avatar">' + iniciales + '</div>' +
+          '<div class="rm-name">' + (rm.NombreCompleto || 'Roommate') + '</div>' +
+          '<div class="rm-info">' + (rm.Carrera || '') + ' — ' + (rm.Distrito || 'Cusco') + '</div>' +
+          '<div class="rm-info">' + (rm.Intereses || '') + '</div>' +
+          '<button class="btn-primary" style="margin-top:.75rem" onclick="event.stopPropagation();">Contactar</button>' +
+        '</div>';
+      }).join('');
+    }
+
+    /* ═══════════════════════════════════════
+       MENSAJES
+    ═══════════════════════════════════════ */
+    function cargarMensajes() {
+      google.script.run
+        .withSuccessHandler(function(data) {
+          renderMensajes(data || []);
+        })
+        .withFailureHandler(function(err) {
+          console.error('Error cargando mensajes:', err);
+          document.getElementById('mensajesLista').innerHTML = '<div class="empty-state">Error al cargar mensajes</div>';
+        })
+        .getMensajesPorUsuario(currentUser.EstudianteID);
+    }
+
+    function renderMensajes(list) {
+      const container = document.getElementById('mensajesLista');
+      if (!list || list.length === 0) {
+        container.innerHTML = '<div class="empty-state">No tienes mensajes aún</div>';
+        return;
+      }
+      container.innerHTML = list.map(function(m) {
+        const initials = (m.RemitenteNombre || m.RemitenteID || '?').split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+        const fecha = m.FechaHora ? new Date(m.FechaHora).toLocaleDateString('es-PE', { day:'2-digit', month:'short' }) : '';
+        return '<div class="msg-card">' +
+          '<div class="msg-avatar">' + initials + '</div>' +
+          '<div class="msg-content">' +
+            '<div class="msg-header">' +
+              '<span class="msg-name">' + (m.RemitenteNombre || m.RemitenteID) + '</span>' +
+              '<span class="msg-time">' + fecha + '</span>' +
+            '</div>' +
+            '<div class="msg-text">' + (m.Mensaje || '') + '</div>' +
+          '</div>' +
+        '</div>';
+      }).join('');
+    }
+
+    /* ═══════════════════════════════════════
+       NAVEGACIÓN A DETALLES
+    ═══════════════════════════════════════ */
+    function abrirDetalles(hospedajeId) {
+      window.location.href = '<?= getScriptUrl() ?>?page=DetallesHabitacion&id=' + hospedajeId;
+    }
+  </script>
 </body>
-
 </html>

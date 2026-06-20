@@ -314,3 +314,32 @@ function eliminarArchivosPorPrefijo(carpeta, prefijo) {
         }
     }
 }
+
+function subirArchivo(data) {
+    try {
+        const base64Data = data.base64Data.indexOf(',') > -1
+            ? data.base64Data.split(',')[1]
+            : data.base64Data;
+        const decodedBytes = Utilities.base64Decode(base64Data);
+        const raiz = getCarpetaRaiz();
+        let carpetaDestino;
+        const carpetas = raiz.getFoldersByName(data.carpetaId);
+        if (carpetas.hasNext()) {
+            carpetaDestino = carpetas.next();
+        } else {
+            carpetaDestino = raiz.createFolder(data.carpetaId);
+        }
+        const blob = Utilities.newBlob(decodedBytes, data.mimeType, data.fileName);
+        const archivo = carpetaDestino.createFile(blob);
+        archivo.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+        return {
+            success: true,
+            message: 'Archivo subido correctamente.',
+            fileId: archivo.getId(),
+            url: 'https://drive.google.com/uc?id=' + archivo.getId()
+        };
+    } catch (e) {
+        Logger.log('Error subirArchivo: ' + e.message);
+        return { success: false, message: 'Error al subir archivo: ' + e.message };
+    }
+}

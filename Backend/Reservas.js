@@ -102,6 +102,28 @@ function verificarReservaPrevia(estudianteId, hospedajeId) {
     return { tieneReserva: tiene };
 }
 
+function confirmarReserva(reservaId) {
+    try {
+        const sheet = getSpreadsheet().getSheetByName('Reservas');
+        if (!sheet) return { success: false, message: 'Hoja Reservas no encontrada' };
+        const data = sheet.getDataRange().getValues();
+        const headers = data[0];
+        const idIdx = headers.indexOf('ReservaID');
+        const estadoIdx = headers.indexOf('Estado');
+
+        for (let i = 1; i < data.length; i++) {
+            if (String(data[i][idIdx]) === String(reservaId)) {
+                sheet.getRange(i + 1, estadoIdx + 1).setValue('Confirmada');
+                return { success: true, message: 'Reserva confirmada.' };
+            }
+        }
+        return { success: false, message: 'Reserva no encontrada.' };
+    } catch (e) {
+        Logger.log('Error confirmarReserva: ' + e.message);
+        return { success: false, message: 'Error del servidor: ' + e.message };
+    }
+}
+
 /**
  * Envía correo de notificación al arrendador cuando se confirma una reserva.
  * (Documento §3.2 CU6 — Fase 3 Proyecto 7)

@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CuscoRent — Verificación de Identidad</title>
-  
-  
-  
-  
-  
+
+
+
+
+
   <style>
-    body { font-family: 'Inter', sans-serif; }
+    body {
+      font-family: 'Inter', sans-serif;
+    }
   </style>
-    <?!= include('Estilos'); ?>
+  <?!= include('Estilos'); ?>
 </head>
+
 <body class="font-sans text-charcoal antialiased bg-bglite min-h-screen flex flex-col">
 
   <!-- Top Bar -->
@@ -21,18 +25,19 @@
     <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
       <a href="#" class="flex items-center gap-2.5">
         <svg class="w-8 h-8 text-primary" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M16 2L4 10v12l12 8 12-8V10L16 2z" fill="currentColor" opacity="0.15"/>
-          <path d="M16 4L6 11v10l10 6.5L26 21V11L16 4z" stroke="currentColor" stroke-width="1.5" fill="none"/>
-          <path d="M10 14h12M10 18h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M16 2L4 10v12l12 8 12-8V10L16 2z" fill="currentColor" opacity="0.15" />
+          <path d="M16 4L6 11v10l10 6.5L26 21V11L16 4z" stroke="currentColor" stroke-width="1.5" fill="none" />
+          <path d="M10 14h12M10 18h8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
         </svg>
         <span class="text-lg font-semibold tracking-tight">
           <span class="font-serif text-charcoal">Cusco</span><span class="font-serif text-primary">Rent</span>
         </span>
       </a>
       <button class="inline-flex items-center gap-2 text-sm text-charcoal/60 hover:text-charcoal transition-colors">
-        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"/>
-          <line x1="6" y1="6" x2="18" y2="18"/>
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
         </svg>
         Cancelar
       </button>
@@ -47,10 +52,12 @@
       <div class="bg-gray-50 px-8 py-6 border-b border-border-color">
         <div class="flex items-center justify-between mb-6">
           <h1 class="font-serif text-2xl text-charcoal">Verificación de Identidad</h1>
-          <span class="inline-flex items-center gap-1.5 bg-sage/20 text-sage text-xs font-medium px-3 py-1 rounded-full">
+          <span
+            class="inline-flex items-center gap-1.5 bg-sage/20 text-sage text-xs font-medium px-3 py-1 rounded-full">
             <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.67-3.13 9.06-7 10.18-3.87-1.12-7-5.51-7-10.18V6.3l7-3.12z"/>
-              <path d="M10 12l-1.5-1.5L7 12l3 3 5-5-1.5-1.5L10 12z"/>
+              <path
+                d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.67-3.13 9.06-7 10.18-3.87-1.12-7-5.51-7-10.18V6.3l7-3.12z" />
+              <path d="M10 12l-1.5-1.5L7 12l3 3 5-5-1.5-1.5L10 12z" />
             </svg>
             Seguro
           </span>
@@ -61,8 +68,9 @@
           <!-- Step 1: Completed -->
           <div class="flex flex-col items-center gap-2">
             <div class="w-10 h-10 rounded-full bg-sage text-white flex items-center justify-center">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
               </svg>
             </div>
             <span class="text-xs font-medium text-sage">Cuenta</span>
@@ -73,7 +81,8 @@
 
           <!-- Step 2: Active -->
           <div class="flex flex-col items-center gap-2">
-            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center ring-4 ring-primary/20">
+            <div
+              class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center ring-4 ring-primary/20">
               <span class="text-sm font-bold">2</span>
             </div>
             <span class="text-xs font-semibold text-primary">Identidad</span>
@@ -100,7 +109,8 @@
           <div>
             <h2 class="font-serif text-xl text-charcoal mb-3">Paso 2: Eres un estudiante verificado</h2>
             <p class="text-sm text-charcoal/60 leading-relaxed">
-              Sube una foto de perfil y confirma tu correo institucional universitario. Esto garantiza que solo estudiantes reales puedan acceder a las habitaciones disponibles.
+              Sube una foto de perfil y confirma tu correo institucional universitario. Esto garantiza que solo
+              estudiantes reales puedan acceder a las habitaciones disponibles.
             </p>
           </div>
 
@@ -108,13 +118,14 @@
             <div class="flex items-start gap-3">
               <div class="w-9 h-9 rounded-lg bg-sage/15 flex items-center justify-center flex-shrink-0 mt-0.5">
                 <svg class="w-5 h-5 text-sage" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
+                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
                 </svg>
               </div>
               <div>
                 <p class="text-sm font-medium text-charcoal mb-1">Privacidad garantizada</p>
                 <p class="text-xs text-charcoal/50 leading-relaxed">
-                  Tu información personal está protegida y solo se usa para verificar tu condición de estudiante. Nunca se comparte con terceros.
+                  Tu información personal está protegida y solo se usa para verificar tu condición de estudiante. Nunca
+                  se comparte con terceros.
                 </p>
               </div>
             </div>
@@ -128,17 +139,22 @@
           <div class="flex flex-col items-center gap-3">
             <label class="relative cursor-pointer group">
               <input type="file" accept="image/*" class="sr-only">
-              <div class="w-28 h-28 rounded-full border-2 border-dashed border-gray-300 group-hover:border-primary group-hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-1">
-                <svg class="w-7 h-7 text-charcoal/30 group-hover:text-primary transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-                  <circle cx="12" cy="7" r="4"/>
+              <div
+                class="w-28 h-28 rounded-full border-2 border-dashed border-gray-300 group-hover:border-primary group-hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-1">
+                <svg class="w-7 h-7 text-charcoal/30 group-hover:text-primary transition-colors" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
                 </svg>
-                <span class="text-[10px] text-charcoal/30 group-hover:text-primary transition-colors font-medium">Foto</span>
+                <span
+                  class="text-[10px] text-charcoal/30 group-hover:text-primary transition-colors font-medium">Foto</span>
               </div>
-              <div class="absolute bottom-0 right-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center shadow-soft group-hover:scale-110 transition-transform">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
-                  <circle cx="12" cy="13" r="4"/>
+              <div
+                class="absolute bottom-0 right-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center shadow-soft group-hover:scale-110 transition-transform">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
+                  <circle cx="12" cy="13" r="4" />
                 </svg>
               </div>
             </label>
@@ -150,20 +166,19 @@
             <label class="block text-sm font-medium text-charcoal mb-2">Correo Universitario</label>
             <div class="relative">
               <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg class="w-5 h-5 text-charcoal/30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
+                <svg class="w-5 h-5 text-charcoal/30" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
                 </svg>
               </div>
-              <input
-                type="email"
-                placeholder="tu@universidad.edu.pe"
-                class="w-full rounded-full border border-border-color bg-white pl-11 pr-5 py-3 text-sm text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
-              >
+              <input type="email" placeholder="tu@universidad.edu.pe"
+                class="w-full rounded-full border border-border-color bg-white pl-11 pr-5 py-3 text-sm text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
             </div>
             <p class="mt-2 text-xs text-charcoal/40 flex items-center gap-1.5">
               <svg class="w-3.5 h-3.5 text-skyblue" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
               </svg>
               Debe ser un correo institucional (*.edu.pe o *.edu)
             </p>
@@ -174,18 +189,22 @@
 
       <!-- Footer Actions -->
       <div class="bg-gray-50 px-8 py-6 border-t border-border-color flex items-center justify-between">
-        <button class="text-sm font-medium text-charcoal/60 hover:text-charcoal transition-colors inline-flex items-center gap-1.5">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12"/>
-            <polyline points="12 19 5 12 12 5"/>
+        <button
+          class="text-sm font-medium text-charcoal/60 hover:text-charcoal transition-colors inline-flex items-center gap-1.5">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
           </svg>
           Atrás
         </button>
-        <button class="bg-primary text-white rounded-full px-8 py-3 text-sm font-semibold hover:bg-primary/90 active:scale-95 transition-all shadow-soft inline-flex items-center gap-2">
+        <button
+          class="bg-primary text-white rounded-full px-8 py-3 text-sm font-semibold hover:bg-primary/90 active:scale-95 transition-all shadow-soft inline-flex items-center gap-2">
           Verificar Identidad
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12" />
+            <polyline points="12 5 19 12 12 19" />
           </svg>
         </button>
       </div>
@@ -198,6 +217,7 @@
     <p class="text-xs text-charcoal/30">© 2024 CuscoRent. Cusco, Perú.</p>
   </footer>
 
-    <?!= include('Scripts'); ?>
+  <?!= include('Scripts'); ?>
 </body>
+
 </html>

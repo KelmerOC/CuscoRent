@@ -58,10 +58,10 @@
                 <span class="font-serif text-charcoal text-xl font-bold">Cusco</span><span class="font-serif text-primary text-xl font-bold">Rent</span>
             </a>
             <div class="hidden md:flex items-center gap-8">
-                <a href="#" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Explorar</a>
-                <a href="#" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Favoritos</a>
-                <a href="#" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Mensajes</a>
-                <a href="#" class="text-primary border-b-2 border-primary pb-0.5 font-medium text-sm transition-all">Perfil</a>
+                <a href="<?= getScriptUrl() ?>?page=HomeEstudiante" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Explorar</a>
+                <a href="<?= getScriptUrl() ?>?page=HomeEstudiante#favoritos" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Favoritos</a>
+                <a href="<?= getScriptUrl() ?>?page=HomeEstudiante#mensajes" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Mensajes</a>
+                <a href="<?= getScriptUrl() ?>?page=PerfilEstudiante" class="text-primary border-b-2 border-primary pb-0.5 font-medium text-sm transition-all">Perfil</a>
             </div>
             <div class="flex items-center gap-3">
                 <button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
@@ -80,15 +80,13 @@
                 <div class="flex flex-col items-center text-center">
                     <div class="relative mb-4">
                         <div class="w-32 h-128 rounded-full overflow-hidden border-4 border-primary ring-4 ring-primary/10" style="width:128px;height:128px;">
-                            <img class="w-full h-full object-cover"
-                                data-alt="A professional headshot of a young student in their early 20s, smiling warmly. They are outdoors in Cusco, with blurred historic stone architecture and a vibrant blue sky in the background. The lighting is soft morning sun, giving a warm, optimistic glow. The overall style is clean, modern, and trustworthy, fitting a corporate student rental application."
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH5J7BBPRA8jnxHr_9WXUM8Yq3vx3VmTGu6jroE2Hc7lPb0thqrpOGyrvwRVrUn40cAs4eoNfw_6OJ4_5V2BYpmuFXXhsqglJ30CxE9LZicNHtkfHKMRYwXDG-t-1uC_MZtYiE_uRpa-7HhaeoSaIEatCNm-IwaQG85yzxfAofSC5048O_DeJ32XgRxy0fKyXQ7Z3dy_dB6oiyyWwisxb4-j5Naw48zxWAbcnjOublqruAkzULYOJ0EU61x3cH5GSA4usfo41Umzm3" />
+                            <div id="perfilAvatar" class="w-full h-full flex items-center justify-center bg-primary/20 text-primary font-bold text-4xl">E</div>
                         </div>
                         <button class="absolute bottom-1 right-1 bg-primary text-white rounded-full p-2 shadow-md hover:scale-105 transition-transform">
                             <span class="material-symbols-outlined text-[18px]">edit</span>
                         </button>
                     </div>
-                    <h1 class="font-serif text-xl text-charcoal">Mateo Quispe</h1>
+                    <h1 id="perfilNombre" class="font-serif text-xl text-charcoal">Estudiante</h1>
                     <div class="mt-2 flex items-center gap-1 px-3 py-1 bg-sage/20 text-sage rounded-full">
                         <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
                         <span class="text-xs font-medium">Estudiante Verificado</span>
@@ -104,7 +102,7 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="material-symbols-outlined text-charcoal/50">location_on</span>
-                            <span class="text-sm text-charcoal/70">Residiendo en: San Blas</span>
+                            <span id="infoDistrito" class="text-sm text-charcoal/70">Residiendo en: Cusco</span>
                         </div>
                     </div>
                 </div>
@@ -142,23 +140,23 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-medium text-charcoal/70">Nombre Completo</label>
-                            <input class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm" type="text" value="Mateo Alexander Quispe Huamán" />
+                            <input id="inputNombre" class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm" type="text" value="" />
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-medium text-charcoal/70">Correo Electrónico</label>
-                            <input class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm" type="email" value="mateo.quispe@unsaac.edu.pe" />
+                            <input id="inputEmail" class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm" type="email" value="" />
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-medium text-charcoal/70">Teléfono</label>
-                            <input class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm" type="tel" value="+51 984 123 456" />
+                            <input id="inputTelefono" class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm" type="tel" value="" />
                         </div>
                         <div class="flex flex-col gap-2">
                             <label class="text-sm font-medium text-charcoal/70">Documento de Identidad (DNI)</label>
-                            <input class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 opacity-70 text-sm" disabled type="text" value="7283XXXX" />
+                            <input id="inputDNI" class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 opacity-70 text-sm" disabled type="text" value="" />
                         </div>
                     </div>
                     <div class="mt-6 flex justify-end">
-                        <button class="bg-primary text-white rounded-full px-8 py-3 font-medium hover:bg-primary/90 active:scale-95 transition-all text-sm">Guardar Cambios</button>
+                        <button onclick="guardarPerfil()" class="bg-primary text-white rounded-full px-8 py-3 font-medium hover:bg-primary/90 active:scale-95 transition-all text-sm">Guardar Cambios</button>
                     </div>
                 </div>
 
@@ -273,45 +271,62 @@
         </div>
     </footer>
 
+    <?!= include('Scripts'); ?>
     <script>
+        var SCRIPT_URL = "<?= getScriptUrl() ?>";
+        var currentUser = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            try { currentUser = JSON.parse(localStorage.getItem('user')); } catch(e) {}
+            if (!currentUser || !currentUser.EstudianteID) {
+                window.location.href = SCRIPT_URL + '?page=Login';
+                return;
+            }
+            document.getElementById('perfilNombre').textContent = currentUser.NombreCompleto || 'Estudiante';
+            document.getElementById('perfilAvatar').textContent = (currentUser.NombreCompleto || 'E').charAt(0).toUpperCase();
+            document.getElementById('inputNombre').value = currentUser.NombreCompleto || '';
+            document.getElementById('inputEmail').value = currentUser.CorreoInstitucional || '';
+            document.getElementById('inputTelefono').value = currentUser.Telefono || '';
+            document.getElementById('inputDNI').value = currentUser.DNI || 'No registrado';
+            document.getElementById('infoDistrito').textContent = 'Residiendo en: ' + (currentUser.Distrito || 'Cusco');
+        });
+
         function switchTab(tabId) {
-            // Hide all content
-            document.querySelectorAll('.tab-content').forEach(content => {
-                content.classList.add('hidden');
+            document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.add('hidden'); });
+            document.querySelectorAll('button[id^="tab-"]').forEach(function(b) {
+                b.classList.remove('tab-active');
+                b.classList.add('tab-inactive');
             });
-
-            // Remove active style from all buttons
-            document.querySelectorAll('button[id^="tab-"]').forEach(btn => {
-                btn.classList.remove('tab-active');
-                btn.classList.add('tab-inactive');
-            });
-
-            // Show selected content
             document.getElementById('content-' + tabId).classList.remove('hidden');
-
-            // Set active style for selected button
-            const activeBtn = document.getElementById('tab-' + tabId);
+            var activeBtn = document.getElementById('tab-' + tabId);
             activeBtn.classList.add('tab-active');
             activeBtn.classList.remove('tab-inactive');
         }
 
-        // Interaction logic for buttons
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('mousedown', () => {
-                button.classList.add('scale-95');
-                button.classList.add('opacity-80');
-            });
-            button.addEventListener('mouseup', () => {
-                button.classList.remove('scale-95');
-                button.classList.remove('opacity-80');
-            });
-            button.addEventListener('mouseleave', () => {
-                button.classList.remove('scale-95');
-                button.classList.remove('opacity-80');
-            });
-        });
+        function guardarPerfil() {
+            var telefono = document.getElementById('inputTelefono').value.trim();
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    if (res && res.success) {
+                        currentUser.Telefono = telefono;
+                        localStorage.setItem('user', JSON.stringify(currentUser));
+                        alert('Perfil actualizado');
+                    } else {
+                        alert('Error al actualizar');
+                    }
+                })
+                .withFailureHandler(function(e) { console.error(e); alert('Error del servidor'); })
+                .actualizarPerfilArrendador({
+                    ArrendadorID: currentUser.EstudianteID,
+                    Telefono: telefono
+                });
+        }
+
+        function cerrarSesion() {
+            localStorage.removeItem('user');
+            window.location.href = SCRIPT_URL + '?page=Login';
+        }
     </script>
-    <?!= include('Scripts'); ?>
 </body>
 
 </html>

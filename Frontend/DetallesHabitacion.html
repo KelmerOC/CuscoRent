@@ -44,9 +44,9 @@
                     <span class="font-serif text-charcoal text-xl">Cusco</span><span class="font-serif text-primary text-xl">Rent</span>
                 </a>
                 <div class="hidden md:flex items-center gap-6">
-                    <a class="text-sm font-medium text-charcoal hover:text-primary transition-colors" href="#">Explorar</a>
-                    <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors" href="#">Favoritos</a>
-                    <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors" href="#">Mensajes</a>
+                    <a class="text-sm font-medium text-charcoal hover:text-primary transition-colors" href="<?= getScriptUrl() ?>?page=HomeEstudiante">Explorar</a>
+                    <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors" href="<?= getScriptUrl() ?>?page=HomeEstudiante#favoritos">Favoritos</a>
+                    <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors" href="<?= getScriptUrl() ?>?page=HomeEstudiante#mensajes">Mensajes</a>
                 </div>
             </div>
             <div class="flex items-center gap-4">
@@ -276,27 +276,138 @@
         </div>
     </footer>
 
+    <?!= include('Scripts'); ?>
     <script>
-        // Micro-interactions for gallery hover effects and buttons
-        document.querySelectorAll('button').forEach(button => {
-            button.addEventListener('mousedown', () => {
-                button.style.transform = 'scale(0.96)';
-            });
-            button.addEventListener('mouseup', () => {
-                button.style.transform = 'scale(1)';
-            });
-            button.addEventListener('mouseleave', () => {
-                button.style.transform = 'scale(1)';
-            });
+        const SCRIPT_URL = "<?= getScriptUrl() ?>";
+        let habitacionData = null;
+        let currentUser = null;
+
+        function getUrlParam(name) {
+            const params = new URLSearchParams(window.location.search);
+            return params.get(name);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            try { currentUser = JSON.parse(localStorage.getItem('user')); } catch(e) {}
+            const hospedajeId = getUrlParam('id');
+            if (!hospedajeId) {
+                document.querySelector('main').innerHTML = '<div style="text-align:center;padding:4rem;color:#999;">Habitación no encontrada</div>';
+                return;
+            }
+            cargarHabitacion(hospedajeId);
         });
 
-        // Sticky observer for the booking card to handle potential overlap on mobile if needed
-        const observer = new IntersectionObserver(
-            ([e]) => e.target.classList.toggle('is-pinned', e.intersectionRatio < 1),
-            { threshold: [1] }
-        );
+        function cargarHabitacion(id) {
+            google.script.run
+                .withSuccessHandler(function(data) {
+                    const lista = data || [];
+                    habitacionData = lista.find(function(h) { return h.HospedajeID === id; });
+                    if (!habitacionData) {
+                        document.querySelector('main').innerHTML = '<div style="text-align:center;padding:4rem;color:#999;">Habitación no encontrada</div>';
+                        return;
+                    }
+                    renderHabitacion(habitacionData);
+                })
+                .withFailureHandler(function(err) {
+                    console.error(err);
+                    document.querySelector('main').innerHTML = '<div style="text-align:center;padding:4rem;color:#999;">Error al cargar</div>';
+                })
+                .getHospedajes();
+        }
+
+        function renderHabitacion(h) {
+            var imgs = (h.ImagenURL || h.FotoURL || h.Imagen || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+            var mainImg = imgs[0] || 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=800&h=600&fit=crop';
+            var servicios = (h.Servicios || '').split(',').map(function(s){ return s.trim(); }).filter(Boolean);
+
+            document.querySelector('main').innerHTML =
+                '<section class="grid grid-cols-4 grid-rows-2 gap-3 h-[500px] rounded-[20px] overflow-hidden mb-8">' +
+                    '<div class="col-span-2 row-span-2 relative group cursor-pointer overflow-hidden rounded-l-[20px]">' +
+                        '<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" src="' + mainImg + '">' +
+                    '</div>' +
+                    '<div class="col-span-1 row-span-1 overflow-hidden"><img class="w-full h-full object-cover" src="' + (imgs[1] || mainImg) + '"></div>' +
+                    '<div class="col-span-1 row-span-1 overflow-hidden rounded-tr-[20px]"><img class="w-full h-full object-cover" src="' + (imgs[2] || mainImg) + '"></div>' +
+                    '<div class="col-span-1 row-span-1 overflow-hidden"><img class="w-full h-full object-cover" src="' + (imgs[3] || mainImg) + '"></div>' +
+                    '<div class="col-span-1 row-span-1 overflow-hidden rounded-br-[20px]"><img class="w-full h-full object-cover" src="' + (imgs[4] || mainImg) + '"></div>' +
+                '</section>' +
+                '<div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">' +
+                    '<div class="lg:col-span-8 space-y-8">' +
+                        '<div class="border-b border-border-color pb-8">' +
+                            '<h1 class="font-serif text-charcoal text-3xl mb-2">' + (h.Titulo || 'Habitación') + '</h1>' +
+                            '<div class="flex items-center gap-2 text-charcoal/60 text-sm">' +
+                                '<span class="material-symbols-outlined text-[20px]">location_on</span>' +
+                                '<span>' + (h.Distrito || 'Cusco') + ', Perú</span>' +
+                            '</div>' +
+                            '<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">' +
+                                servicios.map(function(s) {
+                                    return '<div class="bg-white rounded-[16px] p-4 shadow-soft flex flex-col items-center text-center"><span class="material-symbols-outlined text-primary mb-1">check_circle</span><span class="text-sm font-medium">' + s + '</span></div>';
+                                }).join('') +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="space-y-4">' +
+                            '<h2 class="font-serif text-charcoal text-xl">Acerca de esta habitación</h2>' +
+                            '<p class="text-charcoal/70 leading-relaxed">' + (h.Descripcion || 'Sin descripción disponible.') + '</p>' +
+                        '</div>' +
+                        '<div class="space-y-4 pt-4">' +
+                            '<h2 class="font-serif text-charcoal text-xl">Detalles</h2>' +
+                            '<div class="grid grid-cols-1 md:grid-cols-2 gap-4">' +
+                                '<div class="flex items-start gap-3"><span class="material-symbols-outlined text-charcoal/60">home</span><span class="text-sm text-charcoal/70">Tipo: ' + (h.TipoHabitacion || '—') + '</span></div>' +
+                                '<div class="flex items-start gap-3"><span class="material-symbols-outlined text-charcoal/60">location_on</span><span class="text-sm text-charcoal/70">Dirección: ' + (h.Direccion || '—') + '</span></div>' +
+                                '<div class="flex items-start gap-3"><span class="material-symbols-outlined text-charcoal/60">star</span><span class="text-sm text-charcoal/70">Calificación: ' + (h.CalificacionPromedio || 'Nuevo') + '</span></div>' +
+                                '<div class="flex items-start gap-3"><span class="material-symbols-outlined text-charcoal/60">info</span><span class="text-sm text-charcoal/70">Estado: ' + (h.Estado || '—') + '</span></div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="lg:col-span-4 space-y-6 lg:sticky lg:top-24">' +
+                        '<div class="bg-white rounded-[20px] shadow-card p-6 space-y-6">' +
+                            '<div class="flex justify-between items-baseline">' +
+                                '<div class="flex items-baseline gap-1"><span class="text-3xl font-bold text-charcoal">S/ ' + (h.PrecioMensual || '---') + '</span><span class="text-charcoal/60 text-sm">/ mes</span></div>' +
+                                '<div class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined fill-icon text-[18px]">star</span><span class="text-sm font-medium">' + (h.CalificacionPromedio || 'Nuevo') + '</span></div>' +
+                            '</div>' +
+                            '<div class="space-y-3">' +
+                                '<button class="bg-primary text-white rounded-full w-full py-4 font-semibold text-lg hover:bg-primary/90 active:scale-[0.97] transition-all shadow-md" onclick="reservarHabitacion()">Reservar Ahora</button>' +
+                                '<button class="border-2 border-skyblue text-skyblue rounded-full w-full py-4 font-semibold hover:bg-skyblue/5 transition-all" onclick="contactarArrendador()">Contactar Propietario</button>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        function reservarHabitacion() {
+            if (!currentUser || !currentUser.EstudianteID) {
+                alert('Debes iniciar sesión para reservar.');
+                window.location.href = SCRIPT_URL + '?page=Login';
+                return;
+            }
+            if (!habitacionData) return;
+            if (!confirm('¿Reservar esta habitación por S/ ' + habitacionData.PrecioMensual + ' al mes?')) return;
+
+            google.script.run
+                .withSuccessHandler(function(res) {
+                    alert(res.message);
+                    if (res.success) {
+                        habitacionData.Estado = 'Ocupado';
+                        renderHabitacion(habitacionData);
+                    }
+                })
+                .withFailureHandler(function(err) { console.error(err); alert('Error al reservar'); })
+                .crearReserva(currentUser.EstudianteID, habitacionData.HospedajeID, habitacionData.ArrendadorID, habitacionData.PrecioMensual);
+        }
+
+        function contactarArrendador() {
+            if (!currentUser || !currentUser.EstudianteID) {
+                alert('Debes iniciar sesión.');
+                window.location.href = SCRIPT_URL + '?page=Login';
+                return;
+            }
+            var msg = prompt('Escribe tu mensaje al propietario:');
+            if (!msg || !msg.trim()) return;
+            google.script.run
+                .withSuccessHandler(function(res) { alert(res.message); })
+                .withFailureHandler(function(err) { console.error(err); alert('Error al enviar'); })
+                .sendMessage(currentUser.EstudianteID, habitacionData.ArrendadorID, habitacionData.HospedajeID, msg.trim());
+        }
     </script>
-    <?!= include('Scripts'); ?>
 </body>
 
 </html>

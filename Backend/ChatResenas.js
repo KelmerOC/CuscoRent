@@ -19,10 +19,21 @@ function getMensajesPorArrendador(arrendadorId) {
     const mensajes = getSheetData('MensajesChat');
     const estudiantes = getSheetData('Estudiantes');
     const resultado = mensajes.filter(m => String(m.ReceptorID) === String(arrendadorId));
-    // Enriquecer con nombre del remitente
     return resultado.map(m => {
         const est = estudiantes.find(e => String(e.EstudianteID) === String(m.RemitenteID));
-        return Object.assign({}, m, { NombreRemitente: est ? est.NombreCompleto : m.RemitenteID });
+        return Object.assign({}, m, { RemitenteNombre: est ? est.NombreCompleto : m.RemitenteID });
+    });
+}
+
+function getMensajesPorUsuario(usuarioId) {
+    const mensajes = getSheetData('MensajesChat');
+    const resultado = mensajes.filter(m =>
+        String(m.ReceptorID) === String(usuarioId) || String(m.RemitenteID) === String(usuarioId)
+    );
+    const arrendadores = getSheetData('Arrendadores');
+    return resultado.map(m => {
+        const arr = arrendadores.find(a => String(a.ArrendadorID) === String(m.RemitenteID));
+        return Object.assign({}, m, { RemitenteNombre: arr ? arr.NombreCompleto : m.RemitenteID });
     });
 }
 
