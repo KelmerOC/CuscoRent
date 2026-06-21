@@ -9,13 +9,11 @@ function doGet(e) {
     
     const validPages = [
         'Login', 
-        'HomeEstudiante', 
-        'DashboardArrendador', 
+        'Estudiante', 
+        'Arrendador', 
         'Administrador',
         'ChatWEB',
-        'DetallesHabitacion',
-        'PerfilEstudiante',
-        'VerificacionIdentidad'
+        'PerfilEstudiante'
     ];
     if (!validPages.includes(page)) {
         page = 'Login';

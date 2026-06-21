@@ -105,3 +105,30 @@ function recuperarCuenta(email) {
         return { success: false, message: 'Hubo un error al enviar el correo. Por favor, intenta de nuevo más tarde.' };
     }
 }
+
+function actualizarPerfilEstudiante(datos) {
+    const id = datos && datos.EstudianteID;
+    if (!id) return { success: false, message: 'Falta EstudianteID.' };
+
+    const sheet = SpreadsheetApp.openById(CONFIG.SPREADSHEET_ID).getSheetByName('Estudiantes');
+    if (!sheet) return { success: false, message: 'Hoja Estudiantes no encontrada.' };
+
+    const rows = sheet.getDataRange().getValues();
+    const headers = rows[0];
+    const colEstudianteID = headers.indexOf('EstudianteID');
+    if (colEstudianteID === -1) return { success: false, message: 'Columna EstudianteID no encontrada.' };
+
+    for (let i = 1; i < rows.length; i++) {
+        if (String(rows[i][colEstudianteID]) === String(id)) {
+            const editableFields = ['NombreCompleto', 'Telefono', 'BuscaRoommate', 'Intereses'];
+            editableFields.forEach(function(field) {
+                const col = headers.indexOf(field);
+                if (col !== -1 && datos[field] !== undefined) {
+                    sheet.getRange(i + 1, col + 1).setValue(datos[field]);
+                }
+            });
+            return { success: true, message: 'Perfil actualizado correctamente.' };
+        }
+    }
+    return { success: false, message: 'Estudiante no encontrado.' };
+}

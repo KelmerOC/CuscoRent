@@ -5,21 +5,13 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>CuscoRent | Perfil de Estudiante</title>
-    
-    
-    
-    
-    
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
 
+    <style>
+        /* Tab states — uses design tokens from Estilos.html */
         .tab-active {
             border-bottom-width: 2px;
-            border-bottom-color: #c28e46;
-            color: #c28e46;
+            border-bottom-color: var(--primary);
+            color: var(--primary);
             font-weight: 600;
         }
 
@@ -27,24 +19,11 @@
             border-bottom-width: 2px;
             border-bottom-color: transparent;
             color: rgba(33, 31, 29, 0.5);
-            transition: color 0.2s;
+            transition: color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .tab-inactive:hover {
-            color: #c28e46;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e6dec9;
-            border-radius: 10px;
+            color: var(--primary);
         }
     </style>
     <?!= include('Estilos'); ?>
@@ -58,9 +37,9 @@
                 <span class="font-serif text-charcoal text-xl font-bold">Cusco</span><span class="font-serif text-primary text-xl font-bold">Rent</span>
             </a>
             <div class="hidden md:flex items-center gap-8">
-                <a href="<?= getScriptUrl() ?>?page=HomeEstudiante" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Explorar</a>
-                <a href="<?= getScriptUrl() ?>?page=HomeEstudiante#favoritos" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Favoritos</a>
-                <a href="<?= getScriptUrl() ?>?page=HomeEstudiante#mensajes" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Mensajes</a>
+                <a href="<?= getScriptUrl() ?>?page=Estudiante" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Explorar</a>
+                <a href="<?= getScriptUrl() ?>?page=Estudiante" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Favoritos</a>
+                <a href="<?= getScriptUrl() ?>?page=ChatWEB" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Mensajes</a>
                 <a href="<?= getScriptUrl() ?>?page=PerfilEstudiante" class="text-primary border-b-2 border-primary pb-0.5 font-medium text-sm transition-all">Perfil</a>
             </div>
             <div class="flex items-center gap-3">
@@ -304,27 +283,33 @@
         }
 
         function guardarPerfil() {
+            var nombre = document.getElementById('inputNombre').value.trim();
             var telefono = document.getElementById('inputTelefono').value.trim();
+            var buscaRoommate = document.getElementById('selectBuscaRoommate') ? document.getElementById('selectBuscaRoommate').value : (currentUser.BuscaRoommate || 'No');
+            var intereses = document.getElementById('inputIntereses') ? document.getElementById('inputIntereses').value : (currentUser.Intereses || '');
             google.script.run
                 .withSuccessHandler(function(res) {
                     if (res && res.success) {
+                        currentUser.NombreCompleto = nombre;
                         currentUser.Telefono = telefono;
+                        currentUser.BuscaRoommate = buscaRoommate;
+                        currentUser.Intereses = intereses;
                         localStorage.setItem('user', JSON.stringify(currentUser));
+                        document.getElementById('perfilNombre').textContent = nombre;
+                        document.getElementById('perfilAvatar').textContent = nombre.charAt(0).toUpperCase();
                         alert('Perfil actualizado');
                     } else {
-                        alert('Error al actualizar');
+                        alert('Error al actualizar: ' + (res && res.message ? res.message : ''));
                     }
                 })
                 .withFailureHandler(function(e) { console.error(e); alert('Error del servidor'); })
-                .actualizarPerfilArrendador({
-                    ArrendadorID: currentUser.EstudianteID,
-                    Telefono: telefono
+                .actualizarPerfilEstudiante({
+                    EstudianteID: currentUser.EstudianteID,
+                    NombreCompleto: nombre,
+                    Telefono: telefono,
+                    BuscaRoommate: buscaRoommate,
+                    Intereses: intereses
                 });
-        }
-
-        function cerrarSesion() {
-            localStorage.removeItem('user');
-            window.location.href = SCRIPT_URL + '?page=Login';
         }
     </script>
 </body>
