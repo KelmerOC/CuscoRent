@@ -478,12 +478,14 @@
         </div>
     </div>
 
-    <div id="yapeModal" class="modal-backdrop hidden transition-opacity duration-300">
+    <div id="yapeModal" class="modal-backdrop !z-[110] hidden transition-opacity duration-300">
         <div class="modal-content max-w-md transform transition-all duration-300 scale-95 opacity-0 shadow-2xl rounded-[32px] overflow-hidden"
             id="yapeModalBox">
             <div class="absolute top-0 left-0 w-full h-3 bg-[#742284]"></div>
             <button type="button" onclick="closeYapeModal()"
-                class="modal-close mt-2 mr-2 hover:bg-gray-100 rounded-full p-1 transition-colors"></button>
+                class="modal-close mt-2 mr-2 hover:bg-gray-100 rounded-full p-1 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
             <div class="flex justify-center mb-6 mt-6">
                 <div
                     class="w-20 h-20 bg-[#742284] rounded-3xl flex items-center justify-center shadow-lg transform rotate-3">
@@ -526,10 +528,12 @@
         </div>
     </div>
 
-    <div id="messageModal" class="modal-backdrop hidden transition-opacity duration-300">
+    <div id="messageModal" class="modal-backdrop !z-[110] hidden transition-opacity duration-300">
         <div class="modal-content rounded-[24px] shadow-2xl transform transition-all scale-95" id="msgModalBox">
             <button type="button" onclick="closeMessageModal()"
-                class="modal-close hover:bg-gray-100 rounded-full p-1 transition-colors"></button>
+                class="modal-close hover:bg-gray-100 rounded-full p-1 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
             <h2 class="text-2xl font-bold text-charcoal mb-6 font-serif">Contactar Arrendador</h2>
             <form id="messageForm" onsubmit="handleSendMessage(event)">
                 <textarea id="msgContent" rows="4" placeholder="Escribe tu mensaje aquí..." required
@@ -541,10 +545,12 @@
         </div>
     </div>
 
-    <div id="reviewModal" class="modal-backdrop hidden transition-opacity duration-300">
+    <div id="reviewModal" class="modal-backdrop !z-[110] hidden transition-opacity duration-300">
         <div class="modal-content rounded-[24px] shadow-2xl transform transition-all scale-95" id="revModalBox">
             <button type="button" onclick="closeReviewModal()"
-                class="modal-close hover:bg-gray-100 rounded-full p-1 transition-colors"></button>
+                class="modal-close hover:bg-gray-100 rounded-full p-1 transition-colors">
+                <span class="material-symbols-outlined">close</span>
+            </button>
             <h2 class="text-2xl font-bold text-charcoal mb-6 font-serif">Calificar Habitación</h2>
             <form id="reviewForm" onsubmit="handleAddReview(event)">
                 <div class="flex gap-4 mb-8 justify-center bg-gray-50 py-4 rounded-xl border border-gray-100"
@@ -572,7 +578,7 @@
         </div>
     </div>
 
-    <div id="receiptModal" class="modal-backdrop hidden transition-opacity duration-300">
+    <div id="receiptModal" class="modal-backdrop !z-[110] hidden transition-opacity duration-300">
         <div class="modal-content max-w-md text-center rounded-[32px] shadow-2xl transform transition-all scale-95"
             id="recModalBox">
             <div
