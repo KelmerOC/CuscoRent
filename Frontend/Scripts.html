@@ -16,27 +16,41 @@
     function showToast(message, type = 'info') {
         const container = document.getElementById('toastContainer');
         if(!container) return;
+        
         const toast = document.createElement('div');
-        const icons = { success: 'check_circle', error: 'error', info: 'info' };
-        toast.className = `toast ${type}`;
+        const icons = { success: 'check_circle', error: 'report', info: 'info' };
+        
+        const typeClasses = {
+            success: 'bg-sage text-white shadow-sage/20',
+            error: 'bg-secondary text-white shadow-secondary/20',
+            info: 'bg-skyblue text-white shadow-skyblue/20'
+        };
+
+        toast.className = `toast ${type} ${typeClasses[type] || 'bg-charcoal text-white'} flex items-center gap-3 px-6 py-4 rounded-[20px] shadow-xl transform transition-all duration-500 ease-out translate-y-10 opacity-0`;
         
         toast.innerHTML = `
-            <span class="material-symbols-outlined icon">${icons[type] || 'info'}</span>
-            <span class="font-medium text-sm">${message}</span>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                <span class="material-symbols-outlined text-lg">${icons[type] || 'info'}</span>
+            </div>
+            <div class="flex-1">
+                <p class="font-bold text-sm tracking-tight leading-tight">${message}</p>
+            </div>
         `;
         
         container.appendChild(toast);
         
-        // Animate in
         requestAnimationFrame(() => {
-            toast.classList.add('animate-slide-up');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            }, 10);
         });
         
         setTimeout(() => {
-            toast.classList.add('opacity-0');
-            toast.style.transform = 'translateY(100%)';
-            setTimeout(() => toast.remove(), 300);
-        }, 4000);
+            toast.classList.add('opacity-0', 'scale-95');
+            toast.style.transform = 'translateY(-20px)';
+            setTimeout(() => toast.remove(), 500);
+        }, 5000);
     }
 
     // ============================================================
@@ -45,20 +59,26 @@
     function showLoader(text = 'Procesando...') {
         const loader = document.getElementById('overlayLoader');
         if(loader) {
-            document.getElementById('loaderText').textContent = text;
+            const textEl = document.getElementById('loaderText');
+            if(textEl) textEl.textContent = text;
             loader.classList.remove('hidden');
+            loader.classList.add('animate-fade-in');
         }
     }
     
     function hideLoader() {
         const loader = document.getElementById('overlayLoader');
         if(loader) {
-            loader.classList.add('hidden');
+            loader.classList.add('opacity-0');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                loader.classList.remove('opacity-0', 'animate-fade-in');
+            }, 300);
         }
     }
 
     // ============================================================
-    // MODAL (confirm + alert estilizados)
+    // MODAL SYSTEM
     // ============================================================
     let modalCallback = null;
     let modalType = 'confirm';
@@ -80,12 +100,12 @@
                 </button>
                 <div class="modal-header">
                     <div class="flex items-start gap-4">
-                        <div id="appConfirmIconWrap" class="w-12 h-12 flex-shrink-0 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-                            <span class="material-symbols-outlined text-3xl" id="appConfirmIcon">help</span>
+                        <div id="appConfirmIconWrap" class="w-14 h-14 flex-shrink-0 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-4xl" id="appConfirmIcon">help</span>
                         </div>
-                        <div class="flex-1">
-                            <h3 id="appConfirmTitle" class="text-lg font-bold text-charcoal mb-1">Confirmar</h3>
-                            <p id="appConfirmMessage" class="text-sm text-gray-600 whitespace-pre-wrap">¿Estás seguro?</p>
+                        <div class="flex-1 pt-1">
+                            <h3 id="appConfirmTitle" class="text-xl font-bold text-charcoal mb-1">Confirmar</h3>
+                            <p id="appConfirmMessage" class="text-sm text-gray-500 leading-relaxed whitespace-pre-wrap">¿Estás seguro?</p>
                         </div>
                     </div>
                 </div>
@@ -120,12 +140,12 @@
 
         if (opts.danger) {
             okBtn.className = 'btn btn-danger';
-            iconWrap.className = 'w-12 h-12 flex-shrink-0 rounded-xl bg-secondary/10 text-secondary flex items-center justify-center';
+            iconWrap.className = 'w-14 h-14 flex-shrink-0 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center';
             icon.textContent = 'warning';
             okBtn.textContent = opts.okLabel || 'Eliminar';
         } else {
             okBtn.className = 'btn btn-primary';
-            iconWrap.className = 'w-12 h-12 flex-shrink-0 rounded-xl bg-primary/10 text-primary flex items-center justify-center';
+            iconWrap.className = 'w-14 h-14 flex-shrink-0 rounded-2xl bg-primary/10 text-primary flex items-center justify-center';
             icon.textContent = 'help';
             okBtn.textContent = opts.okLabel || 'Confirmar';
         }
@@ -156,76 +176,94 @@
         modalType = 'confirm';
     }
 
-    function mostrarModal(titulo, mensaje, onConfirm) {
-        showConfirmModal(titulo, mensaje, onConfirm);
-    }
-
     // ============================================================
-    // UNIFIED TAB SWITCHING (centralized for all pages)
+    // NAVIGATION & URL PERSISTENCE
     // ============================================================
-    function switchTab(activeTab, allTabs, tabPrefix, sectionPrefix) {
-        tabPrefix = tabPrefix || 'tabBtn';
-        sectionPrefix = sectionPrefix || 'seccion';
-        const tabs = Array.isArray(allTabs) ? allTabs : [allTabs];
-        tabs.forEach(t => {
-            const seccion = document.getElementById(sectionPrefix + '-' + t);
-            const boton = document.getElementById(tabPrefix + '-' + t);
-            if (seccion) {
-                seccion.classList.toggle('hidden', t !== activeTab);
-                if (t === activeTab) seccion.classList.remove('hidden');
-            }
-            if (boton) {
-                boton.classList.toggle('active', t === activeTab);
-                if (t !== activeTab) boton.classList.remove('active');
-            }
-        });
+    function syncUrlWithTab(tab) {
+        if (!window.history.pushState) return;
+        const url = new URL(window.location.href);
+        url.searchParams.set('tab', tab);
+        window.history.pushState({ tab: tab }, '', url);
     }
 
     function switchMainTab(tab) {
-        var pageTabs;
+        let pageTabs = [];
         if (APP.currentRole === 'estudiante') {
-            pageTabs = ['buscar', 'reservas', 'roommates', 'documentos'];
+            pageTabs = ['buscar', 'reservas', 'mensajes', 'roommates', 'documentos'];
         } else if (APP.currentRole === 'arrendador') {
-            pageTabs = ['habitaciones', 'reservas', 'mensajes', 'documentos'];
+            pageTabs = ['habitaciones', 'reservas', 'mensajes', 'resenas', 'perfil', 'documentos'];
         } else if (APP.currentRole === 'administrador') {
             pageTabs = ['dashboard', 'habitaciones', 'estudiantes', 'arrendadores'];
-        } else {
-            pageTabs = ['buscar', 'reservas', 'roommates', 'documentos', 'habitaciones', 'mensajes', 'documentos', 'dashboard', 'estudiantes', 'arrendadores'];
         }
+
         pageTabs.forEach(t => {
-            var seccion = document.getElementById('seccion-' + t);
-            var boton = document.getElementById('tabBtn-' + t);
+            const seccion = document.getElementById(`seccion-${t}`);
+            const boton = document.getElementById(`tabBtn-${t}`);
+            const mobileBoton = document.getElementById(`tabBtn-${t}-mobile`);
+            
             if (seccion) seccion.classList.toggle('hidden', t !== tab);
-            if (boton) boton.classList.toggle('active', t === tab);
+            if (boton) {
+                boton.classList.toggle('active', t === tab);
+                boton.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+            }
+            if (mobileBoton) {
+                mobileBoton.classList.toggle('bg-primary/10', t === tab);
+                mobileBoton.classList.toggle('text-primary', t === tab);
+            }
         });
+        
+        syncUrlWithTab(tab);
+        
+        // Trigger specific loads if needed
+        if (tab === 'buscar' && typeof cargarCatalogo === 'function') cargarCatalogo();
+        if (tab === 'reservas' && typeof cargarMisReservas === 'function') cargarMisReservas();
+        if (tab === 'mensajes' && APP.currentRole === 'estudiante' && typeof cargarMensajesEstudiante === 'function') cargarMensajesEstudiante();
+        if (tab === 'roommates' && typeof cargarRoommates === 'function') cargarRoommates();
+        if (tab === 'documentos' && typeof cargarImagenesExistentes === 'function') cargarImagenesExistentes();
+        if (tab === 'habitaciones' && APP.currentRole === 'arrendador' && typeof cargarMisHabitaciones === 'function') cargarMisHabitaciones();
     }
 
     function switchDocTab(tab, allDocTabs) {
-        allDocTabs = allDocTabs || ['perfil', 'carne', 'dni'];
+        allDocTabs = allDocTabs || ['perfil', 'carne', 'dni', 'fotos', 'propiedad'];
         allDocTabs.forEach(t => {
             var panel = document.getElementById('panel-doc-' + t);
             var btn = document.getElementById('tab-doc-' + t);
             if (panel) panel.classList.toggle('hidden', t !== tab);
             if (btn) {
-                btn.classList.remove('tab-active');
-                btn.classList.add('tab-inactive');
+                btn.classList.toggle('doc-tab-active', t === tab);
+                btn.classList.toggle('doc-tab-inactive', t !== tab);
             }
         });
-        var activeBtn = document.getElementById('tab-doc-' + tab);
-        if (activeBtn) {
-            activeBtn.classList.remove('tab-inactive');
-            activeBtn.classList.add('tab-active');
-        }
     }
 
     function switchAdminTab(tab) {
-        var allAdminTabs = ['dashboard', 'habitaciones', 'estudiantes', 'arrendadores'];
-        allAdminTabs.forEach(t => {
-            var seccion = document.getElementById('seccion-' + t);
-            var boton = document.getElementById('tabBtn-' + t);
-            if (seccion) seccion.classList.toggle('hidden', t !== tab);
-            if (boton) boton.classList.toggle('active', t === tab);
-        });
+        switchMainTab(tab);
+    }
+
+    // ============================================================
+    // SKELETON LOADING
+    // ============================================================
+    function renderSkeletons(containerId, count = 6) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        let html = '';
+        for (let i = 0; i < count; i++) {
+            html += `
+                <div class="listing-card pointer-events-none">
+                    <div class="listing-card-image skeleton-load aspect-[4/3]"></div>
+                    <div class="listing-card-content space-y-4">
+                        <div class="h-5 bg-gray-100 rounded-full w-3/4 skeleton-load"></div>
+                        <div class="h-4 bg-gray-50 rounded-full w-1/2 skeleton-load"></div>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="h-6 bg-gray-100 rounded-full w-1/4 skeleton-load"></div>
+                            <div class="h-8 bg-gray-100 rounded-full w-1/4 skeleton-load"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
     }
 
     // ============================================================
@@ -233,21 +271,12 @@
     // ============================================================
     function seleccionarRolUI_Login(role) {
         APP.selectedRole = role;
-        var activeCls = ['bg-white', 'shadow', 'text-primary'];
-        var inactiveCls = ['text-gray-500', 'hover:text-gray-900'];
-        var bE = document.getElementById('btnLoginEstudiante');
-        var bA = document.getElementById('btnLoginArrendador');
-        var bAd = document.getElementById('btnLoginAdmin');
-        [bE, bA, bAd].forEach(function(b) {
-            if (!b) return;
-            b.classList.remove.apply(b.classList, activeCls);
-            b.classList.add.apply(b.classList, inactiveCls);
+        document.querySelectorAll('.segmented-control-btn').forEach(btn => {
+            const isMatch = (role === 'estudiante' && btn.id === 'btnLoginEstudiante') ||
+                            (role === 'arrendador' && btn.id === 'btnLoginArrendador') ||
+                            (role === 'administrador' && btn.id === 'btnLoginAdmin');
+            btn.classList.toggle('active', isMatch);
         });
-        var target = role === 'estudiante' ? bE : role === 'arrendador' ? bA : bAd;
-        if (target) {
-            target.classList.add.apply(target.classList, activeCls);
-            target.classList.remove.apply(target.classList, inactiveCls);
-        }
     }
 
     function togglePasswordVisibility(inputId, iconId) {
@@ -266,14 +295,6 @@
     // ============================================================
     // ACCESSIBILITY HELPERS
     // ============================================================
-    function initSkipLink() {
-        var skip = document.createElement('a');
-        skip.href = '#main-content';
-        skip.className = 'skip-link';
-        skip.textContent = 'Saltar al contenido principal';
-        document.body.insertBefore(skip, document.body.firstChild);
-    }
-
     function trapFocus(modal) {
         var focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
         if (!focusable.length) return;
@@ -292,32 +313,13 @@
         first.focus();
     }
 
-    function announce(message, politeness) {
-        politeness = politeness || 'polite';
-        var announcer = document.getElementById('sr-announcer');
-        if (!announcer) {
-            announcer = document.createElement('div');
-            announcer.id = 'sr-announcer';
-            announcer.setAttribute('aria-live', politeness);
-            announcer.setAttribute('aria-atomic', 'true');
-            announcer.className = 'visually-hidden';
-            document.body.appendChild(announcer);
-        }
-        announcer.textContent = message;
-    }
-
     // ============================================================
     // AUTH / LOGIN / REGISTER
     // ============================================================
     function seleccionarRolUI_Reg(role) {
         document.querySelectorAll('.role-btn-reg').forEach(btn => {
-            if(btn.dataset.role === role) {
-                btn.classList.add('bg-white', 'shadow', 'text-primary');
-                btn.classList.remove('text-gray-500', 'hover:text-gray-900');
-            } else {
-                btn.classList.remove('bg-white', 'shadow', 'text-primary');
-                btn.classList.add('text-gray-500', 'hover:text-gray-900');
-            }
+            const isActive = btn.dataset.role === role;
+            btn.classList.toggle('active', isActive);
         });
         document.getElementById('regRole').value = role;
         const estExtra = document.getElementById('estudianteExtraFields');
@@ -395,58 +397,58 @@
             .loginUser(email, password, role);
     }
 
-     function handleRegister(e) {
-         e.preventDefault();
-         const role = document.getElementById('regRole').value;
-         const email = document.getElementById('regEmail').value.trim();
-         const password = document.getElementById('regPassword').value;
-         const nombre = document.getElementById('regNombre').value.trim();
-         const telefono = document.getElementById('regTelefono').value.trim();
-         
-         if (!nombre || !email || !password) {
-             return showToast('Completa los campos obligatorios.', 'error');
-         }
-         
-         const userData = {};
-         if (role === 'estudiante') {
-             userData['CorreoInstitucional'] = email;
-             userData['Contrasena'] = password;
-             userData['NombreCompleto'] = nombre;
-             userData['Telefono'] = telefono;
-             userData['BuscaRoommate'] = document.getElementById('regBuscaRoommate').checked ? 'Sí' : 'No';
-             userData['Intereses'] = document.getElementById('regIntereses').value.trim();
-         } else {
-             userData['Email'] = email;
-             userData['Contrasena'] = password;
-             userData['NombreCompleto'] = nombre;
-             userData['Telefono'] = telefono;
-         }
-         
-         showLoader('Creando tu cuenta...');
-         google.script.run
-             .withSuccessHandler(result => {
-                 hideLoader();
-                 if (result.success) {
-                     showToast('¡Cuenta creada! Inicia sesión.', 'success');
-                     closeRegisterModal();
-                     document.getElementById('authEmail').value = email;
-                     document.getElementById('authPassword').value = '';
-                     google.script.run
-                         .withSuccessHandler(() => {})
-                         .withFailureHandler(err => {
-                             showToast('Error al crear carpetas: ' + err.message, 'error');
-                         })
-                         .inicializarCarpetasUsuario(role, email);
-                 } else {
-                     showToast(result.message, 'error');
-                 }
-             })
-             .withFailureHandler(err => {
-                 hideLoader();
-                 showToast('Error: ' + err.message, 'error');
-             })
-             .registerUser(role, userData);
-     }
+    function handleRegister(e) {
+        e.preventDefault();
+        const role = document.getElementById('regRole').value;
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const nombre = document.getElementById('regNombre').value.trim();
+        const telefono = document.getElementById('regTelefono').value.trim();
+        
+        if (!nombre || !email || !password) {
+            return showToast('Completa los campos obligatorios.', 'error');
+        }
+        
+        const userData = {};
+        if (role === 'estudiante') {
+            userData['CorreoInstitucional'] = email;
+            userData['Contrasena'] = password;
+            userData['NombreCompleto'] = nombre;
+            userData['Telefono'] = telefono;
+            userData['BuscaRoommate'] = document.getElementById('regBuscaRoommate').checked ? 'Sí' : 'No';
+            userData['Intereses'] = document.getElementById('regIntereses').value.trim();
+        } else {
+            userData['Email'] = email;
+            userData['Contrasena'] = password;
+            userData['NombreCompleto'] = nombre;
+            userData['Telefono'] = telefono;
+        }
+        
+        showLoader('Creando tu cuenta...');
+        google.script.run
+            .withSuccessHandler(result => {
+                hideLoader();
+                if (result.success) {
+                    showToast('¡Cuenta creada! Inicia sesión.', 'success');
+                    closeRegisterModal();
+                    document.getElementById('authEmail').value = email;
+                    document.getElementById('authPassword').value = '';
+                    google.script.run
+                        .withSuccessHandler(() => {})
+                        .withFailureHandler(err => {
+                            showToast('Error al crear carpetas: ' + err.message, 'error');
+                        })
+                        .inicializarCarpetasUsuario(role, email);
+                } else {
+                    showToast(result.message, 'error');
+                }
+            })
+            .withFailureHandler(err => {
+                hideLoader();
+                showToast('Error: ' + err.message, 'error');
+            })
+            .registerUser(role, userData);
+    }
 
     // ============================================================
     // NAVIGATION
@@ -547,12 +549,6 @@
         });
     }
 
-    function formatBytes(bytes) {
-        if (bytes < 1024) return bytes + ' B';
-        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-        return (bytes / 1048576).toFixed(2) + ' MB';
-    }
-
     // ============================================================
     // FILE HANDLING
     // ============================================================
@@ -602,7 +598,7 @@
                         if(progressEl) progressEl.classList.add('hidden');
                         if(res.success) {
                             showToast(res.message, 'success');
-                            cargarImagenesExistentes(); // Recargar todo visualmente
+                            cargarImagenesExistentes(); 
                         } else {
                             showToast(res.message, 'error');
                         }

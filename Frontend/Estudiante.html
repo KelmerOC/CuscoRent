@@ -86,16 +86,16 @@
             <a onclick="switchMainTab('buscar'); closeMobileMenu()" id="tabBtn-buscar-mobile" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/5 hover:text-primary transition-colors">
                 <span class="material-symbols-outlined text-[18px]">search</span> Explorar
             </a>
-            <a onclick="switchMainTab('reservas'); closeMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/5 hover:text-primary transition-colors">
+            <a onclick="switchMainTab('reservas'); closeMobileMenu()" id="tabBtn-reservas-mobile" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/5 hover:text-primary transition-colors">
                 <span class="material-symbols-outlined text-[18px]">book_online</span> Mis Reservas
             </a>
-            <a onclick="switchMainTab('mensajes'); closeMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/5 hover:text-primary transition-colors">
+            <a onclick="switchMainTab('mensajes'); closeMobileMenu()" id="tabBtn-mensajes-mobile" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/5 hover:text-primary transition-colors">
                 <span class="material-symbols-outlined text-[18px]">mail</span> Mensajes
             </a>
-            <a onclick="switchMainTab('roommates'); closeMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/5 hover:text-primary transition-colors">
+            <a onclick="switchMainTab('roommates'); closeMobileMenu()" id="tabBtn-roommates-mobile" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/5 hover:text-primary transition-colors">
                 <span class="material-symbols-outlined text-[18px]">people</span> Roommates
             </a>
-            <a onclick="switchMainTab('documentos'); closeMobileMenu()" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/5 hover:text-primary transition-colors">
+            <a onclick="switchMainTab('documentos'); closeMobileMenu()" id="tabBtn-documentos-mobile" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/5 hover:text-primary transition-colors">
                 <span class="material-symbols-outlined text-[18px]">folder_shared</span> Documentos
             </a>
             <hr class="border-outline-variant my-2">
@@ -112,34 +112,38 @@
     <main id="main-content">
 
         <!-- SECCIÓN: BUSCAR (catálogo split layout) -->
-        <div id="seccion-buscar">
-
+        <div id="seccion-buscar" class="animate-fade-in">
             <!-- HERO SEARCH + FILTROS BANNER -->
-            <div class="hero-gradient px-6 py-8 md:py-10 relative overflow-hidden">
-                <div class="relative z-10 max-w-4xl mx-auto">
-                    <!-- Title -->
-                    <div class="mb-6">
-                        <h1 class="text-3xl md:text-4xl font-bold text-white font-serif mb-1 text-balance">Encuentra tu cuarto ideal</h1>
-                        <p class="text-white/80 text-sm md:text-base">Explora alojamientos verificados en Cusco</p>
+            <div class="hero-gradient px-6 py-12 md:py-20 relative overflow-hidden">
+                <div class="absolute inset-0 bg-black/20 z-0"></div>
+                <div class="relative z-10 max-w-5xl mx-auto text-center">
+                    <h1 class="text-4xl md:text-6xl font-black text-white font-serif mb-4 leading-tight tracking-tighter animate-fade-in-up">
+                        Encuentra tu hogar en <span class="text-primary-container">Cusco</span>
+                    </h1>
+                    <p class="text-white/90 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-medium animate-fade-in-up" style="animation-delay: 0.1s;">
+                        Alojamientos universitarios verificados con la mejor experiencia andina.
+                    </p>
+
+                    <!-- Search Bar Container -->
+                    <div class="max-w-3xl mx-auto mb-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+                        <div class="hero-search flex items-center p-2 bg-white rounded-full shadow-2xl border-4 border-white/20">
+                            <span class="material-symbols-outlined text-gray-400 ml-4">search</span>
+                            <input
+                                type="text"
+                                class="search-field flex-1 px-4 py-3 text-lg outline-none"
+                                placeholder="¿Dónde quieres vivir? (Ej: Wanchaq, San Jerónimo...)"
+                                id="heroSearchInputMain"
+                                onkeyup="handleHeroSearch(event)"
+                            />
+                            <button onclick="toggleFiltros()" class="btn btn-primary rounded-full px-8 py-4 flex items-center gap-2 group">
+                                <span class="material-symbols-outlined group-hover:rotate-180 transition-transform">tune</span>
+                                <span class="hidden sm:inline">Filtros</span>
+                            </button>
+                        </div>
                     </div>
 
-                    <!-- Mobile Search Bar -->
-                    <div class="md:hidden hero-search max-w-lg mb-4">
-                        <input
-                            type="text"
-                            class="search-field"
-                            placeholder="Distrito, tipo de habitación..."
-                            id="heroSearchInput"
-                            onkeyup="handleHeroSearch(event)"
-                            aria-label="Buscar habitaciones"
-                        />
-                        <button class="hero-search-button" onclick="toggleFiltros()" aria-label="Filtros">
-                            <span class="material-symbols-outlined">tune</span>
-                        </button>
-                    </div>
-
-                    <!-- Category Chips -->
-                    <div class="flex gap-2 flex-wrap">
+                    <!-- Quick Categories -->
+                    <div class="flex gap-3 justify-center flex-wrap animate-fade-in-up" style="animation-delay: 0.3s;">
                         <button class="category-chip active" onclick="filterByCategory(event, 'todos')">
                             <span class="material-symbols-outlined">grid_view</span> Todos
                         </button>
@@ -150,10 +154,7 @@
                             <span class="material-symbols-outlined">people</span> Compartida
                         </button>
                         <button class="category-chip" onclick="filterByCategory(event, 'economico')">
-                            <span class="material-symbols-outlined">attach_money</span> Económico (&lt;S/400)
-                        </button>
-                        <button class="category-chip" onclick="toggleFiltros()" style="margin-left:auto">
-                            <span class="material-symbols-outlined">tune</span> Filtros
+                            <span class="material-symbols-outlined">payments</span> Económico
                         </button>
                     </div>
                 </div>
@@ -161,153 +162,144 @@
 
             <!-- SPLIT LAYOUT: lista + mapa -->
             <div class="catalog-split-layout">
-                <!-- Lista de habitaciones -->
                 <div class="catalog-panel custom-scrollbar" id="catalogPanel">
-                    <!-- Header de la lista -->
-                    <div class="flex justify-between items-center px-5 py-4 border-b border-outline-variant shrink-0">
-                        <p class="text-sm font-semibold text-on-surface-variant">
-                            <span id="catalogoCount">0</span> habitaciones encontradas
-                        </p>
-                        <button onclick="toggleFiltros()" class="flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline">
-                            <span class="material-symbols-outlined text-[16px]">tune</span> Filtrar
-                        </button>
+                    <div class="flex justify-between items-center px-6 py-6 border-b border-outline-variant shrink-0 bg-white sticky top-0 z-20">
+                        <div>
+                            <h2 class="text-xl font-bold text-charcoal font-serif">Resultados</h2>
+                            <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">
+                                <span id="catalogoCount">0</span> opciones disponibles
+                            </p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button class="avatar-btn" onclick="cargarCatalogo()" title="Refrescar">
+                                <span class="material-symbols-outlined text-primary text-xl">refresh</span>
+                            </button>
+                        </div>
                     </div>
-                    <!-- Grid de cards -->
-                    <div id="catalogoHabitaciones" class="p-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <!-- Se inyecta por JS -->
+                    <div id="catalogoHabitaciones" class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Skeletons se inyectan inicialmente -->
                     </div>
                 </div>
 
-                <!-- Panel del mapa -->
                 <div class="catalog-map-panel" id="catalogMapPanel">
                     <iframe
                         id="mapEmbed"
                         class="w-full h-full"
                         style="border:0;"
                         loading="lazy"
-                        allowfullscreen
-                        referrerpolicy="no-referrer-when-downgrade"
                         src="https://maps.google.com/maps?q=Cusco,Peru&output=embed&z=13"
-                        title="Mapa de Cusco"
-                        aria-label="Mapa mostrando ubicaciones de habitaciones"
                     ></iframe>
-                    <div class="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2 shadow-md border border-outline-variant text-sm font-semibold text-on-surface">
-                        <span class="material-symbols-outlined text-[16px] text-primary align-middle">location_on</span>
-                        Cusco, Perú
-                    </div>
                 </div>
             </div>
-
-        </div><!-- /#seccion-buscar -->
+        </div>
 
         <!-- ======================= SECCIÓN: MIS RESERVAS ======================= -->
-        <div id="seccion-reservas" class="hidden">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-                <div>
-                    <h1 class="text-3xl font-bold text-on-surface">Mis Reservas</h1>
-                    <p class="text-on-surface-variant mt-1">Habitaciones que has reservado y pagado</p>
+        <div id="seccion-reservas" class="hidden animate-fade-in">
+            <div class="max-w-6xl mx-auto px-6 py-12">
+                <div class="mb-10">
+                    <h1 class="text-4xl font-black text-charcoal font-serif tracking-tight">Mis Reservas</h1>
+                    <p class="text-gray-500 mt-2 font-medium text-lg">Gestiona tus contratos y pagos activos</p>
                 </div>
-                <div id="listaReservasEstudiante" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">
-                        Cargando reservas...
+                <div id="listaReservasEstudiante" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Placeholder -->
+                    <div class="col-span-full py-20 text-center bg-white rounded-[32px] border-2 border-dashed border-gray-100">
+                        <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <span class="material-symbols-outlined text-4xl text-gray-300">book_online</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-400">No tienes reservas activas</h3>
+                        <button onclick="switchMainTab('buscar')" class="btn btn-primary mt-6">Explorar Habitaciones</button>
                     </div>
                 </div>
             </div>
         </div>
 
         <!-- ======================= SECCIÓN: MENSAJES ======================= -->
-        <div id="seccion-mensajes" class="hidden">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-                <div class="flex justify-between items-end flex-wrap gap-4">
+        <div id="seccion-mensajes" class="hidden animate-fade-in">
+            <div class="max-w-4xl mx-auto px-6 py-12">
+                <div class="flex justify-between items-center mb-10">
                     <div>
-                        <h1 class="text-3xl font-bold text-on-surface">Mensajes Recibidos</h1>
-                        <p class="text-on-surface-variant mt-1">Respuestas de arrendadores sobre tus consultas</p>
+                        <h1 class="text-4xl font-black text-charcoal font-serif tracking-tight">Mensajes</h1>
+                        <p class="text-gray-500 mt-1 font-medium">Conversaciones con arrendadores</p>
                     </div>
-                    <a href="<?= getScriptUrl() ?>?page=ChatWEB" class="btn btn-outline btn-sm">
-                        <span class="material-symbols-outlined text-[16px]">open_in_new</span> Ir al Chat
-                    </a>
+                    <button onclick="cargarMensajesEstudiante()" class="btn btn-ghost btn-sm">
+                        <span class="material-symbols-outlined">refresh</span> Actualizar
+                    </button>
                 </div>
-                <div id="listaMensajesEstudiante" class="grid grid-cols-1 gap-4">
-                    <div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando mensajes...</div>
+                <div id="listaMensajesEstudiante" class="space-y-4">
+                    <!-- Chat UI containers -->
                 </div>
             </div>
         </div>
 
         <!-- ======================= SECCIÓN: ROOMMATES ======================= -->
-        <div id="seccion-roommates" class="hidden">
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 py-8 space-y-6">
-                <div class="flex justify-between items-end flex-wrap gap-4">
-                    <div>
-                        <h1 class="text-3xl font-bold text-on-surface">Encuentra un Roommate</h1>
-                        <p class="text-on-surface-variant mt-1">Conecta con otros estudiantes para compartir gastos y experiencias.</p>
+        <div id="seccion-roommates" class="hidden animate-fade-in">
+            <div class="max-w-6xl mx-auto px-6 py-12">
+                <div class="bg-primary/5 rounded-[40px] p-8 md:p-12 mb-12 flex flex-col md:flex-row items-center gap-8 border border-primary/10">
+                    <div class="flex-1 text-center md:text-left">
+                        <span class="inline-block px-4 py-1.5 rounded-full bg-primary text-white text-xs font-black uppercase tracking-widest mb-4">¡NUEVO!</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-charcoal font-serif mb-4">Encuentra al compañero ideal</h2>
+                        <p class="text-gray-600 text-lg mb-8">Conecta con estudiantes de tu misma universidad y comparte gastos.</p>
+                        <button class="btn btn-primary btn-lg px-10">Configurar mi perfil de Roommate</button>
+                    </div>
+                    <div class="w-full md:w-1/3 flex justify-center">
+                        <div class="w-48 h-48 bg-white rounded-3xl shadow-xl rotate-3 flex items-center justify-center border border-gray-100">
+                             <span class="material-symbols-outlined text-8xl text-primary/20">group_add</span>
+                        </div>
                     </div>
                 </div>
-                <div id="listaRoommates" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">
-                        Cargando posibles roommates...
-                    </div>
+                <div id="listaRoommates" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Inyectado por JS -->
                 </div>
             </div>
         </div>
 
         <!-- ======================= SECCIÓN: MIS DOCUMENTOS ======================= -->
-        <div id="seccion-documentos" class="hidden">
-            <div class="max-w-3xl mx-auto px-4 sm:px-6 py-8">
-                <div class="bg-white rounded-[20px] p-6 shadow-soft">
-                    <h2 class="text-xl font-bold text-gray-900 mb-6">Verificación de Identidad</h2>
+        <div id="seccion-documentos" class="hidden animate-fade-in">
+            <div class="max-w-3xl mx-auto px-6 py-12">
+                <div class="bg-white rounded-[40px] p-10 shadow-2xl border border-gray-100">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 bg-skyblue/10 text-skyblue rounded-2xl flex items-center justify-center">
+                            <span class="material-symbols-outlined text-3xl">verified_user</span>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-black text-charcoal font-serif">Verificación de Estudiante</h2>
+                            <p class="text-gray-400 text-sm font-medium">Sube tus documentos para obtener el badge de verificado</p>
+                        </div>
+                    </div>
 
-                    <div class="flex flex-wrap gap-6 mb-6 border-b border-gray-100 pb-0">
-                        <button class="doc-tab-active px-4 py-3 text-sm font-medium"
-                            id="tab-doc-perfil" onclick="switchDocTab('perfil')">Foto de Perfil</button>
-                        <button class="doc-tab-inactive px-4 py-3 text-sm font-medium"
-                            id="tab-doc-carne" onclick="switchDocTab('carne')">Carné Universitario</button>
-                        <button class="doc-tab-inactive px-4 py-3 text-sm font-medium"
-                            id="tab-doc-dni" onclick="switchDocTab('dni')">DNI</button>
+                    <div class="flex gap-4 mb-10 bg-gray-50 p-1.5 rounded-2xl border border-gray-100">
+                        <button class="doc-tab-active flex-1 py-3 text-sm font-bold rounded-xl" id="tab-doc-perfil" onclick="switchDocTab('perfil')">Perfil</button>
+                        <button class="doc-tab-inactive flex-1 py-3 text-sm font-bold rounded-xl" id="tab-doc-carne" onclick="switchDocTab('carne')">Carné</button>
+                        <button class="doc-tab-inactive flex-1 py-3 text-sm font-bold rounded-xl" id="tab-doc-dni" onclick="switchDocTab('dni')">DNI</button>
                     </div>
 
                     <!-- Paneles de documentos -->
-                    <div id="panel-doc-perfil" class="space-y-4">
-                        <div class="upload-zone" id="uploadZone-est-perfil">
-                            <span class="material-symbols-outlined">cloud_upload</span>
-                            <div class="upload-zone-text">Sube tu foto de perfil</div>
-                            <div class="upload-zone-hint">JPG, PNG (Max 5MB)</div>
-                            <input type="file" accept=".jpg,.jpeg,.png"
-                                onchange="handleFileSelect(event, 'estudiante', 'foto_perfil', null)"
-                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                    <div id="panel-doc-perfil" class="space-y-6">
+                        <div class="upload-zone group" id="uploadZone-est-perfil">
+                            <span class="material-symbols-outlined text-5xl mb-4 group-hover:scale-110 transition-transform">add_a_photo</span>
+                            <div class="upload-zone-text text-lg font-bold">Tu mejor foto de perfil</div>
+                            <div class="upload-zone-hint text-gray-400 mt-1">Sube una foto clara de tu rostro</div>
+                            <input type="file" accept=".jpg,.jpeg,.png" onchange="handleFileSelect(event, 'estudiante', 'foto_perfil', null)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                         </div>
-                        <div id="progress-est-foto_perfil"
-                            class="h-1 w-full bg-gray-100 rounded-full overflow-hidden hidden">
-                            <div class="h-full bg-primary w-0 transition-all"></div>
-                        </div>
-                        <div id="current-est-foto_perfil" class="upload-preview"></div>
+                        <div id="current-est-foto_perfil" class="upload-preview grid grid-cols-1 gap-4"></div>
                     </div>
 
-                    <div id="panel-doc-carne" class="space-y-4 hidden">
-                        <div class="upload-zone" id="uploadZone-est-carne">
-                            <span class="material-symbols-outlined">badge</span>
-                            <div class="upload-zone-text">Sube tu carné universitario</div>
-                            <input type="file" accept=".jpg,.jpeg,.png"
-                                onchange="handleFileSelect(event, 'estudiante', 'carne_verificacion', null)"
-                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                        </div>
-                        <div id="progress-est-carne_verificacion"
-                            class="h-1 w-full bg-gray-100 rounded-full overflow-hidden hidden">
-                            <div class="h-full bg-primary w-0 transition-all"></div>
+                    <div id="panel-doc-carne" class="space-y-6 hidden">
+                        <div class="upload-zone group" id="uploadZone-est-carne">
+                            <span class="material-symbols-outlined text-5xl mb-4 group-hover:scale-110 transition-transform">badge</span>
+                            <div class="upload-zone-text text-lg font-bold">Carné Universitario</div>
+                            <div class="upload-zone-hint text-gray-400 mt-1">Parte frontal de tu carné vigente</div>
+                            <input type="file" accept=".jpg,.jpeg,.png" onchange="handleFileSelect(event, 'estudiante', 'carne_verificacion', null)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                         </div>
                         <div id="current-est-carne_verificacion" class="upload-preview"></div>
                     </div>
 
-                    <div id="panel-doc-dni" class="space-y-4 hidden">
-                        <div class="upload-zone" id="uploadZone-est-dni">
-                            <span class="material-symbols-outlined">credit_card</span>
-                            <div class="upload-zone-text">Sube tu DNI</div>
-                            <input type="file" accept=".jpg,.jpeg,.png"
-                                onchange="handleFileSelect(event, 'estudiante', 'dni', null)"
-                                class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
-                        </div>
-                        <div id="progress-est-dni"
-                            class="h-1 w-full bg-gray-100 rounded-full overflow-hidden hidden">
-                            <div class="h-full bg-primary w-0 transition-all"></div>
+                    <div id="panel-doc-dni" class="space-y-6 hidden">
+                        <div class="upload-zone group" id="uploadZone-est-dni">
+                            <span class="material-symbols-outlined text-5xl mb-4 group-hover:scale-110 transition-transform">credit_card</span>
+                            <div class="upload-zone-text text-lg font-bold">Documento de Identidad (DNI)</div>
+                            <div class="upload-zone-hint text-gray-400 mt-1">Sube una foto legible de tu DNI</div>
+                            <input type="file" accept=".jpg,.jpeg,.png" onchange="handleFileSelect(event, 'estudiante', 'dni', null)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
                         </div>
                         <div id="current-est-dni" class="upload-preview"></div>
                     </div>
@@ -481,8 +473,8 @@
                             <span class="booking-panel-price-sub">/ mes</span>
                         </div>
 
-                        <div class="flex flex-col gap-3">
-                            <button onclick="openYapeModal()"
+                        <div class="flex flex-col gap-3" id="bookingActions">
+                            <button onclick="openYapeModal()" id="btnPagoYape"
                                 class="booking-panel-button primary">
                                 Realizar Pago con Yape
                             </button>
@@ -494,6 +486,12 @@
                                 class="booking-panel-button secondary">
                                 Calificar Habitación
                             </button>
+                        </div>
+                        
+                        <div id="roomOccupiedAlert" class="hidden p-6 rounded-2xl bg-secondary/10 border border-secondary/20 text-secondary text-center">
+                            <span class="material-symbols-outlined text-4xl mb-2">block</span>
+                            <p class="font-bold text-lg leading-tight">ESTA HABITACIÓN YA ESTÁ OCUPADA</p>
+                            <p class="text-xs opacity-70 mt-1">Busca otras opciones en el catálogo</p>
                         </div>
 
                         <div class="mt-6 text-center text-xs text-gray-400 flex items-center justify-center gap-1">
@@ -603,6 +601,37 @@
         </div>
     </div>
 
+    <!-- MODAL DE RECIBO -->
+    <div id="receiptModal" class="modal-backdrop hidden">
+        <div class="modal-content max-w-sm text-center">
+            <div class="w-20 h-20 bg-sage/10 text-sage rounded-full flex items-center justify-center mx-auto mb-4 animate-scale-in">
+                <span class="material-symbols-outlined text-5xl">check_circle</span>
+            </div>
+            <h2 class="text-2xl font-bold text-charcoal mb-2">¡Reserva Exitosa!</h2>
+            <p class="text-sm text-gray-500 mb-6">Tu pago ha sido procesado y la habitación está reservada para ti.</p>
+            
+            <div class="bg-gray-50 rounded-2xl p-5 text-left space-y-4 mb-8 border border-gray-100">
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-gray-400 font-bold uppercase tracking-widest">Reserva</span>
+                    <span class="font-mono font-bold text-charcoal" id="recReservaId">#RES-000000</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-gray-400 font-bold uppercase tracking-widest">Monto</span>
+                    <span class="text-xl font-bold text-primary" id="recMonto">S/ 000</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-xs text-gray-400 font-bold uppercase tracking-widest">Fecha</span>
+                    <span class="font-bold text-charcoal" id="recFecha">---</span>
+                </div>
+            </div>
+            
+            <button onclick="closeReceiptAndGoToReservas()" class="btn btn-primary btn-full btn-lg">
+                <span class="material-symbols-outlined">book_online</span>
+                Ver Mis Reservas
+            </button>
+        </div>
+    </div>
+
     <?!= include('Scripts'); ?>
     <script>
         const SCRIPT_URL = "<?= getScriptUrl() ?>";
@@ -619,38 +648,44 @@
                         getHospedajes: function () {
                             setTimeout(() => {
                                 this.cb([
-                                    { HospedajeID: '1', ArrendadorID: 'A1', Titulo: 'Habitación Premium Céntrica', Distrito: 'Wanchaq', Direccion: 'Av. de la Cultura 123', PrecioMensual: '500', TipoHabitacion: 'Individual', Servicios: 'Wi-Fi, Baño Privado', CalificacionPromedio: '4.9' },
-                                    { HospedajeID: '2', ArrendadorID: 'A2', Titulo: 'Cuarto compartido económico', Distrito: 'San Jerónimo', Direccion: 'Calle los Incas 45', PrecioMensual: '250', TipoHabitacion: 'Compartida', Servicios: 'Wi-Fi, Lavandería', CalificacionPromedio: '4.5' }
+                                    { HospedajeID: 'H1', ArrendadorID: 'PREM-01', Titulo: 'Suite Andina con Vista al Ausangate', Distrito: 'Wanchaq', Direccion: 'Av. Sol 450', PrecioMensual: '850', TipoHabitacion: 'Individual', Servicios: 'Wi-Fi, Baño Privado, Agua Caliente', CalificacionPromedio: '4.9', Estado: 'Disponible' },
+                                    { HospedajeID: 'H2', ArrendadorID: 'A2', Titulo: 'Cuarto Compartido - San Blas', Distrito: 'Cusco Cercado', Direccion: 'Calle Tandapata 120', PrecioMensual: '350', TipoHabitacion: 'Compartida', Servicios: 'Wi-Fi, Cocina Compartida', CalificacionPromedio: '4.7', Estado: 'Disponible' },
+                                    { HospedajeID: 'H3', ArrendadorID: 'A3', Titulo: 'Habitación Económica Estudiantil', Distrito: 'San Jerónimo', Direccion: 'Urb. Larapa G-4', PrecioMensual: '280', TipoHabitacion: 'Individual', Servicios: 'Wi-Fi', CalificacionPromedio: '4.2', Estado: 'Disponible' },
+                                    { HospedajeID: 'H4', ArrendadorID: 'PREM-02', Titulo: 'Estudio Moderno cerca a UNSAAC', Distrito: 'Wanchaq', Direccion: 'Calle Garcilaso 300', PrecioMensual: '600', TipoHabitacion: 'Individual', Servicios: 'Wi-Fi, Lavandería, Amoblado', CalificacionPromedio: '5.0', Estado: 'Disponible' }
                                 ]);
-                            }, 500);
+                            }, 1000);
                             return this;
                         },
                         getRoommates: function () {
                             setTimeout(() => {
                                 this.cb([
-                                    { EstudianteID: '2', NombreCompleto: 'Juan Pérez', Universidad: 'Universidad Continental', Carrera: 'Ing. de Sistemas', Intereses: 'Estudio nocturno, Cero fiestas' }
+                                    { EstudianteID: 'E2', NombreCompleto: 'Mateo Quispe', Universidad: 'UNSAAC', Carrera: 'Ingeniería Civil', Intereses: 'Estudio en grupo, Deporte, Cero humos' },
+                                    { EstudianteID: 'E3', NombreCompleto: 'Camila Valer', Universidad: 'U. Andina', Carrera: 'Arquitectura', Intereses: 'Ordenada, Le gusta cocinar, Silencio nocturno' },
+                                    { EstudianteID: 'E4', NombreCompleto: 'Diego Tello', Universidad: 'Continental', Carrera: 'Derecho', Intereses: 'Gaming, Salidas fines de semana' }
                                 ]);
-                            }, 500);
+                            }, 800);
                             return this;
                         },
+                        getReservasPorEstudiante: function() { 
+                            setTimeout(() => this.cb([
+                                { ReservaID: 'RES-998877', Titulo: 'Suite Andina', Distrito: 'Wanchaq', Direccion: 'Av. Sol 450', Monto: '850', Estado: 'Confirmado', FechaReserva: '23/06/2026' }
+                            ]), 800); 
+                            return this; 
+                        },
+                        getMensajesPorUsuario: function() { 
+                            setTimeout(() => this.cb([
+                                { RemitenteID: 'A2', NombreRemitente: 'Juan Arrendador', Mensaje: 'Hola, ¿cuándo deseas visitar la habitación?', FechaHora: 'hace 2 horas', EstadoAtencion: 'Pendiente' }
+                            ]), 800); 
+                            return this; 
+                        },
                         obtenerTodasLasImagenes: function () { setTimeout(() => this.cb({ success: true, imagenes: {} }), 500); return this; },
-                        sendMessage: function () { setTimeout(() => this.cb({ success: true, message: 'Mensaje mock enviado' }), 500); return this; },
-                        getReservasPorEstudiante: function() { setTimeout(() => this.cb([]), 500); return this; },
-                        getMensajesPorUsuario: function() { setTimeout(() => this.cb([]), 500); return this; },
+                        sendMessage: function () { setTimeout(() => this.cb({ success: true, message: 'Mensaje enviado correctamente' }), 500); return this; },
                         verificarReservaPrevia: function() { setTimeout(() => this.cb({ tieneReserva: true }), 500); return this; },
-                        addResena: function() { setTimeout(() => this.cb({ success: true, message: 'Reseña enviada' }), 500); return this; },
-                        crearReserva: function() { setTimeout(() => this.cb({ success: true, message: 'Reserva creada' }), 500); return this; }
+                        addResena: function() { setTimeout(() => this.cb({ success: true, message: 'Reseña publicada' }), 500); return this; },
+                        crearReserva: function() { setTimeout(() => this.cb({ success: true, reservaId: 'RES-'+Math.floor(Math.random()*1000000), message: 'Reserva creada con éxito' }), 1500); return this; }
                     }
                 }
             };
-        }
-
-        if (!localStorage.getItem('user')) {
-            localStorage.setItem('user', JSON.stringify({
-                EstudianteID: 'local_123',
-                NombreCompleto: 'Estudiante de Prueba',
-                CorreoInstitucional: 'estudiante@continental.edu.pe'
-            }));
         }
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -672,11 +707,15 @@
                 return;
             }
 
+            renderSkeletons('catalogoHabitaciones', 4);
             cargarCatalogo();
             cargarImagenesExistentes();
 
-            // Handle ?id= parameter to auto-open room detail modal
+            // Handle URL params
             const urlParams = new URLSearchParams(window.location.search);
+            const tab = urlParams.get('tab');
+            if (tab) switchMainTab(tab);
+            
             const hospedajeId = urlParams.get('id');
             if (hospedajeId) {
                 const checkAndOpen = setInterval(() => {
@@ -699,7 +738,6 @@
             document.getElementById('mobileMenuDropdown').classList.add('hidden');
         }
 
-        // Cierra menu al hacer click fuera
         document.addEventListener('click', function(e) {
             const menu = document.getElementById('mobileMenuDropdown');
             const btn = document.getElementById('mobileMenuBtn');
@@ -708,68 +746,78 @@
             }
         });
 
-        // --- NAVEGACIÓN PRINCIPAL (Top Header) ---
-        function switchMainTab(tab) {
-            try {
-                hideLoader();
-                const tabs = ['buscar', 'reservas', 'mensajes', 'roommates', 'documentos'];
+        function cargarCatalogo() {
+            const container = document.getElementById('catalogoHabitaciones');
+            renderSkeletons('catalogoHabitaciones', 4);
+            google.script.run.withSuccessHandler(result => {
+                hospedajesGlobal = result;
+                renderCatalogo(result);
+            }).withFailureHandler(err => {
+                container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500 bg-red-50 rounded-[20px] border border-dashed border-red-200">Error al cargar catálogo: ' + err.message + '</div>';
+            }).getHospedajes();
+        }
 
-                // Secciones
-                tabs.forEach(t => {
-                    const seccion = document.getElementById(`seccion-${t}`);
-                    if (seccion) seccion.classList.add('hidden');
-                });
-
-                // Botones del top header
-                document.querySelectorAll('#main-header .top-header-nav a').forEach(a => {
-                    a.classList.remove('active');
-                    a.removeAttribute('aria-selected');
-                });
-
-                const seccionDestino = document.getElementById(`seccion-${tab}`);
-                const botonDestino = document.getElementById(`tabBtn-${tab}`);
-
-                if (seccionDestino) seccionDestino.classList.remove('hidden');
-                if (botonDestino) {
-                    botonDestino.classList.add('active');
-                    botonDestino.setAttribute('aria-selected', 'true');
-                }
-
-                if (tab === 'buscar') cargarCatalogo();
-                if (tab === 'roommates') cargarRoommates();
-                if (tab === 'reservas') cargarMisReservas();
-                if (tab === 'mensajes') cargarMensajesEstudiante();
-            } catch (error) {
-                console.error("Error en la navegación:", error);
+        function renderCatalogo(data) {
+            const container = document.getElementById('catalogoHabitaciones');
+            document.getElementById('catalogoCount').textContent = data ? data.length : 0;
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">No se encontraron habitaciones con esos filtros.</div>';
+                return;
             }
+            
+            container.innerHTML = data.map((h, index) => {
+                const isPremium = h.ArrendadorID && (h.ArrendadorID.includes('PREM') || index === 0); // Simulated premium
+                const premiumClass = isPremium ? 'premium shadow-xl border-premium-gold shadow-premium-gold/5' : '';
+                const premiumBadge = isPremium ? `<div class="absolute top-3 left-3 z-10 animate-fade-in"><span class="badge-premium"><span class="material-symbols-outlined">stars</span>Destacado</span></div>` : '';
+                
+                return `
+                <div class="listing-card group ${premiumClass} animate-fade-in-up-${Math.min(index+1,8)}" onclick="abrirDetalles('${h.HospedajeID}')" role="button" tabindex="0" aria-label="Ver detalles de ${h.Titulo || 'habitación'}" onkeydown="if(event.key==='Enter') abrirDetalles('${h.HospedajeID}')">
+                    ${premiumBadge}
+                    <div class="listing-card-image">
+                        <div class="listing-ph">
+                            <span class="material-symbols-outlined">home</span>
+                        </div>
+                        <div class="listing-card-rating">
+                            <span class="material-symbols-outlined filled-icon">star</span>
+                            <span>${h.CalificacionPromedio || '4.9'}</span>
+                        </div>
+                        <div class="absolute top-2 right-2">
+                            <span class="text-xs font-semibold px-2 py-1 rounded-full ${
+                                h.TipoHabitacion === 'Individual'
+                                ? 'bg-primary/90 text-white'
+                                : 'bg-secondary-blue/90 text-white'
+                            }">${h.TipoHabitacion || 'Habitación'}</span>
+                        </div>
+                    </div>
+                    <div class="listing-card-content">
+                        <h4 class="font-bold text-charcoal text-base leading-tight line-clamp-1 mb-1">${h.Titulo || 'Habitación sin título'}</h4>
+                        <p class="text-sm text-gray-500 mb-3 flex items-center gap-1">
+                            <span class="material-symbols-outlined text-[14px] text-primary">location_on</span>
+                            ${h.Distrito || 'Sin distrito'}
+                        </p>
+                        <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
+                            <div>
+                                <span class="text-lg font-bold text-primary leading-none">S/ ${h.PrecioMensual || '0'}</span>
+                                <span class="text-xs text-gray-400 ml-1">/mes</span>
+                            </div>
+                            <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); abrirDetalles('${h.HospedajeID}')">
+                                Ver más
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `}).join('');
         }
 
-        function toggleMobileSidebar() {
-            // Alias para compatibilidad - usar toggleMobileMenu en su lugar
-            toggleMobileMenu();
-        }
-
-        function switchDocTab(tab) {
-            ['perfil', 'carne', 'dni'].forEach(t => {
-                document.getElementById(`panel-doc-${t}`).classList.add('hidden');
-                const btn = document.getElementById(`tab-doc-${t}`);
-                btn.classList.remove('tab-active');
-                btn.classList.add('tab-inactive');
-            });
-            document.getElementById(`panel-doc-${tab}`).classList.remove('hidden');
-            const activeBtn = document.getElementById(`tab-doc-${tab}`);
-            activeBtn.classList.remove('tab-inactive');
-            activeBtn.classList.add('tab-active');
-        }
-
-        // --- FILTROS Y CATÁLOGO ---
+        // --- FILTROS ---
         function toggleFiltros() {
             const drawer = document.getElementById('filtros-drawer');
             const backdrop = document.getElementById('drawer-backdrop');
-
             if (drawer.classList.contains('hidden')) {
                 backdrop.classList.remove('hidden');
                 drawer.classList.remove('hidden');
+                drawer.classList.add('animate-fade-in');
             } else {
                 drawer.classList.add('hidden');
                 backdrop.classList.add('hidden');
@@ -795,21 +843,15 @@
         function updateFilterMap() {
             const distrito = document.getElementById('filtroDistrito').value;
             let query = 'Cusco,Peru';
-            if (distrito) {
-                query = `${distrito}, Cusco, Peru`.replace(/ /g, '+');
-            }
+            if (distrito) query = `${distrito}, Cusco, Peru`.replace(/ /g, '+');
             document.getElementById('filterMapPreview').src = `https://maps.google.com/maps?q=${query}&output=embed&z=15`;
         }
 
         function filterByCategory(event, category) {
-            // Actualizar chips activos
-            document.querySelectorAll('.category-chip').forEach(chip => {
-                chip.classList.remove('active');
-            });
+            document.querySelectorAll('.category-chip').forEach(chip => chip.classList.remove('active'));
             const clickedChip = event ? event.target.closest('.category-chip') : null;
             if (clickedChip) clickedChip.classList.add('active');
             
-            // Aplicar filtro
             const filtrados = hospedajesGlobal.filter(h => {
                 if (category === 'todos') return true;
                 if (category === 'individual') return h.TipoHabitacion === 'Individual';
@@ -817,21 +859,19 @@
                 if (category === 'economico') return parseInt(h.PrecioMensual || '0') < 400;
                 return true;
             });
-            
             renderCatalogo(filtrados);
         }
 
         function handleHeroSearch(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                const query = event.target.value.toLowerCase();
-                const filtrados = hospedajesGlobal.filter(h => 
-                    (h.Titulo || '').toLowerCase().includes(query) ||
-                    (h.Distrito || '').toLowerCase().includes(query) ||
-                    (h.Direccion || '').toLowerCase().includes(query)
-                );
-                renderCatalogo(filtrados);
-            }
+            const query = event.target.value.toLowerCase();
+            if (!hospedajesGlobal) return;
+            const filtrados = hospedajesGlobal.filter(h => 
+                (h.Titulo || '').toLowerCase().includes(query) ||
+                (h.Distrito || '').toLowerCase().includes(query) ||
+                (h.Direccion || '').toLowerCase().includes(query) ||
+                (h.TipoHabitacion || '').toLowerCase().includes(query)
+            );
+            renderCatalogo(filtrados);
         }
 
         function aplicarFiltros() {
@@ -839,7 +879,6 @@
             const maxP = document.getElementById('filtroPrecio').value;
             const dist = document.getElementById('filtroDistrito').value.trim().toLowerCase();
             const tipoSel = document.querySelector('input[name="filtroTipo"]:checked').value;
-
             const serviciosSeleccionados = Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
 
             const filtrados = hospedajesGlobal.filter(h => {
@@ -852,68 +891,7 @@
                 }
                 return true;
             });
-
             renderCatalogo(filtrados);
-        }
-
-        function cargarCatalogo() {
-            const container = document.getElementById('catalogoHabitaciones');
-            container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando catálogo...</div>';
-            google.script.run.withSuccessHandler(result => {
-                hospedajesGlobal = result;
-                renderCatalogo(result);
-            }).withFailureHandler(err => {
-                container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500 bg-red-50 rounded-[20px] border border-dashed border-red-200">Error al cargar catálogo: ' + err.message + '</div>';
-            }).getHospedajes();
-        }
-
-        function renderCatalogo(data) {
-            const container = document.getElementById('catalogoHabitaciones');
-            document.getElementById('catalogoCount').textContent = data ? data.length : 0;
-            
-            if (!data || data.length === 0) {
-                container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">No se encontraron habitaciones con esos filtros.</div>';
-                return;
-            }
-            
-            container.innerHTML = data.map((h, index) => `
-                <div class="listing-card group animate-fade-in-up-${Math.min(index+1,8)}" onclick="abrirDetalles('${h.HospedajeID}')" role="button" tabindex="0" aria-label="Ver detalles de ${h.Titulo || 'habitación'}" onkeydown="if(event.key==='Enter') abrirDetalles('${h.HospedajeID}')">
-                    <div class="listing-card-image">
-                        <div class="listing-ph">
-                            <span class="material-symbols-outlined">home</span>
-                        </div>
-                        <div class="listing-card-rating">
-                            <span class="material-symbols-outlined filled-icon">star</span>
-                            <span>${h.CalificacionPromedio || '4.9'}</span>
-                        </div>
-                        <div class="absolute top-2 right-2">
-                            <span class="text-xs font-semibold px-2 py-1 rounded-full ${
-                                h.TipoHabitacion === 'Individual'
-                                ? 'bg-primary/90 text-white'
-                                : 'bg-secondary-blue/90 text-white'
-                            }">${h.TipoHabitacion || 'Habitación'}</span>
-                        </div>
-                    </div>
-                    <div class="listing-card-content">
-                        <div class="flex justify-between items-start mb-2">
-                            <h4 class="font-bold text-charcoal text-base leading-tight line-clamp-1">${h.Titulo || 'Habitación sin título'}</h4>
-                        </div>
-                        <p class="text-sm text-gray-500 mb-3 flex items-center gap-1">
-                            <span class="material-symbols-outlined text-[14px] text-primary">location_on</span>
-                            ${h.Distrito || 'Sin distrito'}
-                        </p>
-                        <div class="flex items-center justify-between mt-auto pt-3 border-t border-gray-100">
-                            <div>
-                                <span class="text-lg font-bold text-primary leading-none">S/ ${h.PrecioMensual || '0'}</span>
-                                <span class="text-xs text-gray-400 ml-1">/mes</span>
-                            </div>
-                            <button class="btn btn-primary btn-sm" onclick="event.stopPropagation(); abrirDetalles('${h.HospedajeID}')">
-                                Ver más
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
         }
 
         // --- MODAL DETALLES ---
@@ -928,22 +906,22 @@
             document.getElementById('detPrecio').textContent = 'S/ ' + (h.PrecioMensual || '0');
             document.getElementById('detCalificacion').textContent = h.CalificacionPromedio || '4.9';
 
+            // Visibilidad por estado
+            const isOcupado = h.Estado === 'Ocupado';
+            document.getElementById('bookingActions').classList.toggle('hidden', isOcupado);
+            document.getElementById('roomOccupiedAlert').classList.toggle('hidden', !isOcupado);
+
             // Gallery placeholder
             document.getElementById('detFotosContainer').innerHTML = `
-                <div class="gallery-main listing-ph rounded-[20px] border border-gray-200">
+                <div class="gallery-main listing-ph rounded-[20px] border border-gray-200 skeleton-load">
                     <span class="material-symbols-outlined">photo_library</span>
                 </div>
-                <div class="listing-ph rounded-[16px] border border-gray-200 aspect-w-1 aspect-h-1"></div>
-                <div class="listing-ph rounded-[16px] border border-gray-200 aspect-w-1 aspect-h-1"></div>
-                <div class="listing-ph rounded-[16px] border border-gray-200 aspect-w-1 aspect-h-1"></div>
-                <div class="listing-ph rounded-[16px] border border-gray-200 aspect-w-1 aspect-h-1"></div>
             `;
 
-            // Procesar servicios
             const servicios = (h.Servicios || 'Cama, Armario').split(',').map(s => s.trim());
             const sGrid = document.getElementById('detServiciosGrid');
             sGrid.innerHTML = servicios.map(s => `
-                <div class="flex items-center gap-3 border border-gray-100 rounded-2xl px-4 py-3 bg-white shadow-sm">
+                <div class="flex items-center gap-3 border border-gray-100 rounded-2xl px-4 py-3 bg-white shadow-sm hover:border-primary/30 transition-colors">
                     <div class="w-10 h-10 rounded-[12px] bg-primary/10 flex items-center justify-center text-primary">
                         <span class="material-symbols-outlined">check_circle</span>
                     </div>
@@ -961,39 +939,7 @@
             currentHospedaje = null;
         }
 
-        // --- MODAL DE MENSAJES ---
-        function openMessageModal() {
-            if (!currentHospedaje) return;
-            document.getElementById('messageModal').classList.remove('hidden');
-        }
-        function closeMessageModal() {
-            document.getElementById('messageModal').classList.add('hidden');
-        }
-        function handleSendMessage(e) {
-            e.preventDefault();
-            const msg = document.getElementById('msgContent').value.trim();
-            if (!msg) return;
-
-            showLoader('Enviando mensaje...');
-            google.script.run
-                .withSuccessHandler(res => {
-                    hideLoader();
-                    if (res.success) {
-                        showToast(res.message, 'success');
-                        closeMessageModal();
-                        document.getElementById('msgContent').value = '';
-                    } else {
-                        showToast(res.message, 'error');
-                    }
-                })
-                .withFailureHandler(err => {
-                    hideLoader();
-                    showToast('Error: ' + err.message, 'error');
-                })
-                .sendMessage(APP.currentUser.EstudianteID, currentHospedaje.ArrendadorID, currentHospedaje.HospedajeID, msg);
-        }
-
-        // --- MODAL YAPE (PAGO) ---
+        // --- PAGO ---
         function openYapeModal() {
             if (!currentHospedaje) return;
             if (currentHospedaje.Estado === 'Ocupado') {
@@ -1011,43 +957,40 @@
         }
 
         function switchYapeTab(tab) {
-            if (tab === 'qr') {
-                document.getElementById('yapeContentQr').classList.remove('hidden');
-                document.getElementById('yapeContentNum').classList.add('hidden');
-                document.getElementById('tabYapeQr').className = 'pill-tab-active flex-1 py-2 text-sm font-bold rounded-lg';
-                document.getElementById('tabYapeNum').className = 'pill-tab-inactive flex-1 py-2 text-sm font-bold rounded-lg';
-            } else {
-                document.getElementById('yapeContentQr').classList.add('hidden');
-                document.getElementById('yapeContentNum').classList.remove('hidden');
-                document.getElementById('tabYapeQr').className = 'pill-tab-inactive flex-1 py-2 text-sm font-bold rounded-lg';
-                document.getElementById('tabYapeNum').className = 'pill-tab-active flex-1 py-2 text-sm font-bold rounded-lg';
-            }
+            const isQr = tab === 'qr';
+            document.getElementById('yapeContentQr').classList.toggle('hidden', !isQr);
+            document.getElementById('yapeContentNum').classList.toggle('hidden', isQr);
+            document.getElementById('tabYapeQr').className = isQr ? 'pill-tab-active flex-1 py-2 text-sm font-bold rounded-lg' : 'pill-tab-inactive flex-1 py-2 text-sm font-bold rounded-lg';
+            document.getElementById('tabYapeNum').className = !isQr ? 'pill-tab-active flex-1 py-2 text-sm font-bold rounded-lg' : 'pill-tab-inactive flex-1 py-2 text-sm font-bold rounded-lg';
         }
 
         function handleYapePayment(e) {
             e.preventDefault();
-            const celular = document.getElementById('yapeCelular').value.trim();
-            const codigo = document.getElementById('yapeCodigo').value.trim();
-            if (!celular || !codigo) {
-                showToast('Completa todos los campos.', 'error');
-                return;
-            }
-            procesarReserva();
+            simulateYapeSuccess();
         }
 
         function simulateYapeSuccess() {
-            procesarReserva();
+            showLoader('Validando transacción con Yape...');
+            setTimeout(() => {
+                procesarReserva();
+            }, 2000);
         }
 
         function procesarReserva() {
             if (!currentHospedaje) return;
-            showLoader('Confirmando reserva...');
             google.script.run
                 .withSuccessHandler(res => {
                     hideLoader();
                     closeYapeModal();
                     if (res.success) {
-                        showToast('¡Reserva confirmada! El arrendador ha sido notificado por correo.', 'success');
+                        showToast('¡Pago confirmado!', 'success');
+                        
+                        // Recibo
+                        document.getElementById('recReservaId').textContent = '#' + (res.reservaId || 'RES-654321');
+                        document.getElementById('recMonto').textContent = 'S/ ' + currentHospedaje.PrecioMensual;
+                        document.getElementById('recFecha').textContent = new Date().toLocaleDateString();
+                        document.getElementById('receiptModal').classList.remove('hidden');
+
                         const idx = hospedajesGlobal.findIndex(h => h.HospedajeID === currentHospedaje.HospedajeID);
                         if (idx !== -1) hospedajesGlobal[idx].Estado = 'Ocupado';
                         cerrarDetalles();
@@ -1068,10 +1011,46 @@
                 );
         }
 
+        function closeReceiptAndGoToReservas() {
+            document.getElementById('receiptModal').classList.add('hidden');
+            switchMainTab('reservas');
+        }
+
+        // --- MODAL DE MENSAJE ---
+        function openMessageModal() {
+            if (!currentHospedaje) return;
+            document.getElementById('messageModal').classList.remove('hidden');
+        }
+        function closeMessageModal() {
+            document.getElementById('messageModal').classList.add('hidden');
+        }
+        function handleSendMessage(e) {
+            e.preventDefault();
+            const msg = document.getElementById('msgContent').value.trim();
+            if (!msg) return;
+            showLoader('Enviando mensaje...');
+            google.script.run
+                .withSuccessHandler(res => {
+                    hideLoader();
+                    if (res.success) {
+                        showToast(res.message, 'success');
+                        closeMessageModal();
+                        document.getElementById('msgContent').value = '';
+                    } else {
+                        showToast(res.message, 'error');
+                    }
+                })
+                .withFailureHandler(err => {
+                    hideLoader();
+                    showToast('Error: ' + err.message, 'error');
+                })
+                .sendMessage(APP.currentUser.EstudianteID, currentHospedaje.ArrendadorID, currentHospedaje.HospedajeID, msg);
+        }
+
         // --- MIS RESERVAS ---
         function cargarMisReservas() {
             const container = document.getElementById('listaReservasEstudiante');
-            container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando tus reservas...</div>';
+            container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200 skeleton-load">Cargando tus reservas...</div>';
             google.script.run
                 .withSuccessHandler(reservas => {
                     if (!reservas || reservas.length === 0) {
@@ -1079,19 +1058,25 @@
                         return;
                     }
                     container.innerHTML = reservas.map(r => `
-                        <div class="card p-5 flex flex-col gap-4">
+                        <div class="card p-6 flex flex-col gap-4 animate-fade-in-up">
                             <div class="flex justify-between items-start">
                                 <div>
-                                    <h4 class="font-bold text-gray-900 text-lg">${r.Titulo}</h4>
-                                    <p class="text-sm text-gray-500 mt-1"><span class="material-symbols-outlined text-[14px]">location_on</span> ${r.Distrito}, ${r.Direccion}</p>
+                                    <h4 class="font-bold text-gray-900 text-lg leading-tight">${r.Titulo}</h4>
+                                    <p class="text-sm text-gray-500 mt-2 flex items-center gap-1"><span class="material-symbols-outlined text-[16px] text-primary">location_on</span> ${r.Distrito}, ${r.Direccion}</p>
                                 </div>
                                 <span class="badge badge-success">${r.Estado}</span>
                             </div>
-                            <div class="flex justify-between items-center border-t border-gray-100 pt-4">
-                                <span class="text-2xl font-bold text-primary">S/ ${r.Monto}</span>
+                            <div class="flex justify-between items-center border-t border-gray-100 pt-5">
+                                <div>
+                                    <span class="text-xs text-gray-400 block uppercase tracking-wider font-bold mb-1">Monto Pagado</span>
+                                    <span class="text-2xl font-bold text-primary">S/ ${r.Monto}</span>
+                                </div>
                                 <span class="text-xs text-gray-400">${r.FechaReserva}</span>
                             </div>
-                            <p class="text-xs font-semibold text-[#742284] bg-purple-50 px-3 py-2 rounded-lg">Reserva #${r.ReservaID}</p>
+                            <div class="bg-purple-50 p-3 rounded-xl border border-purple-100">
+                                <p class="text-[10px] text-[#742284] font-bold uppercase tracking-widest mb-1">Código de Confirmación</p>
+                                <p class="text-sm font-mono font-bold text-[#742284]">${r.ReservaID}</p>
+                            </div>
                         </div>
                     `).join('');
                 })
@@ -1101,7 +1086,7 @@
                 .getReservasPorEstudiante(APP.currentUser.EstudianteID);
         }
 
-        // --- MODAL DE RESEÑA ---
+        // --- RESEÑAS ---
         function openReviewModal() {
             if (!currentHospedaje) return;
             showLoader('Verificando reserva...');
@@ -1128,7 +1113,6 @@
             const rating = document.querySelector('input[name="rating"]:checked').value;
             const comment = document.getElementById('reviewComment').value.trim();
             if (!comment) return;
-
             showLoader('Enviando reseña...');
             google.script.run
                 .withSuccessHandler(res => {
@@ -1152,7 +1136,6 @@
         function cargarMensajesEstudiante() {
             const container = document.getElementById('listaMensajesEstudiante');
             container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando mensajes...</div>';
-            
             google.script.run
                 .withSuccessHandler(res => {
                     if(res.length === 0) {
@@ -1163,28 +1146,27 @@
                         const esRemitente = String(m.RemitenteID) === String(APP.currentUser.EstudianteID);
                         const nombre = esRemitente ? 'Tú' : (m.NombreRemitente || m.RemitenteID);
                         const alineacion = esRemitente ? 'justify-end' : 'justify-start';
-                        const bgMensaje = esRemitente ? 'bg-primary/10' : 'bg-gray-100';
+                        const bgMensaje = esRemitente ? 'bg-primary/10 border-primary/20' : 'bg-gray-100 border-gray-200';
                         const textMensaje = esRemitente ? 'text-primary' : 'text-gray-800';
                         return `
-                        <div class="card p-5 flex flex-col gap-3">
-                            <div class="flex ${alineacion} items-start gap-3">
-                                <div class="flex flex-col gap-1">
-                                    <span class="text-xs font-semibold text-primary uppercase tracking-wide">${nombre}</span>
-                                    <div class="${bgMensaje} ${textMensaje} p-4 rounded-xl rounded-tl-none max-w-[80%]">
-                                        <p>${m.Mensaje}</p>
-                                    </div>
+                        <div class="flex ${alineacion} mb-4 animate-fade-in-up">
+                            <div class="max-w-[85%] sm:max-w-[70%]">
+                                <div class="flex items-center gap-2 mb-1 ${esRemitente ? 'justify-end' : ''}">
+                                    <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">${nombre}</span>
+                                    <span class="text-[10px] text-gray-300">${m.FechaHora}</span>
+                                </div>
+                                <div class="p-4 rounded-2xl border ${bgMensaje} ${textMensaje} ${esRemitente ? 'rounded-tr-none shadow-sm shadow-primary/5' : 'rounded-tl-none shadow-sm shadow-gray-200'}">
+                                    <p class="text-sm leading-relaxed">${m.Mensaje}</p>
+                                </div>
+                                <div class="mt-2 ${esRemitente ? 'text-right' : ''}">
+                                    <span class="text-[10px] font-semibold px-2 py-0.5 bg-skyblue/10 text-skyblue rounded-full">${m.EstadoAtencion}</span>
                                 </div>
                             </div>
-                            <div class="flex justify-between items-center border-t border-gray-50 pt-3">
-                                <span class="text-xs text-gray-400">${m.FechaHora}</span>
-                                <span class="text-xs font-semibold px-2 py-1 bg-skyblue/10 text-skyblue rounded-md">${m.EstadoAtencion}</span>
-                            </div>
                         </div>
-                        `;
-                    }).join('');
+                        `}).join('');
                 })
                 .withFailureHandler(err => {
-                    container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500 bg-red-50 rounded-[20px] border border-dashed border-red-200">Error al cargar mensajes: ' + err.message + '</div>';
+                    container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500">Error al cargar mensajes.</div>';
                 })
                 .getMensajesPorUsuario(APP.currentUser.EstudianteID);
         }
@@ -1193,7 +1175,6 @@
         function cargarRoommates() {
             const container = document.getElementById('listaRoommates');
             container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando posibles roommates...</div>';
-
             google.script.run
                 .withSuccessHandler(res => {
                     const filtrados = res.filter(r => r.EstudianteID !== APP.currentUser.EstudianteID);
@@ -1202,28 +1183,34 @@
                         return;
                     }
                     container.innerHTML = filtrados.map(r => `
-                        <div class="card p-6 flex flex-col items-center text-center">
-                            <div class="w-20 h-20 bg-primary/20 text-primary rounded-full flex items-center justify-center mb-4 text-3xl font-bold">
-                                ${r.NombreCompleto.charAt(0).toUpperCase()}
+                        <div class="card p-6 flex flex-col items-center text-center animate-fade-in-up">
+                            <div class="relative mb-4">
+                                <div class="w-24 h-24 bg-primary/10 text-primary rounded-full flex items-center justify-center text-4xl font-bold border-4 border-white shadow-md">
+                                    ${(r.NombreCompleto || 'E').charAt(0).toUpperCase()}
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-6 h-6 bg-green-500 border-4 border-white rounded-full"></div>
                             </div>
-                            <h3 class="font-bold text-lg text-gray-900 mb-1">${r.NombreCompleto}</h3>
-                            <p class="text-sm text-gray-500 mb-4">${r.Universidad || 'Estudiante'} - ${r.Carrera || 'Sin carrera'}</p>
-                            <div class="w-full text-left bg-gray-50 p-3 rounded-xl mb-4">
-                                <span class="text-xs font-semibold text-gray-500 block mb-1">Intereses</span>
-                                <p class="text-sm text-gray-800">${r.Intereses || 'No especificados'}</p>
+                            <h3 class="font-bold text-lg text-gray-900 mb-1 leading-tight">${r.NombreCompleto}</h3>
+                            <p class="text-sm text-gray-500 mb-6 font-medium">${r.Universidad || 'Estudiante'} • ${r.Carrera || 'Cusco'}</p>
+                            <div class="w-full text-left bg-gray-50 p-4 rounded-2xl mb-6 border border-gray-100">
+                                <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest block mb-2">Intereses y Estilo</span>
+                                <p class="text-sm text-gray-700 leading-relaxed italic">"${r.Intereses || 'No especificados'}"</p>
                             </div>
-                            <button class="btn btn-outline btn-full">Contactar</button>
+                            <button class="btn btn-outline btn-full group">
+                                <span class="material-symbols-outlined text-sm group-hover:scale-110 transition-transform">chat</span>
+                                Enviar Mensaje
+                            </button>
                         </div>
                     `).join('');
                 })
                 .withFailureHandler(err => {
-                    container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500 bg-red-50 rounded-[20px] border border-dashed border-red-200">Error: ' + err.message + '</div>';
+                    container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500">Error al cargar roommates.</div>';
                 })
                 .getRoommates();
         }
-    <?!= include('Scripts'); ?>
+    </script>
 
-    <footer class="text-center text-xs text-on-surface-variant py-6 px-4 border-t border-outline-variant mt-auto">
+    <footer class="text-center text-xs text-on-surface-variant py-8 px-4 border-t border-outline-variant mt-auto">
         &copy; 2025 CuscoRent · Plataforma de alojamiento estudiantil en Cusco, Perú
     </footer>
 

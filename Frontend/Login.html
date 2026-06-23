@@ -21,96 +21,93 @@
 
     <!-- Hero Background with Andean Gradient -->
     <div class="fixed inset-0 z-0 hero-gradient">
-        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/40 to-charcoal/10"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/50 to-charcoal/20"></div>
+        <div class="absolute inset-0 backdrop-blur-[2px]"></div>
     </div>
 
     <!-- MAIN LOGIN SCREEN -->
-    <main id="main-content" class="flex-grow flex items-center justify-center relative z-10 min-h-screen px-4 py-10">
-        <div class="bg-white rounded-[24px] shadow-xl w-full max-w-md p-8 relative overflow-hidden">
+    <main id="main-content" class="flex-grow flex items-center justify-center relative z-10 min-h-screen px-4 py-12">
+        <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-md p-10 relative overflow-hidden animate-scale-in">
             <!-- Accent Bar -->
-            <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-primary via-terracotta to-skyblue"></div>
+            <div class="absolute top-0 left-0 right-0 h-2.5 bg-gradient-to-r from-primary via-terracotta to-skyblue"></div>
 
             <!-- Brand Header -->
-            <div class="text-center flex flex-col items-center gap-2 mt-6 mb-6">
-                <span class="material-symbols-outlined filled-icon text-5xl text-primary mb-1">location_city</span>
-                <h1 class="text-3xl font-bold tracking-tight">
+            <div class="text-center flex flex-col items-center gap-2 mt-4 mb-10">
+                <div class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-4 shadow-inner">
+                    <span class="material-symbols-outlined filled-icon text-4xl">location_city</span>
+                </div>
+                <h1 class="text-4xl font-black tracking-tighter">
                     <span class="font-serif text-charcoal">Cusco</span><span class="font-serif text-primary">Rent</span>
                 </h1>
-                <p class="text-sm text-gray-500">Encuentra tu espacio ideal en Cusco</p>
+                <p class="text-sm font-medium text-gray-400 uppercase tracking-widest mt-1">Vivienda Universitaria</p>
             </div>
 
             <!-- Role Selector (Segmented Control) -->
-            <div class="segmented-control mb-6">
+            <div class="segmented-control mb-8">
                 <button type="button" 
                         class="segmented-control-btn active" 
                         id="btnLoginEstudiante" 
                         onclick="seleccionarRolUI_Login('estudiante')">
                     <span class="material-symbols-outlined">school</span>
-                    <span>Estudiante</span>
+                    <span class="font-bold">Estudiante</span>
                 </button>
                 <button type="button" 
                         class="segmented-control-btn" 
                         id="btnLoginArrendador" 
                         onclick="seleccionarRolUI_Login('arrendador')">
                     <span class="material-symbols-outlined">home_work</span>
-                    <span>Arrendador</span>
+                    <span class="font-bold">Arrendador</span>
                 </button>
                 <button type="button" 
                         class="segmented-control-btn hidden" 
                         id="btnLoginAdmin" 
                         onclick="seleccionarRolUI_Login('administrador')">
                     <span class="material-symbols-outlined">admin_panel_settings</span>
-                    <span>Admin</span>
+                    <span class="font-bold">Admin</span>
                 </button>
             </div>
 
             <!-- Login Form -->
-            <form id="loginForm" onsubmit="handleLogin(event)" class="flex flex-col gap-5">
+            <form id="loginForm" onsubmit="handleLogin(event)" class="flex flex-col gap-6">
                 <!-- Email Input -->
-                <div class="input-group">
+                <div class="floating-label-group">
+                    <input 
+                        class="input-field" 
+                        id="authEmail" 
+                        name="email" 
+                        placeholder=" " 
+                        required 
+                        type="email" 
+                    />
                     <label for="authEmail">Correo electrónico</label>
-                    <div class="relative">
-                        <span class="input-icon material-symbols-outlined">mail</span>
-                        <input 
-                            class="input-field" 
-                            id="authEmail" 
-                            name="email" 
-                            placeholder="usuario@correo.com" 
-                            required 
-                            aria-required="true" 
-                            type="email" 
-                        />
-                    </div>
+                    <span class="input-icon material-symbols-outlined" style="top: 28px;">mail</span>
                 </div>
 
                 <!-- Password Input -->
-                <div class="input-group">
+                <div class="floating-label-group">
+                    <input 
+                        class="input-field pr-12" 
+                        id="authPassword" 
+                        name="password" 
+                        placeholder=" " 
+                        required 
+                        type="password" 
+                    />
                     <label for="authPassword">Contraseña</label>
-                    <div class="relative">
-                        <span class="input-icon material-symbols-outlined">lock</span>
-                        <input 
-                            class="input-field pr-11" 
-                            id="authPassword" 
-                            name="password" 
-                            placeholder="••••••••" 
-                            required 
-                            aria-required="true" 
-                            type="password" 
-                        />
-                        <button 
-                            class="input-toggle" 
-                            type="button" 
-                            onclick="togglePasswordVisibility('authPassword', 'passwordToggleIcon')" 
-                            aria-label="Mostrar/Ocultar contraseña">
-                            <span class="material-symbols-outlined" id="passwordToggleIcon">visibility_off</span>
-                        </button>
-                    </div>
+                    <span class="input-icon material-symbols-outlined" style="top: 28px;">lock</span>
+                    <button 
+                        class="input-toggle" 
+                        type="button" 
+                        style="top: 32px; right: 10px;"
+                        onclick="togglePasswordVisibility('authPassword', 'passwordToggleIcon')">
+                        <span class="material-symbols-outlined" id="passwordToggleIcon">visibility_off</span>
+                    </button>
                 </div>
 
                 <!-- Forgot Password -->
-                <div class="flex items-center justify-end mt-1">
+                <div class="flex items-center justify-end">
                     <button type="button" 
-                            class="text-sm font-medium text-skyblue hover:text-skyblue/80 transition-colors"
+                            class="text-xs font-bold text-skyblue uppercase tracking-wider hover:text-blue transition-colors"
                             onclick="openForgotModal()">
                         ¿Olvidaste tu contraseña?
                     </button>
@@ -118,174 +115,118 @@
 
                 <!-- Submit Button -->
                 <button 
-                    class="btn btn-primary btn-full" 
+                    class="btn btn-primary btn-full btn-lg group" 
                     type="submit">
-                    Iniciar Sesión
-                    <span class="material-symbols-outlined">arrow_forward</span>
+                    <span>Acceder ahora</span>
+                    <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </button>
             </form>
 
             <!-- Sign Up Link -->
-            <div class="text-center mt-6 pt-5 border-t border-gray-100">
+            <div class="text-center mt-8 pt-8 border-t border-gray-50">
                 <p class="text-sm text-gray-500">
-                    ¿No tienes cuenta?
+                    ¿Nuevo en CuscoRent?
                     <button type="button" 
-                            class="font-semibold text-primary hover:text-primary/80 transition-colors ml-1" 
+                            class="font-extrabold text-primary hover:underline ml-1" 
                             onclick="openRegisterModal()">
-                        Crear cuenta
+                        Crea tu cuenta gratis
                     </button>
                 </p>
                 <button type="button" 
                         onclick="document.getElementById('btnLoginAdmin').classList.toggle('hidden'); seleccionarRolUI_Login('administrador');" 
-                        class="text-xs text-gray-400 mt-4 hover:text-gray-500 transition-colors">
-                    Acceso Administrativo
+                        class="text-[10px] text-gray-300 mt-6 uppercase font-bold tracking-[0.2em] hover:text-gray-400 transition-colors">
+                    Terminal Administrativa
                 </button>
             </div>
         </div>
     </main>
 
-    <footer class="relative z-10 text-center text-xs text-white/70 py-4">
-        © 2025 CuscoRent · Hecho con
-        <span class="material-symbols-outlined align-middle text-[14px] text-terracotta filled-icon">favorite</span>
-        en Cusco
+    <footer class="relative z-10 text-center text-[10px] uppercase font-bold tracking-widest text-white/40 py-8">
+        &copy; 2025 CuscoRent &bull; Vivienda estudiantil de calidad &bull; Cusco, Perú
     </footer>
 
     <!-- MODAL DE REGISTRO -->
     <div id="registerModal" class="modal-backdrop hidden">
-        <div class="modal-content max-w-md">
-            <button type="button" onclick="closeRegisterModal()" class="modal-close" aria-label="Cerrar modal"></button>
+        <div class="modal-content max-w-lg">
+            <button type="button" onclick="closeRegisterModal()" class="modal-close"></button>
             
-            <div class="text-center mb-6">
-                <div class="w-14 h-14 mx-auto rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
-                    <span class="material-symbols-outlined text-4xl">person_add</span>
-                </div>
-                <h2 class="text-2xl font-bold text-charcoal mb-1">Crear Cuenta</h2>
-                <p class="text-sm text-gray-500">Regístrate para comenzar a usar CuscoRent</p>
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-black text-charcoal font-serif tracking-tight">Únete a la Comunidad</h2>
+                <p class="text-gray-400 mt-2">Completa tus datos para empezar</p>
             </div>
 
-            <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-4">
+            <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-6">
                 <input type="hidden" id="regRole" value="estudiante">
                 
-                <!-- Role Selector para Registro -->
-                <div class="segmented-control mb-4">
-                    <button type="button" 
-                            data-role="estudiante" 
-                            class="role-btn-reg segmented-control-btn active" 
-                            onclick="seleccionarRolUI_Reg('estudiante')">
-                        <span class="material-symbols-outlined">school</span>
-                        <span>Soy Estudiante</span>
+                <div class="segmented-control mb-8">
+                    <button type="button" data-role="estudiante" class="role-btn-reg segmented-control-btn active" onclick="seleccionarRolUI_Reg('estudiante')">
+                        <span class="material-symbols-outlined">school</span> <span>Estudiante</span>
                     </button>
-                    <button type="button" 
-                            data-role="arrendador" 
-                            class="role-btn-reg segmented-control-btn" 
-                            onclick="seleccionarRolUI_Reg('arrendador')">
-                        <span class="material-symbols-outlined">home_work</span>
-                        <span>Soy Arrendador</span>
+                    <button type="button" data-role="arrendador" class="role-btn-reg segmented-control-btn" onclick="seleccionarRolUI_Reg('arrendador')">
+                        <span class="material-symbols-outlined">home_work</span> <span>Arrendador</span>
                     </button>
                 </div>
 
-                <div class="input-group">
-                    <label for="regNombre">Nombre completo</label>
-                    <input type="text" 
-                           id="regNombre" 
-                           placeholder="Ej: Juan Pérez" 
-                           required 
-                           aria-required="true" 
-                           class="input-field" 
-                    />
-                </div>
-                
-                <div class="input-group">
-                    <label for="regTelefono">Teléfono</label>
-                    <input type="tel" 
-                           id="regTelefono" 
-                           placeholder="Ej: 987654321" 
-                           required 
-                           aria-required="true"
-                           class="input-field"
-                    />
-                </div>
-                
-                <div class="input-group">
-                    <label for="regEmail">Correo electrónico</label>
-                    <input type="email" 
-                           id="regEmail" 
-                           placeholder="tu@correo.com" 
-                           required 
-                           aria-required="true" 
-                           class="input-field"
-                    />
-                </div>
-                
-                <div class="input-group">
-                    <label for="regPassword">Contraseña</label>
-                    <div class="relative">
-                        <input type="password" 
-                               id="regPassword" 
-                               placeholder="••••••••" 
-                               required 
-                               aria-required="true" 
-                               class="input-field pr-11"
-                        />
-                        <button 
-                            class="input-toggle" 
-                            type="button" 
-                            onclick="togglePasswordVisibility('regPassword', 'regPasswordToggleIcon')" 
-                            aria-label="Mostrar/Ocultar contraseña">
-                            <span class="material-symbols-outlined" id="regPasswordToggleIcon">visibility_off</span>
-                        </button>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div class="floating-label-group">
+                        <input type="text" id="regNombre" placeholder=" " required class="input-field" />
+                        <label for="regNombre">Nombre completo</label>
+                    </div>
+                    <div class="floating-label-group">
+                        <input type="tel" id="regTelefono" placeholder=" " required class="input-field" />
+                        <label for="regTelefono">Teléfono</label>
+                    </div>
+                    <div class="floating-label-group sm:col-span-2">
+                        <input type="email" id="regEmail" placeholder=" " required class="input-field" />
+                        <label for="regEmail">Correo electrónico</label>
+                    </div>
+                    <div class="floating-label-group sm:col-span-2">
+                        <input type="password" id="regPassword" placeholder=" " required class="input-field" />
+                        <label for="regPassword">Crea una contraseña segura</label>
                     </div>
                 </div>
                 
-                <!-- Campos adicionales para estudiante -->
-                <div id="estudianteExtraFields" class="space-y-4 pt-2 border-t border-gray-100 hidden">
-                    <label class="flex items-center gap-3 p-3 border border-gray-200 rounded-xl cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="checkbox" id="regBuscaRoommate" class="w-5 h-5 text-primary rounded focus:ring-primary accent-primary">
-                        <span class="text-sm font-medium text-gray-700">¿Buscas Roommate para dividir gastos?</span>
+                <div id="estudianteExtraFields" class="space-y-6 pt-4 border-t border-gray-50 hidden">
+                    <label class="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl cursor-pointer hover:bg-gray-100 transition-colors border border-gray-100">
+                        <input type="checkbox" id="regBuscaRoommate" class="w-6 h-6 text-primary rounded-lg accent-primary">
+                        <div>
+                            <p class="text-sm font-bold text-charcoal">Busco Roommate</p>
+                            <p class="text-xs text-gray-400">Activa esta opción para que otros estudiantes te encuentren.</p>
+                        </div>
                     </label>
-                    <div class="input-group">
-                        <label for="regIntereses">Mis Intereses (Opcional)</label>
-                        <input type="text" 
-                               id="regIntereses" 
-                               placeholder="Ej: Lectura, ordenado, videojuegos..." 
-                               class="input-field"
-                        />
+                    <div class="floating-label-group">
+                        <input type="text" id="regIntereses" placeholder=" " class="input-field" />
+                        <label for="regIntereses">¿Qué buscas en un compañero? (Intereses)</label>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary btn-full btn-lg">
-                    <span class="material-symbols-outlined">person_add</span>
-                    Completar Registro
+                <button type="submit" class="btn btn-primary btn-full btn-lg mt-4">
+                    <span class="material-symbols-outlined">how_to_reg</span>
+                    Finalizar y Crear Cuenta
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- MODAL DE RECUPERACIÓN DE CONTRASEÑA -->
+    <!-- MODAL DE RECUPERACIÓN -->
     <div id="forgotModal" class="modal-backdrop hidden">
         <div class="modal-content max-w-sm">
-            <button type="button" onclick="closeForgotModal()" class="modal-close" aria-label="Cerrar modal"></button>
-            <div class="text-center mb-6">
-                <div class="w-14 h-14 mx-auto rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-3">
-                    <span class="material-symbols-outlined text-4xl">lock_reset</span>
+            <button type="button" onclick="closeForgotModal()" class="modal-close"></button>
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 mx-auto rounded-2xl bg-skyblue/10 flex items-center justify-center text-skyblue mb-4">
+                    <span class="material-symbols-outlined text-4xl">key_visualizer</span>
                 </div>
-                <h2 class="text-2xl font-bold text-charcoal mb-1">Recuperar Cuenta</h2>
-                <p class="text-sm text-gray-500">Ingresa tu correo y te enviaremos tus datos</p>
+                <h2 class="text-2xl font-bold text-charcoal font-serif">Recuperar Acceso</h2>
+                <p class="text-sm text-gray-400 mt-2">Enviaremos tu contraseña a tu correo registrado.</p>
             </div>
-            <form id="forgotForm" onsubmit="handleForgot(event)" class="space-y-4">
-                <div class="input-group">
+            <form id="forgotForm" onsubmit="handleForgot(event)" class="space-y-6">
+                <div class="floating-label-group">
+                    <input type="email" id="forgotEmail" placeholder=" " required class="input-field" />
                     <label for="forgotEmail">Correo electrónico</label>
-                    <input type="email" 
-                           id="forgotEmail" 
-                           placeholder="tu@correo.com" 
-                           required 
-                           aria-required="true" 
-                           class="input-field"
-                    />
                 </div>
                 <button type="submit" class="btn btn-primary btn-full">
                     <span class="material-symbols-outlined">send</span>
-                    Recuperar
+                    Enviar Solicitud
                 </button>
             </form>
         </div>
@@ -294,23 +235,6 @@
     <?!= include('Scripts'); ?>
     <script>
       const SCRIPT_URL = "<?= getScriptUrl() ?>";
-       
-      // Sobrescribir iniciarDashboard para usar SCRIPT_URL local
-      function iniciarDashboard(email, role, user) {
-          APP.currentEmail = email;
-          APP.currentRole = role;
-          APP.currentUser = user;
-          localStorage.setItem('user', JSON.stringify(user));
-          
-          let page = role === 'estudiante' ? 'Estudiante' : role === 'arrendador' ? 'Arrendador' : 'Administrador';
-          try {
-              redirectTop(SCRIPT_URL + '?page=' + page);
-          } catch(e) {
-              window.location.href = SCRIPT_URL + '?page=' + page;
-          }
-      }
-       
-      // Select Estudiante by default on load
       document.addEventListener('DOMContentLoaded', () => {
           seleccionarRolUI_Login('estudiante');
       });

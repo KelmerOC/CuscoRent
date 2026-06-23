@@ -7,6 +7,7 @@
    :root {
       /* Paleta Andina Premium */
       --primary: #895100;
+      --primary-dark: #6a3d00;
       --secondary: #b85151;
       --terracotta: #b85151;
       --sage: #8fa08e;
@@ -17,6 +18,10 @@
       --border-color: #e6dec9;
       --focus-ring: #895100;
       --blue: #00668a;
+
+      /* Premium Accents */
+      --premium-gold: #ff9f1c;
+      --premium-gold-dark: #e68a00;
 
       /* Escala neutra cálida */
       --white: #ffffff;
@@ -48,9 +53,9 @@
       --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04);
       --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.04);
       --shadow-lg: 0 8px 12px rgba(0, 0, 0, 0.08), 0 16px 32px rgba(0, 0, 0, 0.08);
-      --shadow-xl: 0 12px 20px rgba(0, 0, 0.12), 0 24px 48px rgba(0, 0, 0.12);
+      --shadow-xl: 0 12px 20px rgba(0, 0, 0, 0.12), 0 24px 48px rgba(0, 0, 0, 0.12);
       --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.05);
-      --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.08), 0 16px 48px rgba(0, 0, 0.12);
+      --shadow-card-hover: 0 8px 24px rgba(0, 0, 0, 0.08), 0 16px 48px rgba(0, 0, 0, 0.12);
       --shadow-modal: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
 
       /* Motion */
@@ -132,8 +137,8 @@
    }
 
    /* ============================================================
-    ACCESSIBILITY UTILITIES
-    ============================================================ */
+     ACCESSIBILITY UTILITIES
+     ============================================================ */
    .skip-link {
       position: absolute;
       top: -100%;
@@ -207,8 +212,8 @@
    }
 
    /* ============================================================
-    ANIMATIONS
-    ============================================================ */
+     ANIMATIONS
+     ============================================================ */
    @keyframes spin {
       to {
          transform: rotate(360deg);
@@ -273,6 +278,11 @@
       }
    }
 
+   @keyframes skeleton-shimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+   }
+
    /* Animation utilities */
    .animate-fade-in-up {
       animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) both;
@@ -288,6 +298,14 @@
 
    .animate-pulse {
       animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+   }
+
+   /* Skeleton loading utility */
+   .skeleton-load {
+      background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.5s infinite linear;
+      border-radius: var(--radius-md);
    }
 
    /* Staggered animations for catalog */
@@ -324,8 +342,8 @@
    }
 
    /* ============================================================
-    LOADER & TOAST
-    ============================================================ */
+     LOADER & TOAST
+     ============================================================ */
    #loaderOverlay,
    #overlayLoader {
       position: fixed;
@@ -417,21 +435,22 @@
    }
 
    /* ============================================================
-    UNIFIED CARD SYSTEM (Premium-style)
-    ============================================================ */
+     UNIFIED CARD SYSTEM (Premium-style)
+     ============================================================ */
    .card {
       background-color: var(--white);
-      border-radius: var(--radius-xl);
+      border-radius: var(--radius-2xl);
       box-shadow: var(--shadow-card);
       overflow: hidden;
       position: relative;
       transition: transform var(--transition-base) ease, box-shadow var(--transition-base) ease;
-      border: 1px solid transparent;
+      border: 1px solid var(--gray-100);
    }
 
    .card:hover {
       transform: translateY(-4px);
       box-shadow: var(--shadow-card-hover);
+      border-color: var(--gray-200);
    }
 
    .card-accent::before {
@@ -463,16 +482,17 @@
    /* Listing Card (Premium-style) */
    .listing-card {
       background: var(--white);
-      border-radius: var(--radius-xl);
+      border-radius: var(--radius-2xl);
       overflow: hidden;
-      box-shadow: var(--shadow-card);
+      box-shadow: none;
       transition: all var(--transition-base) ease;
-      border: 1px solid transparent;
+      border: 1px solid var(--gray-100);
       cursor: pointer;
+      position: relative;
    }
 
    .listing-card:hover {
-      transform: translateY(-4px);
+      transform: translateY(-8px);
       box-shadow: var(--shadow-card-hover);
       border-color: var(--gray-200);
    }
@@ -518,6 +538,31 @@
    .listing-card-rating .material-symbols-outlined {
       font-size: 0.9rem;
       color: var(--primary);
+   }
+
+   /* Premium Badge & Border */
+   .listing-card.premium {
+      border: 2px solid var(--premium-gold);
+   }
+
+   .badge-premium {
+      background: linear-gradient(135deg, var(--premium-gold), var(--premium-gold-dark));
+      color: var(--white);
+      box-shadow: 0 2px 8px rgba(255, 159, 28, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+   }
+
+   .badge-premium .material-symbols-outlined {
+      font-size: 0.9rem;
+      font-variation-settings: 'FILL' 1;
    }
 
    /* Placeholder for listing images (Andean gradient) */
@@ -737,8 +782,8 @@
    }
 
    /* ============================================================
-    UNIFIED BUTTON SYSTEM (Premium-style pills)
-    ============================================================ */
+     UNIFIED BUTTON SYSTEM (Premium-style pills)
+     ============================================================ */
    .btn {
       display: inline-flex;
       align-items: center;
@@ -773,14 +818,16 @@
 
    /* Primary Button */
    .btn-primary {
-      background-color: var(--primary);
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
       color: var(--white);
       box-shadow: 0 4px 14px rgba(137, 81, 0, 0.35);
+      border: none;
    }
 
    .btn-primary:hover {
-      background-color: #6a3d00;
+      background: linear-gradient(90deg, var(--primary-dark), #4a2d00);
       box-shadow: 0 6px 20px rgba(137, 81, 0, 0.4);
+      transform: translateY(-2px);
    }
 
    /* Secondary Button */
@@ -911,8 +958,8 @@
    }
 
    /* ============================================================
-    UNIFIED INPUT SYSTEM (Premium-style)
-    ============================================================ */
+     UNIFIED INPUT SYSTEM (Premium-style)
+     ============================================================ */
    .input-group {
       position: relative;
       display: flex;
@@ -1028,26 +1075,37 @@
    /* Input with label floating */
    .floating-label-group {
       position: relative;
+      margin-top: 0.5rem;
+   }
+
+   .floating-label-group .input-field {
+      padding-top: 1.5rem;
+      padding-bottom: 0.5rem;
    }
 
    .floating-label-group label {
       position: absolute;
       top: 14px;
-      left: 14px;
+      left: 1rem;
       color: var(--gray-400);
-      font-size: 0.9rem;
+      font-size: 0.95rem;
       pointer-events: none;
-      transition: all var(--transition-base) ease;
-      background: var(--white);
-      padding: 0 4px;
+      transition: all var(--transition-fast) ease;
+      background: transparent;
+      transform-origin: top left;
    }
 
    .floating-label-group input:focus+label,
-   .floating-label-group input:not(:placeholder-shown)+label {
-      top: -10px;
-      left: 12px;
-      font-size: 0.75rem;
+   .floating-label-group input:not(:placeholder-shown)+label,
+   .floating-label-group select:focus+label,
+   .floating-label-group select:not([value=""])+label,
+   .floating-label-group textarea:focus+label,
+   .floating-label-group textarea:not(:placeholder-shown)+label {
+      transform: translateY(-10px) scale(0.75);
       color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
    }
 
    /* File Input Styling */
@@ -1068,8 +1126,8 @@
    }
 
    /* ============================================================
-    TAB SYSTEM (Premium-style)
-    ============================================================ */
+     TAB SYSTEM (Premium-style)
+     ============================================================ */
    .tab-active {
       border-bottom: 2px solid var(--primary);
       color: var(--primary);
@@ -1166,14 +1224,14 @@
    }
 
    /* ============================================================
-    MODAL SYSTEM (Premium-style)
-    ============================================================ */
+     MODAL SYSTEM (Premium-style)
+     ============================================================ */
    .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(33, 31, 29, 0.5);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+      background: rgba(33, 31, 29, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: var(--z-modal-backdrop);
       display: none;
       align-items: center;
@@ -1190,13 +1248,13 @@
       background: var(--white);
       border-radius: var(--radius-2xl);
       box-shadow: var(--shadow-modal);
-      padding: 2rem;
+      padding: 2.5rem;
       width: 100%;
-      max-width: 480px;
+      max-width: 520px;
       max-height: 90vh;
       overflow-y: auto;
       position: relative;
-      animation: scaleIn var(--transition-base) ease;
+      animation: scaleIn var(--transition-base) cubic-bezier(0.16, 1, 0.3, 1);
    }
 
    .modal-close {
@@ -1270,8 +1328,8 @@
    }
 
    /* ============================================================
-    SIDEBAR LAYOUT (Premium-style)
-    ============================================================ */
+     SIDEBAR LAYOUT (Premium-style)
+     ============================================================ */
    .app-layout {
       display: grid;
       grid-template-columns: 280px 1fr;
@@ -1401,8 +1459,8 @@
    }
 
    /* ============================================================
-    UPLOAD ZONE (Premium-style)
-    ============================================================ */
+     UPLOAD ZONE (Premium-style)
+     ============================================================ */
    .upload-zone {
       border: 2px dashed var(--gray-200);
       border-radius: var(--radius-xl);
@@ -1504,8 +1562,8 @@
    }
 
    /* ============================================================
-    SLIDER (Premium-style)
-    ============================================================ */
+     SLIDER (Premium-style)
+     ============================================================ */
    .dual-slider-container {
       position: relative;
       width: 100%;
@@ -1608,8 +1666,8 @@
    }
 
    /* ============================================================
-    RESPONSIVE
-    ============================================================ */
+     RESPONSIVE
+     ============================================================ */
    @media (max-width: 768px) {
       .app-layout {
          grid-template-columns: 1fr;
@@ -1763,8 +1821,8 @@
    }
 
    /* ============================================================
-    UTILITY OVERRIDES
-    ============================================================ */
+     UTILITY OVERRIDES
+     ============================================================ */
    .comparison-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -2075,8 +2133,8 @@
    }
 
    /* ============================================================
-    TOP HEADER LAYOUT (Nuevo diseño — Estudiante)
-    ============================================================ */
+     TOP HEADER LAYOUT (Nuevo diseño — Estudiante)
+     ============================================================ */
    .top-header {
       position: sticky;
       top: 0;
@@ -2153,8 +2211,8 @@
    }
 
    /* ============================================================
-    CATALOG SPLIT LAYOUT (Nuevo — lista + mapa)
-    ============================================================ */
+     CATALOG SPLIT LAYOUT (Nuevo — lista + mapa)
+     ============================================================ */
    .catalog-split-layout {
       display: flex;
       height: calc(100vh - 65px);
@@ -2191,8 +2249,8 @@
    }
 
    /* ============================================================
-    ARRENDADOR DUAL-MODE LAYOUT
-    ============================================================ */
+     ARRENDADOR DUAL-MODE LAYOUT
+     ============================================================ */
    #modo-catalogo {
       display: flex;
       flex-direction: column;
