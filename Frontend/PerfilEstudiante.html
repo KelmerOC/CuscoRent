@@ -12,7 +12,7 @@
 <body class="font-sans text-on-surface antialiased bg-surface pb-12">
     <!-- Navbar / Header (Igual que Estudiante.html) -->
     <header class="top-header" id="main-header" role="banner">
-        <a class="top-header-logo flex items-center gap-2 transition-transform duration-300 hover:scale-105" href="<?= getScriptUrl() ?>?page=Estudiante&tab=buscar" aria-label="CuscoRent - Inicio">
+        <a class="top-header-logo flex items-center gap-2 transition-transform duration-300 hover:scale-105" href="#" onclick="navigateTo('Estudiante', 'buscar'); return false;" aria-label="CuscoRent - Inicio">
             <span class="material-symbols-outlined text-[24px] icon-filled text-primary">home_work</span>
             <span><span class="text-on-surface">Cusco</span><span class="text-primary">Rent</span></span>
         </a>
@@ -25,20 +25,20 @@
                     aria-label="Buscar habitaciones" />
                 <button
                     class="hero-search-button hover:bg-surface-container-high transition-colors duration-200 rounded-full"
-                    onclick="window.location.href='<?= getScriptUrl() ?>?page=Estudiante&tab=buscar'" style="padding: 8px 14px;" aria-label="Abrir filtros">
+                    onclick="navigateTo('Estudiante', 'buscar')" style="padding: 8px 14px;" aria-label="Abrir filtros">
                     <span class="material-symbols-outlined text-[18px]">tune</span>
                 </button>
             </div>
         </div>
 
         <nav class="top-header-nav hidden md:flex gap-6" role="tablist" aria-label="Sección principal">
-            <a href="<?= getScriptUrl() ?>?page=Estudiante&tab=buscar" role="tab" aria-selected="false"
+            <a onclick="navigateTo('Estudiante', 'buscar')" role="tab" aria-selected="false"
                 class="cursor-pointer hover:text-primary transition-colors duration-200">Explorar</a>
-            <a href="<?= getScriptUrl() ?>?page=Estudiante&tab=reservas" role="tab" aria-selected="false"
+            <a onclick="navigateTo('Estudiante', 'reservas')" role="tab" aria-selected="false"
                 class="cursor-pointer hover:text-primary transition-colors duration-200">Mis Reservas</a>
-            <a href="<?= getScriptUrl() ?>?page=Estudiante&tab=mensajes" role="tab" aria-selected="false"
+            <a onclick="navigateTo('Estudiante', 'mensajes')" role="tab" aria-selected="false"
                 class="cursor-pointer hover:text-primary transition-colors duration-200">Mensajes</a>
-            <a href="<?= getScriptUrl() ?>?page=Estudiante&tab=roommates" role="tab" aria-selected="false"
+            <a onclick="navigateTo('Estudiante', 'roommates')" role="tab" aria-selected="false"
                 class="cursor-pointer hover:text-primary transition-colors duration-200">Roommates</a>
         </nav>
 
@@ -47,8 +47,8 @@
                 onclick="toggleMobileMenu()" aria-label="Menú">
                 <span class="material-symbols-outlined text-on-surface-variant">menu</span>
             </button>
-            <button id="userAvatarBtn" class="avatar-btn transition-transform duration-300 hover:scale-110"
-                onclick="window.location.href='<?= getScriptUrl() ?>?page=PerfilEstudiante'" aria-label="Mi Perfil"
+            <button id="userAvatarBtn" class="avatar-btn transition-transform duration-300 hover:scale-110 bg-primary/10 ring-2 ring-primary"
+                onclick="navigateTo('PerfilEstudiante')" aria-label="Mi Perfil"
                 title="Ver mi perfil">
                 <span class="material-symbols-outlined text-primary text-[24px]">account_circle</span>
             </button>
@@ -65,25 +65,25 @@
     <div id="mobileMenuDropdown"
         class="hidden md:hidden fixed top-[65px] left-0 right-0 z-40 bg-white border-b border-outline-variant shadow-lg transform transition-transform duration-300 origin-top">
         <nav class="flex flex-col p-4 gap-1" role="tablist" aria-label="Menú móvil">
-            <a href="<?= getScriptUrl() ?>?page=Estudiante&tab=buscar" id="tabBtn-buscar-mobile"
+            <a onclick="navigateTo('Estudiante', 'buscar')" id="tabBtn-buscar-mobile"
                 class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">search</span> Explorar
             </a>
-            <a href="<?= getScriptUrl() ?>?page=Estudiante&tab=reservas"
+            <a onclick="navigateTo('Estudiante', 'reservas')"
                 class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">book_online</span> Mis Reservas
             </a>
-            <a href="<?= getScriptUrl() ?>?page=Estudiante&tab=mensajes"
+            <a onclick="navigateTo('Estudiante', 'mensajes')"
                 class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">mail</span> Mensajes
             </a>
-            <a href="<?= getScriptUrl() ?>?page=Estudiante&tab=roommates"
+            <a onclick="navigateTo('Estudiante', 'roommates')"
                 class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">people</span> Roommates
             </a>
             <hr class="border-outline-variant my-2">
-            <a href="<?= getScriptUrl() ?>?page=PerfilEstudiante"
-                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
+            <a onclick="navigateTo('PerfilEstudiante')"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-primary bg-primary/10 hover:bg-primary/20 transition-colors cursor-pointer">
                 <span class="material-symbols-outlined text-[18px]">person</span> Mi Perfil
             </a>
             <a onclick="cerrarSesion()"
@@ -234,6 +234,22 @@
     <script>
         const SCRIPT_URL = "<?= getScriptUrl() ?>";
         let currentUser = null;
+
+        function navigateTo(page, tab) {
+            var isLocal = false;
+            if (!SCRIPT_URL || SCRIPT_URL === "" || SCRIPT_URL.indexOf("getScriptUrl") !== -1) {
+                isLocal = true;
+            }
+            var targetUrl = "";
+            if (isLocal) {
+                targetUrl = page + ".html";
+                if (tab) { targetUrl += "?tab=" + tab; }
+            } else {
+                targetUrl = SCRIPT_URL + "?page=" + page;
+                if (tab) { targetUrl += "&tab=" + tab; }
+            }
+            window.location.href = targetUrl;
+        }
 
         document.addEventListener('DOMContentLoaded', function() {
             try { 

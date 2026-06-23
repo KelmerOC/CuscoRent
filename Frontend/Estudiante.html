@@ -662,19 +662,36 @@
 
             cargarCatalogo();
 
-            const urlParams = new URLSearchParams(window.location.search);
-            const tab = urlParams.get('tab');
-            if (tab) switchMainTab(tab);
+            // Leer parámetros de URL (Compatible con local y Google Apps Script)
+            if (typeof google !== 'undefined' && google.script && google.script.url) {
+                google.script.url.getLocation(function(location) {
+                    const tab = location.parameter.tab;
+                    if (tab) switchMainTab(tab);
 
-            const hospedajeId = urlParams.get('id');
-            if (hospedajeId) {
-                const checkAndOpen = setInterval(() => {
-                    if (hospedajesGlobal.length > 0) {
-                        clearInterval(checkAndOpen);
-                        abrirDetalles(hospedajeId);
+                    const hospedajeId = location.parameter.id;
+                    if (hospedajeId) {
+                        const checkAndOpen = setInterval(() => {
+                            if (hospedajesGlobal.length > 0) {
+                                clearInterval(checkAndOpen);
+                                abrirDetalles(hospedajeId);
+                            }
+                        }, 100);
                     }
-                }, 200);
-                setTimeout(() => clearInterval(checkAndOpen), 5000);
+                });
+            } else {
+                const urlParams = new URLSearchParams(window.location.search);
+                const tab = urlParams.get('tab');
+                if (tab) switchMainTab(tab);
+
+                const hospedajeId = urlParams.get('id');
+                if (hospedajeId) {
+                    const checkAndOpen = setInterval(() => {
+                        if (hospedajesGlobal.length > 0) {
+                            clearInterval(checkAndOpen);
+                            abrirDetalles(hospedajeId);
+                        }
+                    }, 100);
+                }
             }
         });
 
