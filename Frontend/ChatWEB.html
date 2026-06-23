@@ -2,474 +2,470 @@
 <html lang="es">
 
 <head>
-        <meta charset="utf-8" />
-        <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-        <title>CuscoRent - Mensajes</title>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="description" content="CuscoRent - Mensajes con arrendadores y roommates. Chat unificado.">
+    <title>CuscoRent — Mensajes</title>
     <?!= include('Estilos'); ?>
 </head>
 
-<body class="font-sans text-charcoal antialiased bg-bglite h-screen flex flex-col overflow-hidden">
-        <!-- Navbar -->
-        <nav class="sticky top-0 w-full bg-white border-b border-border-color shadow-soft flex justify-between items-center px-6 py-3 z-50 shrink-0">
-                <!-- Brand -->
-                <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined icon-filled text-primary text-[28px]">home_work</span>
-                        <span class="font-serif text-[22px] font-bold"><span class="text-charcoal">Cusco</span><span class="text-primary">Rent</span></span>
+<body class="font-sans text-on-surface antialiased bg-surface h-screen flex flex-col overflow-hidden">
+    <!-- Navbar -->
+    <nav class="sticky top-0 w-full bg-white border-b border-gray-200 shadow-soft flex justify-between items-center px-6 py-3 z-50 shrink-0">
+        <!-- Brand -->
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined icon-filled text-primary text-[28px]">home_work</span>
+            <span class="font-serif text-[22px] font-bold"><span class="text-charcoal">Cusco</span><span class="text-primary">Rent</span></span>
+        </div>
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-8">
+            <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors cursor-pointer" href="<?= getScriptUrl() ?>?page=Estudiante">Explorar</a>
+            <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors cursor-pointer" href="<?= getScriptUrl() ?>?page=Estudiante">Favoritos</a>
+            <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors cursor-pointer" href="<?= getScriptUrl() ?>?page=Estudiante">Mis Reservas</a>
+            <a class="text-sm font-semibold text-primary border-b-2 border-primary pb-1 cursor-pointer" href="#">Mensajes</a>
+        </div>
+        <!-- Trailing Actions -->
+        <div class="flex items-center gap-3">
+            <button class="text-charcoal/60 hover:text-primary hover:bg-primary/10 p-2 rounded-full transition-colors cursor-pointer flex items-center justify-center">
+                <span class="material-symbols-outlined text-[22px]">notifications</span>
+            </button>
+            <button onclick="window.location.href='<?= getScriptUrl() ?>?page=Arrendador&tab=habitaciones'" class="hidden md:block text-sm font-semibold bg-primary text-white px-5 py-2 rounded-full hover:bg-primary/90 transition-all cursor-pointer active:scale-95 duration-150">
+                Mi Dashboard
+            </button>
+            <button class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-primary/30 hover:border-primary transition-colors focus:outline-none">
+                <div class="w-full h-full bg-primary/10 flex items-center justify-center text-primary">
+                    <span class="material-symbols-outlined">account_circle</span>
                 </div>
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex items-center gap-8">
-                        <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors cursor-pointer border-b-2 border-transparent pb-1" href="<?= getScriptUrl() ?>?page=Estudiante">Explorar</a>
-                        <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors cursor-pointer border-b-2 border-transparent pb-1" href="<?= getScriptUrl() ?>?page=Estudiante">Favoritos</a>
-                        <a class="text-sm font-medium text-charcoal/60 hover:text-primary transition-colors cursor-pointer border-b-2 border-transparent pb-1" href="<?= getScriptUrl() ?>?page=Estudiante">Mis Reservas</a>
-                        <a class="text-sm font-semibold text-primary border-b-2 border-primary pb-1 cursor-pointer" href="#">Mensajes</a>
-                </div>
-                <!-- Trailing Actions -->
-                <div class="flex items-center gap-3">
-                        <button class="text-charcoal/60 hover:text-primary hover:bg-primary/10 p-2 rounded-full transition-colors cursor-pointer flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[22px]">notifications</span>
-                        </button>
-                        <button class="hidden md:block text-sm font-semibold bg-primary text-white px-5 py-2 rounded-full hover:bg-primary/90 transition-all cursor-pointer active:scale-95 duration-150">
-                                Publicar Anuncio
-                        </button>
-                        <button class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-primary/30 hover:border-primary transition-colors focus:outline-none">
-                                <img alt="Avatar del usuario" class="w-full h-full object-cover"
-                                        data-alt="A bright, high-quality headshot of a young university student with a friendly smile, wearing a casual light blue sweater. The lighting is soft and even, casting a modern, optimistic glow. The background is a clean, solid light grey, perfect for a user interface avatar in a premium application."
-                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIjwXqnNAaBJluyuS6-t0FyRsk8INB2CudUez6WN3sPfPg5GZc2Ee8POLDinlmFkNY1TpC1yg1s5c6OVBadG7EWaUL5jPAi5Rq_pTFKqf0oFzR6DCngKO7ocLvTnZXHt140vNuA8UUVbBHcYpkopuZbBoKlQTmgA3MEivKbDJfLNEteQ49IE5-W0uzIkjqggtpr9gBOO0f_en7TiAglpxTdKpNODwgDmLcJ6i778CxXxAfFhoeatgbBITfMPr1_XmiIQYP7CU37lDk" />
-                        </button>
-                </div>
-        </nav>
-
-        <!-- Tab Switcher for Main Content -->
-        <div class="bg-white border-b border-border-color px-6 py-2 shrink-0">
-            <div class="flex gap-4">
-                <button onclick="switchMainTab('mensajes')" id="tabBtn-mensajes" class="px-4 py-2 rounded-full text-sm font-medium bg-primary text-white transition-colors flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[16px]">chat</span>
-                    Mensajes
-                </button>
-                <button onclick="switchMainTab('verificacion')" id="tabBtn-verificacion" class="px-4 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[16px]">verified</span>
-                    Verificacion
-                </button>
-            </div>
+            </button>
         </div>
+    </nav>
 
-
-        <!-- TAB MENSAJES -->
-        <div id="tab-mensajes" class="flex-1 flex">
-        <div class="flex-1 flex overflow-hidden max-w-[1600px] mx-auto w-full">
-                <!-- Left Sidebar: Conversations List -->
-                <aside class="w-full md:w-[380px] bg-white border-r border-border-color flex flex-col shrink-0 z-40">
-                        <!-- Sidebar Header & Search -->
-                        <div class="p-4 border-b border-border-color shrink-0">
-                                <h1 class="text-xl font-bold text-charcoal mb-4">Mensajes</h1>
-                                <div class="relative w-full">
-                                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40">search</span>
-                                        <input class="w-full bg-gray-100 border-none rounded-full py-3 pl-12 pr-4 text-sm text-charcoal placeholder:text-charcoal/40 focus:ring-2 focus:ring-primary focus:outline-none transition-all"
-                                                placeholder="Buscar conversaciones..." type="text" />
-                                </div>
-                                <!-- Filter Chips -->
-                                <div class="flex gap-2 mt-4 overflow-x-auto pb-1 hide-scrollbar">
-                                        <button class="text-xs font-medium bg-primary text-white px-4 py-1.5 rounded-full whitespace-nowrap">Todos</button>
-                                        <button class="text-xs font-medium bg-gray-100 text-charcoal/60 hover:bg-gray-200 px-4 py-1.5 rounded-full whitespace-nowrap transition-colors">No leídos</button>
-                                        <button class="text-xs font-medium bg-gray-100 text-charcoal/60 hover:bg-gray-200 px-4 py-1.5 rounded-full whitespace-nowrap transition-colors">Propietarios</button>
-                                </div>
-                        </div>
-                        <!-- Conversations List -->
-                        <div class="flex-1 overflow-y-auto">
-                                <!-- Active Conversation Item -->
-                                <div class="p-4 flex gap-3 items-center cursor-pointer bg-primary/10 border-l-4 border-primary hover:bg-primary/15 transition-colors">
-                                        <div class="relative shrink-0">
-                                                <img class="w-14 h-14 rounded-full object-cover border-2 border-white"
-                                                        data-alt="A professional portrait of a welcoming middle-aged property owner, wearing a smart casual linen shirt. The lighting is bright and warm, evoking a trustworthy and approachable persona typical of a high-quality rental service. Set against a clean, softly blurred background of a traditional courtyard."
-                                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIxdznBQHgu4leMB9StjA10OG6yGM9CsQqvPedJqz74tMqMoodR6Q0mcWuIbW3Uv55faKvhjRtUCFym7LglnX6oOwova978jD2vJ-AJeMScGpfD-3QM9TOPEtUg5QABPcDp5UvCRWB9OH6uAzmHZL4aiEEYluyCSB1cvs20qCfpXaa4w1hykv7qMwAxQEHA9DuUNeTZrNkdkvT1HNJq2X3-CawfWbYqNDz8_ymIIlV3laCE223gvLar4W4s9n6dFD-Kw_itv4JUhFp" />
-                                                <div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white"></div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                                <div class="flex justify-between items-baseline mb-1">
-                                                        <h3 class="text-sm font-semibold text-charcoal truncate pr-2">Carlos Mendoza</h3>
-                                                        <span class="text-xs text-primary font-medium">10:42 AM</span>
-                                                </div>
-                                                <p class="text-sm text-charcoal/60 truncate">¡Perfecto! Te espero mañana a las 3 PM para ver el departamento.</p>
-                                        </div>
-                                </div>
-                                <!-- Inactive Conversation Item -->
-                                <div class="p-4 flex gap-3 items-center cursor-pointer hover:bg-gray-50 transition-colors border-l-4 border-transparent">
-                                        <div class="relative shrink-0">
-                                                <img class="w-14 h-14 rounded-full object-cover border border-border-color"
-                                                        data-alt="A vibrant headshot of a young university student with a friendly expression, wearing a colorful knitted beanie. The lighting is natural and high-key, creating a clean, modern look. The background is a crisp, solid pastel color to ensure the subject stands out perfectly as a user interface avatar."
-                                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuDG0eDV23N3FtHQN5_fQjNL4mFtd-mJEfZ6amzQb6RlSEru3hNDe9xtgabcIVXhe20_tUsxuV7iH6Ap4hCKsc6MMSf6exHUmMirtRNx-Q56nZdRExoKMvZt6DnppAQjFjlsxN5C4RFcAhqT1XNnHLWiC6J9Ta27qAkVg1Cu8INlhs3R7WYAvoLYOVKIPX2xk70Nz1SS_MQnuY6YsJ9hogPXGlISr8mAPzayAV-IPPMsYUhm0hbVucw5Vl3Wb0c03HCWWbJLwR0aXSw4" />
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                                <div class="flex justify-between items-baseline mb-1">
-                                                        <h3 class="text-sm font-medium text-charcoal truncate pr-2">Lucía Vargas</h3>
-                                                        <span class="text-xs text-charcoal/40">Ayer</span>
-                                                </div>
-                                                <p class="text-sm text-charcoal/60 truncate">Gracias por la información sobre los servicios incluidos.</p>
-                                        </div>
-                                </div>
-                                <!-- Inactive Conversation Item (Unread) -->
-                                <div class="p-4 flex gap-3 items-center cursor-pointer hover:bg-gray-50 transition-colors border-l-4 border-transparent">
-                                        <div class="relative shrink-0">
-                                                <img class="w-14 h-14 rounded-full object-cover border border-border-color"
-                                                        data-alt="A casual portrait of a young student wearing glasses, smiling gently at the camera. The setting features soft, diffused daylight that highlights a relaxed and reliable personality. The background is intentionally blurred to keep the focus on the face, fitting seamlessly into a modern, light-mode chat interface."
-                                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuD-YV9tew_HphKV3gF7LnXBiqDDvNtjMdH5IqHsZN5OEFObGfa52VctzEExtvAIqug2P3l4VS5WkBycBV9ZcKut48X98xf-XzpWdPEr5g2SZgad3caRqmtv-fWA_2PJ5EekowYv8cHEH_bCwZCb1Wz7owcjYxT1Yy3Z81DvbLj_d5qy4QQ8Yk1zTMnEoUUkuRoxB-4D84hDpr04yWdwkDT-iUpT_XgaMxmVaN6rw_Yy-Ov1LG0DP0T4WLMeJG2FdhCIj03f_tQxAoI4" />
-                                                <div class="absolute top-0 right-0 w-3 h-3 bg-primary rounded-full border-2 border-white"></div>
-                                        </div>
-                                        <div class="flex-1 min-w-0">
-                                                <div class="flex justify-between items-baseline mb-1">
-                                                        <h3 class="text-sm font-bold text-charcoal truncate pr-2">Mateo Quispe</h3>
-                                                        <span class="text-xs text-charcoal font-bold">Mar 12</span>
-                                                </div>
-                                                <p class="text-sm text-charcoal/80 font-medium truncate">Hola, ¿sigue disponible la habitación con balcón?</p>
-                                        </div>
-                                </div>
-                        </div>
-                </aside>
-
-                <!-- Right Main Area: Active Chat Canvas -->
-                <main class="hidden md:flex flex-1 flex-col bg-bglite relative">
-                        <!-- Chat Header -->
-                        <header class="bg-white border-b border-border-color px-6 py-3 flex justify-between items-center shrink-0 shadow-soft z-10">
-                                <div class="flex items-center gap-3">
-                                        <div class="relative">
-                                                <img class="w-12 h-12 rounded-full object-cover border border-border-color"
-                                                        data-alt="A professional portrait of a welcoming middle-aged property owner, wearing a smart casual linen shirt. The lighting is bright and warm, evoking a trustworthy and approachable persona typical of a high-quality rental service. Set against a clean, softly blurred background of a traditional courtyard."
-                                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpXPltGRHY0CBHFy11IV7ltEUJ_nSdXt7GyuLU2HSWzEPAG_YJACrWlgZCAIDcgaPU49fwlpEONSXVP2oSNgpOhTTLs_djimJ1zOiBTVv_XYHjqpM2SUBlN7uWnZyKOGMQQntmZDRvjGWDVXUTafs0O5vEh0wqFb_rI8nwn6ECtUyLcMlxw97pMJnCxyL5vVu3QSADPRO2w3xh1AGQf4iZoDw8GXNR6EGeIENJ6OK0KhC6qn9sDKcybgqF6j1jsA8ZHnETmRpD1v_w" />
-                                                <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></div>
-                                        </div>
-                                        <div>
-                                                <h2 class="text-base font-bold text-charcoal flex items-center gap-2">
-                                                        Carlos Mendoza
-                                                        <span class="material-symbols-outlined text-skyblue text-[18px] icon-filled" title="Propietario Verificado">verified</span>
-                                                </h2>
-                                                <p class="text-xs text-charcoal/50 flex items-center gap-1">
-                                                        En línea ahora <span class="w-1 h-1 bg-charcoal/30 rounded-full"></span> Responde en ~1h
-                                                </p>
-                                        </div>
-                                </div>
-                                <div class="flex items-center gap-2">
-                                        <button class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
-                                                <span class="material-symbols-outlined text-[20px]">call</span>
-                                        </button>
-                                        <button class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
-                                                <span class="material-symbols-outlined text-[20px]">videocam</span>
-                                        </button>
-                                        <div class="w-px h-6 bg-border-color mx-2"></div>
-                                        <button class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
-                                                <span class="material-symbols-outlined text-[20px]">info</span>
-                                        </button>
-                                </div>
-                        </header>
-
-                        <!-- Scrollable Messages Area -->
-                        <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-4" id="chat-messages">
-                                <!-- Date Divider -->
-                                <div class="flex justify-center my-2">
-                                        <span class="bg-white text-charcoal/50 text-xs font-medium px-4 py-1.5 rounded-full shadow-soft border border-border-color">Hoy, 24 de Octubre</span>
-                                </div>
-
-                                <!-- Property Context Card -->
-                                <div class="self-center w-full max-w-md bg-white rounded-xl p-3 shadow-card border border-border-color flex gap-4 items-center mb-4">
-                                        <div class="w-16 h-16 rounded-lg bg-gray-100 overflow-hidden shrink-0">
-                                                <img class="w-full h-full object-cover"
-                                                        data-alt="A beautifully lit, high-resolution interior shot of a modern student apartment bedroom in an Andean city. The room features warm wood accents, a large window letting in natural light, a neat desk setup, and a cozy bed. The aesthetic is clean, premium, and welcoming."
-                                                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcJ5RZdSfNf-yeSONX6ucavYAgiZ3pSVyUQIpFX9cMziRkN9A0CGH94LfaKU71xYe2QS1DvkQ2PPkW4lKTsJT1MQcVO0Tza1Gb_pzReqGYk7nSbrBrYzzMzQRfqACsCE406IBdx90JrpGIDLHDNMwOqGfnU-nMhngPQbqAneGC9kfcWdMdQUUpDWDMcPv6weNKRD7p1EyGbNXk4lSYerWREBJklo4UesEt4Q-3duHj-sWC638lMKyYwPQP2dH9SbbJivSRrOGUFenN" />
-                                        </div>
-                                        <div class="flex-1">
-                                                <h4 class="text-sm font-semibold text-charcoal">Suite San Blas con Balcón</h4>
-                                                <p class="text-sm text-charcoal/50">S/ 850 / mes · Cusco Centro</p>
-                                        </div>
-                                        <button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
-                                                <span class="material-symbols-outlined text-[20px]">chevron_right</span>
-                                        </button>
-                                </div>
-
-                                <!-- Message Received (Landlord) -->
-                                <div class="flex flex-col gap-1 items-start max-w-[75%]">
-                                        <div class="bg-white text-charcoal text-sm p-4 rounded-2xl rounded-tl-sm shadow-soft border border-border-color relative group">
-                                                Hola, vi que estás interesado en la Suite San Blas. ¿Tienes alguna
-                                                pregunta específica sobre la ubicación o los servicios?
-                                        </div>
-                                        <span class="text-xs text-charcoal/40 ml-1">10:30 AM</span>
-                                </div>
-
-                                <!-- Message Sent (User) -->
-                                <div class="flex flex-col gap-1 items-end max-w-[75%] self-end">
-                                        <div class="bg-primary/10 text-charcoal text-sm p-4 rounded-2xl rounded-tr-sm relative group">
-                                                ¡Hola Carlos! Sí, me encanta el departamento. Quería confirmar si el
-                                                precio incluye el servicio de internet y agua.
-                                        </div>
-                                        <span class="text-xs text-charcoal/40 mr-1 flex items-center gap-1">
-                                                10:35 AM <span class="material-symbols-outlined text-[14px] text-skyblue icon-filled">done_all</span>
-                                        </span>
-                                </div>
-
-                                <!-- Message Received (Landlord) -->
-                                <div class="flex flex-col gap-1 items-start max-w-[75%]">
-                                        <div class="bg-white text-charcoal text-sm p-4 rounded-2xl rounded-tl-sm shadow-soft border border-border-color relative group">
-                                                Sí, el internet de fibra óptica (100Mbps) y el agua están incluidos en
-                                                el costo mensual. La luz se paga aparte según tu propio medidor.
-                                        </div>
-                                        <span class="text-xs text-charcoal/40 ml-1">10:38 AM</span>
-                                </div>
-
-                                <!-- Message Sent (User) -->
-                                <div class="flex flex-col gap-1 items-end max-w-[75%] self-end">
-                                        <div class="bg-primary/10 text-charcoal text-sm p-4 rounded-2xl rounded-tr-sm relative group">
-                                                Genial, eso suena perfecto. ¿Sería posible visitar el lugar mañana por
-                                                la tarde?
-                                        </div>
-                                        <span class="text-xs text-charcoal/40 mr-1 flex items-center gap-1">
-                                                10:40 AM <span class="material-symbols-outlined text-[14px] text-skyblue icon-filled">done_all</span>
-                                        </span>
-                                </div>
-
-                                <!-- Message Received (Landlord) -->
-                                <div class="flex flex-col gap-1 items-start max-w-[75%]">
-                                        <div class="bg-white text-charcoal text-sm p-4 rounded-2xl rounded-tl-sm shadow-soft border border-border-color relative group">
-                                                ¡Perfecto! Te espero mañana a las 3 PM para ver el departamento.
-                                        </div>
-                                        <span class="text-xs text-charcoal/40 ml-1">10:42 AM</span>
-                                </div>
-
-                                <!-- Spacer -->
-                                <div class="h-2"></div>
-                        </div>
-
-                        <!-- Input Area -->
-                        <div class="bg-white border-t border-border-color p-4 shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
-                                <div class="flex items-end gap-3 max-w-4xl mx-auto">
-                                        <!-- Attachments Button -->
-                                        <button class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
-                                                <span class="material-symbols-outlined text-[22px]">add_circle</span>
-                                        </button>
-                                        <!-- Text Input Container -->
-                                        <div class="flex-1 bg-gray-100 rounded-2xl border border-transparent focus-within:border-primary focus-within:bg-white transition-all shadow-sm flex items-end min-h-[48px] p-1">
-                                                <textarea
-                                                        class="w-full bg-transparent border-none resize-none text-sm text-charcoal placeholder:text-charcoal/40 py-3 px-4 focus:ring-0 max-h-32 overflow-y-auto leading-relaxed"
-                                                        placeholder="Escribe un mensaje..." rows="1"
-                                                        style="min-height: 40px;"></textarea>
-                                                <!-- Inline Actions -->
-                                                <div class="flex items-center pr-2 pb-1 gap-1 shrink-0">
-                                                        <button class="w-8 h-8 rounded-full flex items-center justify-center text-charcoal/40 hover:bg-gray-200 transition-colors">
-                                                                <span class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
-                                                        </button>
-                                                </div>
-                                        </div>
-                                        <!-- Send Button -->
-                                        <button class="w-12 h-12 shrink-0 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90 hover:shadow-md transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm">
-                                                <span class="material-symbols-outlined icon-filled text-[20px]">send</span>
-                                        </button>
-                                </div>
-                        </div>
-                </main>
+    <!-- Tab Switcher for Main Content -->
+    <div class="bg-white border-b border-gray-200 px-6 py-1 shrink-0">
+        <div class="flex gap-2">
+            <button onclick="switchMainTab('mensajes')" id="tabBtn-mensajes" class="pill-tab-active px-4 py-3 text-sm font-medium flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">chat</span>
+                Mensajes
+            </button>
+            <button onclick="switchMainTab('verificacion')" id="tabBtn-verificacion" class="pill-tab-inactive px-4 py-3 text-sm font-medium flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">verified</span>
+                Verificación
+            </button>
         </div>
-        </div> <!-- /tab-mensajes -->
-        <!-- TAB VERIFICACION -->
-        <div id="tab-verificacion" class="hidden flex-1 overflow-y-auto min-h-0"><section role="region" aria-label="Verificación de Identidad" class="flex-1 flex items-start justify-center px-4 py-10 md:py-14">
-    <div class="w-full max-w-3xl bg-white rounded-[24px] shadow-card overflow-hidden">
-
-      <!-- Progress Header -->
-      <div class="bg-gray-50 px-8 py-6 border-b border-border-color">
-        <div class="flex items-center justify-between mb-6">
-          <h1 class="font-serif text-2xl text-charcoal">Verificación de Identidad</h1>
-          <span
-            class="inline-flex items-center gap-1.5 bg-sage/20 text-sage text-xs font-medium px-3 py-1 rounded-full">
-            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 2.18l7 3.12v4.7c0 4.67-3.13 9.06-7 10.18-3.87-1.12-7-5.51-7-10.18V6.3l7-3.12z" />
-              <path d="M10 12l-1.5-1.5L7 12l3 3 5-5-1.5-1.5L10 12z" />
-            </svg>
-            Seguro
-          </span>
-        </div>
-
-        <!-- Wizard Steps -->
-        <div class="flex items-center justify-between">
-          <!-- Step 1: Completed -->
-          <div class="flex flex-col items-center gap-2">
-            <div class="w-10 h-10 rounded-full bg-sage text-white flex items-center justify-center">
-              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12" />
-              </svg>
-            </div>
-            <span class="text-xs font-medium text-sage">Cuenta</span>
-          </div>
-
-          <!-- Connector: completed -->
-          <div class="flex-1 h-0.5 bg-sage mx-3 mt-[-1.5rem]"></div>
-
-          <!-- Step 2: Active -->
-          <div class="flex flex-col items-center gap-2">
-            <div
-              class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center ring-4 ring-primary/20">
-              <span class="text-sm font-bold">2</span>
-            </div>
-            <span class="text-xs font-semibold text-primary">Identidad</span>
-          </div>
-
-          <!-- Connector: pending -->
-          <div class="flex-1 h-0.5 bg-gray-200 mx-3 mt-[-1.5rem]"></div>
-
-          <!-- Step 3: Pending -->
-          <div class="flex flex-col items-center gap-2">
-            <div class="w-10 h-10 rounded-full bg-gray-200 text-charcoal/40 flex items-center justify-center">
-              <span class="text-sm font-bold">3</span>
-            </div>
-            <span class="text-xs font-medium text-charcoal/40">Documentos</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Content Area -->
-      <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-
-        <!-- Left Column: Instructions -->
-        <div class="space-y-6">
-          <div>
-            <h2 class="font-serif text-xl text-charcoal mb-3">Paso 2: Eres un estudiante verificado</h2>
-            <p class="text-sm text-charcoal/60 leading-relaxed">
-              Sube una foto de perfil y confirma tu correo institucional universitario. Esto garantiza que solo
-              estudiantes reales puedan acceder a las habitaciones disponibles.
-            </p>
-          </div>
-
-          <div class="bg-gray-50 border border-border-color rounded-xl p-4">
-            <div class="flex items-start gap-3">
-              <div class="w-9 h-9 rounded-lg bg-sage/15 flex items-center justify-center flex-shrink-0 mt-0.5">
-                <svg class="w-5 h-5 text-sage" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-                </svg>
-              </div>
-              <div>
-                <p class="text-sm font-medium text-charcoal mb-1">Privacidad garantizada</p>
-                <p class="text-xs text-charcoal/50 leading-relaxed">
-                  Tu información personal está protegida y solo se usa para verificar tu condición de estudiante. Nunca
-                  se comparte con terceros.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Right Column: Form -->
-        <div class="space-y-8">
-
-          <!-- Profile Photo Upload -->
-          <div class="flex flex-col items-center gap-3">
-            <label class="relative cursor-pointer group">
-              <input type="file" accept="image/*" class="sr-only">
-              <div
-                class="w-28 h-28 rounded-full border-2 border-dashed border-gray-300 group-hover:border-primary group-hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-1">
-                <svg class="w-7 h-7 text-charcoal/30 group-hover:text-primary transition-colors" viewBox="0 0 24 24"
-                  fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                  <circle cx="12" cy="7" r="4" />
-                </svg>
-                <span
-                  class="text-[10px] text-charcoal/30 group-hover:text-primary transition-colors font-medium">Foto</span>
-              </div>
-              <div
-                class="absolute bottom-0 right-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center shadow-soft group-hover:scale-110 transition-transform">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                  stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-                  <circle cx="12" cy="13" r="4" />
-                </svg>
-              </div>
-            </label>
-            <p class="text-xs text-charcoal/40">Foto de perfil</p>
-          </div>
-
-          <!-- University Email -->
-          <div>
-            <label class="block text-sm font-medium text-charcoal mb-2">Correo Universitario</label>
-            <div class="relative">
-              <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                <svg class="w-5 h-5 text-charcoal/30" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-                  <polyline points="22,6 12,13 2,6" />
-                </svg>
-              </div>
-              <input type="email" placeholder="tu@universidad.edu.pe"
-                class="w-full rounded-full border border-border-color bg-white pl-11 pr-5 py-3 text-sm text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
-            </div>
-            <p class="mt-2 text-xs text-charcoal/40 flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-skyblue" viewBox="0 0 24 24" fill="currentColor">
-                <path
-                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-              </svg>
-              Debe ser un correo institucional (*.edu.pe o *.edu)
-            </p>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- Footer Actions -->
-      <div class="bg-gray-50 px-8 py-6 border-t border-border-color flex items-center justify-between">
-        <button
-          class="text-sm font-medium text-charcoal/60 hover:text-charcoal transition-colors inline-flex items-center gap-1.5">
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="19" y1="12" x2="5" y2="12" />
-            <polyline points="12 19 5 12 12 5" />
-          </svg>
-          Atrás
-        </button>
-        <button
-          class="bg-primary text-white rounded-full px-8 py-3 text-sm font-semibold hover:bg-primary/90 active:scale-95 transition-all shadow-soft inline-flex items-center gap-2">
-          Verificar Identidad
-          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-            stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12" />
-            <polyline points="12 5 19 12 12 19" />
-          </svg>
-        </button>
-      </div>
-
     </div>
-  </section></div>
-        <script>
-                // Auto-scroll chat to bottom on load
-                const chatMessages = document.getElementById('chat-messages');
-                if (chatMessages) {
-                        chatMessages.scrollTop = chatMessages.scrollHeight;
-                }
 
-                // Simple auto-resize textarea
-                const textarea = document.querySelector('textarea');
-                if (textarea) {
-                        textarea.addEventListener('input', function () {
-                                this.style.height = 'auto';
-                                this.style.height = (this.scrollHeight) + 'px';
-                        });
-                }
-        </script>
-        <script>        // Tab Switching
+    <!-- TAB MENSAJES -->
+    <div id="tab-mensajes" class="flex-1 flex">
+        <div class="flex-1 flex overflow-hidden max-w-[1600px] mx-auto w-full">
+            <!-- Left Sidebar: Conversations List -->
+            <aside class="w-full md:w-[380px] bg-white border-r border-gray-200 flex flex-col shrink-0 z-40">
+                <!-- Sidebar Header & Search -->
+                <div class="p-4 border-b border-gray-200 shrink-0">
+                    <h1 class="text-xl font-bold text-charcoal mb-4">Mensajes</h1>
+                    <div class="relative w-full">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40">search</span>
+                        <input class="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-12 pr-4 text-sm text-charcoal placeholder:text-charcoal/40 focus:ring-2 focus:ring-primary focus:outline-none transition-all"
+                            placeholder="Buscar conversaciones..." type="text" />
+                    </div>
+                    <!-- Filter Chips -->
+                    <div class="flex gap-2 mt-4 overflow-x-auto pb-1 hide-scrollbar">
+                        <button class="category-chip active">Todos</button>
+                        <button class="category-chip">No leídos</button>
+                        <button class="category-chip">Propietarios</button>
+                    </div>
+                </div>
+                <!-- Conversations List -->
+                <div class="flex-1 overflow-y-auto">
+                    <!-- Active Conversation Item -->
+                <div class="p-4 flex gap-3 items-center cursor-pointer bg-primary/5 border-l-4 border-primary hover:bg-primary/10 transition-colors" onclick="seleccionarConversacion(this)">
+                    <div class="relative shrink-0">
+                            <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                <span class="material-symbols-outlined text-2xl">person</span>
+                            </div>
+                            <div class="absolute bottom-0 right-0 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white"></div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h3 class="text-sm font-semibold text-charcoal truncate pr-2">Carlos Mendoza</h3>
+                                <span class="text-xs text-primary font-medium">10:42 AM</span>
+                            </div>
+                            <p class="text-sm text-charcoal/60 truncate">¡Perfecto! Te espero mañana a las 3 PM para ver el departamento.</p>
+                        </div>
+                    </div>
+                    <!-- Inactive Conversation Item -->
+                    <div class="p-4 flex gap-3 items-center cursor-pointer hover:bg-gray-50 transition-colors border-l-4 border-transparent">
+                        <div class="relative shrink-0">
+                            <div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                                <span class="material-symbols-outlined text-2xl">person</span>
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h3 class="text-sm font-medium text-charcoal truncate pr-2">Lucía Vargas</h3>
+                                <span class="text-xs text-charcoal/40">Ayer</span>
+                            </div>
+                            <p class="text-sm text-charcoal/60 truncate">Gracias por la información sobre los servicios incluidos.</p>
+                        </div>
+                    </div>
+                    <!-- Inactive Conversation Item (Unread) -->
+                    <div class="p-4 flex gap-3 items-center cursor-pointer hover:bg-gray-50 transition-colors border-l-4 border-transparent">
+                        <div class="relative shrink-0">
+                            <div class="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center text-gray-400">
+                                <span class="material-symbols-outlined text-2xl">person</span>
+                            </div>
+                            <div class="absolute top-0 right-0 w-3 h-3 bg-primary rounded-full border-2 border-white"></div>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h3 class="text-sm font-bold text-charcoal truncate pr-2">Mateo Quispe</h3>
+                                <span class="text-xs text-charcoal font-bold">Mar 12</span>
+                            </div>
+                            <p class="text-sm text-charcoal/80 font-medium truncate">Hola, ¿sigue disponible la habitación con balcón?</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Right Main Area: Active Chat Canvas -->
+            <main class="hidden md:flex flex-1 flex-col bg-bglite relative">
+                <!-- Chat Header -->
+                <header class="bg-white border-b border-gray-200 px-6 py-3 flex justify-between items-center shrink-0 shadow-soft z-10">
+                    <div class="flex items-center gap-3">
+                        <div class="relative">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                <span class="material-symbols-outlined text-2xl">person</span>
+                            </div>
+                            <div class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-white"></div>
+                        </div>
+                        <div>
+                            <h2 class="text-base font-bold text-charcoal flex items-center gap-2">
+                                Carlos Mendoza
+                                <span class="material-symbols-outlined text-skyblue text-[18px] icon-filled" title="Propietario Verificado">verified</span>
+                            </h2>
+                            <p class="text-xs text-charcoal/50 flex items-center gap-1">
+                                En línea ahora <span class="w-1 h-1 bg-charcoal/30 rounded-full"></span> Responde en ~1h
+                            </p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">call</span>
+                        </button>
+                        <button class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">videocam</span>
+                        </button>
+                        <div class="w-px h-6 bg-gray-200 mx-2"></div>
+                        <button class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">info</span>
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Scrollable Messages Area -->
+                <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-4" id="chat-messages">
+                    <!-- Date Divider -->
+                    <div class="flex justify-center my-2">
+                        <span class="bg-white text-charcoal/50 text-xs font-medium px-4 py-1.5 rounded-full shadow-soft border border-gray-200">Hoy, 24 de Octubre</span>
+                    </div>
+
+                    <!-- Property Context Card -->
+                    <div class="self-center w-full max-w-md bg-white rounded-xl p-3 shadow-card border border-gray-200 flex gap-4 items-center mb-4">
+                        <div class="w-16 h-16 rounded-lg listing-ph flex items-center justify-center">
+                            <span class="material-symbols-outlined text-white text-2xl">home</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="text-sm font-semibold text-charcoal">Suite San Blas con Balcón</h4>
+                            <p class="text-sm text-charcoal/50">S/ 850 / mes · Cusco Centro</p>
+                        </div>
+                        <button class="text-primary hover:bg-primary/10 p-2 rounded-full transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+                        </button>
+                    </div>
+
+                    <!-- Message Received (Landlord) -->
+                    <div class="flex flex-col gap-1 items-start max-w-[75%]">
+                        <div class="bg-white text-charcoal text-sm p-4 rounded-2xl rounded-tl-sm shadow-soft border border-gray-200 relative group">
+                            Hola, vi que estás interesado en la Suite San Blas. ¿Tienes alguna pregunta específica sobre la ubicación o los servicios?
+                        </div>
+                        <span class="text-xs text-charcoal/40 ml-1">10:30 AM</span>
+                    </div>
+
+                    <!-- Message Sent (User) -->
+                    <div class="flex flex-col gap-1 items-end max-w-[75%] self-end">
+                        <div class="bg-primary/10 text-charcoal text-sm p-4 rounded-2xl rounded-tr-sm relative group">
+                            ¡Hola Carlos! Sí, me encanta el departamento. Quería confirmar si el precio incluye el servicio de internet y agua.
+                        </div>
+                        <span class="text-xs text-charcoal/40 mr-1 flex items-center gap-1">
+                            10:35 AM <span class="material-symbols-outlined text-[14px] text-skyblue icon-filled">done_all</span>
+                        </span>
+                    </div>
+
+                    <!-- Message Received (Landlord) -->
+                    <div class="flex flex-col gap-1 items-start max-w-[75%]">
+                        <div class="bg-white text-charcoal text-sm p-4 rounded-2xl rounded-tl-sm shadow-soft border border-gray-200 relative group">
+                            Sí, el internet de fibra óptica (100Mbps) y el agua están incluidos en el costo mensual. La luz se paga aparte según tu propio medidor.
+                        </div>
+                        <span class="text-xs text-charcoal/40 ml-1">10:38 AM</span>
+                    </div>
+
+                    <!-- Message Sent (User) -->
+                    <div class="flex flex-col gap-1 items-end max-w-[75%] self-end">
+                        <div class="bg-primary/10 text-charcoal text-sm p-4 rounded-2xl rounded-tr-sm relative group">
+                            Genial, eso suena perfecto. ¿Sería posible visitar el lugar mañana por la tarde?
+                        </div>
+                        <span class="text-xs text-charcoal/40 mr-1 flex items-center gap-1">
+                            10:40 AM <span class="material-symbols-outlined text-[14px] text-skyblue icon-filled">done_all</span>
+                        </span>
+                    </div>
+
+                    <!-- Message Received (Landlord) -->
+                    <div class="flex flex-col gap-1 items-start max-w-[75%]">
+                        <div class="bg-white text-charcoal text-sm p-4 rounded-2xl rounded-tl-sm shadow-soft border border-gray-200 relative group">
+                            ¡Perfecto! Te espero mañana a las 3 PM para ver el departamento.
+                        </div>
+                        <span class="text-xs text-charcoal/40 ml-1">10:42 AM</span>
+                    </div>
+
+                    <!-- Spacer -->
+                    <div class="h-2"></div>
+                </div>
+
+                <!-- Input Area -->
+                <div class="bg-white border-t border-gray-200 p-4 shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+                    <div class="flex items-end gap-3 max-w-4xl mx-auto">
+                        <!-- Attachments Button -->
+                        <button class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
+                            <span class="material-symbols-outlined text-[22px]">add_circle</span>
+                        </button>
+                        <!-- Text Input Container -->
+                        <div class="flex-1 bg-gray-50 rounded-2xl border border-gray-200 focus-within:border-primary focus-within:bg-white transition-all shadow-sm flex items-end min-h-[48px] p-1">
+                            <textarea
+                                class="w-full bg-transparent border-none resize-none text-sm text-charcoal placeholder:text-charcoal/40 py-3 px-4 focus:ring-0 max-h-32 overflow-y-auto leading-relaxed"
+                                placeholder="Escribe un mensaje..." rows="1"
+                                style="min-height: 40px;"></textarea>
+                            <!-- Inline Actions -->
+                            <div class="flex items-center pr-2 pb-1 gap-1 shrink-0">
+                                <button class="w-8 h-8 rounded-full flex items-center justify-center text-charcoal/40 hover:bg-gray-200 transition-colors">
+                                    <span class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- Send Button -->
+                        <button class="w-12 h-12 shrink-0 rounded-full bg-primary text-white flex items-center justify-center hover:bg-primary/90 hover:shadow-md transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary shadow-sm">
+                            <span class="material-symbols-outlined icon-filled text-[20px]">send</span>
+                        </button>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div> <!-- /tab-mensajes -->
+
+    <!-- TAB VERIFICACION -->
+    <div id="tab-verificacion" class="hidden flex-1 overflow-y-auto min-h-0">
+        <section role="region" aria-label="Verificación de Identidad" class="flex-1 flex items-start justify-center px-4 py-10 md:py-14">
+            <div class="w-full max-w-3xl bg-white rounded-[20px] shadow-card overflow-hidden">
+
+                <!-- Progress Header -->
+                <div class="bg-gray-50 px-8 py-6 border-b border-gray-200">
+                    <div class="flex items-center justify-between mb-6">
+                        <h1 class="font-serif text-2xl text-charcoal">Verificación de Identidad</h1>
+                        <span class="inline-flex items-center gap-1.5 bg-sage/20 text-sage text-xs font-medium px-3 py-1 rounded-full">
+                            <span class="material-symbols-outlined text-[14px] icon-filled">shield</span>
+                            Seguro
+                        </span>
+                    </div>
+
+                    <!-- Wizard Steps -->
+                    <div class="flex items-center justify-between">
+                        <!-- Step 1: Completed -->
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-10 h-10 rounded-full bg-sage text-white flex items-center justify-center">
+                                <span class="material-symbols-outlined icon-filled">check</span>
+                            </div>
+                            <span class="text-xs font-medium text-sage">Cuenta</span>
+                        </div>
+
+                        <!-- Connector: completed -->
+                        <div class="flex-1 h-0.5 bg-sage mx-3 mt-[-1.5rem]"></div>
+
+                        <!-- Step 2: Active -->
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center ring-4 ring-primary/20">
+                                <span class="text-sm font-bold">2</span>
+                            </div>
+                            <span class="text-xs font-semibold text-primary">Identidad</span>
+                        </div>
+
+                        <!-- Connector: pending -->
+                        <div class="flex-1 h-0.5 bg-gray-200 mx-3 mt-[-1.5rem]"></div>
+
+                        <!-- Step 3: Pending -->
+                        <div class="flex flex-col items-center gap-2">
+                            <div class="w-10 h-10 rounded-full bg-gray-200 text-charcoal/40 flex items-center justify-center">
+                                <span class="text-sm font-bold">3</span>
+                            </div>
+                            <span class="text-xs font-medium text-charcoal/40">Documentos</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Area -->
+                <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Left Column: Instructions -->
+                    <div class="space-y-6">
+                        <div>
+                            <h2 class="font-serif text-xl text-charcoal mb-3">Paso 2: Eres un estudiante verificado</h2>
+                            <p class="text-sm text-charcoal/60 leading-relaxed">
+                                Sube una foto de perfil y confirma tu correo institucional universitario. Esto garantiza que solo
+                                estudiantes reales puedan acceder a las habitaciones disponibles.
+                            </p>
+                        </div>
+
+                        <div class="bg-gray-50 border border-gray-200 rounded-xl p-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-9 h-9 rounded-lg bg-sage/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                                    <span class="material-symbols-outlined icon-filled text-sage">shield</span>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-charcoal mb-1">Privacidad garantizada</p>
+                                    <p class="text-xs text-charcoal/50 leading-relaxed">
+                                        Tu información personal está protegida y solo se usa para verificar tu condición de estudiante. Nunca
+                                        se comparte con terceros.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Form -->
+                    <div class="space-y-8">
+
+                        <!-- Profile Photo Upload -->
+                        <div class="flex flex-col items-center gap-3">
+                            <label class="relative cursor-pointer group">
+                                <input type="file" accept="image/*" class="sr-only">
+                                <div class="w-28 h-28 rounded-full border-2 border-dashed border-gray-300 group-hover:border-primary group-hover:bg-primary/5 transition-all flex flex-col items-center justify-center gap-1">
+                                    <span class="material-symbols-outlined text-[28px] text-charcoal/30 group-hover:text-primary transition-colors">person</span>
+                                    <span class="text-[10px] text-charcoal/30 group-hover:text-primary transition-colors font-medium">Foto</span>
+                                </div>
+                                <div class="absolute bottom-0 right-0 w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center shadow-soft group-hover:scale-110 transition-transform">
+                                    <span class="material-symbols-outlined text-[16px]">add_a_photo</span>
+                                </div>
+                            </label>
+                            <p class="text-xs text-charcoal/40">Foto de perfil</p>
+                        </div>
+
+                        <!-- University Email -->
+                        <div>
+                            <label class="block text-sm font-medium text-charcoal mb-2">Correo Universitario</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <span class="material-symbols-outlined text-charcoal/30 text-[20px]">mail</span>
+                                </div>
+                                <input type="email" placeholder="tu@universidad.edu.pe"
+                                    class="w-full rounded-full border border-gray-200 bg-white pl-11 pr-5 py-3 text-sm text-charcoal placeholder:text-charcoal/30 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all">
+                            </div>
+                            <p class="mt-2 text-xs text-charcoal/40 flex items-center gap-1.5">
+                                <span class="material-symbols-outlined text-skyblue text-[14px] icon-filled">check_circle</span>
+                                Debe ser un correo institucional (*.edu.pe o *.edu)
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="bg-gray-50 px-8 py-6 border-t border-gray-200 flex items-center justify-between">
+                    <button onclick="switchMainTab('mensajes')"
+                        class="text-sm font-medium text-charcoal/60 hover:text-charcoal transition-colors inline-flex items-center gap-1.5">
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="19" y1="12" x2="5" y2="12" />
+                            <polyline points="12 19 5 12 12 5" />
+                        </svg>
+                        Atrás
+                    </button>
+                    <button onclick="enviarVerificacion()"
+                        class="btn btn-primary">
+                        Verificar Identidad
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Auto-scroll chat to bottom on load
+        const chatMessages = document.getElementById('chat-messages');
+        if (chatMessages) {
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        // Simple auto-resize textarea
+        const textarea = document.querySelector('textarea');
+        if (textarea) {
+            textarea.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        }
+    </script>
+    
+    <script>
+        // Tab Switching
         function switchMainTab(tab) {
             const tabMensajes = document.getElementById('tab-mensajes');
             const tabVerificacion = document.getElementById('tab-verificacion');
             const btnMensajes = document.getElementById('tabBtn-mensajes');
             const btnVerificacion = document.getElementById('tabBtn-verificacion');
-            
+
+            [tabMensajes, tabVerificacion].forEach(function(t) { if (t) t.classList.add('hidden'); });
+            [btnMensajes, btnVerificacion].forEach(function(b) {
+                if (!b) return;
+                b.classList.remove('pill-tab-active');
+                b.classList.add('pill-tab-inactive');
+            });
+
             if (tab === 'mensajes') {
-                tabMensajes.classList.remove('hidden');
-                tabMensajes.classList.add('flex');
-                tabVerificacion.classList.add('hidden');
-                btnMensajes.className = 'px-4 py-2 rounded-full text-sm font-medium bg-primary text-white transition-colors flex items-center gap-2';
-                btnVerificacion.className = 'px-4 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors flex items-center gap-2';
+                if (tabMensajes) { tabMensajes.classList.remove('hidden'); tabMensajes.classList.add('flex'); }
+                if (btnMensajes) { btnMensajes.classList.remove('pill-tab-inactive'); btnMensajes.classList.add('pill-tab-active'); }
             } else if (tab === 'verificacion') {
-                tabMensajes.classList.add('hidden');
-                tabMensajes.classList.remove('flex');
-                tabVerificacion.classList.remove('hidden');
-                btnVerificacion.className = 'px-4 py-2 rounded-full text-sm font-medium bg-primary text-white transition-colors flex items-center gap-2';
-                btnMensajes.className = 'px-4 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-100 transition-colors flex items-center gap-2';
+                if (tabVerificacion) { tabVerificacion.classList.remove('hidden'); }
+                if (btnVerificacion) { btnVerificacion.classList.remove('pill-tab-inactive'); btnVerificacion.classList.add('pill-tab-active'); }
             }
         }
-</script>
+
+        function enviarVerificacion() {
+            const email = document.querySelector('input[type="email"]').value.trim();
+            if (!email) {
+                showToast('Ingresa tu correo universitario.', 'error');
+                return;
+            }
+            showLoader('Enviando solicitud de verificación...');
+            google.script.run
+                .withSuccessHandler(result => {
+                    hideLoader();
+                    if (result.success) {
+                        showToast('Solicitud enviada. Revisa tu correo.', 'success');
+                    } else {
+                        showToast(result.message, 'error');
+                    }
+                })
+                .withFailureHandler(err => {
+                    hideLoader();
+                    showToast('Error: ' + err.message, 'error');
+                })
+                .solicitarVerificacion(email);
+        }
+    </script>
+    
     <?!= include('Scripts'); ?>
 </body>
 

@@ -44,7 +44,7 @@ function crearHabitacion(datos) {
         'CalificacionPromedio': 0
     };
     const success = appendRowData('Hospedajes', rowData);
-    return { success: success, message: success ? 'Habitación creada con éxito.' : 'Error al guardar.', hospedajeId: id };
+    return { success: success, message: success ? 'Habitación creada con éxito.' : 'Error al guardar.', hospedajeId: id, redirectUrl: '?page=Arrendador&tab=habitaciones' };
 }
 
 function editarHabitacion(datos) {
@@ -78,7 +78,7 @@ function editarHabitacion(datos) {
                 updateField('Latitud', datos.Latitud);
                 updateField('Longitud', datos.Longitud);
                 
-                return { success: true, message: 'Habitación actualizada.', hospedajeId: datos.HospedajeID };
+                 return { success: true, message: 'Habitación actualizada.', hospedajeId: datos.HospedajeID, redirectUrl: '?page=Arrendador&tab=habitaciones' };
             }
         }
         return { success: false, message: "Habitación no encontrada" };

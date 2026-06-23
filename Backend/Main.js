@@ -18,7 +18,10 @@ function doGet(e) {
     if (!validPages.includes(page)) {
         page = 'Login';
     }
+    
+    // La validación de autenticación se maneja exclusivamente en el cliente (localStorage)
 
+    
     return HtmlService.createTemplateFromFile(page)
         .evaluate()
         .setTitle('CuscoRent — ' + page)

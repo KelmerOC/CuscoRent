@@ -204,13 +204,14 @@ function subirImagen(datos) {
         const archivo = carpetaDestino.createFile(blob);
         // Hacer el archivo accesible con link
         archivo.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-        return {
-            success: true,
-            message: 'Imagen subida correctamente.',
-            fileId: archivo.getId(),
-            url: 'https://drive.google.com/uc?id=' + archivo.getId(),
-            nombre: archivo.getName()
-        };
+         return {
+             success: true,
+             message: 'Imagen subida correctamente.',
+             fileId: archivo.getId(),
+             url: 'https://drive.google.com/uc?id=' + archivo.getId(),
+             nombre: archivo.getName(),
+             redirectUrl: datos.tipoUsuario === 'arrendador' && datos.categoria === 'habitaciones' ? '?page=Arrendador&tab=habitaciones' : null
+         };
     } catch (e) {
         Logger.log('Error subirImagen: ' + e.message);
         return { success: false, message: 'Error al subir imagen: ' + e.message };

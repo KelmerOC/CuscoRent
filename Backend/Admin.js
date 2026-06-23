@@ -75,7 +75,7 @@ function getTodosArrendadores() {
  */
 function eliminarEstudiante(estudianteId) {
     const success = eliminarFilaPorId('Estudiantes', 'EstudianteID', estudianteId);
-    return { success: success, message: success ? 'Estudiante eliminado correctamente.' : 'Estudiante no encontrado.' };
+    return { success: success, message: success ? 'Estudiante eliminado correctamente.' : 'Estudiante no encontrado.', redirectUrl: '?page=Administrador&tab=estudiantes' };
 }
 
 /**
@@ -106,34 +106,6 @@ function eliminarArrendador(arrendadorId) {
         }
     }
 
-    return { success: success, message: success ? 'Arrendador y sus habitaciones eliminados correctamente.' : 'Arrendador no encontrado.' };
+     return { success: success, message: success ? 'Arrendador y sus habitaciones eliminados correctamente.' : 'Arrendador no encontrado.', redirectUrl: '?page=Administrador&tab=arrendadores' };
 }
 
-function actualizarPerfilArrendador(datos) {
-    try {
-        const sheet = getSpreadsheet().getSheetByName('Arrendadores');
-        if (!sheet) return { success: false, message: 'Hoja Arrendadores no encontrada' };
-        const data = sheet.getDataRange().getValues();
-        const headers = data[0];
-        const idIdx = headers.indexOf('ArrendadorID');
-
-        for (let i = 1; i < data.length; i++) {
-            if (String(data[i][idIdx]) === String(datos.ArrendadorID)) {
-                const row = i + 1;
-                if (datos.Telefono !== undefined) {
-                    const telIdx = headers.indexOf('Telefono');
-                    if (telIdx !== -1) sheet.getRange(row, telIdx + 1).setValue(datos.Telefono);
-                }
-                if (datos.NombreCompleto !== undefined) {
-                    const nomIdx = headers.indexOf('NombreCompleto');
-                    if (nomIdx !== -1) sheet.getRange(row, nomIdx + 1).setValue(datos.NombreCompleto);
-                }
-                return { success: true, message: 'Perfil actualizado correctamente.' };
-            }
-        }
-        return { success: false, message: 'Arrendador no encontrado.' };
-    } catch (e) {
-        Logger.log('Error actualizarPerfilArrendador: ' + e.message);
-        return { success: false, message: 'Error del servidor: ' + e.message };
-    }
-}

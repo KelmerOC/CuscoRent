@@ -1,0 +1,8 @@
+﻿# Ignorar carpetas no deseadas
+.agents/
+.kilo/
+.gemini/
+Cambios_front/
+# Ignorar configuraciones locales de IDEs si las hubiera
+.vscode/
+.idea/

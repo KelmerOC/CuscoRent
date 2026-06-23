@@ -2,10 +2,12 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CuscoRent - Panel de Arrendador. Gestiona tus habitaciones, reservas y mensajes.">
     <title>CuscoRent — Panel Arrendador</title>
     <?!= include('Estilos'); ?>
 </head>
-<body class="bg-bglite min-h-screen text-gray-800 font-sans pb-10">
+<body class="bg-surface min-h-screen text-on-surface font-sans">
 
     <div id="toastContainer"></div>
     <div id="overlayLoader" class="fixed inset-0 bg-white/80 z-[9999] hidden flex-col items-center justify-center backdrop-blur-sm">
@@ -13,249 +15,406 @@
         <p id="loaderText" class="mt-4 font-semibold text-gray-700">Procesando...</p>
     </div>
 
-    <div class="app-layout">
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- ============================================================
+         MODO CATÁLOGO (Top Header — vista competencia)
+         El arrendador ve el catálogo pero NO puede reservar.
+         Botón principal: "Ir a mi Dashboard"
+    ============================================================ -->
+    <div id="modo-catalogo">
+
+        <!-- TOP HEADER DEL ARRENDADOR -->
+        <header class="top-header" id="catalogo-header" role="banner">
+            <a class="top-header-logo flex items-center gap-2" href="#" onclick="return false;" aria-label="CuscoRent">
+                <span class="material-symbols-outlined text-[22px] icon-filled text-primary">home_work</span>
+                <span><span class="text-on-surface">Cusco</span><span class="text-primary">Rent</span></span>
+            </a>
+
+            <!-- Buscador central -->
+            <div class="hidden md:flex flex-1 max-w-sm mx-6">
+                <div class="hero-search w-full" style="padding: 2px 4px;">
+                    <input type="text" class="search-field text-sm" style="padding: 10px 14px;"
+                        placeholder="Explorar habitaciones..." id="catalogSearchInput"
+                        aria-label="Buscar habitaciones para comparar" />
+                    <button class="hero-search-button" style="padding: 8px 14px;" aria-label="Buscar">
+                        <span class="material-symbols-outlined text-[18px]">search</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="top-header-actions">
+                <!-- Badge "Modo Competencia" -->
+                <span class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-secondary-blue/10 text-secondary-blue">
+                    <span class="material-symbols-outlined text-[14px]">visibility</span>
+                    Modo Observador
+                </span>
+                <!-- CTA: Ir a Dashboard -->
+                <button
+                    id="btnIrDashboard"
+                    onclick="irAlDashboard()"
+                    class="btn btn-primary btn-sm flex items-center gap-2"
+                    aria-label="Ir a mi Dashboard de Arrendador"
+                >
+                    <span class="material-symbols-outlined text-[16px]">dashboard</span>
+                    <span class="hidden sm:inline">Ir a mi Dashboard</span>
+                    <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </button>
+                <!-- Logout -->
+                <button onclick="cerrarSesion()" class="avatar-btn" title="Cerrar sesión" aria-label="Cerrar sesión">
+                    <span class="material-symbols-outlined text-on-surface-variant text-[20px]">logout</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- Banner informativo para arrendador -->
+        <div class="bg-secondary-blue/8 border-b border-secondary-blue/20 px-6 py-2">
+            <p class="text-sm text-secondary-blue font-medium text-center">
+                <span class="material-symbols-outlined text-[16px] align-middle">info</span>
+                Estás viendo el catálogo como lo verían tus potenciales arrendatarios.
+                <button onclick="irAlDashboard()" class="underline font-bold hover:no-underline">Gestiona tus habitaciones en el Dashboard &rarr;</button>
+            </p>
+        </div>
+
+        <!-- Catálogo de habitaciones (modo observación) -->
+        <main id="main-content-catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <!-- Hero -->
+            <div class="hero-gradient rounded-[24px] p-8 mb-8 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h1 class="text-2xl md:text-3xl font-bold text-white font-serif mb-2">Analiza la Competencia</h1>
+                    <p class="text-white/80 mb-4">Explora el mercado de habitaciones en Cusco para posicionar mejor tus propiedades</p>
+                    <div class="flex gap-2 flex-wrap">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/20 text-white">
+                            <span class="material-symbols-outlined text-[14px]">price_check</span> Precios del mercado
+                        </span>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-white/20 text-white">
+                            <span class="material-symbols-outlined text-[14px]">star</span> Calificaciones
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid de habitaciones en modo solo-lectura -->
+            <div class="mb-4 flex justify-between items-center">
+                <h2 class="text-xl font-bold text-on-surface">Habitaciones disponibles en Cusco</h2>
+                <span class="text-sm text-on-surface-variant"><span id="catalogoCountArr">0</span> propiedades</span>
+            </div>
+            <div id="catalogoHabitacionesArr" class="listing-grid">
+                <div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando catálogo...</div>
+            </div>
+        </main>
+    </div><!-- /#modo-catalogo -->
+
+
+    <!-- ============================================================
+         MODO DASHBOARD (Sidebar layout — gestión)
+    ============================================================ -->
+    <div id="modo-dashboard" class="app-layout">
         <!-- SIDEBAR -->
         <aside class="app-sidebar" id="sidebar">
             <div class="p-6 border-b border-white/10">
-                <h1 class="text-2xl font-bold font-serif tracking-tight"><span class="text-white">Cusco</span><span class="text-primary">Rent</span></h1>
-                <p class="text-sm opacity-80 mt-1">Panel de Arrendador</p>
+                <div class="flex items-center gap-2 mb-1">
+                    <span class="material-symbols-outlined text-[20px] icon-filled text-primary">home_work</span>
+                    <h1 class="text-xl font-bold font-serif tracking-tight"><span class="text-white">Cusco</span><span class="text-primary">Rent</span></h1>
+                </div>
+                <p class="text-xs opacity-60 ml-7">Panel de Arrendador</p>
             </div>
             
-            <nav class="sidebar-nav">
-                <a onclick="switchMainTab('habitaciones'); toggleMobileSidebar()" id="tabBtn-habitaciones" class="nav-item active">
-                    <span class="material-icons-round">home</span> Mis Habitaciones
+            <nav class="sidebar-nav" role="navigation" aria-label="Sección del dashboard">
+                <a onclick="switchMainTab('habitaciones'); toggleMobileSidebar()" id="tabBtn-habitaciones" class="nav-item active" aria-controls="seccion-habitaciones">
+                    <span class="material-symbols-outlined">home</span> Mis Habitaciones
                 </a>
-                <a onclick="switchMainTab('reservas'); toggleMobileSidebar()" id="tabBtn-reservas" class="nav-item">
-                    <span class="material-icons-round">book_online</span> Reservas
+                <a onclick="switchMainTab('reservas'); toggleMobileSidebar()" id="tabBtn-reservas" class="nav-item" aria-controls="seccion-reservas">
+                    <span class="material-symbols-outlined">book_online</span> Reservas
                 </a>
-                <a onclick="switchMainTab('mensajes'); toggleMobileSidebar()" id="tabBtn-mensajes" class="nav-item">
-                    <span class="material-icons-round">mail</span> Mensajes
+                <a onclick="switchMainTab('mensajes'); toggleMobileSidebar()" id="tabBtn-mensajes" class="nav-item" aria-controls="seccion-mensajes">
+                    <span class="material-symbols-outlined">mail</span> Mensajes
                 </a>
-                <a onclick="switchMainTab('documentos'); toggleMobileSidebar()" id="tabBtn-documentos" class="nav-item">
-                    <span class="material-icons-round">verified_user</span> Verificación
+                <a onclick="switchMainTab('resenas'); toggleMobileSidebar()" id="tabBtn-resenas" class="nav-item" aria-controls="seccion-resenas">
+                    <span class="material-symbols-outlined">rate_review</span> Reseñas
+                </a>
+                <a onclick="switchMainTab('perfil'); toggleMobileSidebar()" id="tabBtn-perfil" class="nav-item" aria-controls="seccion-perfil">
+                    <span class="material-symbols-outlined">person</span> Mi Perfil
+                </a>
+                <a onclick="switchMainTab('documentos'); toggleMobileSidebar()" id="tabBtn-documentos" class="nav-item" aria-controls="seccion-documentos">
+                    <span class="material-symbols-outlined">verified_user</span> Verificación
+                </a>
+                <!-- Separador -->
+                <div class="my-2 border-t border-white/10"></div>
+                <!-- Volver al catálogo -->
+                <a onclick="irAlCatalogo()" class="nav-item text-white/50 hover:text-white">
+                    <span class="material-symbols-outlined">arrow_back</span> Ver Catálogo
                 </a>
             </nav>
 
-            <div class="mt-auto p-6 border-t border-white/10">
-                <div class="flex items-center gap-3 mb-4">
-                    <div class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center">
-                        <span class="material-icons-round">person</span>
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <span class="material-symbols-outlined">person</span>
                     </div>
-                    <div class="text-sm truncate opacity-90 max-w-[150px]" id="userEmailDisplay">Cargando...</div>
+                    <div class="user-email" id="userEmailDisplay">Cargando...</div>
                 </div>
                 <button onclick="cerrarSesion()" class="w-full py-2.5 bg-white/10 hover:bg-white/20 rounded-xl text-sm font-semibold transition-colors flex items-center justify-center gap-2">
-                    <span class="material-icons-round text-[18px]">logout</span> Cerrar sesión
+                    <span class="material-symbols-outlined text-[18px]">logout</span> Cerrar sesión
                 </button>
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
-        <main class="app-main relative">
-            <!-- HEADER MÓVIL -->
-            <div class="md:hidden bg-white border-b border-gray-200 p-4 sticky top-0 z-30 flex items-center justify-between shadow-sm">
+
+        <!-- MAIN CONTENT (Dashboard) -->
+        <main id="main-content" class="app-main relative">
+            <!-- MOBILE HEADER -->
+            <div class="md:hidden mobile-header">
                 <span class="font-bold font-serif text-xl text-charcoal"><span>Cusco</span><span class="text-primary">Rent</span></span>
-                <button onclick="toggleMobileSidebar()" class="p-2 text-gray-600 hover:bg-gray-50 rounded-full transition-colors">
-                    <span class="material-icons-round">menu</span>
+                <button onclick="toggleMobileSidebar()" class="mobile-menu-btn" aria-label="Abrir menú lateral">
+                    <span class="material-symbols-outlined">menu</span>
                 </button>
             </div>
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- ======================= SECCIÓN: RESERVAS ======================= -->
-        <div id="seccion-reservas" class="hidden space-y-6">
-            <div class="flex justify-between items-end flex-wrap gap-4">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Reservas Recibidas</h1>
-                    <p class="text-gray-500 mt-1">Estudiantes que han reservado y pagado tus habitaciones</p>
-                </div>
-            </div>
-            <div id="listaReservasArrendador" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Cargando reservas...</div>
-            </div>
-        </div>
-
-        <!-- ======================= SECCIÓN: MENSAJES ======================= -->
-        <div id="seccion-mensajes" class="hidden space-y-6">
-            <div class="flex justify-between items-end flex-wrap gap-4">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Mensajes de Estudiantes</h1>
-                    <p class="text-gray-500 mt-1">Revisa quiénes te han contactado por tus habitaciones</p>
-                </div>
-            </div>
-            <div id="listaMensajes" class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Cargando mensajes...</div>
-            </div>
-        </div>
-
-        <!-- ======================= SECCIÓN: HABITACIONES ======================= -->
-        <div id="seccion-habitaciones" class="space-y-6">
-            <div class="flex justify-between items-end flex-wrap gap-4">
-                <div>
-                    <h1 class="text-3xl font-bold text-gray-900">Tus Publicaciones</h1>
-                    <p class="text-gray-500 mt-1">Gestiona los cuartos que ofreces a los estudiantes</p>
-                </div>
-                <button onclick="document.getElementById('formCrearHabitacion').classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' });" class="flex items-center gap-2 bg-primary hover:bg-primary/90 text-white px-5 py-2.5 rounded-[50px] shadow-lg shadow-primary/20 transition-colors font-semibold">
-                    <span class="material-icons-round text-sm">add</span>
-                    Nueva Habitación
-                </button>
-            </div>
-
-            <!-- FORMULARIO CREAR/EDITAR -->
-            <div id="formCrearHabitacion" class="hidden bg-white p-6 rounded-3xl shadow-soft border border-gray-50 mb-8 relative">
-                <button onclick="cancelarEdicion()" class="absolute top-4 right-4 p-2 text-gray-400 hover:bg-gray-100 rounded-full transition-colors"><span class="material-icons-round">close</span></button>
-                <h3 id="formTitulo" class="text-xl font-bold text-gray-900 mb-6">Registrar Habitación</h3>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Título</label>
-                        <input type="text" id="hTitulo" placeholder="Ej: Cuarto amplio con baño" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Distrito</label>
-                        <select id="hDistrito" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none bg-white" onchange="updateMapPreview()">
-                            <option value="" disabled selected>Selecciona un distrito</option>
-                            <option value="Wanchaq">Wanchaq</option>
-                            <option value="San Jerónimo">San Jerónimo</option>
-                            <option value="San Sebastián">San Sebastián</option>
-                            <option value="Cusco Cercado">Cusco Cercado</option>
-                            <option value="Santiago">Santiago</option>
-                            <option value="Poroy">Poroy</option>
-                            <option value="Saylla">Saylla</option>
-                            <option value="Ccorca">Ccorca</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Dirección Exacta</label>
-                        <input type="text" id="hDireccion" placeholder="Av. Cultura 123" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none" oninput="updateMapPreview()">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de Habitación</label>
-                        <select id="hTipo" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none bg-white">
-                            <option value="Individual">Individual</option>
-                            <option value="Compartida">Compartida</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Precio Mensual (S/)</label>
-                        <input type="number" id="hPrecio" placeholder="500" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Servicios Incluidos</label>
-                        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="hServiciosContainer">
-                            <label class="flex items-center gap-2 cursor-pointer p-2 border border-gray-200 rounded-lg hover:border-primary transition-colors">
-                                <input type="checkbox" value="Wi-Fi" class="w-4 h-4 text-primary rounded focus:ring-primary accent-primary">
-                                <span class="text-sm text-gray-700">Wi-Fi</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer p-2 border border-gray-200 rounded-lg hover:border-primary transition-colors">
-                                <input type="checkbox" value="Baño Privado" class="w-4 h-4 text-primary rounded focus:ring-primary accent-primary">
-                                <span class="text-sm text-gray-700">Baño Privado</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer p-2 border border-gray-200 rounded-lg hover:border-primary transition-colors">
-                                <input type="checkbox" value="Agua Caliente" class="w-4 h-4 text-primary rounded focus:ring-primary accent-primary">
-                                <span class="text-sm text-gray-700">Agua Caliente</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer p-2 border border-gray-200 rounded-lg hover:border-primary transition-colors">
-                                <input type="checkbox" value="Lavandería" class="w-4 h-4 text-primary rounded focus:ring-primary accent-primary">
-                                <span class="text-sm text-gray-700">Lavandería</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer p-2 border border-gray-200 rounded-lg hover:border-primary transition-colors">
-                                <input type="checkbox" value="Cocina Compartida" class="w-4 h-4 text-primary rounded focus:ring-primary accent-primary">
-                                <span class="text-sm text-gray-700">Cocina Compartida</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer p-2 border border-gray-200 rounded-lg hover:border-primary transition-colors">
-                                <input type="checkbox" value="Amoblado" class="w-4 h-4 text-primary rounded focus:ring-primary accent-primary">
-                                <span class="text-sm text-gray-700">Amoblado</span>
-                            </label>
+                <!-- ======================= SECCIÓN: RESERVAS ======================= -->
+                <div id="seccion-reservas" class="hidden space-y-6">
+                    <div class="flex justify-between items-end flex-wrap gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900">Reservas Recibidas</h1>
+                            <p class="text-gray-500 mt-1">Estudiantes que han reservado y pagado tus habitaciones</p>
                         </div>
                     </div>
-                    <div class="md:col-span-2 mt-2">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Vista Previa de Ubicación (Google Maps)</label>
-                        <div class="w-full h-64 bg-gray-100 rounded-xl overflow-hidden border border-gray-200 relative">
-                            <iframe 
-                                id="mapPreview"
-                                width="100%" 
-                                height="100%" 
-                                style="border:0;" 
-                                loading="lazy" 
-                                allowfullscreen 
-                                referrerpolicy="no-referrer-when-downgrade" 
-                                src="https://maps.google.com/maps?q=Cusco,Peru&output=embed&z=14">
-                            </iframe>
+                    <div id="listaReservasArrendador" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando reservas...</div>
+                    </div>
+                </div>
+
+                <!-- ======================= SECCIÓN: MENSAJES ======================= -->
+                <div id="seccion-mensajes" class="hidden space-y-6">
+                    <div class="flex justify-between items-end flex-wrap gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900">Mensajes de Estudiantes</h1>
+                            <p class="text-gray-500 mt-1">Revisa quiénes te han contactado por tus habitaciones</p>
                         </div>
-                        <p class="text-xs text-gray-500 mt-2">El mapa se actualizará automáticamente al escribir la Dirección Exacta y el Distrito.</p>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Latitud Mapa (Opcional)</label>
-                        <input type="text" id="hLatitud" placeholder="-13.522" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none">
+                    <div id="listaMensajes" class="grid grid-cols-1 gap-4">
+                        <div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando mensajes...</div>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Longitud Mapa (Opcional)</label>
-                        <input type="text" id="hLongitud" placeholder="-71.967" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none">
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Descripción detallada</label>
-                        <textarea id="hDescripcion" rows="3" placeholder="Describe los detalles..." class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary/30 focus:border-primary outline-none"></textarea>
-                    </div>
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Fotos de la habitación (Máx 5)</label>
-                        <div class="border-2 border-dashed border-gray-200 rounded-2xl p-6 text-center hover:bg-gray-50 hover:border-primary transition-colors cursor-pointer relative" id="uploadZone-arr-habitacion-form">
-                            <span class="material-icons-round text-3xl text-gray-300 mb-2">add_photo_alternate</span>
-                            <h4 class="font-medium text-gray-700">Selecciona o arrastra imágenes</h4>
-                            <p class="text-xs text-gray-400 mt-1">Sube hasta 5 fotos en formato JPG o PNG.</p>
-                            <input type="file" id="hFotos" accept=".jpg,.jpeg,.png" multiple class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                </div>
+
+                <!-- ======================= SECCIÓN: RESEÑAS ======================= -->
+                <div id="seccion-resenas" class="hidden space-y-6">
+                    <div class="flex justify-between items-end flex-wrap gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900">Reseñas de tus Habitaciones</h1>
+                            <p class="text-gray-500 mt-1">Opiniones de estudiantes que han alquilado contigo</p>
                         </div>
-                        <div id="hFotosPreview" class="grid grid-cols-5 gap-2 mt-4"></div>
+                    </div>
+                    <div id="listaResenas" class="grid grid-cols-1 gap-4">
+                        <div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando reseñas...</div>
                     </div>
                 </div>
-                <div class="mt-6 flex justify-end">
-                    <button id="btnGuardarHabitacion" onclick="guardarHabitacion()" class="bg-primary hover:bg-primary/90 text-white font-semibold py-3 px-6 rounded-xl shadow-md shadow-primary/20 transition-colors flex items-center gap-2">
-                        <span class="material-icons-round">save</span> Guardar Habitación
-                    </button>
-                </div>
-            </div>
 
-            <!-- Grid de Habitaciones -->
-            <div id="listaMisHabitaciones" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Inyectado por JS -->
-            </div>
-        </div>
-
-        <!-- ======================= SECCIÓN: DOCUMENTOS ======================= -->
-        <div id="seccion-documentos" class="hidden">
-            <div class="bg-white rounded-3xl p-6 shadow-soft">
-                <h2 class="text-xl font-bold text-gray-900 mb-2">Documentos del Arrendador</h2>
-                <p class="text-gray-500 mb-6">Sube tus fotos de perfil y documentos de propiedad.</p>
-                
-                <div class="flex flex-wrap gap-2 mb-6 border-b border-gray-100 pb-4">
-                    <button class="px-4 py-2 rounded-full text-sm font-medium bg-primary/15 text-primary" id="tab-doc-fotos" onclick="switchDocTab('fotos')">Fotos Habitaciones</button>
-                    <button class="px-4 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-50" id="tab-doc-propiedad" onclick="switchDocTab('propiedad')">Título Propiedad</button>
-                </div>
-
-                <div id="panel-doc-fotos" class="space-y-4">
-                    <div class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:bg-gray-50 hover:border-primary transition-colors cursor-pointer relative" id="uploadZone-arr-habitaciones">
-                        <span class="material-icons-round text-4xl text-gray-300 mb-2">collections</span>
-                        <h4 class="font-medium text-gray-700">Sube fotos de tus habitaciones</h4>
-                        <input type="file" accept=".jpg,.jpeg,.png" multiple onchange="handleFileSelect(event, 'arrendador', 'habitaciones')" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                <!-- ======================= SECCIÓN: MI PERFIL ======================= -->
+                <div id="seccion-perfil" class="hidden space-y-6">
+                    <div class="flex justify-between items-end flex-wrap gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900">Mi Perfil</h1>
+                            <p class="text-gray-500 mt-1">Actualiza tus datos personales</p>
+                        </div>
                     </div>
-                    <div id="progress-arr-habitaciones" class="h-1 w-full bg-gray-100 rounded-full overflow-hidden hidden"><div class="h-full bg-primary w-0 transition-all"></div></div>
-                    <div id="current-arr-habitaciones" class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4"></div>
+                    <div class="bg-white rounded-[20px] p-6 shadow-soft">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="input-group">
+                                <label for="perfilNombre">Nombre Completo</label>
+                                <input id="perfilNombre" class="input-field" type="text" value="" />
+                            </div>
+                            <div class="input-group">
+                                <label for="perfilEmail">Correo Electrónico</label>
+                                <input id="perfilEmail" class="input-field" type="email" value="" disabled />
+                            </div>
+                            <div class="input-group">
+                                <label for="perfilTelefono">Teléfono</label>
+                                <input id="perfilTelefono" class="input-field" type="tel" value="" />
+                            </div>
+                        </div>
+                        <div class="mt-6 flex justify-end">
+                            <button onclick="guardarPerfilArrendador()" class="btn btn-primary">
+                                <span class="material-symbols-outlined">save</span> Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
-                <div id="panel-doc-propiedad" class="space-y-4 hidden">
-                    <div class="border-2 border-dashed border-gray-200 rounded-2xl p-8 text-center hover:bg-gray-50 hover:border-primary transition-colors cursor-pointer relative" id="uploadZone-arr-datos">
-                        <span class="material-icons-round text-4xl text-gray-300 mb-2">description</span>
-                        <h4 class="font-medium text-gray-700">Sube Título de Propiedad o Recibo</h4>
-                        <input type="file" accept=".jpg,.jpeg,.png" onchange="handleFileSelect(event, 'arrendador', 'datos_personales')" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                <!-- ======================= SECCIÓN: HABITACIONES ======================= -->
+                <div id="seccion-habitaciones" class="space-y-6">
+                    <div class="flex justify-between items-end flex-wrap gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900">Tus Publicaciones</h1>
+                            <p class="text-gray-500 mt-1">Gestiona los cuartos que ofreces a los estudiantes</p>
+                        </div>
+                        <button onclick="document.getElementById('formCrearHabitacion').classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' });"
+                                class="btn btn-primary">
+                            <span class="material-symbols-outlined text-sm">add</span>
+                            Nueva Habitación
+                        </button>
                     </div>
-                    <div id="progress-arr-datos" class="h-1 w-full bg-gray-100 rounded-full overflow-hidden hidden"><div class="h-full bg-primary w-0 transition-all"></div></div>
-                    <div id="current-arr-datos" class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-4"></div>
+
+                    <!-- FORMULARIO CREAR/EDITAR -->
+                    <div id="formCrearHabitacion" class="hidden bg-white p-6 rounded-[20px] shadow-soft border border-gray-50 mb-8 relative">
+                        <button onclick="cancelarEdicion()" class="absolute top-4 right-4 p-2 text-gray-400 hover:bg-gray-100 rounded-full transition-colors">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                        <h3 id="formTitulo" class="text-xl font-bold text-gray-900 mb-6">Registrar Habitación</h3>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="input-group">
+                                <label for="hTitulo">Título</label>
+                                <input type="text" id="hTitulo" placeholder="Ej: Cuarto amplio con baño" class="input-field">
+                            </div>
+                            <div class="input-group">
+                                <label for="hDistrito">Distrito</label>
+                                <select id="hDistrito" class="input-field" onchange="updateMapPreview()">
+                                    <option value="" disabled selected>Selecciona un distrito</option>
+                                    <option value="Wanchaq">Wanchaq</option>
+                                    <option value="San Jerónimo">San Jerónimo</option>
+                                    <option value="San Sebastián">San Sebastián</option>
+                                    <option value="Cusco Cercado">Cusco Cercado</option>
+                                    <option value="Santiago">Santiago</option>
+                                    <option value="Poroy">Poroy</option>
+                                    <option value="Saylla">Saylla</option>
+                                    <option value="Ccorca">Ccorca</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="hDireccion">Dirección Exacta</label>
+                                <input type="text" id="hDireccion" placeholder="Av. Cultura 123" class="input-field" oninput="updateMapPreview()">
+                            </div>
+                            <div class="input-group">
+                                <label for="hTipo">Tipo de Habitación</label>
+                                <select id="hTipo" class="input-field">
+                                    <option value="Individual">Individual</option>
+                                    <option value="Compartida">Compartida</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label for="hPrecio">Precio Mensual (S/)</label>
+                                <input type="number" id="hPrecio" placeholder="500" class="input-field">
+                            </div>
+                            <div class="md:col-span-2 input-group">
+                                <label>Servicios Incluidos</label>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3" id="hServiciosContainer">
+                                    <label class="category-chip cursor-pointer">
+                                        <input type="checkbox" value="Wi-Fi" class="hidden peer">
+                                        <span class="peer-checked:bg-primary peer-checked:text-white">Wi-Fi</span>
+                                    </label>
+                                    <label class="category-chip cursor-pointer">
+                                        <input type="checkbox" value="Baño Privado" class="hidden peer">
+                                        <span class="peer-checked:bg-primary peer-checked:text-white">Baño Privado</span>
+                                    </label>
+                                    <label class="category-chip cursor-pointer">
+                                        <input type="checkbox" value="Agua Caliente" class="hidden peer">
+                                        <span class="peer-checked:bg-primary peer-checked:text-white">Agua Caliente</span>
+                                    </label>
+                                    <label class="category-chip cursor-pointer">
+                                        <input type="checkbox" value="Lavandería" class="hidden peer">
+                                        <span class="peer-checked:bg-primary peer-checked:text-white">Lavandería</span>
+                                    </label>
+                                    <label class="category-chip cursor-pointer">
+                                        <input type="checkbox" value="Cocina Compartida" class="hidden peer">
+                                        <span class="peer-checked:bg-primary peer-checked:text-white">Cocina Compartida</span>
+                                    </label>
+                                    <label class="category-chip cursor-pointer">
+                                        <input type="checkbox" value="Amoblado" class="hidden peer">
+                                        <span class="peer-checked:bg-primary peer-checked:text-white">Amoblado</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="md:col-span-2 mt-2">
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Vista Previa de Ubicación (Google Maps)</label>
+                                <div class="w-full h-64 bg-gray-100 rounded-xl overflow-hidden border border-gray-200 relative">
+                                    <iframe 
+                                        id="mapPreview"
+                                        width="100%" 
+                                        height="100%" 
+                                        style="border:0;" 
+                                        loading="lazy" 
+                                        allowfullscreen 
+                                        referrerpolicy="no-referrer-when-downgrade" 
+                                        src="https://maps.google.com/maps?q=Cusco,Peru&output=embed&z=14">
+                                    </iframe>
+                                </div>
+                                <p class="text-xs text-gray-500 mt-2">El mapa se actualizará automáticamente al escribir la Dirección Exacta y el Distrito.</p>
+                            </div>
+                            <div class="input-group">
+                                <label for="hLatitud">Latitud Mapa (Opcional)</label>
+                                <input type="text" id="hLatitud" placeholder="-13.522" class="input-field">
+                            </div>
+                            <div class="input-group">
+                                <label for="hLongitud">Longitud Mapa (Opcional)</label>
+                                <input type="text" id="hLongitud" placeholder="-71.967" class="input-field">
+                            </div>
+                            <div class="md:col-span-2 input-group">
+                                <label for="hDescripcion">Descripción detallada</label>
+                                <textarea id="hDescripcion" rows="3" placeholder="Describe los detalles..." class="input-field"></textarea>
+                            </div>
+                            <div class="md:col-span-2 input-group">
+                                <label for="hFotos">Fotos de la habitación (Máx 5)</label>
+                                <div class="upload-zone" id="uploadZone-arr-habitacion-form">
+                                    <span class="material-symbols-outlined">add_photo_alternate</span>
+                                    <div class="upload-zone-text">Selecciona o arrastra imágenes</div>
+                                    <div class="upload-zone-hint">Sube hasta 5 fotos en formato JPG o PNG.</div>
+                                    <input type="file" id="hFotos" accept=".jpg,.jpeg,.png" multiple class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                                </div>
+                                <div id="hFotosPreview" class="upload-preview"></div>
+                            </div>
+                        </div>
+                        <div class="mt-6 flex justify-end">
+                            <button id="btnGuardarHabitacion" onclick="guardarHabitacion()" class="btn btn-primary">
+                                <span class="material-symbols-outlined">save</span> Guardar Habitación
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Grid de Habitaciones -->
+                    <div id="listaMisHabitaciones" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                        <!-- Inyectado por JS -->
+                    </div>
                 </div>
-            </div>
-        </div>
+
+                <!-- ======================= SECCIÓN: DOCUMENTOS ======================= -->
+                <div id="seccion-documentos" class="hidden">
+                    <div class="bg-white rounded-[20px] p-6 shadow-soft">
+                        <h2 class="text-xl font-bold text-gray-900 mb-2">Documentos del Arrendador</h2>
+                        <p class="text-gray-500 mb-6">Sube tus fotos de perfil y documentos de propiedad.</p>
+                        
+                        <div class="flex flex-wrap gap-6 mb-6 border-b border-gray-100 pb-0">
+                            <button class="doc-tab-active px-4 py-3 text-sm font-medium" id="tab-doc-fotos" onclick="switchDocTab('fotos')">Fotos Habitaciones</button>
+                            <button class="doc-tab-inactive px-4 py-3 text-sm font-medium" id="tab-doc-propiedad" onclick="switchDocTab('propiedad')">Título Propiedad</button>
+                        </div>
+
+                        <div id="panel-doc-fotos" class="space-y-4">
+                            <div class="upload-zone" id="uploadZone-arr-habitaciones">
+                                <span class="material-symbols-outlined">collections</span>
+                                <div class="upload-zone-text">Sube fotos de tus habitaciones</div>
+                                <input type="file" accept=".jpg,.jpeg,.png" multiple onchange="handleFileSelect(event, 'arrendador', 'habitaciones', null)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            </div>
+                            <div id="progress-arr-habitaciones" class="h-1 w-full bg-gray-100 rounded-full overflow-hidden hidden"><div class="h-full bg-primary w-0 transition-all"></div></div>
+                            <div id="current-arr-habitaciones" class="upload-preview"></div>
+                        </div>
+
+                        <div id="panel-doc-propiedad" class="space-y-4 hidden">
+                            <div class="upload-zone" id="uploadZone-arr-datos">
+                                <span class="material-symbols-outlined">description</span>
+                                <div class="upload-zone-text">Sube Título de Propiedad o Recibo</div>
+                                <input type="file" accept=".jpg,.jpeg,.png" onchange="handleFileSelect(event, 'arrendador', 'datos_personales', null)" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer">
+                            </div>
+                            <div id="progress-arr-datos" class="h-1 w-full bg-gray-100 rounded-full overflow-hidden hidden"><div class="h-full bg-primary w-0 transition-all"></div></div>
+                            <div id="current-arr-datos" class="upload-preview"></div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
         </main>
-    </div>
+    </div><!-- /#modo-dashboard -->
 
     <?!= include('Scripts'); ?>
     
@@ -263,34 +422,108 @@
       const SCRIPT_URL = "<?= getScriptUrl() ?>";
       let habitacionEditandoId = null;
 
-      window.addEventListener('DOMContentLoaded', () => {
-         const savedUser = localStorage.getItem('user');
-         if(!savedUser) {
-             redirectTop(SCRIPT_URL + '?page=Login');
-             return;
-         }
-         const user = JSON.parse(savedUser);
-         APP.currentUser = user;
-         APP.currentRole = 'arrendador';
-         APP.currentEmail = user.Email || user.CorreoInstitucional || user.Correo;
-         document.getElementById('userEmailDisplay').textContent = APP.currentEmail || 'Usuario';
-         
-         if (!APP.currentUser.ArrendadorID) {
-             showToast('Sesión inválida. Inicia sesión de nuevo.', 'error');
-             localStorage.removeItem('user');
-             redirectTop(SCRIPT_URL + '?page=Login');
-             return;
-         }
+      // ============================================================
+      // MODO DUAL: Catálogo vs. Dashboard
+      // ============================================================
+      function irAlDashboard() {
+          document.getElementById('modo-catalogo').style.display = 'none';
+          document.getElementById('modo-dashboard').classList.add('active');
+          document.getElementById('modo-dashboard').style.display = 'grid';
+          cargarMisHabitaciones();
+      }
 
-         cargarMisHabitaciones();
-         cargarImagenesExistentes();
+      function irAlCatalogo() {
+          document.getElementById('modo-catalogo').style.display = '';
+          document.getElementById('modo-dashboard').style.display = 'none';
+          document.getElementById('modo-dashboard').classList.remove('active');
+      }
+
+      window.addEventListener('DOMContentLoaded', () => {
+          const savedUser = localStorage.getItem('user');
+          if(!savedUser) {
+              redirectTop(SCRIPT_URL + '?page=Login');
+              return;
+          }
+          const user = JSON.parse(savedUser);
+          APP.currentUser = user;
+          APP.currentRole = 'arrendador';
+          APP.currentEmail = user.Email || user.CorreoInstitucional || user.Correo;
+          // Display email en sidebar
+          const emailEl = document.getElementById('userEmailDisplay');
+          if (emailEl) emailEl.textContent = APP.currentEmail || 'Usuario';
+          
+          if (!APP.currentUser.ArrendadorID) {
+              showToast('Sesión inválida. Inicia sesión de nuevo.', 'error');
+              localStorage.removeItem('user');
+              redirectTop(SCRIPT_URL + '?page=Login');
+              return;
+          }
+
+          // Check URL params: si viene con ?tab=... ir al dashboard directamente
+          const urlParams = new URLSearchParams(window.location.search);
+          const tab = urlParams.get('tab');
+          if (tab) {
+              irAlDashboard();
+              switchMainTab(tab);
+          } else {
+              // Cargar catálogo en modo competencia
+              cargarCatalogoCompetencia();
+          }
+
+          cargarImagenesExistentes();
+          cargarPerfilArrendador();
       });
 
-      // --- NAVEGACIÓN PRINCIPAL ---
+      // Cargar catálogo de todos los hospedajes (modo observación)
+      function cargarCatalogoCompetencia() {
+          const container = document.getElementById('catalogoHabitacionesArr');
+          if (!container) return;
+          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando catálogo...</div>';
+          google.script.run
+              .withSuccessHandler(result => {
+                  document.getElementById('catalogoCountArr').textContent = result ? result.length : 0;
+                  if (!result || result.length === 0) {
+                      container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">No hay habitaciones disponibles.</div>';
+                      return;
+                  }
+                  container.innerHTML = result.map(h => `
+                      <div class="listing-card" style="cursor:default;">
+                          <div class="listing-card-image">
+                              <div class="listing-ph"><span class="material-symbols-outlined">home</span></div>
+                              <div class="listing-card-rating">
+                                  <span class="material-symbols-outlined filled-icon">star</span>
+                                  <span>${h.CalificacionPromedio || '4.9'}</span>
+                              </div>
+                          </div>
+                          <div class="listing-card-content">
+                              <h4 class="font-bold text-charcoal text-base leading-tight line-clamp-1 mb-1">${h.Titulo || 'Sin título'}</h4>
+                              <p class="text-sm text-gray-500 flex items-center gap-1 mb-3">
+                                  <span class="material-symbols-outlined text-[14px] text-primary">location_on</span>${h.Distrito || 'Sin distrito'}
+                              </p>
+                              <div class="flex items-center justify-between pt-3 border-t border-gray-100">
+                                  <div>
+                                      <span class="text-lg font-bold text-primary">S/ ${h.PrecioMensual || '0'}</span>
+                                      <span class="text-xs text-gray-400 ml-1">/mes</span>
+                                  </div>
+                                  <span class="text-xs font-medium px-2 py-1 rounded-full ${
+                                      h.TipoHabitacion === 'Individual' ? 'bg-primary/10 text-primary' : 'bg-secondary-blue/10 text-secondary-blue'
+                                  }">${h.TipoHabitacion || 'N/A'}</span>
+                              </div>
+                          </div>
+                      </div>
+                  `).join('');
+              })
+              .withFailureHandler(err => {
+                  container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500">Error al cargar catálogo.</div>';
+              })
+              .getHospedajes();
+      }
+
+      // --- NAVEGACIÓN PRINCIPAL (Dashboard) ---
       function switchMainTab(tab) {
           try {
               hideLoader();
-              const tabs = ['habitaciones', 'reservas', 'mensajes', 'documentos'];
+              const tabs = ['habitaciones', 'reservas', 'mensajes', 'resenas', 'perfil', 'documentos'];
               tabs.forEach(t => {
                   const seccion = document.getElementById(`seccion-${t}`);
                   const boton = document.getElementById(`tabBtn-${t}`);
@@ -306,6 +539,8 @@
 
               if (tab === 'mensajes') cargarMensajes();
               if (tab === 'reservas') cargarReservasArrendador();
+              if (tab === 'resenas') cargarResenas();
+              if (tab === 'perfil') cargarPerfilArrendador();
           } catch (error) {
               console.error("Error en la navegación:", error);
           }
@@ -321,28 +556,39 @@
       function switchDocTab(tab) {
           ['fotos', 'propiedad'].forEach(t => {
               document.getElementById(`panel-doc-${t}`).classList.add('hidden');
-              document.getElementById(`tab-doc-${t}`).className = 'px-4 py-2 rounded-full text-sm font-medium text-gray-500 hover:bg-gray-50';
+              const btn = document.getElementById(`tab-doc-${t}`);
+              btn.classList.remove('tab-active');
+              btn.classList.add('tab-inactive');
           });
           document.getElementById(`panel-doc-${tab}`).classList.remove('hidden');
-          document.getElementById(`tab-doc-${tab}`).className = 'px-4 py-2 rounded-full text-sm font-medium bg-primary/15 text-primary';
+          const activeBtn = document.getElementById(`tab-doc-${tab}`);
+          activeBtn.classList.remove('tab-inactive');
+          activeBtn.classList.add('tab-active');
       }
 
       // --- MENSAJES ---
       function cargarMensajes() {
           const container = document.getElementById('listaMensajes');
-          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Cargando mensajes...</div>';
+          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando mensajes...</div>';
           
           google.script.run
               .withSuccessHandler(res => {
                   if(res.length === 0) {
-                      container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Aún no tienes mensajes.</div>';
+                      container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Aún no tienes mensajes.</div>';
                       return;
                   }
                   container.innerHTML = res.map(m => `
-                      <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col justify-between">
+                      <div class="card p-5 flex flex-col justify-between">
                           <div class="mb-3">
-                              <span class="text-xs font-semibold text-primary uppercase tracking-wide">De: ${m.NombreRemitente || m.RemitenteID}</span>
-                              <p class="text-gray-800 font-medium mt-1">${m.Mensaje}</p>
+                              <div class="flex justify-between items-start">
+                                  <div>
+                                      <span class="text-xs font-semibold text-primary uppercase tracking-wide">De: ${m.NombreRemitente || m.RemitenteID}</span>
+                                      <p class="text-gray-800 font-medium mt-1">${m.Mensaje}</p>
+                                  </div>
+                                  <button onclick="abrirModalRespuesta('${m.RemitenteID}', '${m.HospedajeID}')" class="text-xs bg-primary/10 text-primary px-3 py-1 rounded-full hover:bg-primary/20 transition-colors flex items-center gap-1">
+                                      <span class="material-symbols-outlined text-[14px]">reply</span> Responder
+                                  </button>
+                              </div>
                           </div>
                           <div class="flex justify-between items-center border-t border-gray-50 pt-3 mt-auto">
                               <span class="text-xs text-gray-400">${m.FechaHora}</span>
@@ -352,30 +598,113 @@
                   `).join('');
               })
               .withFailureHandler(err => {
-                  container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500 bg-red-50 rounded-3xl border border-dashed border-red-200">Error al cargar mensajes: ' + err.message + '</div>';
+                  container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500 bg-red-50 rounded-[20px] border border-dashed border-red-200">Error al cargar mensajes: ' + err.message + '</div>';
               })
               .getMensajesPorArrendador(APP.currentUser.ArrendadorID);
+      }
+
+      // --- MODAL PARA RESPONDER MENSAJES ---
+      function abrirModalRespuesta(estudianteId, hospedajeId) {
+          const modal = document.createElement('div');
+          modal.className = 'modal-backdrop';
+          modal.innerHTML = `
+              <div class="modal-content">
+                  <div class="flex justify-between items-center mb-4">
+                      <h3 class="text-lg font-bold text-gray-900">Responder Mensaje</h3>
+                      <button onclick="this.closest('div').remove()" class="modal-close"></button>
+                  </div>
+                  <textarea id="modalRespuestaMensaje" rows="4" placeholder="Escribe tu respuesta..." class="input-field mb-4"></textarea>
+                  <div class="modal-footer">
+                      <button onclick="this.closest('div').remove()" class="btn btn-ghost">Cancelar</button>
+                      <button onclick="enviarRespuesta('${estudianteId}', '${hospedajeId}')" class="btn btn-primary">
+                          <span class="material-symbols-outlined">send</span> Enviar
+                      </button>
+                  </div>
+              </div>
+          `;
+          document.body.appendChild(modal);
+      }
+
+      function enviarRespuesta(estudianteId, hospedajeId) {
+          const mensaje = document.getElementById('modalRespuestaMensaje').value.trim();
+          if (!mensaje) {
+              showToast('Escribe un mensaje para responder.', 'error');
+              return;
+          }
+          
+          showLoader('Enviando respuesta...');
+          google.script.run
+              .withSuccessHandler(res => {
+                  hideLoader();
+                  showToast(res.message, res.success ? 'success' : 'error');
+                  if (res.success) {
+                      document.querySelector('.modal-backdrop').remove();
+                      cargarMensajes();
+                  }
+              })
+              .withFailureHandler(err => {
+                  hideLoader();
+                  showToast('Error al enviar respuesta: ' + err.message, 'error');
+              })
+              .sendMessage(APP.currentUser.ArrendadorID, estudianteId, hospedajeId, mensaje);
+      }
+
+      // --- RESEÑAS ---
+      function cargarResenas() {
+          const container = document.getElementById('listaResenas');
+          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando reseñas...</div>';
+          
+          google.script.run
+              .withSuccessHandler(res => {
+                  if(res.length === 0) {
+                      container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Aún no tienes reseñas.</div>';
+                      return;
+                  }
+                  container.innerHTML = res.map(r => {
+                      const stars = '★'.repeat(Math.floor(Number(r.Puntuacion))) + '☆'.repeat(5 - Math.floor(Number(r.Puntuacion)));
+                      return `
+                      <div class="card p-5 flex flex-col gap-3">
+                          <div class="flex justify-between items-start">
+                              <div>
+                                  <h4 class="font-bold text-gray-900">${r.TituloHabitacion}</h4>
+                                  <p class="text-sm text-gray-500">De: <span class="font-medium text-gray-700">${r.NombreEstudiante}</span></p>
+                              </div>
+                              <div class="flex text-primary text-xl">${stars}</div>
+                          </div>
+                          <p class="text-gray-600 text-sm italic">"${r.Comentario}"</p>
+                          <div class="flex justify-between items-center border-t border-gray-50 pt-3 mt-auto">
+                              <span class="text-xs text-gray-400">${r.Fecha}</span>
+                              <span class="text-sm font-semibold text-primary">Puntuación: ${r.Puntuacion}/5</span>
+                          </div>
+                      </div>
+                      `;
+                  }).join('');
+              })
+              .withFailureHandler(err => {
+                  container.innerHTML = '<div class="col-span-full py-12 text-center text-red-500 bg-red-50 rounded-[20px] border border-dashed border-red-200">Error al cargar reseñas: ' + err.message + '</div>';
+              })
+              .getResenasPorArrendador(APP.currentUser.ArrendadorID);
       }
 
       // --- RESERVAS RECIBIDAS ---
       function cargarReservasArrendador() {
           const container = document.getElementById('listaReservasArrendador');
-          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Cargando reservas...</div>';
+          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando reservas...</div>';
           google.script.run
               .withSuccessHandler(res => {
                   if (!res || res.length === 0) {
-                      container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Aún no tienes reservas confirmadas.</div>';
+                      container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Aún no tienes reservas confirmadas.</div>';
                       return;
                   }
                   container.innerHTML = res.map(r => `
-                      <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 flex flex-col gap-3">
+                      <div class="card p-5 flex flex-col gap-3">
                           <div class="flex justify-between items-start">
                               <div>
                                   <h4 class="font-bold text-gray-900">${r.TituloHabitacion}</h4>
                                   <p class="text-sm text-gray-500">Estudiante: <span class="font-medium text-gray-700">${r.NombreEstudiante}</span></p>
                                   <p class="text-xs text-gray-400">${r.EmailEstudiante}</p>
                               </div>
-                              <span class="bg-sage/10 text-sage text-xs font-bold px-3 py-1 rounded-full">${r.Estado}</span>
+                              <span class="badge badge-sage">${r.Estado}</span>
                           </div>
                           <div class="flex justify-between items-center border-t border-gray-50 pt-3">
                               <span class="text-lg font-bold text-primary">S/ ${r.Monto}</span>
@@ -395,7 +724,7 @@
           const h = JSON.parse(decodeURIComponent(hStr));
           document.getElementById('formCrearHabitacion').classList.remove('hidden');
           document.getElementById('formTitulo').textContent = 'Editar Habitación';
-          document.getElementById('btnGuardarHabitacion').innerHTML = '<span class="material-icons-round">save</span> Guardar Cambios';
+          document.getElementById('btnGuardarHabitacion').innerHTML = '<span class="material-symbols-outlined">save</span> Guardar Cambios';
           
           document.getElementById('hTitulo').value = h.Titulo || '';
           document.getElementById('hDistrito').value = h.Distrito || '';
@@ -427,14 +756,13 @@
           if (dir || dist) {
               query = `${dir || ''} ${dist || ''} Cusco Peru`.trim().replace(/\s+/g, '+');
           }
-          // URL sin API Key — funciona en todos los navegadores modernos
           document.getElementById('mapPreview').src = `https://maps.google.com/maps?q=${query}&output=embed&z=15`;
       }
       
       function cancelarEdicion() {
           habitacionEditandoId = null;
           document.getElementById('formTitulo').textContent = 'Registrar Habitación';
-          document.getElementById('btnGuardarHabitacion').innerHTML = '<span class="material-icons-round">save</span> Guardar Habitación';
+          document.getElementById('btnGuardarHabitacion').innerHTML = '<span class="material-symbols-outlined">save</span> Guardar Habitación';
           document.getElementById('hTitulo').value = '';
           document.getElementById('hDistrito').value = '';
           document.getElementById('hDireccion').value = '';
@@ -450,33 +778,38 @@
 
       function cargarMisHabitaciones() {
           const container = document.getElementById('listaMisHabitaciones');
-          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">Cargando habitaciones...</div>';
+          container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">Cargando habitaciones...</div>';
           google.script.run.withSuccessHandler(result => {
               if (result.length === 0) {
-                  container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-3xl border border-dashed border-gray-200">No has registrado habitaciones aún.</div>';
+                  container.innerHTML = '<div class="col-span-full py-12 text-center text-gray-500 bg-gray-50 rounded-[20px] border border-dashed border-gray-200">No has registrado habitaciones aún.</div>';
                   return;
               }
               container.innerHTML = result.map(h => {
                   const esOcupado = h.Estado === 'Ocupado';
                   const estadoBadge = esOcupado
-                      ? '<span class="bg-secondary/10 text-secondary text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Ocupado</span>'
-                      : '<span class="bg-sage/10 text-sage text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">Disponible</span>';
+                      ? '<span class="badge badge-secondary">Ocupado</span>'
+                      : '<span class="badge badge-sage">Disponible</span>';
                   return `
-                      <div class="bg-white rounded-[20px] overflow-hidden shadow-soft hover:shadow-lg transition-all duration-500 ease-out flex flex-col h-full border border-gray-50 hover:scale-[1.03] group">
-                          <div class="aspect-square sm:h-64 sm:aspect-auto bg-gray-200 relative overflow-hidden">
-                              <img src="https://via.placeholder.com/400x400?text=Habitacion" alt="${h.Titulo}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                      <div class="listing-card group" onclick="prepararEdicion('${encodeURIComponent(JSON.stringify(h))}')">
+                          <div class="listing-card-image">
+                              <div class="listing-ph">
+                                  <span class="material-symbols-outlined">home</span>
+                              </div>
+                              ${estadoBadge}
                           </div>
-                          <div class="p-5 flex flex-col flex-1">
+                          <div class="listing-card-content">
                               <h4 class="font-bold text-charcoal text-lg leading-tight line-clamp-1 mb-1">${h.Distrito}</h4>
                               <p class="text-sm text-gray-500 mb-3 line-clamp-1">${h.Titulo}</p>
                               <div class="flex justify-between items-center mb-4">
                                   <p class="text-lg font-bold text-primary">S/ ${h.PrecioMensual} <span class="text-xs text-gray-400 font-normal">/ mes</span></p>
-                                  ${estadoBadge}
                               </div>
-                              
                               <div class="mt-auto flex gap-2 pt-4 border-t border-gray-50">
-                                  <button class="flex-1 bg-skyblue/10 text-skyblue hover:bg-skyblue hover:text-white font-semibold py-2 rounded-xl transition-colors duration-200 flex items-center justify-center gap-1 text-sm" onclick="prepararEdicion('${encodeURIComponent(JSON.stringify(h))}')"><span class="material-icons-round text-[16px]">edit</span> Editar</button>
-                                  <button class="flex-1 bg-secondary/10 text-secondary hover:bg-secondary hover:text-white font-semibold py-2 rounded-xl transition-colors duration-200 flex items-center justify-center gap-1 text-sm" onclick="borrarHabitacion('${h.HospedajeID}')"><span class="material-icons-round text-[16px]">delete</span> Eliminar</button>
+                                  <button class="btn btn-skyblue btn-sm flex-1" onclick="event.stopPropagation(); prepararEdicion('${encodeURIComponent(JSON.stringify(h))}')">
+                                      <span class="material-symbols-outlined text-[16px]">edit</span> Editar
+                                  </button>
+                                  <button class="btn btn-danger btn-sm flex-1" onclick="event.stopPropagation(); borrarHabitacion('${h.HospedajeID}')">
+                                      <span class="material-symbols-outlined text-[16px]">delete</span> Eliminar
+                                  </button>
                               </div>
                           </div>
                       </div>
@@ -563,15 +896,65 @@
       }
       
       function borrarHabitacion(id) {
-          if(confirm('¿Seguro que deseas eliminar esta habitación?')) {
-              showLoader('Eliminando...');
-              google.script.run.withSuccessHandler(res => {
-                  hideLoader();
-                  showToast(res.message, res.success ? 'success' : 'error');
-                  if(res.success) cargarMisHabitaciones();
-              }).eliminarHabitacion(id);
+          showConfirmModal(
+              'Eliminar habitación',
+              '¿Seguro que deseas eliminar esta habitación? Esta acción es irreversible.',
+              function() {
+                  showLoader('Eliminando...');
+                  google.script.run.withSuccessHandler(res => {
+                      hideLoader();
+                      showToast(res.message, res.success ? 'success' : 'error');
+                      if(res.success) cargarMisHabitaciones();
+                  }).eliminarHabitacion(id);
+              },
+              { danger: true, okLabel: 'Eliminar' }
+          );
+      }
+
+      // --- MI PERFIL ---
+      function cargarPerfilArrendador() {
+          const user = APP.currentUser;
+          document.getElementById('perfilNombre').value = user.NombreCompleto || '';
+          document.getElementById('perfilEmail').value = user.Email || '';
+          document.getElementById('perfilTelefono').value = user.Telefono || '';
+      }
+
+      function guardarPerfilArrendador() {
+          const nombre = document.getElementById('perfilNombre').value.trim();
+          const telefono = document.getElementById('perfilTelefono').value.trim();
+          
+          if (!nombre) {
+              showToast('El nombre es obligatorio.', 'error');
+              return;
           }
+          
+          showLoader('Guardando perfil...');
+          google.script.run
+              .withSuccessHandler(res => {
+                  hideLoader();
+                  if (res.success) {
+                      showToast('Perfil actualizado correctamente.', 'success');
+                      APP.currentUser.NombreCompleto = nombre;
+                      APP.currentUser.Telefono = telefono;
+                      localStorage.setItem('user', JSON.stringify(APP.currentUser));
+                  } else {
+                      showToast(res.message || 'Error al guardar el perfil.', 'error');
+                  }
+              })
+              .withFailureHandler(err => {
+                  hideLoader();
+                  showToast('Error: ' + err.message, 'error');
+              })
+              .actualizarPerfilArrendador({
+                  ArrendadorID: APP.currentUser.ArrendadorID,
+                  NombreCompleto: nombre,
+                  Telefono: telefono
+              });
       }
     </script>
+
+    <footer class="text-center text-xs text-on-surface-variant py-6 px-4 border-t border-outline-variant mt-auto">
+        &copy; 2025 CuscoRent &middot; Panel de Arrendador
+    </footer>
 </body>
 </html>

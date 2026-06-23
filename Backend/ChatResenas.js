@@ -91,5 +91,22 @@ function addResena(estudianteId, hospedajeId, arrendadorId, puntuacion, comentar
             Logger.log('Error recalculando promedio: ' + e.message);
         }
     }
-    return { success: success, message: success ? 'Reseña publicada correctamente.' : 'Error al guardar la reseña.' };
+     return { success: success, message: success ? 'Reseña publicada correctamente.' : 'Error al guardar la reseña.', redirectUrl: '?page=Estudiante&tab=buscar' };
+}
+
+function getResenasPorArrendador(arrendadorId) {
+    const resenas = getSheetData('Resenas');
+    const estudiantes = getSheetData('Estudiantes');
+    const hospedajes = getSheetData('Hospedajes');
+    
+    const resultado = resenas.filter(r => String(r.ArrendadorID) === String(arrendadorId));
+    
+    return resultado.map(r => {
+        const est = estudiantes.find(e => String(e.EstudianteID) === String(r.EstudianteID));
+        const hosp = hospedajes.find(h => String(h.HospedajeID) === String(r.HospedajeID));
+        return Object.assign({}, r, {
+            NombreEstudiante: est ? est.NombreCompleto : r.EstudianteID,
+            TituloHabitacion: hosp ? hosp.Titulo : r.HospedajeID
+        });
+    });
 }
