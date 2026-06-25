@@ -495,47 +495,47 @@
     <div id="yapeModal" class="modal-backdrop !z-[110] hidden transition-opacity duration-300">
         <div class="modal-content max-w-md transform transition-all duration-300 scale-95 opacity-0 shadow-2xl rounded-[32px] overflow-hidden"
             id="yapeModalBox">
-            <div class="absolute top-0 left-0 w-full h-3 bg-[#742284]"></div>
+            <div class="absolute top-0 left-0 w-full h-2 bg-[#742284]"></div>
             <button type="button" onclick="closeYapeModal()"
-                class="modal-close mt-2 mr-2 hover:bg-gray-100 rounded-full p-1 transition-colors">
+                class="modal-close mt-2 mr-2 hover:bg-gray-100 rounded-full p-2 transition-colors">
                 <span class="material-symbols-outlined">close</span>
             </button>
             <div class="flex justify-center mb-6 mt-6">
                 <div
-                    class="w-20 h-20 bg-[#742284] rounded-3xl flex items-center justify-center shadow-lg transform rotate-3">
-                    <span class="text-white font-black text-4xl">Y</span>
+                    class="w-16 h-16 bg-[#742284] rounded-2xl flex items-center justify-center shadow-[0_8px_20px_rgba(116,34,132,0.3)]">
+                    <span class="text-white font-black text-3xl font-serif">Y</span>
                 </div>
             </div>
-            <h2 class="text-2xl font-bold text-gray-900 text-center mb-8 font-serif">Realiza tu pago</h2>
-            <div class="flex bg-gray-100 rounded-xl p-1.5 mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 text-center mb-6 tracking-tight">Realiza tu pago</h2>
+            <div class="flex bg-gray-50 rounded-xl p-1 mb-6 border border-gray-100 shadow-inner">
                 <button type="button" onclick="switchYapeTab('qr')" id="tabYapeQr"
-                    class="pill-tab-active flex-1 py-3 text-sm font-bold rounded-lg transition-colors">Con QR</button>
+                    class="pill-tab-active flex-1 py-2.5 text-sm font-bold rounded-lg transition-colors">Con QR</button>
                 <button type="button" onclick="switchYapeTab('numero')" id="tabYapeNum"
-                    class="pill-tab-inactive flex-1 py-3 text-sm font-bold rounded-lg transition-colors">Con
-                    Número</button>
+                    class="pill-tab-inactive flex-1 py-2.5 text-sm font-bold rounded-lg transition-colors">Con Número</button>
             </div>
-            <div id="yapeContentQr" class="flex flex-col items-center">
-                <p class="text-base text-gray-600 text-center mb-6">Paga <strong id="yapeMontoQr"
-                        class="text-[#742284] text-lg"></strong> escaneando con tu app.</p>
-                <button type="button" onclick="simulateYapeSuccess()"
-                    class="w-full bg-[#742284] hover:bg-[#5a1a66] text-white font-bold py-4 rounded-xl shadow-md transition-all active:scale-95 text-lg">¡Ya
-                    pagué!</button>
+            <div id="yapeContentQr" class="flex flex-col items-center animate-fade-in">
+                <p class="text-sm font-medium text-gray-500 text-center mb-6">Paga escaneando con tu app móvil.</p>
+                <div class="text-4xl font-black text-[#742284] tabular-nums mb-8" id="yapeMontoQr">S/ 0</div>
+                <button type="button" id="btnYapePague" onclick="processRealYapePayment(this)"
+                    class="w-full bg-[#742284] hover:bg-[#5a1a66] text-white font-bold py-4 rounded-xl shadow-[0_4px_14px_rgba(116,34,132,0.3)] hover:shadow-[0_6px_20px_rgba(116,34,132,0.4)] transition-all active:scale-95 text-base flex items-center justify-center gap-2">
+                    <span class="material-symbols-outlined">check_circle</span> ¡Ya pagué!
+                </button>
             </div>
-            <div id="yapeContentNum" class="hidden">
-                <form id="yapeForm" onsubmit="handleYapePayment(event)">
-                    <div class="mb-5">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Número de celular</label>
-                        <input type="tel" id="yapeCelular" placeholder="999 999 999" required
-                            class="input-field text-center text-xl tracking-widest py-4 bg-gray-50 border-gray-200 rounded-xl focus:border-[#742284] focus:ring-[#742284]">
+            <div id="yapeContentNum" class="hidden animate-fade-in">
+                <form id="yapeForm" onsubmit="processRealYapePaymentForm(event)">
+                    <div class="floating-label-group mb-5">
+                        <input type="tel" id="yapeCelular" placeholder=" " required
+                            class="input-field text-center text-xl tracking-widest font-mono font-bold bg-gray-50/50 focus:bg-white" />
+                        <label for="yapeCelular">Número de celular</label>
                     </div>
-                    <div class="mb-8">
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Código de aprobación</label>
-                        <input type="text" id="yapeCodigo" placeholder="123456" required
-                            class="input-field text-center text-xl tracking-widest font-medium py-4 bg-gray-50 border-gray-200 rounded-xl focus:border-[#742284] focus:ring-[#742284]">
+                    <div class="floating-label-group mb-8">
+                        <input type="text" id="yapeCodigo" placeholder=" " required
+                            class="input-field text-center text-xl tracking-widest font-mono font-bold bg-gray-50/50 focus:bg-white" />
+                        <label for="yapeCodigo">Código de aprobación</label>
                     </div>
-                    <button type="submit"
-                        class="w-full bg-[#742284] hover:bg-[#5a1a66] text-white font-bold py-4 rounded-xl shadow-md transition-all active:scale-95 text-lg">
-                        Pagar <span id="yapeMontoNum"></span>
+                    <button type="submit" id="btnYapePagarNum"
+                        class="w-full bg-[#742284] hover:bg-[#5a1a66] text-white font-bold py-4 rounded-xl shadow-[0_4px_14px_rgba(116,34,132,0.3)] transition-all active:scale-95 text-base flex justify-center items-center gap-2">
+                        Pagar <span id="yapeMontoNum" class="tabular-nums"></span>
                     </button>
                 </form>
             </div>
@@ -543,85 +543,92 @@
     </div>
 
     <div id="messageModal" class="modal-backdrop !z-[110] hidden transition-opacity duration-300">
-        <div class="modal-content rounded-[24px] shadow-2xl transform transition-all scale-95" id="msgModalBox">
+        <div class="modal-content rounded-[32px] shadow-2xl transform transition-all scale-95" id="msgModalBox">
             <button type="button" onclick="closeMessageModal()"
-                class="modal-close hover:bg-gray-100 rounded-full p-1 transition-colors">
+                class="modal-close hover:bg-gray-100 rounded-full p-2 transition-colors mt-1 mr-1">
                 <span class="material-symbols-outlined">close</span>
             </button>
-            <h2 class="text-2xl font-bold text-charcoal mb-6 font-serif">Contactar Arrendador</h2>
+            <h2 class="text-2xl font-bold text-charcoal mb-2 font-serif tracking-tight">Contactar Arrendador</h2>
+            <p class="text-sm font-medium text-gray-500 mb-6">Envía un mensaje directo para resolver tus dudas.</p>
             <form id="messageForm" onsubmit="handleSendMessage(event)">
                 <textarea id="msgContent" rows="4" placeholder="Escribe tu mensaje aquí..." required
-                    class="input-field mb-6 w-full p-4 border border-outline-variant rounded-xl focus:ring-primary focus:border-primary bg-gray-50 text-base"></textarea>
-                <button type="submit"
-                    class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl shadow-md transition-all active:scale-95 text-lg">Enviar
-                    Mensaje</button>
+                    class="input-field mb-6 w-full p-4 border border-outline-variant rounded-xl focus:ring-primary focus:border-primary bg-surface-container/50 focus:bg-white text-base shadow-inner transition-colors"></textarea>
+                <button type="submit" id="btnSendMsg"
+                    class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl shadow-[0_4px_14px_rgba(137,81,0,0.25)] hover:shadow-[0_6px_20px_rgba(137,81,0,0.3)] transition-all active:scale-95 text-base flex justify-center items-center gap-2">
+                    <span class="material-symbols-outlined">send</span> Enviar Mensaje
+                </button>
             </form>
         </div>
     </div>
 
     <div id="reviewModal" class="modal-backdrop !z-[110] hidden transition-opacity duration-300">
-        <div class="modal-content rounded-[24px] shadow-2xl transform transition-all scale-95" id="revModalBox">
+        <div class="modal-content rounded-[32px] shadow-2xl transform transition-all scale-95" id="revModalBox">
             <button type="button" onclick="closeReviewModal()"
-                class="modal-close hover:bg-gray-100 rounded-full p-1 transition-colors">
+                class="modal-close hover:bg-gray-100 rounded-full p-2 transition-colors mt-1 mr-1">
                 <span class="material-symbols-outlined">close</span>
             </button>
-            <h2 class="text-2xl font-bold text-charcoal mb-6 font-serif">Calificar Habitación</h2>
+            <h2 class="text-2xl font-bold text-charcoal mb-2 font-serif tracking-tight">Calificar Habitación</h2>
+            <p class="text-sm font-medium text-gray-500 mb-6">Tu opinión ayuda a otros estudiantes a decidir.</p>
             <form id="reviewForm" onsubmit="handleAddReview(event)">
-                <div class="flex gap-4 mb-8 justify-center bg-gray-50 py-4 rounded-xl border border-gray-100"
+                <div class="flex gap-4 mb-6 justify-center bg-surface-container/50 py-5 rounded-2xl border border-outline-variant shadow-inner"
                     id="starRating">
                     <label class="flex flex-col items-center cursor-pointer group">
                         <input type="radio" name="rating" value="5" checked
-                            class="w-5 h-5 text-primary focus:ring-primary mb-2">
-                        <span class="text-sm font-bold text-gray-700 group-hover:text-primary transition-colors">5
-                            Estrellas</span>
+                            class="w-5 h-5 text-primary focus:ring-primary mb-2 accent-primary cursor-pointer">
+                        <span class="text-xs font-bold text-gray-700 group-hover:text-primary transition-colors uppercase tracking-widest">5 Estrellas</span>
                     </label>
                     <div class="w-px h-10 bg-gray-200"></div>
                     <label class="flex flex-col items-center cursor-pointer group">
                         <input type="radio" name="rating" value="4"
-                            class="w-5 h-5 text-primary focus:ring-primary mb-2">
-                        <span class="text-sm font-bold text-gray-700 group-hover:text-primary transition-colors">4
-                            Estrellas</span>
+                            class="w-5 h-5 text-primary focus:ring-primary mb-2 accent-primary cursor-pointer">
+                        <span class="text-xs font-bold text-gray-700 group-hover:text-primary transition-colors uppercase tracking-widest">4 Estrellas</span>
                     </label>
                 </div>
                 <textarea id="reviewComment" rows="3" placeholder="¿Qué te pareció tu estancia?" required
-                    class="input-field mb-6 w-full p-4 border border-outline-variant rounded-xl focus:ring-primary focus:border-primary bg-gray-50 text-base"></textarea>
-                <button type="submit"
-                    class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl shadow-md transition-all active:scale-95 text-lg">Publicar
-                    Reseña</button>
+                    class="input-field mb-6 w-full p-4 border border-outline-variant rounded-xl focus:ring-primary focus:border-primary bg-surface-container/50 focus:bg-white text-base shadow-inner transition-colors"></textarea>
+                <button type="submit" id="btnPublishRev"
+                    class="w-full bg-primary hover:bg-primary-dark text-white font-bold py-4 rounded-xl shadow-[0_4px_14px_rgba(137,81,0,0.25)] transition-all active:scale-95 text-base flex justify-center items-center gap-2">
+                    <span class="material-symbols-outlined">rate_review</span> Publicar Reseña
+                </button>
             </form>
         </div>
     </div>
 
     <div id="receiptModal" class="modal-backdrop !z-[110] hidden transition-opacity duration-300">
-        <div class="modal-content max-w-md text-center rounded-[32px] shadow-2xl transform transition-all scale-95"
+        <div class="modal-content max-w-sm text-center rounded-[32px] shadow-2xl transform transition-all scale-95 border border-gray-100"
             id="recModalBox">
             <div
-                class="w-24 h-24 bg-green-50 text-green-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner border-4 border-white">
-                <span class="material-symbols-outlined text-6xl">check_circle</span>
+                class="w-20 h-20 bg-green-50 text-green-500 rounded-[24px] flex items-center justify-center mx-auto mb-6 shadow-sm border border-green-100/50">
+                <span class="material-symbols-outlined text-5xl">check_circle</span>
             </div>
-            <h2 class="text-3xl font-black text-charcoal mb-2 font-serif">¡Reserva Exitosa!</h2>
-            <p class="text-base text-gray-500 mb-8">Tu pago ha sido procesado correctamente.</p>
+            <h2 class="text-3xl font-black text-charcoal mb-2 font-serif tracking-tight">¡Reserva Exitosa!</h2>
+            <p class="text-sm font-medium text-gray-500 mb-8">Tu pago ha sido procesado correctamente.</p>
 
             <div
-                class="bg-surface-container-high rounded-2xl p-6 text-left space-y-5 mb-8 border border-outline-variant shadow-sm relative overflow-hidden">
-                <div class="absolute -right-4 -top-4 w-24 h-24 bg-white/40 rounded-full blur-xl"></div>
-                <div class="flex justify-between items-center relative z-10">
-                    <span class="text-xs text-gray-500 font-bold uppercase tracking-widest">Cód. Reserva</span>
-                    <span class="font-mono font-bold text-charcoal bg-white px-3 py-1 rounded-lg border border-gray-200"
+                class="bg-[#fafafa] rounded-2xl p-6 text-left space-y-4 mb-8 border border-dashed border-gray-300 relative overflow-hidden">
+                <!-- Ticket Notch Left -->
+                <div class="absolute -left-3 top-1/2 -mt-3 w-6 h-6 bg-white rounded-full border border-gray-100"></div>
+                <!-- Ticket Notch Right -->
+                <div class="absolute -right-3 top-1/2 -mt-3 w-6 h-6 bg-white rounded-full border border-gray-100"></div>
+                
+                <div class="flex justify-between items-center relative z-10 pb-4 border-b border-dashed border-gray-200">
+                    <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Cód. Reserva</span>
+                    <span class="font-mono font-bold text-charcoal bg-white px-2 py-1 rounded-md border border-gray-200 shadow-sm text-sm"
                         id="recReservaId">#RES-000000</span>
                 </div>
-                <div class="flex justify-between items-center relative z-10">
-                    <span class="text-xs text-gray-500 font-bold uppercase tracking-widest">Monto Pagado</span>
+                <div class="flex justify-between items-center relative z-10 py-2">
+                    <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Monto Pagado</span>
                     <span class="text-2xl font-black text-primary tabular-nums" id="recMonto">S/ 000</span>
                 </div>
-                <div class="flex justify-between items-center relative z-10 border-t border-gray-200 pt-4">
-                    <span class="text-xs text-gray-500 font-bold uppercase tracking-widest">Fecha</span>
-                    <span class="font-bold text-gray-700" id="recFecha">---</span>
+                <div class="flex justify-between items-center relative z-10 pt-4 border-t border-dashed border-gray-200">
+                    <span class="text-[10px] text-gray-500 font-bold uppercase tracking-widest">Fecha</span>
+                    <span class="font-bold text-gray-700 text-sm" id="recFecha">---</span>
                 </div>
             </div>
             <button onclick="closeReceiptAndGoToReservas()"
-                class="w-full bg-charcoal hover:bg-gray-900 text-white font-bold py-4 rounded-xl shadow-md transition-all active:scale-95 text-lg">Ver
-                Mis Reservas</button>
+                class="w-full bg-charcoal hover:bg-gray-900 text-white font-bold py-4 rounded-xl shadow-[0_4px_14px_rgba(0,0,0,0.15)] transition-all active:scale-95 text-base">
+                Ver Mis Reservas
+            </button>
         </div>
     </div>
 
@@ -1034,23 +1041,50 @@
             const isQr = tab === 'qr';
             document.getElementById('yapeContentQr').classList.toggle('hidden', !isQr);
             document.getElementById('yapeContentNum').classList.toggle('hidden', isQr);
-            document.getElementById('tabYapeQr').className = isQr ? 'pill-tab-active flex-1 py-3 text-sm font-bold rounded-lg transition-colors' : 'pill-tab-inactive flex-1 py-3 text-sm font-bold rounded-lg hover:bg-gray-200 transition-colors';
-            document.getElementById('tabYapeNum').className = !isQr ? 'pill-tab-active flex-1 py-3 text-sm font-bold rounded-lg transition-colors' : 'pill-tab-inactive flex-1 py-3 text-sm font-bold rounded-lg hover:bg-gray-200 transition-colors';
+            document.getElementById('tabYapeQr').className = isQr ? 'pill-tab-active flex-1 py-2.5 text-sm font-bold rounded-lg transition-colors' : 'pill-tab-inactive flex-1 py-2.5 text-sm font-bold rounded-lg hover:bg-gray-200 transition-colors';
+            document.getElementById('tabYapeNum').className = !isQr ? 'pill-tab-active flex-1 py-2.5 text-sm font-bold rounded-lg transition-colors' : 'pill-tab-inactive flex-1 py-2.5 text-sm font-bold rounded-lg hover:bg-gray-200 transition-colors';
         };
 
-        window.handleYapePayment = (e) => { e.preventDefault(); window.simulateYapeSuccess(); };
-        window.simulateYapeSuccess = () => {
-            if (typeof showLoader === 'function') showLoader('Confirmando Transacción...');
-            setTimeout(() => {
-                if (typeof hideLoader === 'function') hideLoader();
-                closeYapeModal();
-                showModalWithAnim('receiptModal', 'recModalBox');
-                document.getElementById('recReservaId').textContent = '#RES-' + Math.floor(Math.random() * 1000000);
-                document.getElementById('recMonto').textContent = 'S/ ' + currentHospedaje.PrecioMensual;
-                document.getElementById('recFecha').textContent = new Date().toLocaleDateString();
-                cerrarDetalles();
-            }, 1800);
+        window.processRealYapePaymentForm = (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btnYapePagarNum');
+            processRealYapePayment(btn);
         };
+
+        window.processRealYapePayment = (btnElement) => {
+            if (!currentHospedaje || !window.APP || !window.APP.currentUser) return;
+            
+            const originalText = btnElement.innerHTML;
+            btnElement.disabled = true;
+            btnElement.innerHTML = `<div class="spinner w-5 h-5 border-t-white mx-auto"></div>`;
+            
+            if (typeof showLoader === 'function') showLoader('Procesando Pago Seguro...');
+            
+            google.script.run
+                .withSuccessHandler(res => {
+                    if (typeof hideLoader === 'function') hideLoader();
+                    btnElement.disabled = false;
+                    btnElement.innerHTML = originalText;
+                    if (res && res.success) {
+                        closeYapeModal();
+                        showModalWithAnim('receiptModal', 'recModalBox');
+                        document.getElementById('recReservaId').textContent = res.reservaId || ('#RES-' + Math.floor(Math.random() * 1000000));
+                        document.getElementById('recMonto').textContent = 'S/ ' + currentHospedaje.PrecioMensual;
+                        document.getElementById('recFecha').textContent = new Date().toLocaleDateString();
+                        cerrarDetalles();
+                    } else {
+                        if (typeof showToast === 'function') showToast(res ? res.message : 'Error al procesar reserva', 'error');
+                    }
+                })
+                .withFailureHandler(err => {
+                    if (typeof hideLoader === 'function') hideLoader();
+                    btnElement.disabled = false;
+                    btnElement.innerHTML = originalText;
+                    if (typeof showToast === 'function') showToast('Error al conectar con el servidor', 'error');
+                })
+                .crearReserva(window.APP.currentUser.EstudianteID, currentHospedaje.HospedajeID, currentHospedaje.ArrendadorID, currentHospedaje.PrecioMensual);
+        };
+
         window.closeReceiptAndGoToReservas = () => {
             hideModalWithAnim('receiptModal', 'recModalBox');
             switchMainTab('reservas');
@@ -1058,20 +1092,69 @@
 
         window.openMessageModal = () => { showModalWithAnim('messageModal', 'msgModalBox'); };
         window.closeMessageModal = () => { hideModalWithAnim('messageModal', 'msgModalBox'); };
+        
         window.handleSendMessage = (e) => {
             e.preventDefault();
-            if (typeof showToast === 'function') showToast('Mensaje encriptado y enviado al arrendador', 'success');
-            closeMessageModal();
-            document.getElementById('msgContent').value = '';
+            if (!currentHospedaje || !window.APP || !window.APP.currentUser) return;
+            const btn = document.getElementById('btnSendMsg');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<div class="spinner w-5 h-5 border-t-white mx-auto"></div>`;
+            
+            const msg = document.getElementById('msgContent').value;
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                    if (res && res.success) {
+                        if (typeof showToast === 'function') showToast('Mensaje enviado al arrendador', 'success');
+                        closeMessageModal();
+                        document.getElementById('msgContent').value = '';
+                    } else {
+                        if (typeof showToast === 'function') showToast(res ? res.message : 'Error al enviar', 'error');
+                    }
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                    if (typeof showToast === 'function') showToast('Error de conexión', 'error');
+                })
+                .sendMessage(window.APP.currentUser.EstudianteID, currentHospedaje.ArrendadorID, currentHospedaje.HospedajeID, msg);
         };
 
         window.openReviewModal = () => { showModalWithAnim('reviewModal', 'revModalBox'); };
         window.closeReviewModal = () => { hideModalWithAnim('reviewModal', 'revModalBox'); };
+        
         window.handleAddReview = (e) => {
             e.preventDefault();
-            if (typeof showToast === 'function') showToast('¡Gracias! Reseña publicada con éxito.', 'success');
-            closeReviewModal();
-            document.getElementById('reviewComment').value = '';
+            if (!currentHospedaje || !window.APP || !window.APP.currentUser) return;
+            
+            const btn = document.getElementById('btnPublishRev');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = `<div class="spinner w-5 h-5 border-t-white mx-auto"></div>`;
+            
+            const rating = document.querySelector('input[name="rating"]:checked').value;
+            const comment = document.getElementById('reviewComment').value;
+            
+            google.script.run
+                .withSuccessHandler(res => {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                    if (res && res.success) {
+                        if (typeof showToast === 'function') showToast('¡Gracias! Reseña publicada con éxito.', 'success');
+                        closeReviewModal();
+                        document.getElementById('reviewComment').value = '';
+                    } else {
+                        if (typeof showToast === 'function') showToast(res ? res.message : 'No se pudo publicar', 'error');
+                    }
+                })
+                .withFailureHandler(err => {
+                    btn.disabled = false;
+                    btn.innerHTML = originalText;
+                    if (typeof showToast === 'function') showToast('Error de red', 'error');
+                })
+                .addResena(window.APP.currentUser.EstudianteID, currentHospedaje.HospedajeID, currentHospedaje.ArrendadorID, rating, comment);
         };
 
         window.cargarMisReservas = function () {

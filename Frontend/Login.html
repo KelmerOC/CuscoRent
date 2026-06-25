@@ -21,110 +21,121 @@
         <p id="loaderText" class="mt-4 font-semibold text-gray-700">Procesando...</p>
     </div>
 
-    <!-- Hero Background with Andean Gradient -->
-    <div class="fixed inset-0 z-0 hero-gradient bg-cover bg-center"
-        style="background-image: url('https://plain-enam-prod-public.komododecks.com/202606/24/emn53Kr6gPiST4Qsgnv2/image.png');">
-        <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/50 to-charcoal/20"></div>
-        <div class="absolute inset-0 backdrop-blur-[2px]"></div>
-    </div>
-
     <!-- MAIN LOGIN SCREEN -->
-    <main id="main-content" class="flex-grow flex items-center justify-center relative z-10 min-h-screen px-4 py-12">
-        <div class="bg-white rounded-[32px] shadow-2xl w-full max-w-md p-10 relative overflow-hidden animate-scale-in">
-            <!-- Accent Bar -->
-            <div class="absolute top-0 left-0 right-0 h-2.5 bg-gradient-to-r from-primary via-primary-dark to-charcoal">
+    <main id="main-content" class="flex min-h-screen">
+        <!-- LADO IZQUIERDO: IMAGEN/MARCA (Oculto en móvil) -->
+        <div class="hidden lg:flex lg:w-1/2 relative bg-charcoal overflow-hidden group">
+            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-[30s] ease-out group-hover:scale-105"
+                style="background-image: url('https://plain-enam-prod-public.komododecks.com/202606/24/emn53Kr6gPiST4Qsgnv2/image.png');">
             </div>
-
-            <!-- Brand Header -->
-            <div class="text-center flex flex-col items-center gap-2 mt-4 mb-10">
-                <div
-                    class="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-4 shadow-inner">
-                    <span class="material-symbols-outlined filled-icon text-4xl">location_city</span>
+            <div class="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/40 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 p-16 z-10 w-full">
+                <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-white mb-8 border border-white/20 shadow-lg">
+                    <span class="material-symbols-outlined filled-icon text-3xl">location_city</span>
                 </div>
-                <h1 class="text-4xl font-black tracking-tighter">
-                    <span class="font-serif text-charcoal">Cusco</span><span class="font-serif text-primary">Rent</span>
-                </h1>
-                <p class="text-sm font-medium text-gray-400 uppercase tracking-widest mt-1">Vivienda Universitaria</p>
+                <h2 class="text-5xl font-black text-white font-serif mb-6 leading-tight tracking-tight">Tu hogar universitario <br>en el corazón de los Andes.</h2>
+                <p class="text-white/70 text-lg max-w-md font-medium leading-relaxed">Descubre alojamientos verificados, conecta con otros estudiantes y gestiona tus reservas de forma segura y centralizada.</p>
+                <div class="mt-12 flex items-center gap-4 text-white/50 text-xs font-bold uppercase tracking-widest">
+                    <span>&copy; 2025 CuscoRent</span>
+                    <div class="w-1 h-1 bg-white/30 rounded-full"></div>
+                    <span>Cusco, Perú</span>
+                </div>
             </div>
+        </div>
 
-            <!-- Role Selector (Segmented Control) -->
-            <div class="segmented-control mb-8">
-                <button type="button" class="segmented-control-btn active" id="btnLoginEstudiante"
-                    onclick="seleccionarRolUI_Login('estudiante')">
-                    <span class="material-symbols-outlined">school</span>
-                    <span class="font-bold">Estudiante</span>
-                </button>
-                <button type="button" class="segmented-control-btn" id="btnLoginArrendador"
-                    onclick="seleccionarRolUI_Login('arrendador')">
-                    <span class="material-symbols-outlined">home_work</span>
-                    <span class="font-bold">Arrendador</span>
-                </button>
-                <button type="button" class="segmented-control-btn hidden" id="btnLoginAdmin"
-                    onclick="seleccionarRolUI_Login('administrador')">
-                    <span class="material-symbols-outlined">admin_panel_settings</span>
-                    <span class="font-bold">Admin</span>
-                </button>
-            </div>
-
-            <!-- Login Form -->
-            <form id="loginForm" onsubmit="handleLogin(event)" class="flex flex-col gap-6">
-                <!-- Email Input -->
-                <div class="floating-label-group">
-                    <input class="input-field" id="authEmail" name="email" placeholder=" " required type="email" />
-                    <label for="authEmail">Correo electrónico</label>
-                    <span class="input-icon material-symbols-outlined" style="top: 28px;">mail</span>
+        <!-- LADO DERECHO: FORMULARIO -->
+        <div class="w-full lg:w-1/2 flex flex-col justify-center px-6 py-12 sm:px-16 lg:px-24 xl:px-32 relative bg-white overflow-y-auto">
+            <div class="w-full max-w-md mx-auto animate-fade-in-up flex-grow flex flex-col justify-center">
+                
+                <!-- Brand Header (Mobile Only) -->
+                <div class="lg:hidden text-center flex flex-col items-center gap-2 mb-12 mt-8">
+                    <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-2 shadow-inner">
+                        <span class="material-symbols-outlined filled-icon text-3xl">location_city</span>
+                    </div>
+                    <h1 class="text-3xl font-black tracking-tighter">
+                        <span class="font-serif text-charcoal">Cusco</span><span class="font-serif text-primary">Rent</span>
+                    </h1>
                 </div>
 
-                <!-- Password Input -->
-                <div class="floating-label-group">
-                    <input class="input-field pr-12" id="authPassword" name="password" placeholder=" " required
-                        type="password" />
-                    <label for="authPassword">Contraseña</label>
-                    <span class="input-icon material-symbols-outlined" style="top: 28px;">lock</span>
-                    <button class="input-toggle" type="button" style="top: 32px; right: 10px;"
-                        onclick="togglePasswordVisibility('authPassword', 'passwordToggleIcon')">
-                        <span class="material-symbols-outlined" id="passwordToggleIcon">visibility_off</span>
+                <div class="mb-10 text-center lg:text-left">
+                    <h1 class="text-3xl font-bold text-charcoal tracking-tight mb-2">Bienvenido de vuelta</h1>
+                    <p class="text-gray-500 font-medium">Ingresa tus credenciales para continuar</p>
+                </div>
+
+                <!-- Role Selector (Segmented Control) -->
+                <div class="segmented-control mb-8 bg-gray-50/80 p-1 border border-gray-100 shadow-inner">
+                    <button type="button" class="segmented-control-btn active" id="btnLoginEstudiante"
+                        onclick="seleccionarRolUI_Login('estudiante')">
+                        <span class="material-symbols-outlined">school</span>
+                        <span class="font-bold">Estudiante</span>
+                    </button>
+                    <button type="button" class="segmented-control-btn" id="btnLoginArrendador"
+                        onclick="seleccionarRolUI_Login('arrendador')">
+                        <span class="material-symbols-outlined">home_work</span>
+                        <span class="font-bold">Arrendador</span>
+                    </button>
+                    <button type="button" class="segmented-control-btn hidden" id="btnLoginAdmin"
+                        onclick="seleccionarRolUI_Login('administrador')">
+                        <span class="material-symbols-outlined">admin_panel_settings</span>
+                        <span class="font-bold">Admin</span>
                     </button>
                 </div>
 
-                <!-- Forgot Password -->
-                <div class="flex items-center justify-end">
+                <!-- Login Form -->
+                <form id="loginForm" onsubmit="handleLogin(event)" class="flex flex-col gap-5">
+                    <!-- Email Input -->
+                    <div class="floating-label-group">
+                        <input class="input-field bg-gray-50/50 border-gray-200 focus:bg-white" id="authEmail" name="email" placeholder=" " required type="email" />
+                        <label for="authEmail">Correo electrónico</label>
+                        <span class="input-icon material-symbols-outlined" style="top: 28px;">mail</span>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="floating-label-group">
+                        <input class="input-field bg-gray-50/50 border-gray-200 focus:bg-white pr-12" id="authPassword" name="password" placeholder=" " required
+                            type="password" />
+                        <label for="authPassword">Contraseña</label>
+                        <span class="input-icon material-symbols-outlined" style="top: 28px;">lock</span>
+                        <button class="input-toggle text-gray-400 hover:text-charcoal transition-colors" type="button" style="top: 32px; right: 10px;"
+                            onclick="togglePasswordVisibility('authPassword', 'passwordToggleIcon')">
+                            <span class="material-symbols-outlined" id="passwordToggleIcon">visibility_off</span>
+                        </button>
+                    </div>
+
+                    <!-- Forgot Password -->
+                    <div class="flex items-center justify-end">
+                        <button type="button"
+                            class="text-[11px] font-bold text-primary uppercase tracking-widest hover:text-primary-dark transition-colors"
+                            onclick="openForgotModal()">
+                            ¿Olvidaste tu contraseña?
+                        </button>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button class="btn btn-primary btn-full btn-lg group mt-2 shadow-[0_4px_14px_rgba(137,81,0,0.25)] hover:shadow-[0_6px_20px_rgba(137,81,0,0.3)] transition-all" type="submit">
+                        <span class="font-semibold text-[15px]">Acceder ahora</span>
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    </button>
+                </form>
+
+                <!-- Sign Up Link -->
+                <div class="mt-auto pt-10 text-center lg:text-left flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <p class="text-sm text-gray-500 font-medium">
+                        ¿Nuevo en CuscoRent?
+                        <button type="button" class="font-bold text-primary hover:text-primary-dark transition-colors ml-1"
+                            onclick="openRegisterModal()">
+                            Crea tu cuenta
+                        </button>
+                    </p>
                     <button type="button"
-                        class="text-xs font-bold text-primary uppercase tracking-wider hover:text-primary-dark transition-colors"
-                        onclick="openForgotModal()">
-                        ¿Olvidaste tu contraseña?
+                        onclick="document.getElementById('btnLoginAdmin').classList.toggle('hidden'); seleccionarRolUI_Login('administrador');"
+                        class="text-[10px] text-gray-300 uppercase font-bold tracking-widest hover:text-gray-400 transition-colors">
+                        Terminal Admin
                     </button>
                 </div>
-
-                <!-- Submit Button -->
-                <button class="btn btn-primary btn-full btn-lg group" type="submit">
-                    <span>Acceder ahora</span>
-                    <span
-                        class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-                </button>
-            </form>
-
-            <!-- Sign Up Link -->
-            <div class="text-center mt-8 pt-8 border-t border-gray-50">
-                <p class="text-sm text-gray-500">
-                    ¿Nuevo en CuscoRent?
-                    <button type="button" class="font-extrabold text-primary hover:underline ml-1"
-                        onclick="openRegisterModal()">
-                        Crea tu cuenta gratis
-                    </button>
-                </p>
-                <button type="button"
-                    onclick="document.getElementById('btnLoginAdmin').classList.toggle('hidden'); seleccionarRolUI_Login('administrador');"
-                    class="text-[10px] text-gray-300 mt-6 uppercase font-bold tracking-[0.2em] hover:text-gray-400 transition-colors">
-                    Terminal Administrativa
-                </button>
             </div>
         </div>
     </main>
-
-    <footer class="relative z-10 text-center text-[10px] uppercase font-bold tracking-widest text-white/40 py-8">
-        &copy; 2025 CuscoRent &bull; Vivienda estudiantil de calidad &bull; Cusco, Perú
-    </footer>
 
     <!-- MODAL DE REGISTRO -->
     <div id="registerModal" class="modal-backdrop hidden">
