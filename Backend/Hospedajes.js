@@ -41,10 +41,11 @@ function crearHabitacion(datos) {
         'Estado': 'Disponible',
         'Latitud': datos.Latitud || '',
         'Longitud': datos.Longitud || '',
-        'CalificacionPromedio': 0
+        'CalificacionPromedio': 0,
+        'URLsImagenes': datos.URLsImagenes || ''
     };
     const success = appendRowData('Hospedajes', rowData);
-    return { success: success, message: success ? 'Habitación creada con éxito.' : 'Error al guardar.', hospedajeId: id };
+    return { success: success, message: success ? 'Habitación creada con éxito.' : 'Error al guardar.', hospedajeId: id, redirectUrl: '?page=Arrendador&tab=habitaciones' };
 }
 
 function editarHabitacion(datos) {
@@ -77,8 +78,9 @@ function editarHabitacion(datos) {
                 updateField('Servicios', datos.Servicios);
                 updateField('Latitud', datos.Latitud);
                 updateField('Longitud', datos.Longitud);
+                if (datos.URLsImagenes !== undefined) updateField('URLsImagenes', datos.URLsImagenes);
                 
-                return { success: true, message: 'Habitación actualizada.', hospedajeId: datos.HospedajeID };
+                 return { success: true, message: 'Habitación actualizada.', hospedajeId: datos.HospedajeID, redirectUrl: '?page=Arrendador&tab=habitaciones' };
             }
         }
         return { success: false, message: "Habitación no encontrada" };
@@ -115,4 +117,32 @@ function eliminarFilaPorId(sheetName, idKey, idValue) {
 function eliminarHabitacion(hospedajeId) {
     const success = eliminarFilaPorId('Hospedajes', 'HospedajeID', hospedajeId);
     return { success: success, message: success ? 'Habitación eliminada correctamente.' : 'Habitación no encontrada o error al eliminar.' };
+}
+
+function actualizarFotosHabitacion(hospedajeId, urlsStr) {
+    try {
+        const sheet = getSpreadsheet().getSheetByName('Hospedajes');
+        if (!sheet) return { success: false, message: "No existe la hoja Hospedajes" };
+        const data = sheet.getDataRange().getValues();
+        const headers = data[0];
+        const idIndex = headers.indexOf('HospedajeID');
+        const urlIndex = headers.indexOf('URLsImagenes');
+        
+        if (idIndex === -1) return { success: false, message: "Estructura de hoja inválida. Falta columna HospedajeID." };
+        if (urlIndex === -1) return { success: false, message: "Falta columna URLsImagenes en Google Sheets." };
+        
+        for (let i = 1; i < data.length; i++) {
+            if (String(data[i][idIndex]) === String(hospedajeId)) {
+                const cell = sheet.getRange(i + 1, urlIndex + 1);
+                const currentVal = cell.getValue() || '';
+                const newVal = currentVal ? currentVal + ', ' + urlsStr : urlsStr;
+                cell.setValue(newVal);
+                return { success: true, message: 'URLs agregadas correctamente.' };
+            }
+        }
+        return { success: false, message: "Habitación no encontrada" };
+    } catch(e) {
+        Logger.log("Error al actualizar fotos: " + e.message);
+        return { success: false, message: "Error del servidor: " + e.message };
+    }
 }

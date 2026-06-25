@@ -4,327 +4,360 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>CuscoRent | Perfil de Estudiante</title>
-    
-    
-    
-    
-    
-    <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-            vertical-align: middle;
-        }
-
-        .tab-active {
-            border-bottom-width: 2px;
-            border-bottom-color: #c28e46;
-            color: #c28e46;
-            font-weight: 600;
-        }
-
-        .tab-inactive {
-            border-bottom-width: 2px;
-            border-bottom-color: transparent;
-            color: rgba(33, 31, 29, 0.5);
-            transition: color 0.2s;
-        }
-
-        .tab-inactive:hover {
-            color: #c28e46;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: transparent;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #e6dec9;
-            border-radius: 10px;
-        }
-    </style>
+    <meta name="description" content="CuscoRent - Perfil del Estudiante. Gestiona tus datos, reservas y reseñas.">
+    <title>CuscoRent — Mi Perfil</title>
     <?!= include('Estilos'); ?>
 </head>
 
-<body class="font-sans text-charcoal antialiased bg-bglite">
-    <!-- Navbar -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-border-color shadow-soft">
-        <div class="flex items-center justify-between px-6 py-3">
-            <a href="#" class="flex items-center">
-                <span class="font-serif text-charcoal text-xl font-bold">Cusco</span><span class="font-serif text-primary text-xl font-bold">Rent</span>
-            </a>
-            <div class="hidden md:flex items-center gap-8">
-                <a href="<?= getScriptUrl() ?>?page=HomeEstudiante" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Explorar</a>
-                <a href="<?= getScriptUrl() ?>?page=HomeEstudiante#favoritos" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Favoritos</a>
-                <a href="<?= getScriptUrl() ?>?page=HomeEstudiante#mensajes" class="text-charcoal/70 hover:text-primary pb-0.5 font-medium text-sm transition-colors">Mensajes</a>
-                <a href="<?= getScriptUrl() ?>?page=PerfilEstudiante" class="text-primary border-b-2 border-primary pb-0.5 font-medium text-sm transition-all">Perfil</a>
-            </div>
-            <div class="flex items-center gap-3">
-                <button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-gray-100 transition-colors">
-                    <span class="material-symbols-outlined text-primary text-3xl">account_circle</span>
-                </button>
-            </div>
+<body class="font-sans text-on-surface antialiased bg-surface pb-12">
+    <!-- Navbar / Header (Igual que Estudiante.html) -->
+    <header class="top-header" id="main-header" role="banner">
+        <a class="top-header-logo flex items-center gap-2 transition-transform duration-300 hover:scale-105" href="#"
+            onclick="navigateTo('Estudiante', 'buscar'); return false;" aria-label="CuscoRent - Inicio">
+            <span class="material-symbols-outlined text-[24px] icon-filled text-primary">home_work</span>
+            <span><span class="text-on-surface">Cusco</span><span class="text-primary">Rent</span></span>
+        </a>
+
+        <div class="flex-1"></div>
+
+        <nav class="top-header-nav hidden md:flex gap-6" role="tablist" aria-label="Sección principal">
+            <a onclick="navigateTo('Estudiante', 'buscar')" role="tab" aria-selected="false"
+                class="cursor-pointer hover:text-primary transition-colors duration-200">Explorar</a>
+            <a onclick="navigateTo('Estudiante', 'reservas')" role="tab" aria-selected="false"
+                class="cursor-pointer hover:text-primary transition-colors duration-200">Mis Reservas</a>
+            <a onclick="navigateTo('Estudiante', 'mensajes')" role="tab" aria-selected="false"
+                class="cursor-pointer hover:text-primary transition-colors duration-200">Mensajes</a>
+            <a onclick="navigateTo('Estudiante', 'roommates')" role="tab" aria-selected="false"
+                class="cursor-pointer hover:text-primary transition-colors duration-200">Roommates</a>
+        </nav>
+
+        <div class="top-header-actions">
+            <button id="mobileMenuBtn" class="md:hidden avatar-btn hover:bg-surface-container-high transition-colors"
+                onclick="toggleMobileMenu()" aria-label="Menú">
+                <span class="material-symbols-outlined text-on-surface-variant">menu</span>
+            </button>
+            <button id="userAvatarBtn"
+                class="avatar-btn transition-transform duration-300 hover:scale-110 bg-primary/10 ring-2 ring-primary"
+                onclick="navigateTo('PerfilEstudiante')" aria-label="Mi Perfil" title="Ver mi perfil">
+                <span class="material-symbols-outlined text-primary text-[24px]">account_circle</span>
+            </button>
+            <button onclick="cerrarSesion()"
+                class="hidden md:flex items-center gap-1.5 text-sm font-medium text-on-surface-variant hover:text-primary transition-colors cursor-pointer group"
+                title="Cerrar sesión">
+                <span
+                    class="material-symbols-outlined text-[18px] group-hover:-translate-x-1 transition-transform">logout</span>
+                <span id="userEmailDisplay" class="max-w-[120px] truncate hidden lg:block">Cargando...</span>
+            </button>
         </div>
-    </nav>
+    </header>
+
+    <div id="mobileMenuDropdown"
+        class="hidden md:hidden fixed top-[65px] left-0 right-0 z-40 bg-white border-b border-outline-variant shadow-lg transform transition-transform duration-300 origin-top">
+        <nav class="flex flex-col p-4 gap-1" role="tablist" aria-label="Menú móvil">
+            <a onclick="navigateTo('Estudiante', 'buscar')" id="tabBtn-buscar-mobile"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">search</span> Explorar
+            </a>
+            <a onclick="navigateTo('Estudiante', 'reservas')"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">book_online</span> Mis Reservas
+            </a>
+            <a onclick="navigateTo('Estudiante', 'mensajes')"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">mail</span> Mensajes
+            </a>
+            <a onclick="navigateTo('Estudiante', 'roommates')"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface hover:bg-primary/10 hover:text-primary transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">people</span> Roommates
+            </a>
+            <hr class="border-outline-variant my-2">
+            <a onclick="navigateTo('PerfilEstudiante')"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-primary bg-primary/10 hover:bg-primary/20 transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">person</span> Mi Perfil
+            </a>
+            <a onclick="cerrarSesion()"
+                class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-on-surface-variant hover:text-primary transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-[18px]">logout</span> Cerrar Sesión
+            </a>
+        </nav>
+    </div>
 
     <!-- Main Layout -->
-    <main class="max-w-7xl mx-auto px-6 py-8 flex flex-col md:flex-row gap-8">
+    <main class="max-w-7xl mx-auto px-8 py-12 flex flex-col lg:flex-row gap-12">
         <!-- Left Sidebar -->
-        <aside class="w-full md:w-80 flex flex-col gap-8">
+        <aside class="w-full lg:w-96 flex flex-col gap-10">
             <!-- Profile Card -->
-            <div class="bg-white rounded-[20px] shadow-soft p-6">
-                <div class="flex flex-col items-center text-center">
-                    <div class="relative mb-4">
-                        <div class="w-32 h-128 rounded-full overflow-hidden border-4 border-primary ring-4 ring-primary/10" style="width:128px;height:128px;">
-                            <div id="perfilAvatar" class="w-full h-full flex items-center justify-center bg-primary/20 text-primary font-bold text-4xl">E</div>
-                        </div>
-                        <button class="absolute bottom-1 right-1 bg-primary text-white rounded-full p-2 shadow-md hover:scale-105 transition-transform">
-                            <span class="material-symbols-outlined text-[18px]">edit</span>
-                        </button>
+            <div
+                class="bg-white rounded-[32px] shadow-xl p-10 border border-gray-50 flex flex-col items-center text-center animate-fade-in">
+                <div class="relative mb-8">
+                    <div
+                        class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl ring-8 ring-primary/5">
+                        <div id="perfilAvatar"
+                            class="w-full h-full flex items-center justify-center bg-primary/10 text-primary font-black text-5xl">
+                            E</div>
                     </div>
-                    <h1 id="perfilNombre" class="font-serif text-xl text-charcoal">Estudiante</h1>
-                    <div class="mt-2 flex items-center gap-1 px-3 py-1 bg-sage/20 text-sage rounded-full">
-                        <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">verified</span>
-                        <span class="text-xs font-medium">Estudiante Verificado</span>
+                    <div
+                        class="absolute bottom-2 right-2 bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg border-2 border-white">
+                        <span class="material-symbols-outlined text-xl">photo_camera</span>
                     </div>
-                    <div class="mt-6 w-full pt-6 border-t border-border-color text-left flex flex-col gap-3">
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-charcoal/50">school</span>
-                            <span class="text-sm text-charcoal/70">UNSAAC - Arquitectura</span>
+                </div>
+                <h1 id="perfilNombreHeader" class="text-2xl font-black text-charcoal font-serif mb-2">Estudiante</h1>
+                <p class="text-gray-400 text-sm mb-6 font-medium" id="perfilEmailHeader">cargando...</p>
+
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-sage/10 text-sage rounded-xl border border-sage/20">
+                    <span class="material-symbols-outlined text-lg filled-icon">verified_user</span>
+                    <span class="text-xs font-black uppercase tracking-widest">Estudiante Verificado</span>
+                </div>
+
+                <div class="mt-10 w-full pt-8 border-t border-gray-50 text-left space-y-5">
+                    <div class="flex items-center gap-4 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">school</span>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-charcoal/50">calendar_month</span>
-                            <span class="text-sm text-charcoal/70">Miembro desde Mar 2023</span>
+                        <span class="text-sm font-bold text-charcoal">Universidad Continental</span>
+                    </div>
+                    <div class="flex items-center gap-4 group">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                            <span class="material-symbols-outlined">location_on</span>
                         </div>
-                        <div class="flex items-center gap-3">
-                            <span class="material-symbols-outlined text-charcoal/50">location_on</span>
-                            <span id="infoDistrito" class="text-sm text-charcoal/70">Residiendo en: Cusco</span>
-                        </div>
+                        <span id="infoDistrito" class="text-sm font-bold text-charcoal">Cusco, Perú</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Stats Card -->
-            <div class="bg-primary rounded-[20px] shadow-soft p-6 text-white">
-                <h3 class="text-xs uppercase tracking-wider mb-4 opacity-80 font-medium">Actividad de Alquiler</h3>
-                <div class="grid grid-cols-2 gap-3">
-                    <div class="bg-white/10 rounded-xl p-4">
-                        <p class="text-2xl font-bold">2</p>
-                        <p class="text-xs opacity-80">Reservas</p>
+            <!-- Promotion Card -->
+            <div class="bg-charcoal rounded-[32px] p-8 text-white relative overflow-hidden group">
+                <div
+                    class="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/40 transition-all">
+                </div>
+                <h3 class="text-[10px] font-black uppercase tracking-[0.2em] mb-4 opacity-50">Resumen de Cuenta</h3>
+                <div class="grid grid-cols-2 gap-4 relative z-10">
+                    <div class="bg-white/5 rounded-2xl p-5 border border-white/5">
+                        <p class="text-3xl font-black text-primary" id="resumenReservas">0</p>
+                        <p class="text-[10px] font-bold uppercase opacity-60">Reservas</p>
                     </div>
-                    <div class="bg-white/10 rounded-xl p-4">
-                        <p class="text-2xl font-bold">4.9</p>
-                        <p class="text-xs opacity-80">Calificación</p>
+                    <div class="bg-white/5 rounded-2xl p-5 border border-white/5">
+                        <p class="text-3xl font-black text-skyblue">4.9</p>
+                        <p class="text-[10px] font-bold uppercase opacity-60">Rating</p>
                     </div>
                 </div>
             </div>
         </aside>
 
         <!-- Main Content -->
-        <section class="flex-1">
+        <section class="flex-1 space-y-10">
             <!-- Tabs Navigation -->
-            <div class="flex items-center gap-6 border-b border-border-color mb-8 overflow-x-auto whitespace-nowrap custom-scrollbar">
-                <button class="tab-active py-4 px-2 text-sm font-medium" id="tab-my-data" onclick="switchTab('my-data')">Mis Datos</button>
-                <button class="tab-inactive py-4 px-2 text-sm font-medium" id="tab-rental-history" onclick="switchTab('rental-history')">Historial de Alquiler</button>
-                <button class="tab-inactive py-4 px-2 text-sm font-medium" id="tab-my-reviews" onclick="switchTab('my-reviews')">Mis Reseñas</button>
+            <div class="bg-white rounded-3xl p-2 shadow-soft border border-gray-100 inline-flex">
+                <button class="doc-tab-active py-3 px-8 rounded-2xl text-sm font-bold transition-all" id="tab-my-data"
+                    onclick="switchTab('my-data')">Mis Datos</button>
+                <button class="doc-tab-inactive py-3 px-8 rounded-2xl text-sm font-bold transition-all"
+                    id="tab-rental-history" onclick="switchTab('rental-history')">Historial</button>
+                <button class="doc-tab-inactive py-3 px-8 rounded-2xl text-sm font-bold transition-all"
+                    id="tab-my-reviews" onclick="switchTab('my-reviews')">Reseñas</button>
             </div>
 
             <!-- Tab: My Data -->
-            <div class="tab-content flex flex-col gap-6" id="content-my-data">
-                <div class="bg-white rounded-[20px] shadow-soft p-6">
-                    <h2 class="font-serif text-xl mb-6 text-primary">Información Personal</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="flex flex-col gap-2">
-                            <label class="text-sm font-medium text-charcoal/70">Nombre Completo</label>
-                            <input id="inputNombre" class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm" type="text" value="" />
+            <div class="tab-content flex flex-col gap-10" id="content-my-data">
+                <div class="bg-white rounded-[32px] shadow-xl p-10 border border-gray-50">
+                    <h2 class="text-2xl font-black text-charcoal font-serif mb-10 border-b border-gray-50 pb-6">
+                        Información de Usuario</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div class="floating-label-group">
+                            <input id="inputNombre" class="input-field" type="text" placeholder=" " />
+                            <label for="inputNombre">Nombre Completo</label>
                         </div>
-                        <div class="flex flex-col gap-2">
-                            <label class="text-sm font-medium text-charcoal/70">Correo Electrónico</label>
-                            <input id="inputEmail" class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm" type="email" value="" />
+                        <div class="floating-label-group opacity-60">
+                            <input id="inputEmail" class="input-field" type="email" placeholder=" " disabled />
+                            <label for="inputEmail">Correo Institucional</label>
                         </div>
-                        <div class="flex flex-col gap-2">
-                            <label class="text-sm font-medium text-charcoal/70">Teléfono</label>
-                            <input id="inputTelefono" class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 focus:bg-white focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all text-sm" type="tel" value="" />
+                        <div class="floating-label-group">
+                            <input id="inputTelefono" class="input-field" type="tel" placeholder=" " />
+                            <label for="inputTelefono">Número de Celular</label>
                         </div>
-                        <div class="flex flex-col gap-2">
-                            <label class="text-sm font-medium text-charcoal/70">Documento de Identidad (DNI)</label>
-                            <input id="inputDNI" class="w-full border border-border-color rounded-xl px-4 py-3 bg-gray-50 opacity-70 text-sm" disabled type="text" value="" />
+                        <div class="floating-label-group">
+                            <select id="selectBuscaRoommate" class="input-field">
+                                <option value="Sí">Sí, estoy buscando</option>
+                                <option value="No">No, prefiero vivir solo</option>
+                            </select>
+                            <label for="selectBuscaRoommate">¿Buscas Roommate?</label>
+                        </div>
+                        <div class="floating-label-group md:col-span-2">
+                            <input id="inputIntereses" class="input-field" type="text" placeholder=" " />
+                            <label for="inputIntereses">Tus Intereses (separados por comas)</label>
                         </div>
                     </div>
-                    <div class="mt-6 flex justify-end">
-                        <button onclick="guardarPerfil()" class="bg-primary text-white rounded-full px-8 py-3 font-medium hover:bg-primary/90 active:scale-95 transition-all text-sm">Guardar Cambios</button>
+                    <div class="mt-12 pt-8 border-t border-gray-50 flex justify-end">
+                        <button onclick="guardarPerfil()" class="btn btn-primary btn-lg px-12">
+                            <span class="material-symbols-outlined">save</span>
+                            Actualizar Perfil
+                        </button>
                     </div>
                 </div>
 
                 <!-- Academic Verification Box -->
-                <div class="bg-sage/10 border border-sage/30 rounded-[20px] p-6 flex items-center justify-between">
-                    <div class="flex items-start gap-4">
-                        <div class="p-3 bg-sage/20 text-sage rounded-full">
-                            <span class="material-symbols-outlined">verified_user</span>
+                <div
+                    class="bg-sage/5 border border-sage/10 rounded-[32px] p-10 flex flex-col sm:flex-row items-center justify-between gap-8 animate-pulse">
+                    <div class="flex items-center gap-6 text-center sm:text-left">
+                        <div
+                            class="w-16 h-16 bg-sage/10 text-sage rounded-2xl flex items-center justify-center flex-shrink-0">
+                            <span class="material-symbols-outlined text-4xl">verified</span>
                         </div>
                         <div>
-                            <h3 class="font-semibold text-charcoal">Verificación Universitaria</h3>
-                            <p class="text-sm text-charcoal/60 mt-1">Tu carné universitario ha sido validado satisfactoriamente hasta Diciembre 2024.</p>
+                            <h3 class="text-lg font-black text-charcoal tracking-tight">Verificación Académica Activa
+                            </h3>
+                            <p class="text-gray-400 text-sm mt-1 leading-relaxed">Tu identidad ha sido confirmada por el
+                                sistema. Válido hasta el próximo ciclo académico.</p>
                         </div>
                     </div>
-                    <button class="text-primary text-sm font-medium hover:underline whitespace-nowrap">Ver detalles</button>
+                    <button class="btn btn-ghost btn-sm px-6 font-black uppercase tracking-widest text-[10px]">Ver
+                        Credencial</button>
                 </div>
             </div>
 
-            <!-- Tab: Rental History -->
-            <div class="tab-content hidden flex flex-col gap-4" id="content-rental-history">
-                <!-- History Item 1 -->
-                <div class="bg-white rounded-[20px] shadow-soft overflow-hidden flex flex-col sm:flex-row hover:shadow-card transition-shadow">
-                    <div class="w-full sm:w-48 h-32 sm:h-auto">
-                        <img class="w-full h-full object-cover"
-                            data-alt="A cozy, high-ceilinged room in a renovated colonial house in San Blas, Cusco. The room features exposed ancient stone walls, polished wood floors, and warm, minimalist Andean textiles. Large windows let in bright, soft light. The aesthetic is clean, historical yet modern, suitable for a high-end student rental listing."
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzqCgSQZtOsnhrYG2XmKEezYdhaA6x9uhoLb0vw_2fznX-1XW_IUHOQI_J1T3ZJV5p8GoorXhjTgWReKXJJoHlQQKwGx2XQbLwFtZQC8eoezVt0q5E5qom869QrWy7Phtb5dDShMzknTwksGSy8B1kZKEqdEVI1QHOcu-gMjyj04rBr4Qqo6x_w_TVMqUNy9Uk12AfdIeAagdlG8oq3LU0VnWFzr906LnQR1bPaCY9D5AzrQViqwMrwpnCCy4b5tYFMqKEISw0EhbW" />
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-semibold text-charcoal">Habitación Colonial San Blas</h3>
-                                <span class="bg-primary/20 text-primary px-3 py-1 rounded-full text-xs font-bold">ACTIVO</span>
-                            </div>
-                            <p class="text-sm text-charcoal/50 mt-1">Calle Tandapata 120, Cusco</p>
-                        </div>
-                        <div class="mt-3 flex items-center justify-between">
-                            <span class="text-sm font-semibold text-primary">S/ 850 / mes</span>
-                            <span class="text-xs text-charcoal/50 italic">Mar 2024 - Presente</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- History Item 2 -->
-                <div class="bg-white rounded-[20px] shadow-soft overflow-hidden flex flex-col sm:flex-row opacity-80">
-                    <div class="w-full sm:w-48 h-32 sm:h-auto grayscale">
-                        <img class="w-full h-full object-cover"
-                            data-alt="Modern student apartment interior in the Magisterio district of Cusco. Features clean white walls, minimalist functional furniture, and a view of the surrounding green hills of the Sacred Valley. Bright afternoon light illuminates the space. Corporate, reliable, and tidy aesthetic for rental history display."
-                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSouYhiM49sWFT1pMH6u4zgtlHRJWf41tDfUsOLcbGkW7hz2xZzysmkFn1c00eYxg71tyZ78RzesWCZv4PIRxhh1DJ8X69UFGZxF3mV2wuG932C-QprgofVlkf_j55CMT_1AlddfssYAULN45QREaJjeNLnhQVu8tA2btK3JffAZYyAFDv3K5Qwms_g-Bhf6B0sPu9ranicK7W800qIvikRt7wQ4sZPUS2VY1Vv-z_3KbKBYbn4mbIccMFHbQVPBWUVzCHAxuvEsFW" />
-                    </div>
-                    <div class="p-5 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-start">
-                                <h3 class="font-semibold text-charcoal">Apartamento Loft Magisterio</h3>
-                                <span class="bg-gray-100 text-charcoal/50 px-3 py-1 rounded-full text-xs font-bold">FINALIZADO</span>
-                            </div>
-                            <p class="text-sm text-charcoal/50 mt-1">Av. La Cultura 1450, Cusco</p>
-                        </div>
-                        <div class="mt-3 flex items-center justify-between">
-                            <span class="text-sm font-semibold text-charcoal/50">S/ 1,100 / mes</span>
-                            <span class="text-xs text-charcoal/50 italic">Mar 2023 - Feb 2024</span>
-                        </div>
-                    </div>
+            <!-- Placeholder para las otras pestañas con estilo consistente -->
+            <div class="tab-content hidden" id="content-rental-history">
+                <div class="bg-white rounded-[32px] p-12 text-center border-2 border-dashed border-gray-100">
+                    <span class="material-symbols-outlined text-6xl text-gray-200 mb-4">history</span>
+                    <h3 class="text-xl font-bold text-gray-400">Sin historial registrado</h3>
                 </div>
             </div>
 
-            <!-- Tab: My Reviews -->
-            <div class="tab-content hidden flex flex-col gap-4" id="content-my-reviews">
-                <div class="bg-white rounded-[20px] shadow-soft p-6">
-                    <div class="flex items-center gap-4 mb-4">
-                        <div class="w-12 h-12 rounded-full overflow-hidden bg-gray-100">
-                            <img class="w-full h-full object-cover"
-                                data-alt="A friendly, mature Peruvian woman in her 50s, dressed in smart casual professional attire. She has a kind expression and is standing in a brightly lit, modern office with plants in the background. High-quality lighting, professional photography style, representing a trustworthy landlord profile for a review section."
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5txRvvrNNME3Zd7KtXksC__d0qM1OsRAeQWhPOWWGBG_dfj3k62hCgQnRJ051mUQOgp-ZcFf0fpY2N4nJoweyYzbRHr0zI8H6fMzciX9gBAFZu2aMgkUaVhkT75n-qSJmT13WmOlAz3O_YgHvLkOozYoLeaIM3kShxipYbP8dIFIZ4PhQjGSCIyNAhVdj_v1BjiQ0TB8b8zbgv1l_6RGbh1G61S9OT-xe2LI9kGNhC1ObyCJAnDf_j0TIRcFxpSRSgo3pceiNkC6-" />
-                        </div>
-                        <div>
-                            <h4 class="text-sm font-semibold text-charcoal">Sra. Elena Vargas</h4>
-                            <div class="flex text-primary">
-                                <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                                <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                                <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                                <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                                <span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
-                            </div>
-                        </div>
-                        <span class="ml-auto text-xs text-charcoal/50">Hace 2 meses</span>
-                    </div>
-                    <p class="text-sm italic text-charcoal/60">"Mateo fue un excelente inquilino. Siempre puntual con los pagos y muy respetuoso con el reglamento de convivencia del edificio. ¡Altamente recomendado para cualquier propietario!"</p>
-                </div>
-
-                <div class="bg-white border-2 border-dashed border-border-color rounded-[20px] p-6 flex flex-col items-center justify-center text-center py-12">
-                    <span class="material-symbols-outlined text-[48px] text-charcoal/20 mb-4">rate_review</span>
-                    <h3 class="font-semibold text-charcoal/60">Aún no has dejado reseñas</h3>
-                    <p class="text-sm text-charcoal/50 mb-6 mt-1">Tu opinión ayuda a otros estudiantes a encontrar el lugar perfecto.</p>
-                    <button class="border-2 border-primary text-primary px-6 py-2 rounded-full text-sm font-medium hover:bg-primary/5 transition-colors">Escribir una reseña</button>
+            <div class="tab-content hidden" id="content-my-reviews">
+                <div class="bg-white rounded-[32px] p-12 text-center border-2 border-dashed border-gray-100">
+                    <span class="material-symbols-outlined text-6xl text-gray-200 mb-4">rate_review</span>
+                    <h3 class="text-xl font-bold text-gray-400">No has escrito reseñas aún</h3>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-white border-t border-border-color py-8 px-6 relative z-40">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div class="flex flex-col md:items-start items-center">
-                <span class="font-serif text-charcoal text-lg font-bold">Cusco</span><span class="font-serif text-primary text-lg font-bold -mt-4">Rent</span>
-                <p class="text-charcoal/50 text-sm mt-2 text-center md:text-left">© 2024 CuscoRent. Vivienda estudiantil con alma andina.</p>
-            </div>
-            <div class="flex gap-6">
-                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Nosotros</a>
-                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Privacidad</a>
-                <a href="#" class="text-charcoal/50 text-sm hover:text-primary transition-colors">Contacto</a>
-            </div>
-        </div>
+    <footer class="text-center py-10 mt-12 opacity-30 text-[10px] font-black uppercase tracking-[0.3em]">
+        CuscoRent &bull; Perfil Estudiantil &bull; 2025
     </footer>
 
     <?!= include('Scripts'); ?>
     <script>
-        var SCRIPT_URL = "<?= getScriptUrl() ?>";
-        var currentUser = null;
+        const SCRIPT_URL = "<?= getScriptUrl() ?>";
+        let currentUser = null;
 
-        document.addEventListener('DOMContentLoaded', function() {
-            try { currentUser = JSON.parse(localStorage.getItem('user')); } catch(e) {}
-            if (!currentUser || !currentUser.EstudianteID) {
-                window.location.href = SCRIPT_URL + '?page=Login';
-                return;
+        function navigateTo(page, tab) {
+            var isLocal = false;
+            if (!SCRIPT_URL || SCRIPT_URL === "" || SCRIPT_URL.indexOf("getScriptUrl") !== -1) {
+                isLocal = true;
             }
-            document.getElementById('perfilNombre').textContent = currentUser.NombreCompleto || 'Estudiante';
-            document.getElementById('perfilAvatar').textContent = (currentUser.NombreCompleto || 'E').charAt(0).toUpperCase();
-            document.getElementById('inputNombre').value = currentUser.NombreCompleto || '';
-            document.getElementById('inputEmail').value = currentUser.CorreoInstitucional || '';
-            document.getElementById('inputTelefono').value = currentUser.Telefono || '';
-            document.getElementById('inputDNI').value = currentUser.DNI || 'No registrado';
-            document.getElementById('infoDistrito').textContent = 'Residiendo en: ' + (currentUser.Distrito || 'Cusco');
+            var targetUrl = "";
+            if (isLocal) {
+                targetUrl = page + ".html";
+                if (tab) { targetUrl += "?tab=" + tab; }
+                window.location.href = targetUrl;
+            } else {
+                targetUrl = SCRIPT_URL + "?page=" + page;
+                if (tab) { targetUrl += "&tab=" + tab; }
+                if (typeof redirectTop === 'function') {
+                    redirectTop(targetUrl);
+                } else {
+                    try { window.top.location.href = targetUrl; }
+                    catch (e) { window.location.href = targetUrl; }
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                currentUser = JSON.parse(localStorage.getItem('user'));
+                if (!currentUser || !currentUser.EstudianteID) {
+                    window.location.href = SCRIPT_URL + '?page=Login';
+                    return;
+                }
+                APP.currentUser = currentUser;
+                APP.currentRole = 'estudiante';
+
+                document.getElementById('perfilNombreHeader').textContent = currentUser.NombreCompleto || 'Estudiante';
+                document.getElementById('perfilEmailHeader').textContent = currentUser.CorreoInstitucional || '';
+
+                const emailDisplay = document.getElementById('userEmailDisplay');
+                if (emailDisplay) emailDisplay.textContent = currentUser.CorreoInstitucional || 'Usuario';
+
+                document.getElementById('perfilAvatar').textContent = (currentUser.NombreCompleto || 'E').charAt(0).toUpperCase();
+                document.getElementById('inputNombre').value = currentUser.NombreCompleto || '';
+                document.getElementById('inputEmail').value = currentUser.CorreoInstitucional || '';
+                document.getElementById('inputTelefono').value = currentUser.Telefono || '';
+                document.getElementById('selectBuscaRoommate').value = currentUser.BuscaRoommate || 'No';
+                document.getElementById('inputIntereses').value = currentUser.Intereses || '';
+                document.getElementById('infoDistrito').textContent = (currentUser.Distrito || 'Cusco') + ', Perú';
+
+                // Get count of reservations
+                google.script.run.withSuccessHandler(res => {
+                    document.getElementById('resumenReservas').textContent = res ? res.length : 0;
+                }).getReservasPorEstudiante(currentUser.EstudianteID);
+
+            } catch (e) { console.error(e); }
         });
 
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.add('hidden'); });
-            document.querySelectorAll('button[id^="tab-"]').forEach(function(b) {
-                b.classList.remove('tab-active');
-                b.classList.add('tab-inactive');
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('button[id^="tab-"]').forEach(b => {
+                b.classList.remove('doc-tab-active');
+                b.classList.add('doc-tab-inactive');
             });
+
             document.getElementById('content-' + tabId).classList.remove('hidden');
-            var activeBtn = document.getElementById('tab-' + tabId);
-            activeBtn.classList.add('tab-active');
-            activeBtn.classList.remove('tab-inactive');
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.add('doc-tab-active');
+            activeBtn.classList.remove('doc-tab-inactive');
         }
 
         function guardarPerfil() {
-            var telefono = document.getElementById('inputTelefono').value.trim();
+            const nombre = document.getElementById('inputNombre').value.trim();
+            const telefono = document.getElementById('inputTelefono').value.trim();
+            const buscaRoommate = document.getElementById('selectBuscaRoommate').value;
+            const intereses = document.getElementById('inputIntereses').value.trim();
+
+            if (!nombre) return showToast('El nombre es obligatorio', 'error');
+
+            showLoader('Actualizando perfil...');
             google.script.run
-                .withSuccessHandler(function(res) {
+                .withSuccessHandler(res => {
+                    hideLoader();
                     if (res && res.success) {
-                        currentUser.Telefono = telefono;
-                        localStorage.setItem('user', JSON.stringify(currentUser));
-                        alert('Perfil actualizado');
+                        APP.currentUser.NombreCompleto = nombre;
+                        APP.currentUser.Telefono = telefono;
+                        APP.currentUser.BuscaRoommate = buscaRoommate;
+                        APP.currentUser.Intereses = intereses;
+                        localStorage.setItem('user', JSON.stringify(APP.currentUser));
+
+                        document.getElementById('perfilNombreHeader').textContent = nombre;
+                        document.getElementById('perfilAvatar').textContent = nombre.charAt(0).toUpperCase();
+                        showToast('Perfil actualizado con éxito', 'success');
                     } else {
-                        alert('Error al actualizar');
+                        showToast(res.message || 'Error al actualizar', 'error');
                     }
                 })
-                .withFailureHandler(function(e) { console.error(e); alert('Error del servidor'); })
-                .actualizarPerfilArrendador({
-                    ArrendadorID: currentUser.EstudianteID,
-                    Telefono: telefono
+                .withFailureHandler(e => { hideLoader(); showToast('Error: ' + e.message, 'error'); })
+                .actualizarPerfilEstudiante({
+                    EstudianteID: APP.currentUser.EstudianteID,
+                    NombreCompleto: nombre,
+                    Telefono: telefono,
+                    BuscaRoommate: buscaRoommate,
+                    Intereses: intereses
                 });
         }
 
-        function cerrarSesion() {
-            localStorage.removeItem('user');
-            window.location.href = SCRIPT_URL + '?page=Login';
+        function toggleMobileMenu() {
+            const m = document.getElementById('mobileMenuDropdown');
+            if (m) m.classList.toggle('hidden');
+        }
+        function closeMobileMenu() {
+            const m = document.getElementById('mobileMenuDropdown');
+            if (m) m.classList.add('hidden');
+        }
+        function handleHeroSearch(e) {
+            if (e.key === 'Enter') {
+                window.location.href = SCRIPT_URL + '?page=Estudiante&tab=buscar';
+            }
         }
     </script>
 </body>

@@ -2,24 +2,26 @@
 // FUNCIÓN PRINCIPAL — SERVIR WEB APP
 // ============================================================
 function doGet(e) {
-    let page = 'Login';
+    let page = 'Landing'; // La página por defecto ahora es el Landing Page
     if (e && e.parameter && e.parameter.page) {
         page = e.parameter.page;
     }
-    
+
     const validPages = [
-        'Login', 
-        'HomeEstudiante', 
-        'DashboardArrendador', 
+        'Landing',
+        'Login',
+        'Estudiante',
+        'Arrendador',
         'Administrador',
         'ChatWEB',
-        'DetallesHabitacion',
-        'PerfilEstudiante',
-        'VerificacionIdentidad'
+        'PerfilEstudiante'
     ];
     if (!validPages.includes(page)) {
-        page = 'Login';
+        page = 'Landing';
     }
+
+    // La validación de autenticación se maneja exclusivamente en el cliente (localStorage)
+
 
     return HtmlService.createTemplateFromFile(page)
         .evaluate()

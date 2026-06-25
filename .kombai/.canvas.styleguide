@@ -1,0 +1,91 @@
+{
+  "guides": [
+    {
+      "name": "airbnb-inspiration",
+      "tokens": {
+        "colors": {
+          "primary": "#FF385C",
+          "primary-gradient-start": "#E61E4D",
+          "primary-gradient-mid": "#E31C5F",
+          "primary-gradient-end": "#BD1E59",
+          "primary-search": "#E00B41",
+          "on-primary": "#FFFFFF",
+          "surface": "#FFFFFF",
+          "surface-secondary": "#F7F7F7",
+          "surface-tertiary": "#F2F2F2",
+          "on-surface": "#222222",
+          "on-surface-secondary": "#717171",
+          "on-surface-disabled": "#C1C1C1",
+          "hairline": "#DDDDDD",
+          "hairline-soft": "#EBEBEB",
+          "error": "#C13515",
+          "success": "#008A05",
+          "star": "#222222"
+        },
+        "typography": {
+          "display": {
+            "family": "\"Airbnb Cereal VF\", Circular, -apple-system, \"system-ui\", Roboto, \"Helvetica Neue\", sans-serif",
+            "size": "32px",
+            "url": ""
+          },
+          "headline-lg": {
+            "family": "\"Airbnb Cereal VF\", Circular, sans-serif",
+            "size": "28px",
+            "url": ""
+          },
+          "headline-md": {
+            "family": "\"Airbnb Cereal VF\", Circular, sans-serif",
+            "size": "22px",
+            "url": ""
+          },
+          "body-lg": {
+            "family": "\"Airbnb Cereal VF\", Circular, sans-serif",
+            "size": "16px",
+            "url": ""
+          },
+          "body-md": {
+            "family": "\"Airbnb Cereal VF\", Circular, sans-serif",
+            "size": "14px",
+            "url": ""
+          },
+          "label": {
+            "family": "\"Airbnb Cereal VF\", Circular, sans-serif",
+            "size": "14px",
+            "url": ""
+          },
+          "caption": {
+            "family": "\"Airbnb Cereal VF\", Circular, sans-serif",
+            "size": "12px",
+            "url": ""
+          },
+          "badge": {
+            "family": "\"Airbnb Cereal VF\", Circular, sans-serif",
+            "size": "12px",
+            "url": ""
+          }
+        },
+        "spacing": {
+          "xxs": "4px",
+          "xs": "8px",
+          "sm": "12px",
+          "md": "16px",
+          "lg": "24px",
+          "xl": "32px",
+          "xxl": "48px",
+          "xxxl": "64px"
+        },
+        "radius": {
+          "sm": "8px",
+          "md": "12px",
+          "lg": "16px",
+          "xl": "20px",
+          "full": "9999px"
+        }
+      },
+      "designInstructions": "## Token Instructions\n\n- `primary` (Rausch #FF385C) → the one brand voltage; ration it to exactly three jobs — search submit, primary CTA, wishlist heart — never body links, borders, or accents\n- `button-primary` → render as a left-to-right magenta gradient (start→mid→end), not a flat Rausch block\n- `primary-search` (#E00B41) → the solid fill of the circular search-submit button\n- `on-surface` (#222222) → warm near-black ink; never pure #000 on the white canvas\n- `surface-tertiary` (#F2F2F2) → resting background for round icon buttons (globe, menu, carousel arrows)\n- `error` (#C13515) → a brick red kept distinct from Rausch so the two never clash\n- `star` (#222222) → ratings render in ink, never gold/yellow (yellow reads cheap in travel)\n- `radius.xl` (20px) → image/listing cards; generous but not blobby\n- `radius.full` → only intentionally circular elements — search pill, tabs, icon buttons, wishlist heart, avatars\n- `listing-card` → borderless and shadowless at rest; elevation appears only on hover\n- `wishlist-heart` → translucent black fill with white stroke until saved, then fills to Rausch — the lone icon allowed to carry the brand color\n- spacing scale is an 8px base; keep type at natural tracking and only 400/500/600/700 weights\n\n# Airbnb\n\n> Design spec — version alpha. Surfaces studied via Playwright: homepage (logged-out, IN locale) — computed styles + representative element probes. Brand lore supplemented from known Airbnb DLS (Design Language System).\n\n## Overview\n\nAirbnb's interface is a calm, **always-white** canvas (`{colors.surface}`) where photography does the talking and chrome stays out of the way. Text is **warm near-black** `#222222` rather than pure black — a deliberate choice the design team describes as \"warmer, more inviting,\" consistent with the \"belong anywhere\" brand promise. The system runs on a single brand voltage: **Rausch**, the coral-pink named after Rausch Street in San Francisco where Airbnb was founded. Rausch is rationed with discipline — it shows up as the **search submit button**, **primary CTAs** (rendered as a left-to-right magenta gradient, not a flat fill), and the **wishlist heart**, and almost nowhere else.\n\nTypography is the proprietary **Airbnb Cereal** family (with Circular as the legacy fallback and the platform stack behind it), carried at just three weights in practice — 400 for body, 500 for labels/controls, 600–700 for headings. The layout primitive is the **borderless image card in a dense responsive grid**, paired with horizontally-scrolling carousels per city section and a **floating pill search bar**. Shapes are rounded-but-not-soft: 8px on buttons, 12px on inputs, a full pill on the search bar and tabs, and a generous **20px radius on cards**. Depth is almost entirely flat — cards carry no border and no resting shadow; elevation appears only on hover and on true overlays (modals, the search popover).\n\n## Colors\n\n**Brand.** Rausch `{colors.primary}` `#FF385C` is the identity. Primary CTAs use a horizontal gradient from `{colors.primary-gradient-start}` `#E61E4D` through `{colors.primary-gradient-mid}` `#E31C5F` to `{colors.primary-gradient-end}` `#BD1E59` — giving the button a subtle warmth shift rather than a flat block. The circular **search submit** was observed as a solid `{colors.primary-search}` `#E00B41`. Scarcity rule: Rausch appears in exactly three roles — search submit, primary CTA, wishlist heart — and is never used for body links, borders, or section accents.\n\n**Surfaces.** The canvas is `{colors.surface}` `#FFFFFF`. `{colors.surface-secondary}` `#F7F7F7` fills loading skeletons and hover wells; `{colors.surface-tertiary}` `#F2F2F2` is the resting background of round icon buttons (globe, hamburger, carousel arrows).\n\n**Text.** Primary ink is `{colors.on-surface}` `#222222`. Secondary metadata — price strings like \"₹9,130 for 2 nights\", subtitles — uses `{colors.on-surface-secondary}` `#717171`. Disabled glyphs fall to `{colors.on-surface-disabled}` `#C1C1C1`.\n\n**Hairlines.** Search-bar segment dividers and secondary-button outlines use `{colors.hairline}` `#DDDDDD`; lighter structural rules use `{colors.hairline-soft}` `#EBEBEB`.\n\n**Semantic.** Errors use `{colors.error}` `#C13515` (a brick red, not the brand pink, to avoid clashing with Rausch); success uses `{colors.success}` `#008A05`. Note the deliberate anti-pattern: **star ratings render in ink (`{colors.star}` `#222222`), never gold** — yellow stars read as cheap in a travel context.\n\n## Typography\n\nFamily: **Airbnb Cereal VF** → `Circular` → `-apple-system, system-ui, Roboto, \"Helvetica Neue\", sans-serif`. Closest open-source substitute: **Inter** or **Geist** (both share Cereal's humanist-geometric proportions and tall x-height). Weight strategy is restrained — 400 for body, 500 for interactive labels, 600 for section headers, 700 for hero/display. Tracking stays at `normal` throughout; Airbnb does not letter-space its type.\n\n| Token       | Size | Weight | Line-height | Tracking | Usage                                                 |\n| ----------- | ---- | ------ | ----------- | -------- | ----------------------------------------------------- |\n| display     | 32px | 700    | 36px        | normal   | Marketing hero, large page titles                     |\n| headline-lg | 28px | 700    | 40px        | normal   | h1, modal headlines (\"Save 10% on a summertime trip\") |\n| headline-md | 22px | 600    | 26px        | normal   | Section headers (\"Popular homes in North Goa\")        |\n| body-lg     | 16px | 400    | 20px        | normal   | Lead paragraphs, primary button text                  |\n| body-md     | 14px | 400    | 20px        | normal   | Default body, card titles                             |\n| label       | 14px | 500    | 18px        | normal   | Buttons, tabs, \"Become a host\"                        |\n| caption     | 12px | 400    | 16px        | normal   | Fine print, legal                                     |\n| badge       | 12px | 600    | 16px        | normal   | \"Guest favourite\" pill                                |\n\n## Layout\n\nBase spacing unit is **8px**; the scale runs 4 / 8 / 12 / 16 / 24 / 32 / 48 / 64. Content sits in a wide max-width container (~1280px) with comfortable side gutters. The home feed is built from **city sections**, each a horizontally-scrolling carousel of listing cards with prev/next round arrow buttons; the responsive grid steps from ~2 columns on mobile up to 5–6 cards visible on wide screens. Whitespace is generous and vertical rhythm is loose — sections breathe with ~48px of separation. The **pill search bar floats** below the logo/nav row and is the visual anchor of the page.\n\n## Elevation & Depth\n\nEssentially flat. **Listing cards carry no border and no resting shadow** — they read as photos directly on white. Elevation is reserved for genuinely floating surfaces: the **search bar** (a soft two-layer ambient shadow, ~`0 1px 2px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.05)`), the search popover, and modals. A subtle shadow/scale appears on card **hover** only. There is no heavy material-style elevation ladder.\n\n## Shapes\n\nRadius vocabulary: `{rounded.sm}` 8px (buttons), `{rounded.md}` 12px (inputs), `{rounded.lg}` 16px (modals/popovers), `{rounded.xl}` 20px (image cards), `{rounded.full}` (search pill, tabs, icon buttons, wishlist heart). The philosophy is **rounded-but-not-soft** — corners are clearly radiused for friendliness, but never so large that controls turn into blobs; only intentionally circular elements (icon buttons, search submit, avatars) go fully round.\n\n## Components\n\n- **button-primary** — the magenta gradient CTA (\"Log in to claim offer\"), white label at weight 500, 8px radius, ~`14px 24px` padding. One per viewport.\n- **button-secondary** — white fill, 1px `#222222` outline, used for \"Become a host\" and tertiary actions.\n- **search-bar** — pill-shaped white field with `#DDDDDD` hairline dividers between segments (Where / When / Who), soft ambient shadow, and the round `#E00B41` submit at the right end.\n- **icon-button** — 40px round, `#F2F2F2` background, ink glyph; used for globe (locale), hamburger menu, and carousel arrows.\n- **listing-card** — borderless, 20px-radius photo with a swipeable image, a translucent **wishlist heart** top-right, an optional white **\"Guest favourite\"** badge top-left, then ink title + `#717171` price/rating below. Flat at rest, lifts on hover.\n- **badge-guest-favourite** — white pill, 600-weight 12px ink text, full radius, overlaid on the photo.\n- **wishlist-heart** — translucent black fill with white stroke over photos; fills to Rausch when saved.\n\n## Motion\n\nTransitions are quick and confident: `{motion.duration-fast}` 150ms for hovers and `{motion.duration-standard}` 250ms for larger changes, on a standard `cubic-bezier(0.2, 0, 0, 1)` ease. Overlays and the search expansion use **spring physics** (Airbnb's signature mass/stiffness/damping tuning) for an organic, slightly bouncy feel rather than a mechanical slide. Pointedly absent: no parallax, no long fade-up reveals on scroll, no decorative looping animation — motion serves feedback, not spectacle.\n\n## Iconography\n\nAirbnb ships a **proprietary outline icon set** from its DLS — consistent 2px stroke, rounded joins, optically balanced at 24px. Open-source substitute: **Lucide** or **Feather**. Sizes step 16 / 24 / 32px. Icons inherit `{colors.on-surface}` ink and are **never tinted** — the lone exception is the wishlist heart, which is the only icon allowed to carry Rausch.\n\n## Do's and Don'ts\n\n- **Do** keep the canvas white — Airbnb is a light-only product; never render a dark-background variant.\n- **Do** reserve Rausch for one job at a time: the search submit, exactly one primary CTA per viewport, and the wishlist heart.\n- **Do** render primary CTAs as the left-to-right magenta **gradient**, not a flat `#FF385C` block.\n- **Do** keep ink at `#222222`, never pure `#000000`.\n- **Do** let listing cards be borderless and shadowless at rest; add elevation only on hover.\n- **Don't** use gold/yellow stars for ratings — ratings are ink.\n- **Don't** add borders or drop shadows to image cards.\n- **Don't** letter-space or condense the type; keep Cereal at natural tracking and only 400/500/600/700.\n- **Don't** introduce secondary accent colors — there is one brand voltage, and it is Rausch.\n- **Don't** over-animate; favor sub-250ms, spring-eased feedback over scroll spectacle.\n\n## Known Gaps\n\n- Hex values for `hairline`, `hairline-soft`, `error`, `success`, and the gradient stops are sourced from the known Airbnb DLS rather than this session's computed probe and should be treated as authoritative-but-verify. The search submit fill `#E00B41` and core tokens (`#222222`, `#FFFFFF`, `#F2F2F2`, 20px card radius, Cereal stack) were read directly from computed styles.\n- Logged-in surfaces (host dashboard, checkout, messaging) were not studied; tokens above describe the marketing/search/browse experience.",
+      "id": "style_5d1e0492b846",
+      "created": "2026-06-23T04:54:40.237Z",
+      "modified": "2026-06-23T04:54:40.237Z"
+    }
+  ]
+}

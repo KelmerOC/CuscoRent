@@ -15,28 +15,42 @@
     // ============================================================
     function showToast(message, type = 'info') {
         const container = document.getElementById('toastContainer');
-        if(!container) return;
+        if (!container) return;
+
         const toast = document.createElement('div');
-        const bgColor = type === 'success' ? 'bg-green-500' : type === 'error' ? 'bg-red-500' : 'bg-blue-500';
-        toast.className = `fixed bottom-4 right-4 flex items-center gap-2 ${bgColor} text-white px-4 py-3 rounded-xl shadow-lg transition-all duration-300 transform translate-y-full opacity-0 z-[10000]`;
-        
-        const icons = { success: 'check_circle', error: 'error', info: 'info' };
+        const icons = { success: 'check_circle', error: 'report', info: 'info' };
+
+        const typeClasses = {
+            success: 'bg-sage text-white shadow-sage/20',
+            error: 'bg-secondary text-white shadow-secondary/20',
+            info: 'bg-skyblue text-white shadow-skyblue/20'
+        };
+
+        toast.className = `toast ${type} ${typeClasses[type] || 'bg-charcoal text-white'} flex items-center gap-3 px-6 py-4 rounded-[20px] shadow-xl transform transition-all duration-500 ease-out translate-y-10 opacity-0`;
+
         toast.innerHTML = `
-            <span class="material-icons-round">${icons[type] || 'info'}</span>
-            <span class="font-medium text-sm">${message}</span>
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                <span class="material-symbols-outlined text-lg">${icons[type] || 'info'}</span>
+            </div>
+            <div class="flex-1">
+                <p class="font-bold text-sm tracking-tight leading-tight">${message}</p>
+            </div>
         `;
-        
+
         container.appendChild(toast);
-        
-        // Animate in
+
         requestAnimationFrame(() => {
-            toast.classList.remove('translate-y-full', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            }, 10);
         });
-        
+
         setTimeout(() => {
-            toast.classList.add('translate-y-full', 'opacity-0');
-            setTimeout(() => toast.remove(), 300);
-        }, 4000);
+            toast.classList.add('opacity-0', 'scale-95');
+            toast.style.transform = 'translateY(-20px)';
+            setTimeout(() => toast.remove(), 500);
+        }, 5000);
     }
 
     // ============================================================
@@ -44,30 +58,279 @@
     // ============================================================
     function showLoader(text = 'Procesando...') {
         const loader = document.getElementById('overlayLoader');
-        if(loader) {
-            document.getElementById('loaderText').textContent = text;
+        if (loader) {
+            const textEl = document.getElementById('loaderText');
+            if (textEl) textEl.textContent = text;
             loader.classList.remove('hidden');
-            loader.classList.add('flex');
+            loader.classList.add('animate-fade-in');
         }
     }
-    
+
     function hideLoader() {
         const loader = document.getElementById('overlayLoader');
-        if(loader) {
-            loader.classList.add('hidden');
-            loader.classList.remove('flex');
+        if (loader) {
+            loader.classList.add('opacity-0');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                loader.classList.remove('opacity-0', 'animate-fade-in');
+            }, 300);
         }
     }
 
     // ============================================================
-    // MODAL
+    // MODAL SYSTEM
     // ============================================================
     let modalCallback = null;
-    function mostrarModal(titulo, mensaje, onConfirm) {
-        // En esta versión se puede usar el confirm nativo o un toast, ya que el confirmModal html se removió en Tailwind
-        if(confirm(titulo + '\\n\\n' + mensaje)) {
-            if(typeof onConfirm === 'function') onConfirm();
+    let modalType = 'confirm';
+
+    function ensureModalContainer() {
+        let m = document.getElementById('appConfirmModal');
+        if (m) return m;
+        m = document.createElement('div');
+        m.id = 'appConfirmModal';
+        m.className = 'modal-backdrop hidden';
+        m.setAttribute('role', 'dialog');
+        m.setAttribute('aria-modal', 'true');
+        m.setAttribute('aria-labelledby', 'appConfirmTitle');
+        m.innerHTML = `
+            <div class="modal-content" role="document">
+                <button type="button" onclick="closeAppModal()" aria-label="Cerrar"
+                    class="modal-close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <div class="modal-header">
+                    <div class="flex items-start gap-4">
+                        <div id="appConfirmIconWrap" class="w-14 h-14 flex-shrink-0 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-4xl" id="appConfirmIcon">help</span>
+                        </div>
+                        <div class="flex-1 pt-1">
+                            <h3 id="appConfirmTitle" class="text-xl font-bold text-charcoal mb-1">Confirmar</h3>
+                            <p id="appConfirmMessage" class="text-sm text-gray-500 leading-relaxed whitespace-pre-wrap">¿Estás seguro?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="appConfirmCancel" onclick="closeAppModal(false)"
+                        class="btn btn-ghost">
+                        Cancelar
+                    </button>
+                    <button type="button" id="appConfirmOk" onclick="closeAppModal(true)"
+                        class="btn btn-primary">
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+        `;
+        m.addEventListener('click', function (e) {
+            if (e.target === m) closeAppModal(false);
+        });
+        document.body.appendChild(m);
+        return m;
+    }
+
+    function showConfirmModal(titulo, mensaje, onConfirm, opts) {
+        opts = opts || {};
+        const m = ensureModalContainer();
+        document.getElementById('appConfirmTitle').textContent = titulo || 'Confirmar';
+        document.getElementById('appConfirmMessage').textContent = mensaje || '';
+        const okBtn = document.getElementById('appConfirmOk');
+        const cancelBtn = document.getElementById('appConfirmCancel');
+        const icon = document.getElementById('appConfirmIcon');
+        const iconWrap = document.getElementById('appConfirmIconWrap');
+
+        if (opts.danger) {
+            okBtn.className = 'btn btn-danger';
+            iconWrap.className = 'w-14 h-14 flex-shrink-0 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center';
+            icon.textContent = 'warning';
+            okBtn.textContent = opts.okLabel || 'Eliminar';
+        } else {
+            okBtn.className = 'btn btn-primary';
+            iconWrap.className = 'w-14 h-14 flex-shrink-0 rounded-2xl bg-primary/10 text-primary flex items-center justify-center';
+            icon.textContent = 'help';
+            okBtn.textContent = opts.okLabel || 'Confirmar';
         }
+        cancelBtn.textContent = opts.cancelLabel || 'Cancelar';
+        cancelBtn.classList.toggle('hidden', !!opts.hideCancel);
+
+        modalType = opts.alertOnly ? 'alert' : 'confirm';
+        modalCallback = onConfirm || null;
+        m.classList.remove('hidden');
+        trapFocus(m);
+    }
+
+    function showAlertModal(titulo, mensaje, opts) {
+        opts = opts || {};
+        opts.alertOnly = true;
+        opts.okLabel = opts.okLabel || 'Entendido';
+        showConfirmModal(titulo, mensaje, null, opts);
+    }
+
+    function closeAppModal(result) {
+        const m = document.getElementById('appConfirmModal');
+        if (!m) return;
+        m.classList.add('hidden');
+        if (result === true && typeof modalCallback === 'function') {
+            try { modalCallback(); } catch (e) { console.error(e); }
+        }
+        modalCallback = null;
+        modalType = 'confirm';
+    }
+
+    // ============================================================
+    // NAVIGATION & URL PERSISTENCE
+    // ============================================================
+    function syncUrlWithTab(tab) {
+        if (!window.history.pushState) return;
+        try {
+            const url = new URL(window.location.href);
+            url.searchParams.set('tab', tab);
+            window.history.pushState({ tab: tab }, '', url);
+        } catch (e) {
+            // Silently ignore SecurityError in Google Apps Script iframes
+        }
+    }
+
+    function switchMainTab(tab) {
+        let pageTabs = [];
+        if (APP.currentRole === 'estudiante') {
+            pageTabs = ['buscar', 'reservas', 'mensajes', 'roommates', 'documentos'];
+        } else if (APP.currentRole === 'arrendador') {
+            pageTabs = ['habitaciones', 'reservas', 'mensajes', 'resenas', 'perfil', 'documentos'];
+        } else if (APP.currentRole === 'administrador') {
+            pageTabs = ['dashboard', 'habitaciones', 'estudiantes', 'arrendadores'];
+        }
+
+        pageTabs.forEach(t => {
+            const seccion = document.getElementById(`seccion-${t}`);
+            const boton = document.getElementById(`tabBtn-${t}`);
+            const mobileBoton = document.getElementById(`tabBtn-${t}-mobile`);
+
+            if (seccion) seccion.classList.toggle('hidden', t !== tab);
+            if (boton) {
+                boton.classList.toggle('active', t === tab);
+                boton.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+            }
+            if (mobileBoton) {
+                mobileBoton.classList.toggle('bg-primary/10', t === tab);
+                mobileBoton.classList.toggle('text-primary', t === tab);
+            }
+        });
+
+        syncUrlWithTab(tab);
+
+        // Trigger specific loads if needed
+        if (tab === 'buscar' && typeof cargarCatalogo === 'function') cargarCatalogo();
+        if (tab === 'reservas' && typeof cargarMisReservas === 'function') cargarMisReservas();
+        if (tab === 'mensajes' && APP.currentRole === 'estudiante' && typeof cargarMensajesEstudiante === 'function') cargarMensajesEstudiante();
+        if (tab === 'roommates' && typeof cargarRoommates === 'function') cargarRoommates();
+        if (tab === 'documentos' && typeof cargarImagenesExistentes === 'function') cargarImagenesExistentes();
+        if (tab === 'habitaciones' && APP.currentRole === 'arrendador' && typeof cargarMisHabitaciones === 'function') cargarMisHabitaciones();
+    }
+
+    function switchDocTab(tab, allDocTabs) {
+        allDocTabs = allDocTabs || ['perfil', 'carne', 'dni', 'fotos', 'propiedad'];
+        allDocTabs.forEach(t => {
+            var panel = document.getElementById('panel-doc-' + t);
+            var btn = document.getElementById('tab-doc-' + t);
+            if (panel) panel.classList.toggle('hidden', t !== tab);
+            if (btn) {
+                btn.classList.toggle('doc-tab-active', t === tab);
+                btn.classList.toggle('doc-tab-inactive', t !== tab);
+            }
+        });
+    }
+
+    function switchAdminTab(tab) {
+        switchMainTab(tab);
+    }
+
+    function toggleMobileSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.classList.toggle('active');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+    }
+
+    function closeMobileMenu() {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.classList.remove('active');
+            sidebar.classList.add('-translate-x-full');
+        }
+    }
+
+    // ============================================================
+    // SKELETON LOADING
+    // ============================================================
+    function renderSkeletons(containerId, count = 6) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        let html = '';
+        for (let i = 0; i < count; i++) {
+            html += `
+                <div class="listing-card pointer-events-none">
+                    <div class="listing-card-image skeleton-load aspect-[4/3]"></div>
+                    <div class="listing-card-content space-y-4">
+                        <div class="h-5 bg-gray-100 rounded-full w-3/4 skeleton-load"></div>
+                        <div class="h-4 bg-gray-50 rounded-full w-1/2 skeleton-load"></div>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="h-6 bg-gray-100 rounded-full w-1/4 skeleton-load"></div>
+                            <div class="h-8 bg-gray-100 rounded-full w-1/4 skeleton-load"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    // ============================================================
+    // ROLE & PASSWORD VISIBILITY
+    // ============================================================
+    function seleccionarRolUI_Login(role) {
+        APP.selectedRole = role;
+        document.querySelectorAll('.segmented-control-btn').forEach(btn => {
+            const isMatch = (role === 'estudiante' && btn.id === 'btnLoginEstudiante') ||
+                (role === 'arrendador' && btn.id === 'btnLoginArrendador') ||
+                (role === 'administrador' && btn.id === 'btnLoginAdmin');
+            btn.classList.toggle('active', isMatch);
+        });
+    }
+
+    function togglePasswordVisibility(inputId, iconId) {
+        var input = document.getElementById(inputId);
+        var icon = document.getElementById(iconId);
+        if (!input || !icon) return;
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = 'visibility';
+        } else {
+            input.type = 'password';
+            icon.textContent = 'visibility_off';
+        }
+    }
+
+    // ============================================================
+    // ACCESSIBILITY HELPERS
+    // ============================================================
+    function trapFocus(modal) {
+        var focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        modal.addEventListener('keydown', function (e) {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        });
+        first.focus();
     }
 
     // ============================================================
@@ -75,13 +338,8 @@
     // ============================================================
     function seleccionarRolUI_Reg(role) {
         document.querySelectorAll('.role-btn-reg').forEach(btn => {
-            if(btn.dataset.role === role) {
-                btn.classList.add('bg-white', 'shadow', 'text-primary');
-                btn.classList.remove('text-gray-500', 'hover:text-gray-900');
-            } else {
-                btn.classList.remove('bg-white', 'shadow', 'text-primary');
-                btn.classList.add('text-gray-500', 'hover:text-gray-900');
-            }
+            const isActive = btn.dataset.role === role;
+            btn.classList.toggle('active', isActive);
         });
         document.getElementById('regRole').value = role;
         const estExtra = document.getElementById('estudianteExtraFields');
@@ -89,7 +347,7 @@
             estExtra.classList.toggle('hidden', role !== 'estudiante');
         }
     }
-    
+
     function openRegisterModal() {
         document.getElementById('registerModal').classList.remove('hidden');
         seleccionarRolUI_Reg('estudiante');
@@ -111,7 +369,7 @@
         e.preventDefault();
         const email = document.getElementById('forgotEmail').value.trim();
         if (!email) return showToast('Ingresa tu correo.', 'error');
-        
+
         showLoader('Buscando cuenta y enviando correo...');
         google.script.run
             .withSuccessHandler(result => {
@@ -136,11 +394,11 @@
         const email = document.getElementById('authEmail').value.trim();
         const password = document.getElementById('authPassword').value;
         const role = APP.selectedRole;
-        
+
         if (!email || !password) {
             return showToast('Completa todos los campos.', 'error');
         }
-        
+
         showLoader('Verificando credenciales...');
         google.script.run
             .withSuccessHandler(result => {
@@ -166,11 +424,11 @@
         const password = document.getElementById('regPassword').value;
         const nombre = document.getElementById('regNombre').value.trim();
         const telefono = document.getElementById('regTelefono').value.trim();
-        
+
         if (!nombre || !email || !password) {
             return showToast('Completa los campos obligatorios.', 'error');
         }
-        
+
         const userData = {};
         if (role === 'estudiante') {
             userData['CorreoInstitucional'] = email;
@@ -185,27 +443,23 @@
             userData['NombreCompleto'] = nombre;
             userData['Telefono'] = telefono;
         }
-        
+
         showLoader('Creando tu cuenta...');
         google.script.run
             .withSuccessHandler(result => {
+                hideLoader();
                 if (result.success) {
+                    showToast('¡Cuenta creada! Inicia sesión.', 'success');
+                    closeRegisterModal();
+                    document.getElementById('authEmail').value = email;
+                    document.getElementById('authPassword').value = '';
                     google.script.run
-                        .withSuccessHandler(() => {
-                            hideLoader();
-                            showToast('¡Cuenta creada! Inicia sesión.', 'success');
-                            closeRegisterModal();
-                            document.getElementById('authEmail').value = email;
-                            document.getElementById('authPassword').value = '';
-                        })
+                        .withSuccessHandler(() => { })
                         .withFailureHandler(err => {
-                            hideLoader();
-                            showToast('Cuenta creada, pero error en carpetas: ' + err.message, 'error');
-                            closeRegisterModal();
+                            showToast('Error al crear carpetas: ' + err.message, 'error');
                         })
                         .inicializarCarpetasUsuario(role, email);
                 } else {
-                    hideLoader();
                     showToast(result.message, 'error');
                 }
             })
@@ -228,7 +482,7 @@
         form.method = 'GET';
         form.action = url.split('?')[0];
         form.target = '_top';
-        
+
         const params = new URLSearchParams(url.split('?')[1] || '');
         for (const [key, value] of params.entries()) {
             const input = document.createElement('input');
@@ -237,7 +491,7 @@
             input.value = value;
             form.appendChild(input);
         }
-        
+
         document.body.appendChild(form);
         form.submit();
     }
@@ -247,11 +501,11 @@
         APP.currentRole = role;
         APP.currentUser = user;
         localStorage.setItem('user', JSON.stringify(user));
-        
-        let page = role === 'estudiante' ? 'HomeEstudiante' : role === 'arrendador' ? 'DashboardArrendador' : 'Administrador';
+
+        let page = role === 'estudiante' ? 'Estudiante' : role === 'arrendador' ? 'Arrendador' : 'Administrador';
         try {
             redirectTop(SCRIPT_URL + '?page=' + page);
-        } catch(e) {
+        } catch (e) {
             window.location.href = SCRIPT_URL + '?page=' + page;
         }
     }
@@ -260,7 +514,7 @@
         localStorage.removeItem('user');
         try {
             redirectTop(SCRIPT_URL + '?page=Login');
-        } catch(e) {
+        } catch (e) {
             window.location.href = SCRIPT_URL + '?page=Login';
         }
     }
@@ -277,7 +531,7 @@
                     const canvas = document.createElement('canvas');
                     let width = img.width;
                     let height = img.height;
-                    
+
                     if (width > maxWidth) {
                         height = Math.round((height * maxWidth) / width);
                         width = maxWidth;
@@ -286,17 +540,17 @@
                         width = Math.round((width * maxWidth) / height);
                         height = maxWidth;
                     }
-                    
+
                     canvas.width = width;
                     canvas.height = height;
                     const ctx = canvas.getContext('2d');
                     ctx.imageSmoothingEnabled = true;
                     ctx.imageSmoothingQuality = 'high';
                     ctx.drawImage(img, 0, 0, width, height);
-                    
+
                     const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
                     const compressedSize = Math.round((compressedBase64.length * 3) / 4);
-                    
+
                     resolve({
                         base64: compressedBase64,
                         originalSize: file.size,
@@ -315,19 +569,13 @@
         });
     }
 
-    function formatBytes(bytes) {
-        if (bytes < 1024) return bytes + ' B';
-        if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
-        return (bytes / 1048576).toFixed(2) + ' MB';
-    }
-
     // ============================================================
     // FILE HANDLING
     // ============================================================
     function handleFileSelect(event, tipoUsuario, categoria, subcategoria) {
         const files = Array.from(event.target.files);
         if (files.length === 0) return;
-        
+
         const file = files[0];
         const ext = file.name.split('.').pop().toLowerCase();
         if (!['jpg', 'jpeg', 'png'].includes(ext)) {
@@ -335,13 +583,13 @@
             event.target.value = '';
             return;
         }
-        
+
         if (file.size > 15 * 1024 * 1024) {
             showToast('El archivo es demasiado grande (máx. 15MB).', 'error');
             event.target.value = '';
             return;
         }
-        
+
         showLoader('Comprimiendo...');
         compressImage(file)
             .then(result => {
@@ -349,7 +597,7 @@
                 const prefix = tipoUsuario === 'estudiante' ? 'est' : 'arr';
                 const key = subcategoria || categoria;
                 const progressEl = document.getElementById(`progress-${prefix}-${key}`);
-                
+
                 const datos = {
                     base64: result.base64,
                     nombreArchivo: result.fileName,
@@ -359,24 +607,34 @@
                     categoria: categoria,
                     subcategoria: subcategoria || null
                 };
-                
-                if(progressEl) {
+
+                if (progressEl) {
                     progressEl.classList.remove('hidden');
                     progressEl.querySelector('div').style.width = '50%';
                 }
-                
+
                 google.script.run
                     .withSuccessHandler(res => {
-                        if(progressEl) progressEl.classList.add('hidden');
-                        if(res.success) {
+                        if (progressEl) progressEl.classList.add('hidden');
+                        if (res.success) {
                             showToast(res.message, 'success');
-                            cargarImagenesExistentes(); // Recargar todo visualmente
+
+                            // Guardar URL en Google Sheets según la categoría
+                            let campoDestino = null;
+                            if (categoria === 'foto_perfil') campoDestino = 'FotoPerfil';
+                            else if (categoria === 'carne_verificacion' || categoria === 'dni' || categoria === 'datos_personales') campoDestino = 'DocumentoVerificacion';
+
+                            if (campoDestino && res.url) {
+                                google.script.run.actualizarCampoUsuario(tipoUsuario, APP.currentEmail, campoDestino, res.url);
+                            }
+
+                            cargarImagenesExistentes();
                         } else {
                             showToast(res.message, 'error');
                         }
                     })
                     .subirImagen(datos);
-                
+
                 event.target.value = '';
             })
             .catch(err => {
@@ -387,8 +645,8 @@
     }
 
     function cargarImagenesExistentes() {
-        if(!APP.currentRole || !APP.currentEmail) return;
-        
+        if (!APP.currentRole || !APP.currentEmail) return;
+
         google.script.run
             .withSuccessHandler(result => {
                 if (result.success) {
@@ -413,19 +671,19 @@
     function renderSingleImage(prefix, key, images) {
         const container = document.getElementById(`current-${prefix}-${key}`);
         if (!container) return;
-        
+
         if (!images || images.length === 0) {
             container.innerHTML = ``;
             return;
         }
-        
+
         const img = images[0];
         container.innerHTML = `
-            <div class="relative group rounded-xl overflow-hidden shadow-sm border border-gray-100">
+            <div class="relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
                 <img src="${img.thumbnailUrl || img.url}" alt="${img.nombre}" class="w-full h-32 object-cover">
-                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                    <button class="bg-white/20 hover:bg-white/40 p-2 rounded-full text-white" onclick="window.open('${img.url}', '_blank')"><span class="material-icons-round text-sm">open_in_new</span></button>
-                    <button class="bg-red-500/80 hover:bg-red-500 p-2 rounded-full text-white" onclick="eliminarImagenUI('${img.id}', '${img.nombre}')"><span class="material-icons-round text-sm">delete</span></button>
+                <div class="absolute inset-0 bg-charcoal/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button class="bg-white/20 hover:bg-white/40 p-2 rounded-full text-white" onclick="window.open('${img.url}', '_blank')"><span class="material-symbols-outlined text-sm">open_in_new</span></button>
+                    <button class="bg-secondary/80 hover:bg-secondary p-2 rounded-full text-white" onclick="eliminarImagenUI('${img.id}', '${img.nombre}')"><span class="material-symbols-outlined text-sm">delete</span></button>
                 </div>
             </div>
         `;
@@ -434,31 +692,36 @@
     function renderGallery(prefix, key, images) {
         const container = document.getElementById(`current-${prefix}-${key}`);
         if (!container) return;
-        
+
         container.innerHTML = images.map(img => `
-            <div class="relative group rounded-xl overflow-hidden shadow-sm border border-gray-100">
+            <div class="relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
                 <img src="${img.thumbnailUrl || img.url}" alt="${img.nombre}" class="w-full h-32 object-cover">
-                <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                    <button class="bg-red-500/80 hover:bg-red-500 p-2 rounded-full text-white" onclick="eliminarImagenUI('${img.id}', '${img.nombre}')"><span class="material-icons-round text-sm">delete</span></button>
+                <div class="absolute inset-0 bg-charcoal/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button class="bg-secondary/80 hover:bg-secondary p-2 rounded-full text-white" onclick="eliminarImagenUI('${img.id}', '${img.nombre}')"><span class="material-symbols-outlined text-sm">delete</span></button>
                 </div>
             </div>
         `).join('');
     }
 
     function eliminarImagenUI(fileId, nombre) {
-        if(confirm(`¿Eliminar la imagen "${nombre}"? Esta acción es irreversible.`)) {
-            showLoader('Eliminando imagen...');
-            google.script.run
-                .withSuccessHandler(result => {
-                    hideLoader();
-                    if (result.success) {
-                        showToast('Imagen eliminada.', 'success');
-                        cargarImagenesExistentes();
-                    } else {
-                        showToast(result.message, 'error');
-                    }
-                })
-                .eliminarImagen(fileId);
-        }
+        showConfirmModal(
+            'Eliminar imagen',
+            `¿Eliminar la imagen "${nombre}"? Esta acción es irreversible.`,
+            function () {
+                showLoader('Eliminando imagen...');
+                google.script.run
+                    .withSuccessHandler(result => {
+                        hideLoader();
+                        if (result.success) {
+                            showToast('Imagen eliminada.', 'success');
+                            cargarImagenesExistentes();
+                        } else {
+                            showToast(result.message, 'error');
+                        }
+                    })
+                    .eliminarImagen(fileId);
+            },
+            { danger: true, okLabel: 'Eliminar' }
+        );
     }
 </script>
