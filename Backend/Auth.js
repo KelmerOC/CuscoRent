@@ -160,3 +160,32 @@ function actualizarPerfilArrendador(datos) {
     }
     return { success: false, message: 'Arrendador no encontrado.' };
 }
+
+function actualizarCampoUsuario(tipoUsuario, emailUsuario, campo, valor) {
+    const sheetName = tipoUsuario === 'estudiante' ? 'Estudiantes' : 'Arrendadores';
+    const emailKey = tipoUsuario === 'estudiante' ? 'CorreoInstitucional' : 'Email';
+
+    try {
+        const sheet = getSpreadsheet().getSheetByName(sheetName);
+        if (!sheet) return { success: false, message: 'Hoja ' + sheetName + ' no encontrada.' };
+
+        const rows = sheet.getDataRange().getValues();
+        const headers = rows[0];
+        const colEmail = headers.indexOf(emailKey);
+        const colCampo = headers.indexOf(campo);
+
+        if (colEmail === -1) return { success: false, message: 'Columna ' + emailKey + ' no encontrada.' };
+        if (colCampo === -1) return { success: false, message: 'Columna ' + campo + ' no encontrada.' };
+
+        for (let i = 1; i < rows.length; i++) {
+            if (String(rows[i][colEmail]).trim().toLowerCase() === String(emailUsuario).trim().toLowerCase()) {
+                sheet.getRange(i + 1, colCampo + 1).setValue(valor);
+                return { success: true, message: 'Campo ' + campo + ' actualizado correctamente.' };
+            }
+        }
+        return { success: false, message: 'Usuario no encontrado.' };
+    } catch(e) {
+        Logger.log('Error en actualizarCampoUsuario: ' + e.message);
+        return { success: false, message: 'Error del servidor: ' + e.message };
+    }
+}

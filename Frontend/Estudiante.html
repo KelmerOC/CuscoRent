@@ -28,19 +28,7 @@
             <span><span class="text-on-surface">Cusco</span><span class="text-primary">Rent</span></span>
         </a>
 
-        <div class="hidden md:flex flex-1 max-w-sm mx-6">
-            <div class="hero-search w-full transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/40 focus-within:shadow-md hover:shadow-sm"
-                style="padding: 2px 4px;">
-                <input type="text" class="search-field text-sm bg-transparent" style="padding: 10px 14px;"
-                    placeholder="Buscar habitaciones..." id="heroSearchInput" onkeyup="handleHeroSearch(event)"
-                    aria-label="Buscar habitaciones" />
-                <button
-                    class="hero-search-button hover:bg-surface-container-high transition-colors duration-200 rounded-full"
-                    onclick="toggleFiltros()" style="padding: 8px 14px;" aria-label="Abrir filtros">
-                    <span class="material-symbols-outlined text-[18px]">tune</span>
-                </button>
-            </div>
-        </div>
+        <div class="flex-1"></div>
 
         <nav class="top-header-nav hidden md:flex gap-6" role="tablist" aria-label="Sección principal">
             <a onclick="switchMainTab('buscar')" id="tabBtn-buscar" role="tab" aria-selected="true"
@@ -107,8 +95,21 @@
     <main id="main-content">
 
         <div id="seccion-buscar" class="transition-opacity duration-500 ease-out">
-            <div
-                class="hero-gradient px-6 py-8 md:py-12 relative overflow-hidden bg-surface-container-high shadow-inner">
+            <div class="px-6 py-8 md:py-12 relative overflow-hidden shadow-inner">
+
+                <div class="hero-slider-bg">
+                    <div class="slide"
+                        style="background-image: url('https://hotelrhousecuscoperu.com/wp-content/uploads/2025/07/Cusco-Hab-panoramica-.webp')">
+                    </div>
+                    <div class="slide"
+                        style="background-image: url('https://inkarricusco.com/wp-content/uploads/2023/11/ik-Standard-Matrimonial-Room-7.jpg')">
+                    </div>
+                    <div class="slide"
+                        style="background-image: url('https://img.freepik.com/fotos-premium/vista-lateral-interior-loft-habitacion-amueblar-piso-madera-paredes-blancas-luz-natural-brillante_97694-713.jpg?semt=ais_hybrid&w=740&q=80')">
+                    </div>
+                </div>
+                <div class="hero-slider-overlay"></div>
+
                 <div class="relative z-10 max-w-4xl mx-auto">
                     <div class="mb-8 transform transition-all duration-700 translate-y-0">
                         <h1 class="text-3xl md:text-5xl font-extrabold text-charcoal font-serif mb-2 tracking-tight">
@@ -117,15 +118,20 @@
                             Cusco</p>
                     </div>
 
-                    <div
-                        class="md:hidden hero-search max-w-lg mb-6 shadow-md focus-within:shadow-lg transition-shadow duration-300">
-                        <input type="text" class="search-field bg-transparent"
-                            placeholder="Distrito, tipo de habitación..." id="heroSearchInputMobile"
-                            onkeyup="handleHeroSearch(event)" aria-label="Buscar habitaciones" />
-                        <button class="hero-search-button hover:bg-surface-container-high transition-colors"
-                            onclick="toggleFiltros()" aria-label="Filtros">
-                            <span class="material-symbols-outlined">tune</span>
-                        </button>
+                    <div class="w-full max-w-2xl mb-8 relative z-20">
+                        <div
+                            class="hero-search shadow-[0_8px_30px_rgb(0,0,0,0.12)] focus-within:shadow-[0_8px_40px_rgb(137,81,0,0.15)] transition-all duration-300 bg-white/95 backdrop-blur-md border border-white/20 p-2">
+                            <span class="material-symbols-outlined text-gray-400 ml-4">search</span>
+                            <input type="text" class="hero-search-input font-medium"
+                                placeholder="Distrito, dirección o tipo..." id="heroSearchInputMobile"
+                                onkeyup="handleHeroSearch(event)" aria-label="Buscar habitaciones" />
+                            <button
+                                class="btn btn-primary px-6 py-3 shadow-md hover:-translate-y-0.5 active:scale-95 transition-transform"
+                                onclick="toggleFiltros()" aria-label="Filtros">
+                                <span class="material-symbols-outlined mr-2">tune</span>
+                                <span class="hidden sm:inline">Filtros</span>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="flex gap-2 flex-wrap">
@@ -181,16 +187,11 @@
                     class="fixed bottom-8 right-8 z-40 w-16 h-16 sm:w-20 sm:h-20 bg-white rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] overflow-hidden border-4 border-white cursor-pointer transition-all duration-500 ease-in-out hover:w-[320px] hover:h-[450px] hover:rounded-3xl sm:hover:w-[450px] sm:hover:h-[550px] group flex items-center justify-center hover:shadow-[0_20px_40px_rgb(0,0,0,0.2)]">
                     <span
                         class="material-symbols-outlined text-primary text-3xl group-hover:hidden absolute z-10 transition-all duration-300 group-hover:scale-0">map</span>
-                    <iframe
-                        id="mapEmbed"
+                    <iframe id="mapEmbed"
                         class="w-full h-full opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none group-hover:pointer-events-auto absolute inset-0 z-0"
-                        style="border:0;"
-                        loading="lazy"
-                        allowfullscreen
-                        referrerpolicy="no-referrer-when-downgrade"
+                        style="border:0;" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
                         src="https://maps.google.com/maps?q=Cusco,Peru&t=&z=14&ie=UTF8&iwloc=&output=embed"
-                        title="Mapa de Cusco"
-                    ></iframe>
+                        title="Mapa de Cusco"></iframe>
                 </div>
             </div>
         </div>
@@ -280,11 +281,14 @@
 
     </main>
 
-    <div id="drawer-backdrop" class="drawer-backdrop hidden transition-opacity duration-300 opacity-0" onclick="toggleFiltros()">
+    <div id="drawer-backdrop" class="drawer-backdrop hidden transition-opacity duration-300 opacity-0"
+        onclick="toggleFiltros()">
     </div>
-    <div id="filtros-drawer" class="fixed top-[5vh] md:top-[10vh] left-0 right-0 mx-auto w-[95%] md:w-[800px] h-[90vh] md:h-[80vh] bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.2)] border border-gray-100 hidden z-50 transform transition-all duration-300 opacity-0 scale-95 translate-y-[-10px] flex flex-col">
-        
-        <div class="drawer-header border-b border-outline-variant p-6 bg-white z-20 rounded-t-[40px] shrink-0 flex justify-between items-center relative">
+    <div id="filtros-drawer"
+        class="fixed top-[5vh] md:top-[10vh] left-0 right-0 mx-auto w-[95%] md:w-[800px] h-[90vh] md:h-[80vh] bg-white rounded-[40px] shadow-[0_20px_60px_rgba(0,0,0,0.2)] border border-gray-100 hidden z-50 transform transition-all duration-300 opacity-0 scale-95 translate-y-[-10px] flex flex-col">
+
+        <div
+            class="drawer-header border-b border-outline-variant p-6 bg-white z-20 rounded-t-[40px] shrink-0 flex justify-between items-center relative">
             <h2 class="text-xl font-bold text-gray-900 font-serif">Filtros</h2>
             <button onclick="toggleFiltros()"
                 class="hover:bg-surface-container rounded-full p-2 transition-colors duration-200">
@@ -296,86 +300,95 @@
             <div class="space-y-8">
                 <div>
                     <div class="flex justify-between mb-4">
-                        <h3 class="text-sm font-semibold text-gray-900 uppercase tracking-wider">Precio Máximo</h3>
-                        <span id="precioMaxLabel"
-                            class="text-sm font-bold text-primary bg-primary/10 px-3 py-1 rounded-full">S/ 2000</span>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest">Presupuesto Mensual</h3>
+                        <span id="precioMaxLabel" class="text-sm font-black text-primary tabular-nums">S/ 2000</span>
                     </div>
                     <input type="range" id="filtroPrecio" min="100" max="2000" step="50" value="2000"
                         class="w-full accent-primary cursor-pointer" oninput="updatePriceLabel(this.value)">
-                    <div class="flex justify-between mt-2 text-xs font-semibold text-gray-400">
-                        <span>S/ 100</span>
-                        <span>S/ 2000+</span>
-                    </div>
                 </div>
 
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">Tipo de habitación</h3>
-                    <div class="flex flex-col gap-2">
-                        <label
-                            class="flex items-center gap-3 cursor-pointer p-3 border border-transparent hover:border-outline-variant hover:bg-surface-container-low rounded-xl transition-all">
-                            <input type="radio" name="filtroTipo" value="Todos"
-                                class="w-5 h-5 text-primary focus:ring-primary" checked>
-                            <span class="font-medium text-gray-700">Cualquier tipo</span>
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Tipo</h3>
+                    <div class="flex gap-3 flex-wrap">
+                        <label class="cursor-pointer group">
+                            <input type="radio" name="filtroTipo" value="Todos" class="hidden peer" checked>
+                            <span
+                                class="px-5 py-2.5 rounded-full border border-gray-200 text-sm font-medium text-gray-600 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all shadow-sm group-hover:border-primary">Cualquiera</span>
                         </label>
-                        <label
-                            class="flex items-center gap-3 cursor-pointer p-3 border border-transparent hover:border-outline-variant hover:bg-surface-container-low rounded-xl transition-all">
-                            <input type="radio" name="filtroTipo" value="Individual"
-                                class="w-5 h-5 text-primary focus:ring-primary">
-                            <span class="font-medium text-gray-700">Individual</span>
+                        <label class="cursor-pointer group">
+                            <input type="radio" name="filtroTipo" value="Individual" class="hidden peer">
+                            <span
+                                class="px-5 py-2.5 rounded-full border border-gray-200 text-sm font-medium text-gray-600 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all shadow-sm group-hover:border-primary">Individual</span>
                         </label>
-                        <label
-                            class="flex items-center gap-3 cursor-pointer p-3 border border-transparent hover:border-outline-variant hover:bg-surface-container-low rounded-xl transition-all">
-                            <input type="radio" name="filtroTipo" value="Compartida"
-                                class="w-5 h-5 text-primary focus:ring-primary">
-                            <span class="font-medium text-gray-700">Compartida</span>
+                        <label class="cursor-pointer group">
+                            <input type="radio" name="filtroTipo" value="Compartida" class="hidden peer">
+                            <span
+                                class="px-5 py-2.5 rounded-full border border-gray-200 text-sm font-medium text-gray-600 peer-checked:bg-primary peer-checked:text-white peer-checked:border-primary transition-all shadow-sm group-hover:border-primary">Compartida</span>
                         </label>
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">Servicios incluidos</h3>
-                    <div class="grid grid-cols-2 gap-3">
-                        <label
-                            class="flex items-center gap-2 cursor-pointer p-3 border border-gray-100 bg-gray-50 hover:border-primary/30 hover:bg-primary/5 rounded-xl transition-all">
-                            <input type="checkbox" class="w-4 h-4 text-primary focus:ring-primary rounded" value="Wi-Fi">
-                            <span class="text-sm font-medium text-gray-700">Wi-Fi</span>
+                    <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Servicios</h3>
+                    <div class="flex gap-3 flex-wrap">
+                        <label class="cursor-pointer group">
+                            <input type="checkbox" class="hidden peer" value="Wi-Fi">
+                            <span
+                                class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary transition-all"><span
+                                    class="material-symbols-outlined text-[18px]">wifi</span> Wi-Fi</span>
                         </label>
-                        <label
-                            class="flex items-center gap-2 cursor-pointer p-3 border border-gray-100 bg-gray-50 hover:border-primary/30 hover:bg-primary/5 rounded-xl transition-all">
-                            <input type="checkbox" class="w-4 h-4 text-primary focus:ring-primary rounded"
-                                value="Baño Privado">
-                            <span class="text-sm font-medium text-gray-700">Baño Privado</span>
+                        <label class="cursor-pointer group">
+                            <input type="checkbox" class="hidden peer" value="Baño Privado">
+                            <span
+                                class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary transition-all"><span
+                                    class="material-symbols-outlined text-[18px]">bathtub</span> Baño Privado</span>
                         </label>
-                        <label
-                            class="flex items-center gap-2 cursor-pointer p-3 border border-gray-100 bg-gray-50 hover:border-primary/30 hover:bg-primary/5 rounded-xl transition-all">
-                            <input type="checkbox" class="w-4 h-4 text-primary focus:ring-primary rounded"
-                                value="Lavandería">
-                            <span class="text-sm font-medium text-gray-700">Lavandería</span>
+                        <label class="cursor-pointer group">
+                            <input type="checkbox" class="hidden peer" value="Agua Caliente">
+                            <span
+                                class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary transition-all"><span
+                                    class="material-symbols-outlined text-[18px]">water_drop</span> Agua Caliente</span>
                         </label>
-                        <label
-                            class="flex items-center gap-2 cursor-pointer p-3 border border-gray-100 bg-gray-50 hover:border-primary/30 hover:bg-primary/5 rounded-xl transition-all">
-                            <input type="checkbox" class="w-4 h-4 text-primary focus:ring-primary rounded" value="Amoblado">
-                            <span class="text-sm font-medium text-gray-700">Amoblado</span>
+                        <label class="cursor-pointer group">
+                            <input type="checkbox" class="hidden peer" value="Lavandería">
+                            <span
+                                class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary transition-all"><span
+                                    class="material-symbols-outlined text-[18px]">local_laundry_service</span>
+                                Lavandería</span>
+                        </label>
+                        <label class="cursor-pointer group">
+                            <input type="checkbox" class="hidden peer" value="Cocina Compartida">
+                            <span
+                                class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary transition-all"><span
+                                    class="material-symbols-outlined text-[18px]">kitchen</span> Cocina
+                                Compartida</span>
+                        </label>
+                        <label class="cursor-pointer group">
+                            <input type="checkbox" class="hidden peer" value="Amoblado">
+                            <span
+                                class="flex items-center gap-2 px-4 py-2 rounded-xl border border-gray-200 text-sm font-medium text-gray-600 peer-checked:bg-primary/10 peer-checked:text-primary peer-checked:border-primary transition-all"><span
+                                    class="material-symbols-outlined text-[18px]">chair</span> Amoblado</span>
                         </label>
                     </div>
                 </div>
             </div>
 
             <div class="flex flex-col h-full">
-                <h3 class="text-sm font-semibold text-gray-900 mb-3 uppercase tracking-wider">Distrito</h3>
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Zona</h3>
                 <select id="filtroDistrito"
-                    class="input-field w-full bg-surface-container-low border-outline-variant rounded-xl p-3 focus:ring-2 focus:ring-primary/50 transition-shadow transition-colors"
+                    class="input-field w-full bg-white border border-gray-200 rounded-xl p-4 text-sm font-medium focus:ring-2 focus:ring-primary/30 transition-all shadow-sm"
                     onchange="updateFilterMap()">
-                    <option value="">Cualquier Distrito</option>
+                    <option value="">Selecciona distrito...</option>
                     <option value="Wanchaq">Wanchaq</option>
                     <option value="San Jerónimo">San Jerónimo</option>
                     <option value="San Sebastián">San Sebastián</option>
                     <option value="Cusco Cercado">Cusco Cercado</option>
                     <option value="Santiago">Santiago</option>
                 </select>
-                <div class="w-full flex-grow min-h-[300px] bg-gray-100 rounded-2xl overflow-hidden border border-gray-200 relative mt-4">
-                    <iframe id="filterMapPreview" class="absolute inset-0 w-full h-full" style="border:0;" loading="lazy"
-                        allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+                <div
+                    class="w-full flex-grow min-h-[300px] bg-gray-100 rounded-2xl overflow-hidden border border-gray-200 relative mt-4">
+                    <iframe id="filterMapPreview" class="absolute inset-0 w-full h-full" style="border:0;"
+                        loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"
                         src="https://maps.google.com/maps?q=Cusco,Peru&t=&z=13&ie=UTF8&iwloc=&output=embed">
                     </iframe>
                 </div>
@@ -441,7 +454,8 @@
                     <div
                         class="bg-white border border-outline-variant shadow-[0_12px_40px_rgba(0,0,0,0.08)] rounded-[32px] p-8 sticky top-28 transition-all hover:shadow-[0_16px_50px_rgba(0,0,0,0.12)]">
                         <div class="flex items-end gap-2 mb-8 pb-8 border-b border-gray-100">
-                            <span class="text-4xl font-black text-primary tracking-tight" id="detPrecio">S/ 0</span>
+                            <span class="text-4xl font-black text-primary tracking-tight tabular-nums" id="detPrecio">S/
+                                0</span>
                             <span class="text-gray-500 font-medium mb-1 text-lg">/ mes</span>
                         </div>
 
@@ -598,7 +612,7 @@
                 </div>
                 <div class="flex justify-between items-center relative z-10">
                     <span class="text-xs text-gray-500 font-bold uppercase tracking-widest">Monto Pagado</span>
-                    <span class="text-2xl font-black text-primary" id="recMonto">S/ 000</span>
+                    <span class="text-2xl font-black text-primary tabular-nums" id="recMonto">S/ 000</span>
                 </div>
                 <div class="flex justify-between items-center relative z-10 border-t border-gray-200 pt-4">
                     <span class="text-xs text-gray-500 font-bold uppercase tracking-widest">Fecha</span>
@@ -673,7 +687,7 @@
 
             // Leer parámetros de URL (Compatible con local y Google Apps Script)
             if (typeof google !== 'undefined' && google.script && google.script.url) {
-                google.script.url.getLocation(function(location) {
+                google.script.url.getLocation(function (location) {
                     const tab = location.parameter.tab;
                     if (tab) switchMainTab(tab);
 
@@ -896,9 +910,10 @@
                 return `
                 <div class="bg-white rounded-[24px] overflow-hidden border border-outline-variant shadow-sm hover:shadow-[0_12px_30px_-10px_rgba(137,81,0,0.2)] transform hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group animate-fade-in-up" style="animation-delay: ${animDelay}ms" onclick="abrirDetalles('${h.HospedajeID}')">
                     <div class="relative w-full h-52 bg-surface-container-high overflow-hidden">
-                        <div class="absolute inset-0 bg-gray-100 transition-transform duration-700 group-hover:scale-110 flex items-center justify-center">
-                            <span class="material-symbols-outlined text-5xl text-gray-300">photo_camera</span>
-                        </div>
+                        ${h.URLsImagenes
+                        ? `<img src="${h.URLsImagenes.split(',')[0].trim()}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">`
+                        : `<div class="absolute inset-0 bg-gray-100 transition-transform duration-700 group-hover:scale-110 flex items-center justify-center"><span class="material-symbols-outlined text-5xl text-gray-300">photo_camera</span></div>`
+                    }
                         <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-sm px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm transition-transform group-hover:scale-105">
                             <span class="material-symbols-outlined text-[14px] text-yellow-500 icon-filled">star</span>
                             <span class="text-xs font-black text-gray-800">${h.CalificacionPromedio || 'Nuevo'}</span>
@@ -914,7 +929,7 @@
                         </p>
                         <div class="flex items-center justify-between pt-4 border-t border-gray-100">
                             <div>
-                                <span class="text-xl font-black text-primary">S/ ${h.PrecioMensual || '0'}</span>
+                                <span class="text-xl font-black text-primary tabular-nums">S/ ${h.PrecioMensual || '0'}</span>
                                 <span class="text-xs text-gray-400 font-medium">/mes</span>
                             </div>
                             <span class="text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg ${h.TipoHabitacion === 'Individual' ? 'bg-primary/10 text-primary' : 'bg-skyblue/10 text-skyblue'}">${h.TipoHabitacion || 'Cuarto'}</span>
@@ -941,11 +956,25 @@
             if (bookingActions) bookingActions.classList.toggle('hidden', isOcupado);
             if (roomAlert) roomAlert.classList.toggle('hidden', !isOcupado);
 
-            document.getElementById('detFotosContainer').innerHTML = `
-                <div class="w-full h-80 bg-surface-container-high rounded-[32px] flex items-center justify-center border border-outline-variant transition-transform hover:scale-[1.01] duration-500">
-                    <span class="material-symbols-outlined text-5xl text-gray-400">photo_library</span>
-                </div>
-            `;
+            let fotosHtml = '';
+            if (h.URLsImagenes) {
+                const urls = h.URLsImagenes.split(',').map(u => u.trim()).filter(u => u);
+                if (urls.length > 0) {
+                    fotosHtml = `<div class="flex overflow-x-auto snap-x gap-4 pb-4">`;
+                    urls.forEach(u => {
+                        fotosHtml += `<img src="${u}" class="w-[80%] md:w-[60%] flex-shrink-0 h-80 object-cover rounded-[32px] border border-outline-variant snap-center" alt="Foto">`;
+                    });
+                    fotosHtml += `</div>`;
+                }
+            }
+            if (!fotosHtml) {
+                fotosHtml = `
+                    <div class="w-full h-80 bg-surface-container-high rounded-[32px] flex items-center justify-center border border-outline-variant transition-transform hover:scale-[1.01] duration-500">
+                        <span class="material-symbols-outlined text-5xl text-gray-400">photo_library</span>
+                    </div>
+                `;
+            }
+            document.getElementById('detFotosContainer').innerHTML = fotosHtml;
 
             const servicios = (h.Servicios || 'Cama, Armario').split(',').map(s => s.trim());
             document.getElementById('detServiciosGrid').innerHTML = servicios.map(s => `
@@ -1074,7 +1103,7 @@
                         <div class="flex justify-between items-end border-t border-gray-50 pt-5 mt-auto">
                             <div>
                                 <span class="text-xs text-gray-400 font-bold uppercase tracking-widest block mb-1">Total Pagado</span>
-                                <span class="text-2xl font-black text-primary">S/ ${r.Monto}</span>
+                                <span class="text-2xl font-black text-primary tabular-nums">S/ ${r.Monto}</span>
                             </div>
                             <div class="text-right">
                                 <span class="text-xs text-gray-400 block">${r.FechaReserva || 'Reciente'}</span>
@@ -1151,7 +1180,7 @@
             }).getRoommates();
         };
 
-        window.updateFilterMap = function() {
+        window.updateFilterMap = function () {
             const distrito = document.getElementById('filtroDistrito').value;
             let query = 'Cusco,Peru';
             if (distrito) {

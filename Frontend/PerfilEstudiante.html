@@ -12,24 +12,13 @@
 <body class="font-sans text-on-surface antialiased bg-surface pb-12">
     <!-- Navbar / Header (Igual que Estudiante.html) -->
     <header class="top-header" id="main-header" role="banner">
-        <a class="top-header-logo flex items-center gap-2 transition-transform duration-300 hover:scale-105" href="#" onclick="navigateTo('Estudiante', 'buscar'); return false;" aria-label="CuscoRent - Inicio">
+        <a class="top-header-logo flex items-center gap-2 transition-transform duration-300 hover:scale-105" href="#"
+            onclick="navigateTo('Estudiante', 'buscar'); return false;" aria-label="CuscoRent - Inicio">
             <span class="material-symbols-outlined text-[24px] icon-filled text-primary">home_work</span>
             <span><span class="text-on-surface">Cusco</span><span class="text-primary">Rent</span></span>
         </a>
 
-        <div class="hidden md:flex flex-1 max-w-sm mx-6">
-            <div class="hero-search w-full transition-all duration-300 focus-within:ring-2 focus-within:ring-primary/40 focus-within:shadow-md hover:shadow-sm"
-                style="padding: 2px 4px;">
-                <input type="text" class="search-field text-sm bg-transparent" style="padding: 10px 14px;"
-                    placeholder="Buscar habitaciones..." id="heroSearchInput" onkeyup="handleHeroSearch(event)"
-                    aria-label="Buscar habitaciones" />
-                <button
-                    class="hero-search-button hover:bg-surface-container-high transition-colors duration-200 rounded-full"
-                    onclick="navigateTo('Estudiante', 'buscar')" style="padding: 8px 14px;" aria-label="Abrir filtros">
-                    <span class="material-symbols-outlined text-[18px]">tune</span>
-                </button>
-            </div>
-        </div>
+        <div class="flex-1"></div>
 
         <nav class="top-header-nav hidden md:flex gap-6" role="tablist" aria-label="Sección principal">
             <a onclick="navigateTo('Estudiante', 'buscar')" role="tab" aria-selected="false"
@@ -47,9 +36,9 @@
                 onclick="toggleMobileMenu()" aria-label="Menú">
                 <span class="material-symbols-outlined text-on-surface-variant">menu</span>
             </button>
-            <button id="userAvatarBtn" class="avatar-btn transition-transform duration-300 hover:scale-110 bg-primary/10 ring-2 ring-primary"
-                onclick="navigateTo('PerfilEstudiante')" aria-label="Mi Perfil"
-                title="Ver mi perfil">
+            <button id="userAvatarBtn"
+                class="avatar-btn transition-transform duration-300 hover:scale-110 bg-primary/10 ring-2 ring-primary"
+                onclick="navigateTo('PerfilEstudiante')" aria-label="Mi Perfil" title="Ver mi perfil">
                 <span class="material-symbols-outlined text-primary text-[24px]">account_circle</span>
             </button>
             <button onclick="cerrarSesion()"
@@ -98,32 +87,40 @@
         <!-- Left Sidebar -->
         <aside class="w-full lg:w-96 flex flex-col gap-10">
             <!-- Profile Card -->
-            <div class="bg-white rounded-[32px] shadow-xl p-10 border border-gray-50 flex flex-col items-center text-center animate-fade-in">
+            <div
+                class="bg-white rounded-[32px] shadow-xl p-10 border border-gray-50 flex flex-col items-center text-center animate-fade-in">
                 <div class="relative mb-8">
-                    <div class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl ring-8 ring-primary/5">
-                        <div id="perfilAvatar" class="w-full h-full flex items-center justify-center bg-primary/10 text-primary font-black text-5xl">E</div>
+                    <div
+                        class="w-40 h-40 rounded-full overflow-hidden border-4 border-white shadow-2xl ring-8 ring-primary/5">
+                        <div id="perfilAvatar"
+                            class="w-full h-full flex items-center justify-center bg-primary/10 text-primary font-black text-5xl">
+                            E</div>
                     </div>
-                    <div class="absolute bottom-2 right-2 bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg border-2 border-white">
+                    <div
+                        class="absolute bottom-2 right-2 bg-primary text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg border-2 border-white">
                         <span class="material-symbols-outlined text-xl">photo_camera</span>
                     </div>
                 </div>
                 <h1 id="perfilNombreHeader" class="text-2xl font-black text-charcoal font-serif mb-2">Estudiante</h1>
                 <p class="text-gray-400 text-sm mb-6 font-medium" id="perfilEmailHeader">cargando...</p>
-                
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-sage/10 text-sage rounded-xl border border-sage/20">
+
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-sage/10 text-sage rounded-xl border border-sage/20">
                     <span class="material-symbols-outlined text-lg filled-icon">verified_user</span>
                     <span class="text-xs font-black uppercase tracking-widest">Estudiante Verificado</span>
                 </div>
 
                 <div class="mt-10 w-full pt-8 border-t border-gray-50 text-left space-y-5">
                     <div class="flex items-center gap-4 group">
-                        <div class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                             <span class="material-symbols-outlined">school</span>
                         </div>
                         <span class="text-sm font-bold text-charcoal">Universidad Continental</span>
                     </div>
                     <div class="flex items-center gap-4 group">
-                        <div class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
+                        <div
+                            class="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-gray-400 group-hover:bg-primary/10 group-hover:text-primary transition-colors">
                             <span class="material-symbols-outlined">location_on</span>
                         </div>
                         <span id="infoDistrito" class="text-sm font-bold text-charcoal">Cusco, Perú</span>
@@ -133,7 +130,9 @@
 
             <!-- Promotion Card -->
             <div class="bg-charcoal rounded-[32px] p-8 text-white relative overflow-hidden group">
-                <div class="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/40 transition-all"></div>
+                <div
+                    class="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 rounded-full blur-3xl group-hover:bg-primary/40 transition-all">
+                </div>
                 <h3 class="text-[10px] font-black uppercase tracking-[0.2em] mb-4 opacity-50">Resumen de Cuenta</h3>
                 <div class="grid grid-cols-2 gap-4 relative z-10">
                     <div class="bg-white/5 rounded-2xl p-5 border border-white/5">
@@ -152,15 +151,19 @@
         <section class="flex-1 space-y-10">
             <!-- Tabs Navigation -->
             <div class="bg-white rounded-3xl p-2 shadow-soft border border-gray-100 inline-flex">
-                <button class="doc-tab-active py-3 px-8 rounded-2xl text-sm font-bold transition-all" id="tab-my-data" onclick="switchTab('my-data')">Mis Datos</button>
-                <button class="doc-tab-inactive py-3 px-8 rounded-2xl text-sm font-bold transition-all" id="tab-rental-history" onclick="switchTab('rental-history')">Historial</button>
-                <button class="doc-tab-inactive py-3 px-8 rounded-2xl text-sm font-bold transition-all" id="tab-my-reviews" onclick="switchTab('my-reviews')">Reseñas</button>
+                <button class="doc-tab-active py-3 px-8 rounded-2xl text-sm font-bold transition-all" id="tab-my-data"
+                    onclick="switchTab('my-data')">Mis Datos</button>
+                <button class="doc-tab-inactive py-3 px-8 rounded-2xl text-sm font-bold transition-all"
+                    id="tab-rental-history" onclick="switchTab('rental-history')">Historial</button>
+                <button class="doc-tab-inactive py-3 px-8 rounded-2xl text-sm font-bold transition-all"
+                    id="tab-my-reviews" onclick="switchTab('my-reviews')">Reseñas</button>
             </div>
 
             <!-- Tab: My Data -->
             <div class="tab-content flex flex-col gap-10" id="content-my-data">
                 <div class="bg-white rounded-[32px] shadow-xl p-10 border border-gray-50">
-                    <h2 class="text-2xl font-black text-charcoal font-serif mb-10 border-b border-gray-50 pb-6">Información de Usuario</h2>
+                    <h2 class="text-2xl font-black text-charcoal font-serif mb-10 border-b border-gray-50 pb-6">
+                        Información de Usuario</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                         <div class="floating-label-group">
                             <input id="inputNombre" class="input-field" type="text" placeholder=" " />
@@ -195,17 +198,22 @@
                 </div>
 
                 <!-- Academic Verification Box -->
-                <div class="bg-sage/5 border border-sage/10 rounded-[32px] p-10 flex flex-col sm:flex-row items-center justify-between gap-8 animate-pulse">
+                <div
+                    class="bg-sage/5 border border-sage/10 rounded-[32px] p-10 flex flex-col sm:flex-row items-center justify-between gap-8 animate-pulse">
                     <div class="flex items-center gap-6 text-center sm:text-left">
-                        <div class="w-16 h-16 bg-sage/10 text-sage rounded-2xl flex items-center justify-center flex-shrink-0">
+                        <div
+                            class="w-16 h-16 bg-sage/10 text-sage rounded-2xl flex items-center justify-center flex-shrink-0">
                             <span class="material-symbols-outlined text-4xl">verified</span>
                         </div>
                         <div>
-                            <h3 class="text-lg font-black text-charcoal tracking-tight">Verificación Académica Activa</h3>
-                            <p class="text-gray-400 text-sm mt-1 leading-relaxed">Tu identidad ha sido confirmada por el sistema. Válido hasta el próximo ciclo académico.</p>
+                            <h3 class="text-lg font-black text-charcoal tracking-tight">Verificación Académica Activa
+                            </h3>
+                            <p class="text-gray-400 text-sm mt-1 leading-relaxed">Tu identidad ha sido confirmada por el
+                                sistema. Válido hasta el próximo ciclo académico.</p>
                         </div>
                     </div>
-                    <button class="btn btn-ghost btn-sm px-6 font-black uppercase tracking-widest text-[10px]">Ver Credencial</button>
+                    <button class="btn btn-ghost btn-sm px-6 font-black uppercase tracking-widest text-[10px]">Ver
+                        Credencial</button>
                 </div>
             </div>
 
@@ -216,7 +224,7 @@
                     <h3 class="text-xl font-bold text-gray-400">Sin historial registrado</h3>
                 </div>
             </div>
-            
+
             <div class="tab-content hidden" id="content-my-reviews">
                 <div class="bg-white rounded-[32px] p-12 text-center border-2 border-dashed border-gray-100">
                     <span class="material-symbols-outlined text-6xl text-gray-200 mb-4">rate_review</span>
@@ -251,28 +259,28 @@
                 if (typeof redirectTop === 'function') {
                     redirectTop(targetUrl);
                 } else {
-                    try { window.top.location.href = targetUrl; } 
-                    catch(e) { window.location.href = targetUrl; }
+                    try { window.top.location.href = targetUrl; }
+                    catch (e) { window.location.href = targetUrl; }
                 }
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            try { 
-                currentUser = JSON.parse(localStorage.getItem('user')); 
+        document.addEventListener('DOMContentLoaded', function () {
+            try {
+                currentUser = JSON.parse(localStorage.getItem('user'));
                 if (!currentUser || !currentUser.EstudianteID) {
                     window.location.href = SCRIPT_URL + '?page=Login';
                     return;
                 }
                 APP.currentUser = currentUser;
                 APP.currentRole = 'estudiante';
-                
+
                 document.getElementById('perfilNombreHeader').textContent = currentUser.NombreCompleto || 'Estudiante';
                 document.getElementById('perfilEmailHeader').textContent = currentUser.CorreoInstitucional || '';
-                
+
                 const emailDisplay = document.getElementById('userEmailDisplay');
                 if (emailDisplay) emailDisplay.textContent = currentUser.CorreoInstitucional || 'Usuario';
-                
+
                 document.getElementById('perfilAvatar').textContent = (currentUser.NombreCompleto || 'E').charAt(0).toUpperCase();
                 document.getElementById('inputNombre').value = currentUser.NombreCompleto || '';
                 document.getElementById('inputEmail').value = currentUser.CorreoInstitucional || '';
@@ -280,13 +288,13 @@
                 document.getElementById('selectBuscaRoommate').value = currentUser.BuscaRoommate || 'No';
                 document.getElementById('inputIntereses').value = currentUser.Intereses || '';
                 document.getElementById('infoDistrito').textContent = (currentUser.Distrito || 'Cusco') + ', Perú';
-                
+
                 // Get count of reservations
                 google.script.run.withSuccessHandler(res => {
                     document.getElementById('resumenReservas').textContent = res ? res.length : 0;
                 }).getReservasPorEstudiante(currentUser.EstudianteID);
 
-            } catch(e) { console.error(e); }
+            } catch (e) { console.error(e); }
         });
 
         function switchTab(tabId) {
@@ -295,7 +303,7 @@
                 b.classList.remove('doc-tab-active');
                 b.classList.add('doc-tab-inactive');
             });
-            
+
             document.getElementById('content-' + tabId).classList.remove('hidden');
             const activeBtn = document.getElementById('tab-' + tabId);
             activeBtn.classList.add('doc-tab-active');
@@ -307,7 +315,7 @@
             const telefono = document.getElementById('inputTelefono').value.trim();
             const buscaRoommate = document.getElementById('selectBuscaRoommate').value;
             const intereses = document.getElementById('inputIntereses').value.trim();
-            
+
             if (!nombre) return showToast('El nombre es obligatorio', 'error');
 
             showLoader('Actualizando perfil...');
@@ -320,7 +328,7 @@
                         APP.currentUser.BuscaRoommate = buscaRoommate;
                         APP.currentUser.Intereses = intereses;
                         localStorage.setItem('user', JSON.stringify(APP.currentUser));
-                        
+
                         document.getElementById('perfilNombreHeader').textContent = nombre;
                         document.getElementById('perfilAvatar').textContent = nombre.charAt(0).toUpperCase();
                         showToast('Perfil actualizado con éxito', 'success');
@@ -340,11 +348,11 @@
 
         function toggleMobileMenu() {
             const m = document.getElementById('mobileMenuDropdown');
-            if(m) m.classList.toggle('hidden');
+            if (m) m.classList.toggle('hidden');
         }
         function closeMobileMenu() {
             const m = document.getElementById('mobileMenuDropdown');
-            if(m) m.classList.add('hidden');
+            if (m) m.classList.add('hidden');
         }
         function handleHeroSearch(e) {
             if (e.key === 'Enter') {
