@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Perfil de Estudiante | Cusco Rent</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dadad9",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "on-tertiary-fixed": "#2c1600",
+                        "tertiary-container": "#efa655",
+                        "outline-variant": "#dac2ae",
+                        "secondary-container": "#40c2fd",
+                        "surface-card": "#ffffff",
+                        "tertiary": "#895100",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "tertiary-fixed-dim": "#ffb86c",
+                        "surface-container-low": "#f4f3f3",
+                        "secondary-fixed": "#c4e7ff",
+                        "tertiary-fixed": "#ffdcbc",
+                        "primary-fixed-dim": "#ffb86b",
+                        "on-primary-fixed-variant": "#683d00",
+                        "icon-blue": "#38BDF8",
+                        "outline-muted": "#dac2ae",
+                        "on-tertiary-container": "#683c00",
+                        "inverse-primary": "#ffb86b",
+                        "primary": "#895100",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container": "#eeeeee",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#895100",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed": "#001e2c",
+                        "surface-bg": "#f9f9f9",
+                        "secondary": "#00668a",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#2c1700",
+                        "surface": "#f9f9f9",
+                        "outline": "#877462",
+                        "surface-bright": "#f9f9f9",
+                        "surface-variant": "#e2e2e2",
+                        "inverse-surface": "#2f3131",
+                        "primary-fixed": "#ffdcbc",
+                        "on-surface-variant": "#544434",
+                        "on-secondary-container": "#004d6a",
+                        "on-surface": "#1a1c1c",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#683c00",
+                        "primary-container": "#ff9f1c",
+                        "on-tertiary-fixed-variant": "#683c00",
+                        "on-background": "#1a1c1c",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9f9",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "chassis-padding": "12px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "stack-md": "16px",
+                        "screen-margin": "20px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f9f9f9;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .tab-active {
+            @apply border-primary text-primary font-bold;
+            border-bottom-width: 2px;
+        }
+
+        .tab-inactive {
+            @apply border-transparent text-on-surface-variant hover:text-primary transition-colors;
+            border-bottom-width: 2px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #dac2ae;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface overflow-x-hidden">
+
+    <header
+        class="flex justify-between items-center px-screen-margin py-stack-sm w-full sticky top-0 z-50 bg-surface/80 backdrop-blur-md border-b border-outline-variant">
+        <div class="font-headline-md text-headline-md font-bold text-primary">Cusco Rent</div>
+        <nav class="hidden md:flex items-center gap-stack-lg">
+            <a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors"
+                href="#">Explorar</a>
+            <a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors"
+                href="#">Favoritos</a>
+            <a class="font-body-lg text-body-lg text-on-surface-variant hover:text-primary transition-colors"
+                href="#">Mensajes</a>
+            <a class="font-body-lg text-body-lg text-primary font-bold border-b-2 border-primary" href="#">Perfil</a>
+        </nav>
+        <div class="flex items-center gap-stack-sm">
+            <button
+                class="material-symbols-outlined text-primary scale-95 active:opacity-80 transition-all p-2 bg-surface-container-low rounded-full">account_circle</button>
+        </div>
+    </header>
+
+    <main
+        class="max-w-7xl mx-auto px-screen-margin py-stack-lg flex flex-col md:flex-row gap-stack-lg min-h-[calc(100vh-140px)]">
+
+        <aside class="w-full md:w-80 flex flex-col gap-stack-lg">
+
+            <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg shadow-sm">
+                <div class="flex flex-col items-center text-center">
+                    <div class="relative mb-stack-md group">
+                        <div id="perfil-avatar-contenedor"
+                            class="w-32 h-32 rounded-full overflow-hidden border-4 border-primary-container shadow-lg bg-surface-container-high">
+                        </div>
+                        <button
+                            class="absolute bottom-1 right-1 bg-primary text-on-primary rounded-full p-2 shadow-md hover:scale-105 transition-transform">
+                            <span class="material-symbols-outlined text-[18px]">edit</span>
+                        </button>
+                    </div>
+                    <h1 id="perfil-nombre" class="font-headline-md text-headline-md text-on-surface"></h1>
+
+                    <div id="badge-verificado"
+                        class="mt-stack-sm flex items-center gap-1 px-3 py-1 bg-secondary-container/20 text-secondary rounded-full border border-secondary/30 hidden">
+                        <span class="material-symbols-outlined text-[16px]"
+                            style="font-variation-settings: 'FILL' 1;">verified</span>
+                        <span class="font-label-lg text-label-lg">Estudiante Verificado</span>
+                    </div>
+
+                    <div
+                        class="mt-stack-lg w-full pt-stack-lg border-t border-outline-variant text-left flex flex-col gap-3">
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-on-surface-variant">school</span>
+                            <span id="perfil-carrera" class="font-body-md text-body-md text-on-surface-variant"></span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-on-surface-variant">calendar_month</span>
+                            <span id="perfil-fecha-registro"
+                                class="font-body-md text-body-md text-on-surface-variant"></span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="material-symbols-outlined text-on-surface-variant">location_on</span>
+                            <span id="perfil-ubicacion"
+                                class="font-body-md text-body-md text-on-surface-variant"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-primary-container text-on-primary-container rounded-lg p-stack-lg shadow-sm">
+                <h3 class="font-label-lg text-label-lg uppercase tracking-wider mb-stack-md opacity-80">Actividad de
+                    Alquiler</h3>
+                <div class="grid grid-cols-2 gap-stack-sm">
+                    <div class="bg-on-primary/10 p-3 rounded-DEFAULT">
+                        <p id="stat-reservas" class="font-headline-md text-headline-md font-bold">-</p>
+                        <p class="font-label-sm text-label-sm">Reservas</p>
+                    </div>
+                    <div class="bg-on-primary/10 p-3 rounded-DEFAULT">
+                        <p id="stat-calificacion" class="font-headline-md text-headline-md font-bold">-</p>
+                        <p class="font-label-sm text-label-sm">Calificación</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <section class="flex-1">
+
+            <div
+                class="flex items-center gap-stack-lg border-b border-outline-variant mb-stack-lg overflow-x-auto whitespace-nowrap custom-scrollbar">
+                <button class="tab-active py-4 px-2 font-body-lg text-body-lg" id="tab-my-data"
+                    onclick="switchTab('my-data')">Mis Datos</button>
+                <button class="tab-inactive py-4 px-2 font-body-lg text-body-lg" id="tab-rental-history"
+                    onclick="switchTab('rental-history')">Historial de Alquiler</button>
+                <button class="tab-inactive py-4 px-2 font-body-lg text-body-lg" id="tab-my-reviews"
+                    onclick="switchTab('my-reviews')">Mis Reseñas</button>
+            </div>
+
+            <div class="tab-content flex flex-col gap-stack-lg" id="content-my-data">
+                <div class="bg-surface-container-lowest border border-outline-variant rounded-lg p-stack-lg">
+                    <h2 class="font-headline-md text-headline-md mb-stack-lg text-primary">Información Personal</h2>
+                    <form id="form-perfil-datos">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-stack-lg">
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-lg text-label-lg text-on-surface-variant">Nombre
+                                    Completo</label>
+                                <input id="input-nombre"
+                                    class="w-full bg-surface-container-low border-outline-variant rounded-DEFAULT py-3 px-4 focus:ring-primary focus:border-primary"
+                                    type="text" value="" />
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-lg text-label-lg text-on-surface-variant">Correo
+                                    Electrónico</label>
+                                <input id="input-email"
+                                    class="w-full bg-surface-container-low border-outline-variant rounded-DEFAULT py-3 px-4 focus:ring-primary focus:border-primary"
+                                    type="email" value="" />
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-lg text-label-lg text-on-surface-variant">Teléfono</label>
+                                <input id="input-telefono"
+                                    class="w-full bg-surface-container-low border-outline-variant rounded-DEFAULT py-3 px-4 focus:ring-primary focus:border-primary"
+                                    type="tel" value="" />
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="font-label-lg text-label-lg text-on-surface-variant">Documento de
+                                    Identidad (DNI)</label>
+                                <input id="input-dni"
+                                    class="w-full bg-surface-container border-outline-variant rounded-DEFAULT py-3 px-4 opacity-70"
+                                    disabled="" type="text" value="" />
+                            </div>
+                        </div>
+                        <div class="mt-stack-lg flex justify-end">
+                            <button type="submit"
+                                class="bg-primary text-on-primary px-8 py-3 rounded-full font-label-lg text-label-lg shadow-md hover:bg-on-primary-fixed-variant transition-colors">Guardar
+                                Cambios</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div
+                    class="bg-secondary-container/10 border border-secondary-container rounded-lg p-stack-lg flex items-center justify-between">
+                    <div class="flex items-start gap-4">
+                        <div class="p-3 bg-secondary-container text-on-secondary-container rounded-full">
+                            <span class="material-symbols-outlined">verified_user</span>
+                        </div>
+                        <div>
+                            <h3 class="font-headline-md text-headline-md text-on-secondary-container">Verificación
+                                Universitaria</h3>
+                            <p id="texto-verificacion" class="font-body-md text-body-md text-on-surface-variant">
+                                Cargando estado de verificación...</p>
+                        </div>
+                    </div>
+                    <button class="text-secondary font-label-lg text-label-lg hover:underline">Ver detalles</button>
+                </div>
+            </div>
+
+            <div class="tab-content hidden flex flex-col gap-stack-md" id="content-rental-history">
+                <div id="historial-contenedor" class="space-y-stack-md">
+                </div>
+            </div>
+
+            <div class="tab-content hidden flex flex-col gap-stack-md" id="content-my-reviews">
+                <div id="resenas-contenedor" class="space-y-stack-md">
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer
+        class="w-full py-stack-lg px-screen-margin flex flex-col md:flex-row justify-between items-center gap-stack-md bg-surface-container-high border-t border-outline-variant">
+        <div class="flex flex-col items-center md:items-start">
+            <div class="font-headline-md text-headline-md text-primary">Cusco Rent</div>
+            <p class="font-body-md text-body-md text-on-surface-variant mt-2 text-center md:text-left">© 2024 Cusco
+                Rent. Vivienda estudiantil con alma andina.</p>
+        </div>
+        <div class="flex gap-stack-lg">
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-all underline"
+                href="#">Nosotros</a>
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-all underline"
+                href="#">Privacidad</a>
+            <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary-container transition-all underline"
+                href="#">Contacto</a>
+        </div>
+    </footer>
+
+    <script>
+        // Lógica de Pestañas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+
+            document.querySelectorAll('button[id^="tab-"]').forEach(btn => {
+                btn.classList.remove('tab-active');
+                btn.classList.add('tab-inactive');
+            });
+
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+
+            const activeBtn = document.getElementById('tab-' + tabId);
+            activeBtn.classList.add('tab-active');
+            activeBtn.classList.remove('tab-inactive');
+        }
+
+        // Delegación de eventos para micro-interacciones (Compatible con botones dinámicos)
+        document.addEventListener('mousedown', (e) => {
+            const button = e.target.closest('button');
+            if (button) {
+                button.classList.add('scale-95', 'opacity-80');
+            }
+        });
+        document.addEventListener('mouseup', (e) => {
+            const button = e.target.closest('button');
+            if (button) {
+                button.classList.remove('scale-95', 'opacity-80');
+            }
+        });
+        document.addEventListener('mouseleave', (e) => {
+            const button = e.target.closest('button');
+            if (button) {
+                button.classList.remove('scale-95', 'opacity-80');
+            }
+        }, true);
+    </script>
+</body>
+
+</html>

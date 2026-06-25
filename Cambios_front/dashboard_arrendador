@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Cusco Rent - Panel de Propietario</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error": "#ffffff",
+                        "surface-dim": "#dadad9",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "on-tertiary-fixed": "#2c1600",
+                        "tertiary-container": "#efa655",
+                        "outline-variant": "#dac2ae",
+                        "secondary-container": "#40c2fd",
+                        "surface-card": "#ffffff",
+                        "tertiary": "#895100",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "tertiary-fixed-dim": "#ffb86c",
+                        "surface-container-low": "#f4f3f3",
+                        "secondary-fixed": "#c4e7ff",
+                        "tertiary-fixed": "#ffdcbc",
+                        "primary-fixed-dim": "#ffb86b",
+                        "on-primary-fixed-variant": "#683d00",
+                        "icon-blue": "#38BDF8",
+                        "outline-muted": "#dac2ae",
+                        "on-tertiary-container": "#683c00",
+                        "inverse-primary": "#ffb86b",
+                        "primary": "#895100",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e2e2e2",
+                        "surface-container": "#eeeeee",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-tint": "#895100",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed": "#001e2c",
+                        "surface-bg": "#f9f9f9",
+                        "secondary": "#00668a",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-primary-fixed": "#2c1700",
+                        "surface": "#f9f9f9",
+                        "outline": "#877462",
+                        "surface-bright": "#f9f9f9",
+                        "surface-variant": "#e2e2e2",
+                        "inverse-surface": "#2f3131",
+                        "primary-fixed": "#ffdcbc",
+                        "on-surface-variant": "#544434",
+                        "on-secondary-container": "#004d6a",
+                        "on-surface": "#1a1c1c",
+                        "inverse-on-surface": "#f1f1f0",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#683c00",
+                        "primary-container": "#ff9f1c",
+                        "on-tertiary-fixed-variant": "#683c00",
+                        "on-background": "#1a1c1c",
+                        "on-tertiary": "#ffffff",
+                        "background": "#f9f9f9",
+                        "on-error-container": "#93000a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "chassis-padding": "12px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "stack-md": "16px",
+                        "screen-margin": "20px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "headline-lg": ["30px", {"lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-lg": ["14px", {"lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f9f9f9;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid #e2e2e2;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #dac2ae;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="flex min-h-screen text-on-surface">
+
+    <aside class="hidden lg:flex flex-col fixed left-0 top-0 h-full p-chassis-padding gap-stack-lg bg-surface-container-lowest border-r border-outline-variant w-64 z-40">
+        <div class="flex flex-col gap-1 px-4 py-2">
+            <h1 class="font-headline-md text-headline-md font-bold text-primary">Cusco Rent</h1>
+            <p class="font-label-sm text-label-sm text-on-surface-variant">Portal de Estudiante</p> </div>
+        
+        <nav class="flex flex-col gap-2 mt-4">
+            <a class="flex items-center gap-stack-md bg-secondary-container text-on-secondary-container rounded-DEFAULT px-4 py-3 transition-all duration-200 ease-in-out" href="#">
+                <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+                <span class="font-label-lg text-label-lg">Panel de Control</span>
+            </a>
+            <a class="flex items-center gap-stack-md text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-DEFAULT transition-all duration-200 ease-in-out" href="#">
+                <span class="material-symbols-outlined">calendar_today</span>
+                <span class="font-label-lg text-label-lg">Mis Reservas</span>
+            </a>
+            <a class="flex items-center gap-stack-md text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-DEFAULT transition-all duration-200 ease-in-out" href="#">
+                <span class="material-symbols-outlined">payments</span>
+                <span class="font-label-lg text-label-lg">Pagos</span>
+            </a>
+            <a class="flex items-center gap-stack-md text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-DEFAULT transition-all duration-200 ease-in-out" href="#">
+                <span class="material-symbols-outlined">settings</span>
+                <span class="font-label-lg text-label-lg">Configuración</span>
+            </a>
+            <a class="flex items-center gap-stack-md text-on-surface-variant px-4 py-3 hover:bg-surface-container-high rounded-DEFAULT transition-all duration-200 ease-in-out" href="#">
+                <span class="material-symbols-outlined">help</span>
+                <span class="font-label-lg text-label-lg">Ayuda</span>
+            </a>
+        </nav>
+        
+        <div class="mt-auto p-4 bg-surface-container-low rounded-DEFAULT flex flex-col gap-stack-sm">
+            <div class="flex items-center gap-3">
+                <div id="sidebar-avatar-contenedor" class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container bg-surface-container-high flex items-center justify-center">
+                    <span class="material-symbols-outlined text-on-surface-variant">person</span>
+                </div>
+                <div>
+                    <p id="sidebar-nombre" class="font-label-lg text-label-lg text-on-surface"></p>
+                    <p id="sidebar-rol" class="text-[10px] text-on-surface-variant uppercase tracking-wider"></p>
+                </div>
+            </div>
+            <button class="mt-2 w-full py-2 bg-primary text-on-primary rounded-full font-label-lg text-label-lg hover:opacity-90 transition-all active:scale-95">Ver Mapa</button>
+        </div>
+    </aside>
+
+    <main class="flex-1 ml-0 lg:ml-64 p-screen-margin min-h-screen">
+        
+        <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-stack-md mb-stack-lg">
+            <div>
+                <h2 id="header-saludo" class="font-headline-lg text-headline-lg text-primary">
+                    </h2>
+                <p id="header-resumen" class="font-body-md text-body-md text-on-surface-variant">
+                    </p>
+            </div>
+            <div class="flex items-center gap-stack-md">
+                <button class="p-2 rounded-full hover:bg-surface-container-high text-on-surface-variant transition-colors">
+                    <span class="material-symbols-outlined">notifications</span>
+                </button>
+                <div class="flex items-center gap-2 bg-surface-container-lowest border border-outline-variant rounded-full px-4 py-2">
+                    <span class="material-symbols-outlined text-primary">search</span>
+                    <input class="bg-transparent border-none focus:ring-0 text-body-md font-body-md w-48" placeholder="Buscar propiedad..." type="text"/>
+                </div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-stack-lg mb-stack-lg">
+            <div class="glass-card p-stack-md rounded-lg flex flex-col gap-2">
+                <div class="flex justify-between items-start">
+                    <div class="p-2 bg-primary-container/20 rounded-lg">
+                        <span class="material-symbols-outlined text-primary">payments</span>
+                    </div>
+                    <span id="stat-porcentaje-ingresos" class="text-secondary font-label-lg text-label-lg"></span>
+                </div>
+                <p class="font-label-lg text-label-lg text-on-surface-variant">Ingresos Totales</p>
+                <h3 id="stat-ingresos" class="font-headline-lg text-headline-lg">-</h3>
+                <p id="stat-mes-ingresos" class="text-[12px] text-on-surface-variant"></p>
+            </div>
+            
+            <div class="glass-card p-stack-md rounded-lg flex flex-col gap-2">
+                <div class="flex justify-between items-start">
+                    <div class="p-2 bg-secondary-container/20 rounded-lg">
+                        <span class="material-symbols-outlined text-secondary">bed</span>
+                    </div>
+                    <span id="stat-porcentaje-ocupacion" class="text-primary font-label-lg text-label-lg"></span>
+                </div>
+                <p class="font-label-lg text-label-lg text-on-surface-variant">Habitaciones Activas</p>
+                <h3 id="stat-ocupacion" class="font-headline-lg text-headline-lg">-</h3>
+                <div class="w-full bg-surface-container rounded-full h-1.5 overflow-hidden">
+                    <div id="stat-barra-ocupacion" class="bg-secondary h-full" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="glass-card p-stack-md rounded-lg flex flex-col gap-2">
+                <div class="flex justify-between items-start">
+                    <div class="p-2 bg-tertiary-container/20 rounded-lg">
+                        <span class="material-symbols-outlined text-tertiary">star</span>
+                    </div>
+                    <span id="stat-calificacion-numerica" class="text-tertiary font-label-lg text-label-lg"></span>
+                </div>
+                <p class="font-label-lg text-label-lg text-on-surface-variant">Calificación Global</p>
+                <h3 id="stat-calificacion-texto" class="font-headline-lg text-headline-lg">-</h3>
+                <div id="stat-calificacion-estrellas" class="flex gap-1">
+                    </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-stack-lg">
+            
+            <div class="xl:col-span-2 glass-card rounded-lg overflow-hidden flex flex-col">
+                <div class="p-stack-md border-b border-outline-variant flex justify-between items-center">
+                    <h4 class="font-headline-md text-headline-md text-on-surface">Propiedades Activas</h4>
+                    <button class="text-primary font-label-lg text-label-lg flex items-center gap-1 hover:underline">
+                        Añadir Nueva <span class

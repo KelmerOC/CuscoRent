@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Andean Modern - Mensajes</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-container": "#ff9f1c",
+                        "error": "#ba1a1a",
+                        "on-tertiary-fixed": "#2c1600",
+                        "surface-container": "#eeeeed",
+                        "tertiary-fixed-dim": "#ffb86c",
+                        "on-secondary": "#ffffff",
+                        "tertiary-container": "#efa655",
+                        "surface-tint": "#895100",
+                        "surface-dim": "#dadad9",
+                        "outline-variant": "#dac2ae",
+                        "surface": "#f9f9f9",
+                        "on-tertiary-container": "#683c00",
+                        "surface-card": "#ffffff",
+                        "on-primary-fixed": "#2c1700",
+                        "on-background": "#1a1c1c",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#544434",
+                        "on-secondary-fixed-variant": "#004c69",
+                        "on-secondary-container": "#004d6a",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-fixed": "#ffdcbc",
+                        "outline-muted": "#dac2ae",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "outline": "#877462",
+                        "inverse-on-surface": "#f1f1f0",
+                        "secondary-fixed": "#c4e7ff",
+                        "surface-container-highest": "#e2e2e2",
+                        "secondary-fixed-dim": "#7bd0ff",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb86b",
+                        "primary-fixed-dim": "#ffb86b",
+                        "secondary-container": "#40c2fd",
+                        "tertiary": "#895100",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed": "#001e2c",
+                        "icon-blue": "#38BDF8",
+                        "primary-fixed": "#ffdcbc",
+                        "background": "#f9f9f9",
+                        "on-tertiary-fixed-variant": "#683c00",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-container": "#683c00",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "primary": "#895100",
+                        "on-error": "#ffffff",
+                        "surface-container-low": "#f4f3f3",
+                        "secondary": "#00668a",
+                        "surface-bg": "#f9f9f9",
+                        "on-primary-fixed-variant": "#683d00",
+                        "on-primary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "screen-margin": "20px",
+                        "stack-sm": "8px",
+                        "stack-lg": "24px",
+                        "chassis-padding": "12px",
+                        "stack-md": "16px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"],
+                        "label-sm": ["Plus Jakarta Sans"],
+                        "label-lg": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["30px", { "lineHeight": "38px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-md": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom scrollbar for a cleaner look */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: #dac2ae;
+            border-radius: 9999px;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .icon-filled {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+
+<body class="bg-surface font-sans text-on-surface h-screen flex flex-col overflow-hidden">
+
+    <nav
+        class="sticky top-0 w-full border-b border-outline-variant shadow-sm bg-surface-container-lowest flex justify-between items-center px-screen-margin py-stack-md max-w-full mx-auto z-50 shrink-0">
+        <div class="font-headline-md text-headline-md font-bold text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined icon-filled text-primary-container">home_work</span> Andean Modern
+        </div>
+
+        <div class="hidden md:flex items-center gap-stack-lg">
+            <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 duration-150"
+                href="#">Explorar</a>
+            <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 duration-150"
+                href="#">Favoritos</a>
+            <a class="font-label-lg text-label-lg text-on-surface-variant hover:text-primary transition-colors cursor-pointer active:scale-95 duration-150"
+                href="#">Mis Reservas</a>
+            <a class="font-label-lg text-label-lg text-primary font-bold border-b-2 border-primary pb-1 cursor-pointer active:scale-95 duration-150"
+                href="#">Mensajes</a>
+        </div>
+
+        <div class="flex items-center gap-stack-md">
+            <button
+                class="text-on-surface-variant hover:bg-surface-container-low transition-all p-2 rounded-full cursor-pointer active:scale-95 duration-150 flex items-center justify-center">
+                <span class="material-symbols-outlined">notifications</span>
+            </button>
+            <button
+                class="hidden md:block font-label-lg text-label-lg bg-surface-container-highest text-on-surface px-4 py-2 rounded-full hover:bg-surface-variant transition-all cursor-pointer active:scale-95 duration-150">
+                Publicar Anuncio
+            </button>
+            <button id="nav-avatar-btn"
+                class="relative w-10 h-10 rounded-full overflow-hidden border-2 border-transparent hover:border-primary-container bg-surface-container-high transition-colors focus:outline-none flex items-center justify-center">
+                <span class="material-symbols-outlined text-on-surface-variant">person</span>
+            </button>
+        </div>
+    </nav>
+
+    <div class="flex-1 flex overflow-hidden w-full max-w-[1600px] mx-auto">
+
+        <aside
+            class="w-full md:w-[380px] bg-surface-container-lowest border-r border-outline-variant flex flex-col shrink-0 z-40">
+            <div class="p-stack-md border-b border-surface-container-high shrink-0">
+                <h1 class="font-headline-md text-headline-md text-on-surface mb-stack-md">Mensajes</h1>
+                <div class="relative w-full">
+                    <span
+                        class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                    <input id="buscador-conversaciones"
+                        class="w-full bg-surface-container-low border-none rounded-full py-3 pl-12 pr-4 font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant focus:ring-2 focus:ring-primary-container focus:outline-none transition-all"
+                        placeholder="Buscar conversaciones..." type="text" />
+                </div>
+
+                <div id="filtros-mensajes" class="flex gap-2 mt-stack-md overflow-x-auto pb-1 hide-scrollbar">
+                    <button
+                        class="font-label-sm text-label-sm bg-primary-container text-on-primary-container px-4 py-1.5 rounded-full whitespace-nowrap">Todos</button>
+                    <button
+                        class="font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-variant px-4 py-1.5 rounded-full whitespace-nowrap transition-colors">No
+                        leídos</button>
+                    <button
+                        class="font-label-sm text-label-sm bg-surface-container-high text-on-surface-variant hover:bg-surface-variant px-4 py-1.5 rounded-full whitespace-nowrap transition-colors">Propietarios</button>
+                </div>
+            </div>
+
+            <div id="lista-conversaciones" class="flex-1 overflow-y-auto">
+            </div>
+        </aside>
+
+        <main id="chat-canvas" class="hidden md:flex flex-1 flex-col bg-[#f0f2f5] relative">
+
+            <header
+                class="bg-surface-container-lowest border-b border-outline-variant px-stack-lg py-3 flex justify-between items-center shrink-0 shadow-sm z-10">
+                <div class="flex items-center gap-stack-md">
+                    <div id="chat-header-avatar"
+                        class="relative w-12 h-12 rounded-full object-cover border border-surface-container-high bg-surface-container flex items-center justify-center">
+                        <span class="material-symbols-outlined text-on-surface-variant">person</span>
+                        <div id="chat-header-online-dot"
+                            class="absolute bottom-0 right-0 w-3 h-3 bg-emerald-500 rounded-full border-2 border-surface-container-lowest hidden">
+                        </div>
+                    </div>
+                    <div>
+                        <h2 id="chat-header-nombre"
+                            class="font-headline-md text-headline-md text-on-surface flex items-center gap-2">
+                            Selecciona una conversación
+                        </h2>
+                        <p id="chat-header-estado"
+                            class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+                        </p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button
+                        class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">call</span>
+                    </button>
+                    <button
+                        class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">videocam</span>
+                    </button>
+                    <div class="w-px h-6 bg-outline-variant mx-2"></div>
+                    <button
+                        class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined">info</span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="flex-1 overflow-y-auto p-stack-lg flex flex-col gap-stack-md" id="chat-messages">
+                <div class="h-2"></div>
+            </div>
+
+            <div
+                class="bg-surface-container-lowest border-t border-outline-variant p-4 shrink-0 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-20">
+                <div class="flex items-end gap-3 max-w-4xl mx-auto">
+                    <button id="btn-adjuntar"
+                        class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary-container">
+                        <span class="material-symbols-outlined">add_circle</span>
+                    </button>
+
+                    <div
+                        class="flex-1 bg-surface-container-low rounded-xl border border-transparent focus-within:border-primary-container focus-within:bg-surface-container-lowest transition-all shadow-sm flex items-end min-h-[48px] p-1">
+                        <textarea id="chat-input"
+                            class="w-full bg-transparent border-none resize-none font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant py-3 px-4 focus:ring-0 max-h-32 overflow-y-auto leading-relaxed"
+                            placeholder="Escribe un mensaje..." rows="1" style="min-height: 40px;"></textarea>
+
+                        <div class="flex items-center pr-2 pb-1 gap-1 shrink-0">
+                            <button
+                                class="w-8 h-8 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-colors">
+                                <span class="material-symbols-outlined text-[20px]">sentiment_satisfied</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button id="btn-enviar-mensaje"
+                        class="w-12 h-12 shrink-0 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center hover:bg-tertiary-container hover:shadow-md transition-all active:scale-95 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-container shadow-sm">
+                        <span class="material-symbols-outlined icon-filled">send</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Simple auto-resize textarea (Ahora apuntando por ID)
+        const chatInput = document.getElementById('chat-input');
+        if (chatInput) {
+            chatInput.addEventListener('input', function () {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        }
+
+        // Delegación de eventos para micro-interacciones de botones
+        document.addEventListener('mousedown', (e) => {
+            const button = e.target.closest('button');
+            if (button) {
+                button.classList.add('scale-95', 'opacity-80');
+            }
+        });
+        document.addEventListener('mouseup', (e) => {
+            const button = e.target.closest('button');
+            if (button) {
+                button.classList.remove('scale-95', 'opacity-80');
+            }
+        });
+        document.addEventListener('mouseleave', (e) => {
+            const button = e.target.closest('button');
+            if (button) {
+                button.classList.remove('scale-95', 'opacity-80');
+            }
+        }, true);
+
+        // Nota para el Backend: 
+        // Ejecutar esta línea DESPUÉS de inyectar mensajes dinámicamente para hacer scroll hacia abajo:
+        // const chatMessages = document.getElementById('chat-messages');
+        // if(chatMessages) chatMessages.scrollTop = chatMessages.scrollHeight;
+    </script>
+</body>
+
+</html>
