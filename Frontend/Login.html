@@ -82,39 +82,49 @@
                 </div>
 
                 <!-- Login Form -->
-                <form id="loginForm" onsubmit="handleLogin(event)" class="flex flex-col gap-5">
+                <form id="loginForm" onsubmit="handleLogin(event)" class="flex flex-col gap-6">
+                    
                     <!-- Email Input -->
-                    <div class="floating-label-group">
-                        <input class="input-field bg-gray-50/50 border-gray-200 focus:bg-white" id="authEmail" name="email" placeholder=" " required type="email" />
-                        <label for="authEmail">Correo electrónico</label>
-                        <span class="input-icon material-symbols-outlined" style="top: 28px;">mail</span>
+                    <div class="space-y-1.5">
+                        <label for="authEmail" class="block text-[13px] font-bold text-charcoal tracking-wide">Correo electrónico</label>
+                        <div class="relative group">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 group-focus-within:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-[20px]">mail</span>
+                            </span>
+                            <input id="authEmail" name="email" type="email" required
+                                class="w-full bg-gray-50/50 border border-gray-200/80 rounded-xl pl-11 pr-4 py-3.5 text-[15px] font-medium text-charcoal placeholder-gray-400 focus:bg-white focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all shadow-sm"
+                                placeholder="ejemplo@universidad.edu.pe" />
+                        </div>
                     </div>
 
                     <!-- Password Input -->
-                    <div class="floating-label-group">
-                        <input class="input-field bg-gray-50/50 border-gray-200 focus:bg-white pr-12" id="authPassword" name="password" placeholder=" " required
-                            type="password" />
-                        <label for="authPassword">Contraseña</label>
-                        <span class="input-icon material-symbols-outlined" style="top: 28px;">lock</span>
-                        <button class="input-toggle text-gray-400 hover:text-charcoal transition-colors" type="button" style="top: 32px; right: 10px;"
-                            onclick="togglePasswordVisibility('authPassword', 'passwordToggleIcon')">
-                            <span class="material-symbols-outlined" id="passwordToggleIcon">visibility_off</span>
-                        </button>
-                    </div>
-
-                    <!-- Forgot Password -->
-                    <div class="flex items-center justify-end">
-                        <button type="button"
-                            class="text-[11px] font-bold text-primary uppercase tracking-widest hover:text-primary-dark transition-colors"
-                            onclick="openForgotModal()">
-                            ¿Olvidaste tu contraseña?
-                        </button>
+                    <div class="space-y-1.5">
+                        <div class="flex items-center justify-between">
+                            <label for="authPassword" class="block text-[13px] font-bold text-charcoal tracking-wide">Contraseña</label>
+                            <button type="button" class="text-[12px] font-semibold text-primary hover:text-primary-dark hover:underline underline-offset-4 transition-all" onclick="openForgotModal()">
+                                ¿Olvidaste tu clave?
+                            </button>
+                        </div>
+                        <div class="relative group">
+                            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400 group-focus-within:text-primary transition-colors">
+                                <span class="material-symbols-outlined text-[20px]">lock</span>
+                            </span>
+                            <input id="authPassword" name="password" type="password" required
+                                class="w-full bg-gray-50/50 border border-gray-200/80 rounded-xl pl-11 pr-12 py-3.5 text-[15px] font-medium text-charcoal placeholder-gray-400 focus:bg-white focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all shadow-sm"
+                                placeholder="••••••••" />
+                            <button class="absolute inset-y-0 right-0 flex items-center pr-4 text-gray-400 hover:text-charcoal transition-colors focus:outline-none" type="button" onclick="togglePasswordVisibility('authPassword', 'passwordToggleIcon')">
+                                <span class="material-symbols-outlined text-[20px]" id="passwordToggleIcon">visibility_off</span>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Submit Button -->
-                    <button class="btn btn-primary btn-full btn-lg group mt-2 shadow-[0_4px_14px_rgba(137,81,0,0.25)] hover:shadow-[0_6px_20px_rgba(137,81,0,0.3)] transition-all" type="submit">
-                        <span class="font-semibold text-[15px]">Acceder ahora</span>
-                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                    <button class="w-full mt-4 bg-primary text-white font-bold text-[15px] py-4 rounded-xl shadow-[0_8px_20px_rgba(137,81,0,0.15)] hover:shadow-[0_12px_24px_rgba(137,81,0,0.25)] hover:-translate-y-0.5 hover:bg-primary-dark transition-all flex items-center justify-center gap-2 group relative overflow-hidden" type="submit">
+                        <span class="relative z-10 flex items-center gap-2">
+                            Ingresar a mi cuenta
+                            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        </span>
+                        <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out"></div>
                     </button>
                 </form>
 
