@@ -407,13 +407,93 @@
                     </div>
                 </div>
 
-                <!-- SECCIÓN: RESERVAS, MENSAJES, RESEÑAS, DOCUMENTOS -->
-                <div id="seccion-reservas" class="hidden">
+                <!-- ======================= SECCIÓN: RESERVAS ======================= -->
+                <div id="seccion-reservas" class="hidden space-y-8">
+                    <div class="flex justify-between items-end flex-wrap gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900 font-serif">Gestión de Reservas</h1>
+                            <p class="text-gray-500 mt-1">Supervisa los contratos y pagos de tus inquilinos</p>
+                        </div>
+                    </div>
                     <div id="listaReservasArrendador" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     </div>
                 </div>
-                <div id="seccion-mensajes" class="hidden">
-                    <div id="listaMensajes" class="grid grid-cols-1 gap-6"></div>
+
+                <!-- ======================= SECCIÓN: MENSAJES ======================= -->
+                <div id="seccion-mensajes" class="hidden transition-opacity duration-500 ease-out py-4">
+                    <div class="max-w-[1400px] mx-auto w-full h-[80vh] bg-white rounded-[32px] shadow-soft border border-gray-100 flex overflow-hidden">
+                        <!-- Left Sidebar: Conversations List -->
+                        <aside class="w-full md:w-[380px] bg-white border-r border-gray-100 flex flex-col shrink-0 z-40">
+                            <!-- Sidebar Header & Search -->
+                            <div class="p-6 border-b border-gray-100 shrink-0">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h1 class="text-2xl font-bold text-charcoal font-serif">Mensajes</h1>
+                                    <button onclick="cargarMensajesArrendador()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">refresh</span>
+                                    </button>
+                                </div>
+                                <div class="relative w-full">
+                                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40">search</span>
+                                    <input class="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-12 pr-4 text-sm text-charcoal placeholder:text-charcoal/40 focus:ring-2 focus:ring-primary focus:outline-none transition-all" placeholder="Buscar conversaciones..." type="text" />
+                                </div>
+                                <!-- Filter Chips -->
+                                <div class="flex gap-2 mt-4 overflow-x-auto pb-1 hide-scrollbar">
+                                    <button class="category-chip active">Todos</button>
+                                    <button class="category-chip">No leídos</button>
+                                    <button class="category-chip">Estudiantes</button>
+                                </div>
+                            </div>
+                            <!-- Conversations List -->
+                            <div class="flex-1 overflow-y-auto" id="listaMensajes">
+                                <div class="py-12 text-center">
+                                    <div class="spinner border-primary mx-auto mb-4"></div>
+                                    <p class="text-gray-500 font-medium">Cargando...</p>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <!-- Right Main Area: Active Chat Canvas -->
+                        <main class="hidden md:flex flex-1 flex-col bg-bglite relative">
+                            <!-- Chat Header -->
+                            <header class="bg-white border-b border-gray-100 px-8 py-5 flex justify-between items-center shrink-0 shadow-sm z-10">
+                                <div class="flex items-center gap-4">
+                                    <div class="relative">
+                                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                            <span class="material-symbols-outlined text-2xl">person</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h2 class="text-lg font-bold text-charcoal flex items-center gap-2">Selecciona un chat</h2>
+                                        <p class="text-sm text-charcoal/50">Para comenzar a chatear</p>
+                                    </div>
+                                </div>
+                            </header>
+
+                            <!-- Scrollable Messages Area -->
+                            <div class="flex-1 overflow-y-auto p-8 flex flex-col gap-4">
+                                <div class="flex-1 flex flex-col items-center justify-center text-center opacity-50">
+                                    <span class="material-symbols-outlined text-7xl mb-4 text-primary">forum</span>
+                                    <h3 class="text-2xl font-bold text-charcoal mb-2">Tus Mensajes</h3>
+                                    <p class="text-charcoal/70">Selecciona una conversación a la izquierda para ver los mensajes.</p>
+                                </div>
+                            </div>
+
+                            <!-- Input Area (Disabled) -->
+                            <div class="bg-white border-t border-gray-100 p-6 shrink-0 z-20">
+                                <div class="flex items-end gap-3 max-w-4xl mx-auto opacity-50 pointer-events-none">
+                                    <button class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-charcoal/50 bg-gray-50">
+                                        <span class="material-symbols-outlined text-[22px]">add_circle</span>
+                                    </button>
+                                    <div class="flex-1 bg-gray-50 rounded-2xl border border-gray-200 flex items-end min-h-[48px] p-1">
+                                        <textarea class="w-full bg-transparent border-none resize-none text-sm text-charcoal py-3 px-4" placeholder="Escribe un mensaje..." rows="1" disabled></textarea>
+                                    </div>
+                                    <button class="w-12 h-12 shrink-0 rounded-full bg-gray-200 text-white flex items-center justify-center">
+                                        <span class="material-symbols-outlined icon-filled text-[20px]">send</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
                 </div>
                 <div id="seccion-resenas" class="hidden">
                     <div id="listaResenas" class="grid grid-cols-1 gap-6"></div>
@@ -708,6 +788,79 @@
             showLoader('Guardando...');
             google.script.run.withSuccessHandler(() => { hideLoader(); showToast('Perfil guardado', 'success'); }).actualizarPerfilArrendador({ ArrendadorID: APP.currentUser.ArrendadorID, NombreCompleto: document.getElementById('perfilNombre').value, Telefono: document.getElementById('perfilTelefono').value });
         }
+        
+        window.cargarReservasArrendador = function () {
+            const container = document.getElementById('listaReservasArrendador');
+            container.innerHTML = '<div class="col-span-full py-12 text-center"><div class="spinner border-primary mx-auto mb-4"></div><p class="text-gray-500 font-medium">Buscando reservas...</p></div>';
+            google.script.run.withSuccessHandler(res => {
+                if (!res || res.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-full py-20 flex flex-col items-center text-center bg-white rounded-[32px] border border-dashed border-gray-200">
+                            <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">book_online</span>
+                            <h3 class="text-xl font-bold text-gray-700 mb-2">No existen reservas</h3>
+                            <p class="text-gray-500">Tus habitaciones aún no tienen reservas.</p>
+                        </div>`;
+                    return;
+                }
+                container.innerHTML = res.map(r => `
+                    <div class="bg-white rounded-[24px] overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                        <div class="p-6 border-b border-gray-50 flex justify-between items-start">
+                            <div>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${r.Estado === 'Confirmada' ? 'bg-sage/10 text-sage' : 'bg-primary/10 text-primary'} mb-3 uppercase tracking-wider">${r.Estado}</span>
+                                <h3 class="font-bold text-gray-900 text-lg">${r.TituloHabitacion || r.Titulo || 'Habitación'}</h3>
+                                <p class="text-sm font-medium text-charcoal/60 mt-1 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">person</span> ${r.NombreEstudiante || r.EstudianteNombre || 'Estudiante'}
+                                </p>
+                            </div>
+                            <span class="font-mono text-sm text-gray-400 font-bold bg-gray-50 px-2 py-1 rounded-lg">${r.ReservaID}</span>
+                        </div>
+                        <div class="p-6 bg-gray-50/50">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Ingreso</span>
+                                <span class="font-black text-xl text-primary tabular-nums">S/ ${r.Monto}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Fecha</span>
+                                <span class="font-semibold text-gray-700">${r.FechaReserva}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }).getReservasPorArrendador(APP.currentUser.ArrendadorID);
+        };
+
+        window.cargarMensajesArrendador = function () {
+            const container = document.getElementById('listaMensajes');
+            if (!container) return;
+            container.innerHTML = '<div class="py-12 text-center"><div class="spinner border-primary mx-auto mb-4"></div><p class="text-gray-500 font-medium">Buscando mensajes...</p></div>';
+            google.script.run.withSuccessHandler(res => {
+                if (!res || res.length === 0) {
+                    container.innerHTML = `
+                        <div class="py-20 flex flex-col items-center text-center">
+                            <span class="material-symbols-outlined text-5xl text-gray-300 mb-4">chat_bubble</span>
+                            <h3 class="text-lg font-bold text-gray-700">Tu bandeja está vacía</h3>
+                            <p class="text-sm text-gray-400">Aún no tienes conversaciones.</p>
+                        </div>`;
+                    return;
+                }
+                container.innerHTML = res.map((m, index) => {
+                    const animDelay = Math.min(index * 100, 500);
+                    return `
+                    <div class="p-4 flex gap-3 items-center cursor-pointer border-l-4 border-transparent hover:bg-gray-50 transition-colors animate-fade-in-up" style="animation-delay: ${animDelay}ms">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary font-black text-xl shrink-0">
+                            ${(m.NombreRemitente || 'E').charAt(0).toUpperCase()}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h3 class="font-semibold text-sm text-charcoal truncate pr-2">${m.NombreRemitente || 'Estudiante'}</h3>
+                                <span class="text-[11px] text-charcoal/50 font-medium shrink-0">${m.FechaHora || 'Hace 1h'}</span>
+                            </div>
+                            <p class="text-sm text-charcoal/60 truncate">${m.Mensaje}</p>
+                        </div>
+                    </div>
+                `}).join('');
+            }).getMensajesPorUsuario(APP.currentUser.ArrendadorID);
+        };
     </script>
 
     <footer

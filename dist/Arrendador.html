@@ -1,0 +1,4173 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="CuscoRent - Panel de Arrendador. Gestiona tus habitaciones, reservas y mensajes.">
+    <title>CuscoRent — Panel Arrendador</title>
+    <style>
+   @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap');
+
+   /* ============================================================
+     SISTEMA DE DISEÑO PREMIUM — CUSCORENT
+     ============================================================ */
+
+   /* 1. CSS Custom Properties — Design Tokens */
+   :root {
+      /* Paleta Andina Premium */
+      --primary: #895100;
+      --primary-dark: #6a3d00;
+      --terracotta: #b85151;
+      --charcoal: #211f1d;
+      --bglite: #faf8f5;
+      --border-color: #e6dec9;
+      --focus-ring: #895100;
+      --sidebar: #3b2300;
+      /* Fondo andino premium para dashboards */
+
+      /* Escala neutra cálida */
+      --white: #ffffff;
+      --gray-50: #fbfbfb;
+      --gray-100: #f4f4f4;
+      --gray-200: #ebebeb;
+      --gray-300: #e6e6e6;
+      --gray-400: #9c9c9c;
+      --gray-500: #6a6a6a;
+      --gray-600: #4a4a4a;
+      --gray-700: #3a3a3a;
+      --gray-800: #2a2a2a;
+      --gray-900: #1a1a1a;
+
+      /* Tipografía Premium */
+      --font-body: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+
+      /* Border Radius */
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-2xl: 28px;
+      --radius-full: 9999px;
+
+      /* Shadows (Premium-style, más difusas y suaves) */
+      --shadow-soft: 0 4px 12px rgba(137, 81, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+      --shadow-sm: 0 8px 24px rgba(137, 81, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 12px 32px rgba(137, 81, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03);
+      --shadow-lg: 0 16px 40px rgba(137, 81, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.03);
+      --shadow-xl: 0 24px 48px rgba(137, 81, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.04);
+      --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02);
+      --shadow-card-hover: 0 20px 40px rgba(137, 81, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04);
+      --shadow-modal: 0 30px 60px rgba(0, 0, 0, 0.12);
+
+      /* Motion */
+      --transition-fast: 200ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      --transition-base: 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+      --transition-slow: 500ms cubic-bezier(0.2, 0.8, 0.2, 1);
+
+      /* Z-index layers */
+      --z-skip-link: 10000;
+      --z-toast: 10000;
+      --z-modal-backdrop: 50;
+      --z-modal: 60;
+      --z-sidebar: 40;
+      --z-header: 30;
+      --z-default: 10;
+   }
+
+   /* Base */
+   *,
+   *::before,
+   *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+   }
+
+   html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+   }
+
+   body {
+      background-color: var(--bglite);
+      font-family: var(--font-body);
+      color: var(--charcoal);
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-text-size-adjust: 100%;
+   }
+
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6,
+   .font-serif {
+      font-family: var(--font-display);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--charcoal);
+   }
+
+   /* Typography utilities */
+   .text-balance {
+      text-wrap: balance;
+   }
+
+   .text-pretty {
+      text-wrap: pretty;
+   }
+
+   .tabular-nums {
+      font-variant-numeric: tabular-nums;
+   }
+
+   /* Focus styles */
+   :focus {
+      outline: none;
+   }
+
+   :focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+   }
+
+   /* Selection */
+   ::selection {
+      background-color: rgba(137, 81, 0, 0.2);
+      color: var(--charcoal);
+   }
+
+   /* ============================================================
+     ACCESSIBILITY UTILITIES
+     ============================================================ */
+   .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: var(--white);
+      padding: 10px 20px;
+      border-radius: var(--radius-full);
+      font-weight: 600;
+      text-decoration: none;
+      z-index: var(--z-skip-link);
+      transition: all var(--transition-fast) ease;
+      text-align: center;
+      min-width: 200px;
+   }
+
+   .skip-link:focus {
+      top: 16px;
+      color: var(--white);
+   }
+
+   .visually-hidden,
+   .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+   }
+
+   /* Focus visible for all interactive elements */
+   :focus-visible {
+      outline: 2px solid var(--focus-ring);
+      outline-offset: 2px;
+   }
+
+   button:focus-visible,
+   a:focus-visible,
+   [role="button"]:focus-visible,
+   [role="tab"]:focus-visible,
+   input:focus-visible,
+   select:focus-visible,
+   textarea:focus-visible {
+      box-shadow: 0 0 0 4px rgba(137, 81, 0, 0.25);
+   }
+
+   /* Reduced motion */
+   @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+         animation-duration: 0.01ms !important;
+         animation-iteration-count: 1 !important;
+         transition-duration: 0.01ms !important;
+         scroll-behavior: auto !important;
+      }
+   }
+
+   /* High contrast mode support */
+   @media (prefers-contrast: high) {
+      :focus-visible {
+         outline: 3px solid var(--charcoal);
+         outline-offset: 2px;
+      }
+   }
+
+   /* ============================================================
+     ANIMATIONS
+     ============================================================ */
+   @keyframes spin {
+      to {
+         transform: rotate(360deg);
+      }
+   }
+
+   @keyframes fadeInUp {
+      from {
+         opacity: 0;
+         transform: translateY(16px);
+      }
+
+      to {
+         opacity: 1;
+         transform: translateY(0);
+      }
+   }
+
+   @keyframes slideUp {
+      from {
+         transform: translateY(20px);
+         opacity: 0;
+      }
+
+      to {
+         transform: translateY(0);
+         opacity: 1;
+      }
+   }
+
+   @keyframes fadeIn {
+      from {
+         opacity: 0;
+      }
+
+      to {
+         opacity: 1;
+      }
+   }
+
+   @keyframes scaleIn {
+      from {
+         opacity: 0;
+         transform: scale(0.95);
+      }
+
+      to {
+         opacity: 1;
+         transform: scale(1);
+      }
+   }
+
+   @keyframes pulse {
+
+      0%,
+      100% {
+         opacity: 1;
+      }
+
+      50% {
+         opacity: 0.5;
+      }
+   }
+
+   @keyframes skeleton-shimmer {
+      0% {
+         background-position: 200% 0;
+      }
+
+      100% {
+         background-position: -200% 0;
+      }
+   }
+
+   /* Animation utilities */
+   .animate-fade-in-up {
+      animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) both;
+   }
+
+   .animate-fade-in {
+      animation: fadeIn var(--transition-base) ease-out both;
+   }
+
+   .animate-scale-in {
+      animation: scaleIn var(--transition-base) cubic-bezier(0.4, 0, 0.2, 1) both;
+   }
+
+   .animate-pulse {
+      animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+   }
+
+   /* Skeleton loading utility */
+   .skeleton-load {
+      background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+      background-size: 200% 100%;
+      animation: skeleton-shimmer 1.5s infinite linear;
+      border-radius: var(--radius-md);
+   }
+
+   /* Staggered animations for catalog */
+   .animate-fade-in-up-1 {
+      animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+   }
+
+   .animate-fade-in-up-2 {
+      animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+   }
+
+   .animate-fade-in-up-3 {
+      animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+   }
+
+   .animate-fade-in-up-4 {
+      animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+   }
+
+   .animate-fade-in-up-5 {
+      animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+   }
+
+   .animate-fade-in-up-6 {
+      animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+   }
+
+   .animate-fade-in-up-7 {
+      animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) 0.7s both;
+   }
+
+   .animate-fade-in-up-8 {
+      animation: fadeInUp var(--transition-slow) cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+   }
+
+   /* ============================================================
+     LOADER & TOAST
+     ============================================================ */
+   #loaderOverlay,
+   #overlayLoader {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.85);
+      z-index: var(--z-toast);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+   }
+
+   #loaderOverlay:not(.hidden),
+   #overlayLoader:not(.hidden) {
+      display: flex;
+   }
+
+   .spinner {
+      width: 48px;
+      height: 48px;
+      border: 4px solid rgba(137, 81, 0, 0.2);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+   }
+
+   .spinner-sm {
+      width: 24px;
+      height: 24px;
+      border-width: 2px;
+   }
+
+   .spinner-lg {
+      width: 64px;
+      height: 64px;
+      border-width: 5px;
+   }
+
+   #toastContainer {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: var(--z-toast);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      pointer-events: none;
+      max-width: 90vw;
+      width: auto;
+   }
+
+   .toast {
+      background: var(--charcoal);
+      color: var(--white);
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      font-weight: 500;
+      font-size: 0.9rem;
+      animation: slideUp var(--transition-base) ease-out;
+      box-shadow: var(--shadow-lg);
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 280px;
+   }
+
+   .toast.success {
+      background: var(--sage);
+      color: var(--white);
+   }
+
+   .toast.error {
+      background: var(--secondary);
+      color: var(--white);
+   }
+
+   .toast.info {
+      background: var(--skyblue);
+      color: var(--white);
+   }
+
+   .toast .icon {
+      font-size: 1.1rem;
+      line-height: 1;
+   }
+
+   /* ============================================================
+     UNIFIED CARD SYSTEM (Premium-style)
+     ============================================================ */
+   .card {
+      background-color: var(--white);
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      position: relative;
+      transition: transform var(--transition-base) ease, box-shadow var(--transition-base) ease;
+      border: 1px solid var(--gray-100);
+   }
+
+   .card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card-hover);
+      border-color: var(--gray-200);
+   }
+
+   .card-accent::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--terracotta), var(--skyblue));
+      z-index: 10;
+   }
+
+   .card-stat {
+      background-color: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--gray-100);
+      transition: all var(--transition-base) ease;
+   }
+
+   .card-stat:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--primary);
+   }
+
+   /* Listing Card (Premium-style) */
+   .listing-card {
+      background: var(--white);
+      border-radius: var(--radius-2xl);
+      overflow: hidden;
+      box-shadow: none;
+      transition: all var(--transition-base) ease;
+      border: 1px solid var(--gray-100);
+      cursor: pointer;
+      position: relative;
+   }
+
+   .listing-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-card-hover);
+      border-color: var(--gray-200);
+   }
+
+   .listing-card-image {
+      position: relative;
+      aspect-ratio: 4/3;
+      overflow: hidden;
+   }
+
+   .listing-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform var(--transition-slow) ease;
+   }
+
+   .listing-card:hover .listing-card-image img {
+      transform: scale(1.05);
+   }
+
+   .listing-card-content {
+      padding: 16px;
+   }
+
+   .listing-card-rating {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(4px);
+      padding: 6px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+   }
+
+   .listing-card-rating .material-symbols-outlined {
+      font-size: 0.9rem;
+      color: var(--primary);
+   }
+
+   /* Premium Badge & Border */
+   .listing-card.premium {
+      border: 2px solid var(--premium-gold);
+   }
+
+   .badge-premium {
+      background: linear-gradient(135deg, var(--premium-gold), var(--premium-gold-dark));
+      color: var(--white);
+      box-shadow: 0 2px 8px rgba(255, 159, 28, 0.4);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+   }
+
+   .badge-premium .material-symbols-outlined {
+      font-size: 0.9rem;
+      font-variation-settings: 'FILL' 1;
+   }
+
+   /* Placeholder for listing images (Andean gradient) */
+   .listing-ph {
+      background: linear-gradient(135deg,
+            var(--terracotta) 0%,
+            var(--primary) 30%,
+            var(--sage) 60%,
+            var(--skyblue) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 3rem;
+      min-height: 200px;
+      position: relative;
+      overflow: hidden;
+   }
+
+   .listing-ph::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg,
+            transparent 40%,
+            rgba(255, 255, 255, 0.1) 50%,
+            transparent 60%);
+   }
+
+   .listing-ph .material-symbols-outlined {
+      font-size: 4rem;
+      opacity: 0.9;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+   }
+
+   /* Hero Search Bar */
+   .hero-search {
+      background: var(--white);
+      border-radius: var(--radius-full);
+      box-shadow: var(--shadow-lg);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      border: 1px solid var(--gray-200);
+      transition: all var(--transition-base) ease;
+   }
+
+   .hero-search:focus-within {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(137, 81, 0, 0.15);
+   }
+
+   .hero-search-input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 12px 16px;
+      font-size: 1rem;
+      color: var(--charcoal);
+      outline: none;
+   }
+
+   .hero-search-input::placeholder {
+      color: var(--gray-400);
+   }
+
+   .hero-search-button {
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: var(--radius-full);
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: all var(--transition-base) ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+   }
+
+   .hero-search-button:hover {
+      background: #6a3d00;
+      transform: translateX(2px);
+   }
+
+   /* Category Chips */
+   .category-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-full);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--charcoal);
+      cursor: pointer;
+      transition: all var(--transition-base) ease;
+      box-shadow: var(--shadow-soft);
+   }
+
+   .category-chip:hover {
+      border-color: var(--primary);
+      background: rgba(137, 81, 0, 0.05);
+      color: var(--primary);
+      transform: translateY(-2px);
+   }
+
+   .category-chip.active {
+      background: var(--primary);
+      color: var(--white);
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(137, 81, 0, 0.3);
+   }
+
+   .category-chip .material-symbols-outlined {
+      font-size: 1.1rem;
+   }
+
+   /* Gallery Component */
+   .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+   }
+
+   .gallery img {
+      border-radius: var(--radius-lg);
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      transition: transform var(--transition-base) ease;
+   }
+
+   .gallery img:hover {
+      transform: scale(1.02);
+   }
+
+   .gallery-main {
+      grid-column: span 2;
+      aspect-ratio: 16/9;
+   }
+
+   /* Booking Panel (Sticky) */
+   .booking-panel {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-lg);
+      padding: 20px;
+      position: sticky;
+      top: 24px;
+   }
+
+   .booking-panel-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+   }
+
+   .booking-panel-price-sub {
+      font-size: 0.9rem;
+      color: var(--gray-500);
+   }
+
+   .booking-panel-button {
+      width: 100%;
+      padding: 14px 20px;
+      border-radius: var(--radius-lg);
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all var(--transition-base) ease;
+   }
+
+   .booking-panel-button.primary {
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+   }
+
+   .booking-panel-button.primary:hover {
+      background: #6a3d00;
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+   }
+
+   .booking-panel-button.secondary {
+      background: var(--white);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+   }
+
+   .booking-panel-button.secondary:hover {
+      background: var(--primary);
+      color: var(--white);
+   }
+
+   /* Hero Gradient (Andean Sunrise) */
+   .hero-gradient {
+      background: linear-gradient(135deg,
+            var(--charcoal) 0%,
+            #3a2e28 20%,
+            var(--terracotta) 40%,
+            var(--primary) 60%,
+            var(--skyblue) 80%,
+            #a7d3ff 100%);
+      position: relative;
+      overflow: hidden;
+   }
+
+   .hero-gradient::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+      opacity: 0.3;
+   }
+
+   /* ============================================================
+     UNIFIED BUTTON SYSTEM (Premium-style pills)
+     ============================================================ */
+   .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.5rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      transition: all var(--transition-base) ease;
+      white-space: nowrap;
+      min-height: 44px;
+      min-width: 44px;
+      text-decoration: none;
+   }
+
+   .btn:hover {
+      transform: translateY(-1px);
+   }
+
+   .btn:active {
+      transform: scale(0.97);
+   }
+
+   .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+   }
+
+   /* Primary Button */
+   .btn-primary {
+      background: linear-gradient(90deg, var(--primary), var(--primary-dark));
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(137, 81, 0, 0.35);
+      border: none;
+   }
+
+   .btn-primary:hover {
+      background: linear-gradient(90deg, var(--primary-dark), #4a2d00);
+      box-shadow: 0 6px 20px rgba(137, 81, 0, 0.4);
+      transform: translateY(-2px);
+   }
+
+   /* Secondary Button */
+   .btn-secondary {
+      background-color: var(--secondary);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(184, 81, 81, 0.35);
+   }
+
+   .btn-secondary:hover {
+      background-color: #9c4444;
+      box-shadow: 0 6px 20px rgba(184, 81, 81, 0.4);
+   }
+
+   /* Ghost Button */
+   .btn-ghost {
+      background-color: transparent;
+      color: var(--charcoal);
+      border: 2px solid var(--gray-200);
+   }
+
+   .btn-ghost:hover {
+      background-color: rgba(137, 81, 0, 0.05);
+      border-color: var(--primary);
+      color: var(--primary);
+   }
+
+   /* Outline Button */
+   .btn-outline {
+      background-color: var(--white);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+   }
+
+   .btn-outline:hover {
+      background-color: var(--primary);
+      color: var(--white);
+   }
+
+   /* Danger Button */
+   .btn-danger {
+      background-color: var(--secondary);
+      color: var(--white);
+   }
+
+   .btn-danger:hover {
+      background-color: #9c4444;
+   }
+
+   /* Skyblue Button */
+   .btn-skyblue {
+      background-color: var(--skyblue);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(58, 130, 196, 0.35);
+   }
+
+   .btn-skyblue:hover {
+      background-color: #3170a8;
+      box-shadow: 0 6px 20px rgba(58, 130, 196, 0.4);
+   }
+
+   /* Sage Button */
+   .btn-sage {
+      background-color: var(--sage);
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(143, 160, 142, 0.35);
+   }
+
+   .btn-sage:hover {
+      background-color: #7a8a7c;
+   }
+
+   /* Size Variants */
+   .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.75rem;
+      min-height: 36px;
+      min-width: 36px;
+   }
+
+   .btn-lg {
+      padding: 1.25rem 2rem;
+      font-size: 1.1rem;
+      min-height: 52px;
+   }
+
+   /* Icon Button */
+   .btn-icon {
+      padding: 0.75rem;
+      min-width: auto;
+      width: 40px;
+      height: 40px;
+   }
+
+   /* Full Width Button */
+   .btn-full {
+      width: 100%;
+   }
+
+   /* Button with icon only */
+   .btn-icon-only {
+      padding: 0.875rem;
+      justify-content: center;
+   }
+
+   /* Social Buttons */
+   .btn-yape {
+      background-color: #742284;
+      color: var(--white);
+      box-shadow: 0 4px 14px rgba(116, 34, 132, 0.35);
+   }
+
+   .btn-yape:hover {
+      background-color: #5a1a66;
+      box-shadow: 0 6px 20px rgba(116, 34, 132, 0.4);
+   }
+
+   .btn-google {
+      background-color: #fff;
+      color: #757575;
+      border: 1px solid #dadce0;
+   }
+
+   .btn-google:hover {
+      background-color: #f8f9fa;
+      border-color: #4285f4;
+      color: #4285f4;
+   }
+
+   /* ============================================================
+     UNIFIED INPUT SYSTEM (Premium-style)
+     ============================================================ */
+   .input-group {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+   }
+
+   .input-group label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--charcoal);
+   }
+
+   .input-field {
+      width: 100%;
+      padding: 0.875rem 1rem;
+      padding-left: 2.75rem;
+      padding-right: 2.75rem;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      background-color: var(--gray-50);
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      transition: all var(--transition-base) ease;
+      min-height: 48px;
+   }
+
+   .input-field:focus {
+      background-color: var(--white);
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(137, 81, 0, 0.1);
+      outline: none;
+   }
+
+   .input-field::placeholder {
+      color: var(--gray-400);
+   }
+
+   .input-field:disabled {
+      background-color: var(--gray-100);
+      color: var(--gray-500);
+      cursor: not-allowed;
+   }
+
+   .input-icon {
+      position: absolute;
+      left: 0.875rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray-400);
+      pointer-events: none;
+      font-size: 1.25rem;
+      line-height: 1;
+   }
+
+   .input-toggle {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--gray-400);
+      cursor: pointer;
+      padding: 4px;
+      border-radius: 50%;
+      transition: all var(--transition-base) ease;
+      min-width: 32px;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+   }
+
+   .input-toggle:hover {
+      color: var(--primary);
+      background: rgba(137, 81, 0, 0.05);
+   }
+
+   /* Textarea */
+   textarea.input-field {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      min-height: 80px;
+      resize: vertical;
+   }
+
+   /* Select */
+   select.input-field {
+      padding-left: 1rem;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236a6a6a' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10l-5 5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.875rem center;
+      padding-right: 2.5rem;
+   }
+
+   /* Search Input (Hero) */
+   .search-field {
+      width: 100%;
+      padding: 14px 20px;
+      border: none;
+      background: transparent;
+      font-size: 1rem;
+      color: var(--charcoal);
+      outline: none;
+   }
+
+   .search-field::placeholder {
+      color: var(--gray-400);
+   }
+
+   /* Input with label floating */
+   .floating-label-group {
+      position: relative;
+      margin-top: 0.5rem;
+   }
+
+   .floating-label-group .input-field {
+      padding-top: 1.5rem;
+      padding-bottom: 0.5rem;
+   }
+
+   .floating-label-group label {
+      position: absolute;
+      top: 14px;
+      left: 1rem;
+      color: var(--gray-400);
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: all var(--transition-fast) ease;
+      background: transparent;
+      transform-origin: top left;
+   }
+
+   .floating-label-group input:focus+label,
+   .floating-label-group input:not(:placeholder-shown)+label,
+   .floating-label-group select:focus+label,
+   .floating-label-group select:not([value=""])+label,
+   .floating-label-group textarea:focus+label,
+   .floating-label-group textarea:not(:placeholder-shown)+label {
+      transform: translateY(-10px) scale(0.75);
+      color: var(--primary);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+   }
+
+   /* File Input Styling */
+   .file-input-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+   }
+
+   .file-input-wrapper input[type="file"] {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+   }
+
+   /* ============================================================
+     TAB SYSTEM (Premium-style)
+     ============================================================ */
+   .tab-active {
+      border-bottom: 2px solid var(--primary);
+      color: var(--primary);
+      font-weight: 600;
+   }
+
+   .tab-inactive {
+      border-bottom: 2px solid transparent;
+      color: var(--gray-500);
+      transition: all var(--transition-base) ease;
+   }
+
+   .tab-inactive:hover {
+      color: var(--primary);
+      border-bottom-color: rgba(137, 81, 0, 0.2);
+   }
+
+   /* Pill Tabs (for modal tabs) */
+   .pill-tab-active {
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 600;
+   }
+
+   .pill-tab-inactive {
+      background-color: transparent;
+      color: var(--gray-500);
+      font-weight: 500;
+      transition: all var(--transition-base) ease;
+   }
+
+   .pill-tab-inactive:hover {
+      background-color: var(--gray-100);
+      color: var(--charcoal);
+   }
+
+   /* Document Tabs */
+   .doc-tab-active {
+      background-color: rgba(137, 81, 0, 0.12);
+      color: var(--primary);
+      font-weight: 600;
+      border-bottom: 2px solid var(--primary);
+   }
+
+   .doc-tab-inactive {
+      color: var(--gray-500);
+      border-bottom: 2px solid transparent;
+      transition: all var(--transition-base) ease;
+   }
+
+   .doc-tab-inactive:hover {
+      background-color: var(--gray-50);
+      color: var(--primary);
+   }
+
+   /* Segmented Control (Role Selector) */
+   .segmented-control {
+      display: flex;
+      background: var(--gray-100);
+      border-radius: var(--radius-full);
+      padding: 4px;
+      border: 1px solid var(--gray-200);
+   }
+
+   .segmented-control-btn {
+      flex: 1;
+      padding: 10px 16px;
+      border: none;
+      background: transparent;
+      border-radius: var(--radius-full);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--gray-500);
+      cursor: pointer;
+      transition: all var(--transition-base) ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+   }
+
+   .segmented-control-btn:hover {
+      color: var(--charcoal);
+   }
+
+   .segmented-control-btn.active {
+      background: var(--white);
+      color: var(--primary);
+      box-shadow: var(--shadow-soft);
+   }
+
+   .segmented-control-btn .material-symbols-outlined {
+      font-size: 1.1rem;
+   }
+
+   /* ============================================================
+     MODAL SYSTEM (Premium-style)
+     ============================================================ */
+   .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(33, 31, 29, 0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: var(--z-modal-backdrop);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      animation: fadeIn var(--transition-base) ease;
+   }
+
+   .modal-backdrop:not(.hidden) {
+      display: flex;
+   }
+
+   .modal-content {
+      background: var(--white);
+      border-radius: var(--radius-2xl);
+      box-shadow: var(--shadow-modal);
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      animation: scaleIn var(--transition-base) cubic-bezier(0.16, 1, 0.3, 1);
+   }
+
+   .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      color: var(--gray-400);
+      cursor: pointer;
+      transition: all var(--transition-base) ease;
+   }
+
+   .modal-close:hover {
+      background: var(--gray-100);
+      color: var(--charcoal);
+   }
+
+   .modal-close:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(137, 81, 0, 0.25);
+   }
+
+   /* Modal Header */
+   .modal-header {
+      margin-bottom: 1.5rem;
+      padding-right: 2rem;
+   }
+
+   .modal-header h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+   }
+
+   .modal-header p {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+   }
+
+   /* Modal Footer */
+   .modal-footer {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+   }
+
+   /* Full-screen Modal (for details) */
+   .modal-full {
+      max-width: none;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      padding: 0;
+      overflow: hidden;
+   }
+
+   .modal-full .modal-content {
+      max-width: none;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+      padding: 0;
+      overflow: auto;
+   }
+
+   /* ============================================================
+     SIDEBAR LAYOUT (Premium-style)
+     ============================================================ */
+   .app-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      min-height: 100vh;
+   }
+
+   .app-sidebar {
+      background-color: var(--sidebar);
+      color: var(--bglite);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: var(--z-sidebar);
+      display: flex;
+      flex-direction: column;
+   }
+
+   .sidebar-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding: 1.5rem;
+      flex: 1;
+   }
+
+   .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-left: 4px solid transparent;
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      color: rgba(255, 255, 255, 0.55);
+      text-decoration: none;
+      font-weight: 500;
+      transition: all var(--transition-base) ease;
+      cursor: pointer;
+      min-height: 44px;
+      white-space: nowrap;
+   }
+
+   .nav-item:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: var(--white);
+   }
+
+   .nav-item.active {
+      border-left: 4px solid var(--primary);
+      background-color: rgba(255, 255, 255, 0.1);
+      color: var(--white);
+      font-weight: 800;
+      box-shadow: inset 0 0 16px rgba(137, 81, 0, 0.1);
+   }
+
+   .nav-item .material-symbols-outlined {
+      font-size: 1.2rem;
+      width: 20px;
+      text-align: center;
+   }
+
+   /* Sidebar Footer */
+   .sidebar-footer {
+      padding: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      margin-top: auto;
+   }
+
+   .user-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1rem;
+   }
+
+   .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bglite);
+   }
+
+   .user-avatar .material-symbols-outlined {
+      font-size: 1.2rem;
+   }
+
+   .user-email {
+      font-size: 0.85rem;
+      color: rgba(250, 248, 245, 0.8);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+   }
+
+   .app-main {
+      background-color: var(--bglite);
+      overflow-y: auto;
+      min-height: 100vh;
+   }
+
+   /* Mobile Sidebar */
+   @media (max-width: 768px) {
+      .app-sidebar {
+         position: fixed;
+         width: 280px;
+         transform: translateX(-100%);
+         transition: transform var(--transition-base) ease;
+         z-index: var(--z-sidebar);
+      }
+
+      .app-sidebar.mobile-open {
+         transform: translateX(0);
+      }
+
+      .app-sidebar.mobile-open .nav-item {
+         color: rgba(250, 248, 245, 0.8);
+      }
+
+      .app-layout {
+         grid-template-columns: 1fr;
+      }
+   }
+
+   /* ============================================================
+     HERO SLIDER BACKGROUND
+     ============================================================ */
+   .hero-slider-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      background-color: var(--charcoal);
+   }
+
+   .hero-slider-bg .slide {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      animation: fadeSlide 18s infinite ease-in-out;
+   }
+
+   .hero-slider-bg .slide:nth-child(1) {
+      animation-delay: 0s;
+   }
+
+   .hero-slider-bg .slide:nth-child(2) {
+      animation-delay: 6s;
+   }
+
+   .hero-slider-bg .slide:nth-child(3) {
+      animation-delay: 12s;
+   }
+
+   @keyframes fadeSlide {
+      0% {
+         opacity: 0;
+         transform: scale(1.05);
+      }
+
+      15% {
+         opacity: 1;
+         transform: scale(1);
+      }
+
+      33% {
+         opacity: 1;
+         transform: scale(1);
+      }
+
+      48% {
+         opacity: 0;
+         transform: scale(1.05);
+      }
+
+      100% {
+         opacity: 0;
+         transform: scale(1.05);
+      }
+   }
+
+   .hero-slider-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(250, 248, 245, 0.98) 0%, rgba(250, 248, 245, 0.8) 50%, rgba(250, 248, 245, 0.4) 100%);
+      z-index: 1;
+   }
+
+   /* ============================================================
+     UPLOAD ZONE (Premium-style)
+     ============================================================ */
+   .upload-zone {
+      border: 2px dashed var(--gray-200);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+      text-align: center;
+      background: var(--gray-50);
+      transition: all var(--transition-base) ease;
+      cursor: pointer;
+      position: relative;
+      min-height: 140px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+   }
+
+   .upload-zone:hover,
+   .upload-zone:focus-within {
+      border-color: var(--primary);
+      background: rgba(137, 81, 0, 0.05);
+   }
+
+   .upload-zone input[type="file"] {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+   }
+
+   .upload-zone .material-symbols-outlined {
+      font-size: 2.5rem;
+      color: var(--gray-300);
+      transition: color var(--transition-base) ease;
+   }
+
+   .upload-zone:hover .material-symbols-outlined {
+      color: var(--primary);
+   }
+
+   .upload-zone-text {
+      font-weight: 500;
+      color: var(--gray-600);
+   }
+
+   .upload-zone-hint {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+   }
+
+   /* Upload Preview */
+   .upload-preview {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 12px;
+      margin-top: 16px;
+   }
+
+   .upload-preview-item {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background: var(--gray-100);
+   }
+
+   .upload-preview-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+   }
+
+   .upload-preview-item-remove {
+      position: absolute;
+      top: 4px;
+      right: 4px;
+      width: 24px;
+      height: 24px;
+      background: rgba(0, 0, 0, 0.7);
+      color: var(--white);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transition-fast) ease;
+   }
+
+   .upload-preview-item-remove:hover {
+      background: var(--secondary);
+      transform: scale(1.1);
+   }
+
+   .upload-preview-item-remove .material-symbols-outlined {
+      font-size: 0.9rem;
+   }
+
+   /* ============================================================
+     SLIDER (Premium-style)
+     ============================================================ */
+   .dual-slider-container {
+      position: relative;
+      width: 100%;
+      height: 6px;
+      background: var(--gray-200);
+      border-radius: 3px;
+      margin: 16px 0 24px;
+   }
+
+   .dual-slider-track {
+      position: absolute;
+      height: 100%;
+      background: var(--primary);
+      border-radius: 3px;
+      z-index: 1;
+   }
+
+   .dual-slider-input {
+      position: absolute;
+      width: 100%;
+      height: 6px;
+      top: -1px;
+      appearance: none;
+      background: none;
+      pointer-events: none;
+      z-index: 2;
+   }
+
+   .dual-slider-input::-webkit-slider-thumb {
+      pointer-events: auto;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      background: var(--primary);
+      border-radius: 50%;
+      border: 3px solid var(--white);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      cursor: grab;
+      transition: all var(--transition-fast) ease;
+   }
+
+   .dual-slider-input::-webkit-slider-thumb:active {
+      cursor: grabbing;
+      transform: scale(1.15);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+   }
+
+   .dual-slider-input::-moz-range-thumb {
+      pointer-events: auto;
+      appearance: none;
+      width: 22px;
+      height: 22px;
+      background: var(--primary);
+      border-radius: 50%;
+      border: 3px solid var(--white);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      cursor: grab;
+   }
+
+   /* Slider Labels */
+   .slider-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--gray-500);
+   }
+
+   /* Range Input for filters */
+   .range-input {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: var(--gray-200);
+      border-radius: 3px;
+      outline: none;
+      opacity: 0.9;
+   }
+
+   .range-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+   }
+
+   .range-input::-moz-range-thumb {
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+   }
+
+   /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+   @media (max-width: 768px) {
+      .app-layout {
+         grid-template-columns: 1fr;
+      }
+
+      .app-sidebar {
+         display: none;
+         height: auto;
+         position: relative;
+      }
+
+      .app-sidebar.mobile-open {
+         display: block;
+         position: fixed;
+         width: 280px;
+         z-index: var(--z-sidebar);
+         box-shadow: 4px 0 15px rgba(0, 0, 0, 0.5);
+         height: 100vh;
+      }
+
+      /* Mobile header */
+      .mobile-header {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding: 12px 16px;
+         background: var(--white);
+         border-bottom: 1px solid var(--gray-200);
+         position: sticky;
+         top: 0;
+         z-index: var(--z-header);
+      }
+
+      .mobile-menu-btn {
+         padding: 8px;
+         border: none;
+         background: transparent;
+         cursor: pointer;
+         border-radius: var(--radius-full);
+         transition: background var(--transition-base) ease;
+      }
+
+      .mobile-menu-btn:hover {
+         background: var(--gray-100);
+      }
+
+      .mobile-menu-btn .material-symbols-outlined {
+         font-size: 1.4rem;
+         color: var(--charcoal);
+      }
+
+      /* Mobile catalog grid */
+      .listing-grid {
+         grid-template-columns: 1fr;
+      }
+
+      @media (min-width: 640px) {
+         .listing-grid {
+            grid-template-columns: repeat(2, 1fr);
+         }
+      }
+
+      @media (min-width: 1024px) {
+         .listing-grid {
+            grid-template-columns: repeat(3, 1fr);
+         }
+      }
+
+      @media (min-width: 1280px) {
+         .listing-grid {
+            grid-template-columns: repeat(4, 1fr);
+         }
+      }
+
+      /* Mobile drawer */
+      .drawer-backdrop {
+         position: fixed;
+         inset: 0;
+         background: rgba(0, 0, 0, 0.4);
+         backdrop-filter: blur(4px);
+         z-index: var(--z-modal-backdrop);
+         display: none;
+      }
+
+      .drawer-backdrop:not(.hidden) {
+         display: block;
+      }
+
+      .drawer {
+         position: fixed;
+         top: 0;
+         right: 0;
+         width: 100%;
+         height: 100%;
+         background: var(--white);
+         z-index: var(--z-modal);
+         transform: translateX(100%);
+         transition: transform var(--transition-base) ease;
+         overflow-y: auto;
+      }
+
+      .drawer:not(.hidden) {
+         transform: translateX(0);
+      }
+
+      .drawer-header {
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         padding: 16px 20px;
+         border-bottom: 1px solid var(--gray-200);
+      }
+
+      .drawer-close {
+         padding: 8px;
+         border: none;
+         background: transparent;
+         cursor: pointer;
+         border-radius: var(--radius-full);
+         transition: background var(--transition-base) ease;
+      }
+
+      .drawer-close:hover {
+         background: var(--gray-100);
+      }
+
+      .drawer-body {
+         padding: 20px;
+      }
+
+      /* Mobile modal */
+      .modal-content {
+         margin: 20px;
+         max-height: calc(100vh - 40px);
+      }
+
+      /* Mobile hero */
+      .hero-gradient {
+         padding: 80px 20px 40px;
+      }
+
+      .hero-search {
+         flex-direction: column;
+         padding: 16px;
+      }
+
+      .hero-search-button {
+         width: 100%;
+         margin-top: 12px;
+      }
+   }
+
+   /* ============================================================
+     UTILITY OVERRIDES
+     ============================================================ */
+   .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+   }
+
+   .comparison-card {
+      background-color: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: all var(--transition-base) ease;
+   }
+
+   .comparison-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+   }
+
+   .map-marker {
+      transition: all var(--transition-slow) cubic-bezier(0.175, 0.885, 0.32, 1.275);
+   }
+
+   .map-marker:hover {
+      transform: scale(1.1) translateY(-4px);
+      z-index: 50;
+   }
+
+   /* Scrollbar Utilities */
+   .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+   }
+
+   .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+   }
+
+   .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+   }
+
+   .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+   }
+
+   .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: var(--gray-300);
+      border-radius: 10px;
+   }
+
+   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: var(--gray-400);
+   }
+
+   /* Material Icons */
+   .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+      line-height: 1;
+   }
+
+   .icon-filled {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+   }
+
+   /* Filled icon utility */
+   .filled-icon {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+   }
+
+   /* Text utilities */
+   .text-truncate-2 {
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+   }
+
+   .text-truncate-3 {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+   }
+
+   /* Aspect ratio utilities */
+   .aspect-w-1 {
+      aspect-ratio: 1 / 1;
+   }
+
+   .aspect-h-1 {
+      aspect-ratio: 1 / 1;
+   }
+
+   .aspect-w-4 {
+      aspect-ratio: 4 / 3;
+   }
+
+   .aspect-h-3 {
+      aspect-ratio: 4 / 3;
+   }
+
+   .aspect-w-16 {
+      aspect-ratio: 16 / 9;
+   }
+
+   .aspect-h-9 {
+      aspect-ratio: 16 / 9;
+   }
+
+   /* Grid utilities */
+   .grid-flow-row-dense {
+      grid-auto-flow: row dense;
+   }
+
+   /* Badge utilities */
+   .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1;
+   }
+
+   .badge-primary {
+      background: rgba(137, 81, 0, 0.12);
+      color: var(--primary);
+   }
+
+   .badge-secondary {
+      background: rgba(184, 81, 81, 0.12);
+      color: var(--secondary);
+   }
+
+   .badge-sage {
+      background: rgba(143, 160, 142, 0.12);
+      color: var(--sage);
+   }
+
+   .badge-skyblue {
+      background: rgba(58, 130, 196, 0.12);
+      color: var(--skyblue);
+   }
+
+   .badge-success {
+      background: rgba(34, 197, 94, 0.12);
+      color: #22c55e;
+   }
+
+   .badge-warning {
+      background: rgba(245, 158, 11, 0.12);
+      color: #f59e0b;
+   }
+
+   .badge-error {
+      background: rgba(239, 68, 68, 0.12);
+      color: #ef4444;
+   }
+
+   /* Divider */
+   .divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 16px 0;
+   }
+
+   .divider-vertical {
+      width: 1px;
+      background: var(--gray-200);
+      margin: 0 16px;
+   }
+
+   /* Empty state */
+   .empty-state {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      text-align: center;
+   }
+
+   .empty-state-icon {
+      font-size: 3rem;
+      color: var(--gray-300);
+      margin-bottom: 16px;
+   }
+
+   .empty-state-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--charcoal);
+      margin-bottom: 8px;
+   }
+
+   .empty-state-text {
+      font-size: 0.9rem;
+      color: var(--gray-500);
+      max-width: 300px;
+   }
+
+   /* Rating stars */
+   .rating-stars {
+      display: flex;
+      gap: 2px;
+      color: var(--primary);
+   }
+
+   .rating-stars .material-symbols-outlined {
+      font-size: 1rem;
+   }
+
+   .rating-stars .filled {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+   }
+
+   /* Price display */
+   .price-display {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--primary);
+   }
+
+   .price-display-sub {
+      font-size: 0.9rem;
+      color: var(--gray-500);
+   }
+
+   /* Avatar */
+   .avatar {
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+   }
+
+   .avatar-sm {
+      width: 32px;
+      height: 32px;
+   }
+
+   .avatar-md {
+      width: 40px;
+      height: 40px;
+   }
+
+   .avatar-lg {
+      width: 48px;
+      height: 48px;
+   }
+
+   .avatar-xl {
+      width: 64px;
+      height: 64px;
+   }
+
+   /* Avatar placeholder */
+   .avatar-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary);
+      color: var(--white);
+      font-weight: 600;
+      font-size: 1.1rem;
+   }
+
+   /* Status indicators */
+   .status-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8rem;
+      font-weight: 500;
+   }
+
+   .status-indicator-online {
+      color: #22c55e;
+   }
+
+   .status-indicator-offline {
+      color: var(--gray-400);
+   }
+
+   .status-indicator-busy {
+      color: #f59e0b;
+   }
+
+   .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+   }
+
+   .status-dot-online {
+      background: #22c55e;
+   }
+
+   .status-dot-offline {
+      background: var(--gray-400);
+   }
+
+   .status-dot-busy {
+      background: #f59e0b;
+   }
+
+   /* ============================================================
+     TOP HEADER LAYOUT (Nuevo diseño — Estudiante)
+     ============================================================ */
+   .top-header {
+      position: sticky;
+      top: 0;
+      z-index: var(--z-header);
+      background: rgba(249, 249, 249, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid #dac2ae;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px;
+      gap: 16px;
+   }
+
+   .top-header-logo {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: var(--primary);
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: -0.02em;
+   }
+
+   .top-header-nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+   }
+
+   .top-header-nav a {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #544434;
+      text-decoration: none;
+      transition: color var(--transition-fast) ease;
+      cursor: pointer;
+   }
+
+   .top-header-nav a:hover,
+   .top-header-nav a.active {
+      color: var(--primary);
+   }
+
+   .top-header-nav a.active {
+      font-weight: 700;
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 2px;
+   }
+
+   .top-header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+   }
+
+   .avatar-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: #f4f3f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition-base) ease;
+      overflow: hidden;
+   }
+
+   .avatar-btn:hover {
+      border-color: var(--primary);
+   }
+
+   /* ============================================================
+     CATALOG SPLIT LAYOUT (Nuevo — lista + mapa)
+     ============================================================ */
+   .catalog-split-layout {
+      display: flex;
+      height: calc(100vh - 65px);
+      overflow: hidden;
+   }
+
+   .catalog-panel {
+      width: 100%;
+      flex-shrink: 0;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+      border-right: 1px solid #dac2ae;
+      position: relative;
+      z-index: 10;
+   }
+
+   .catalog-map-panel {
+      display: none;
+      flex: 1;
+      background: #eeeeee;
+      position: relative;
+   }
+
+   @media (min-width: 1024px) {
+      .catalog-panel {
+         width: 42%;
+      }
+
+      .catalog-map-panel {
+         display: block;
+      }
+   }
+
+
+
+   /* Badge de rol en chat */
+   .role-badge-arrendador {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: rgba(137, 81, 0, 0.12);
+      color: var(--primary);
+   }
+
+   .role-badge-roommate {
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      padding: 2px 8px;
+      border-radius: var(--radius-full);
+      font-size: 0.7rem;
+      font-weight: 600;
+      background: rgba(0, 102, 138, 0.12);
+      color: #00668a;
+   }
+</style>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+   rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+   rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+   tailwind.config = {
+      darkMode: "class",
+      theme: {
+         extend: {
+            colors: {
+               /* Paleta Andina Premium (original) */
+               primary: '#895100',
+               secondary: '#b85151',
+               terracotta: '#b85151',
+               sage: '#8fa08e',
+               skyblue: '#3a82c4',
+               blue: '#00668a',
+               charcoal: '#211f1d',
+               sidebar: '#45121a',
+               burgundy: '#45121a',
+               'border-color': '#e6dec9',
+
+               /* Escala neutra cálida */
+               white: '#ffffff',
+               gray: {
+                  50: '#f7f7f7',
+                  100: '#f3f3f3',
+                  200: '#ebebeb',
+                  300: '#e6e6e6',
+                  400: '#9c9c9c',
+                  500: '#6a6a6a',
+                  600: '#4a4a4a',
+                  700: '#3a3a3a',
+                  800: '#2a2a2a',
+                  900: '#1a1a1a',
+               },
+
+               /* Semantic colors */
+               bglite: '#faf8f5',
+               success: '#22c55e',
+               warning: '#f59e0b',
+               error: '#ef4444',
+               info: '#3b82f6',
+
+               /* ====== NUEVO SISTEMA DE DISEÑO (Cambios_front tokens) ====== */
+               /* Surface system */
+               'surface': '#f9f9f9',
+               'surface-dim': '#dadad9',
+               'surface-bright': '#f9f9f9',
+               'surface-bg': '#f9f9f9',
+               'surface-card': '#ffffff',
+               'surface-container': '#eeeeee',
+               'surface-container-low': '#f4f3f3',
+               'surface-container-high': '#e8e8e8',
+               'surface-container-highest': '#e2e2e2',
+               'surface-container-lowest': '#ffffff',
+               'surface-variant': '#e2e2e2',
+               /* On-surface */
+               'on-surface': '#1a1c1c',
+               'on-surface-variant': '#544434',
+               'on-background': '#1a1c1c',
+               /* Primary system */
+               'primary-container': '#ff9f1c',
+               'on-primary': '#ffffff',
+               'on-primary-container': '#683c00',
+               'on-primary-fixed': '#2c1700',
+               'on-primary-fixed-variant': '#683d00',
+               'primary-fixed': '#ffdcbc',
+               'primary-fixed-dim': '#ffb86b',
+               'inverse-primary': '#ffb86b',
+               /* Secondary system */
+               'secondary-blue': '#00668a',
+               'secondary-container': '#40c2fd',
+               'on-secondary': '#ffffff',
+               'on-secondary-container': '#004d6a',
+               'on-secondary-fixed': '#001e2c',
+               'on-secondary-fixed-variant': '#004c69',
+               'secondary-fixed': '#c4e7ff',
+               'secondary-fixed-dim': '#7bd0ff',
+               /* Tertiary system */
+               'tertiary': '#895100',
+               'tertiary-container': '#efa655',
+               'on-tertiary': '#ffffff',
+               'on-tertiary-container': '#683c00',
+               'on-tertiary-fixed': '#2c1600',
+               'on-tertiary-fixed-variant': '#683c00',
+               'tertiary-fixed': '#ffdcbc',
+               'tertiary-fixed-dim': '#ffb86c',
+               /* Outline */
+               'outline': '#877462',
+               'outline-variant': '#dac2ae',
+               'outline-muted': '#dac2ae',
+               /* Inverse */
+               'inverse-surface': '#2f3131',
+               'inverse-on-surface': '#f1f1f0',
+               /* Error */
+               'error-container': '#ffdad6',
+               'on-error': '#ffffff',
+               'on-error-container': '#93000a',
+               /* Surface tint */
+               'surface-tint': '#895100',
+               /* Icon accent */
+               'icon-blue': '#38BDF8',
+            },
+            fontFamily: {
+               sans: ['Outfit', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+               serif: ['Playfair Display', 'Georgia', 'Times New Roman', 'serif'],
+            },
+            borderRadius: {
+               'sm': '8px',
+               'md': '12px',
+               'lg': '16px',
+               'xl': '20px',
+               '2xl': '28px',
+               'full': '9999px',
+            },
+            boxShadow: {
+               'soft': '0 4px 12px rgba(137, 81, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02)',
+               'sm': '0 8px 24px rgba(137, 81, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.02)',
+               'md': '0 12px 32px rgba(137, 81, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03)',
+               'lg': '0 16px 40px rgba(137, 81, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.03)',
+               'xl': '0 24px 48px rgba(137, 81, 0, 0.08), 0 12px 24px rgba(0, 0, 0, 0.04)',
+               'card': '0 10px 30px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.02)',
+               'card-hover': '0 20px 40px rgba(137, 81, 0, 0.08), 0 8px 16px rgba(0, 0, 0, 0.04)',
+               'modal': '0 30px 60px rgba(0, 0, 0, 0.12)',
+            },
+            spacing: {
+               '18': '4.5rem',
+               '88': '22rem',
+               '128': '32rem',
+            },
+            animation: {
+               'fade-in-up': 'fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both',
+               'slide-up': 'slideUp 0.3s ease-out',
+               'spin': 'spin 0.8s linear infinite',
+               'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            },
+            transitionTimingFunction: {
+               'bounce-in': 'cubic-bezier(0.16, 1, 0.3, 1)',
+            },
+         },
+      },
+   }
+</script>
+</head>
+
+<body class="bg-surface min-h-screen text-on-surface font-sans">
+
+    <div id="toastContainer"></div>
+    <div id="overlayLoader"
+        class="fixed inset-0 bg-white/80 z-[9999] hidden flex-col items-center justify-center backdrop-blur-sm">
+        <div class="spinner"></div>
+        <p id="loaderText" class="mt-4 font-semibold text-gray-700">Procesando...</p>
+    </div>
+
+    <a href="#main-content" class="skip-link">Saltar al contenido principal</a>
+
+    <!-- ============================================================
+     DASHBOARD UNIFICADO
+============================================================ -->
+<div id="modo-dashboard" class="app-layout h-screen overflow-hidden bg-surface">
+    
+    <!-- SIDEBAR PREMIUM -->
+    <aside class="app-sidebar w-[280px] bg-charcoal flex flex-col shrink-0 transition-transform duration-300 md:translate-x-0 -translate-x-full fixed md:relative z-50 h-full" id="sidebar">
+        <div class="p-8 border-b border-gray-800 shrink-0">
+            <div class="flex items-center gap-3 mb-2">
+                <div class="w-10 h-10 rounded-xl bg-primary/20 flex items-center justify-center border border-primary/30">
+                    <span class="material-symbols-outlined text-[24px] icon-filled text-primary">home_work</span>
+                </div>
+                <h1 class="text-2xl font-extrabold font-serif tracking-tighter"><span class="text-white">Cusco</span><span class="text-primary">Rent</span></h1>
+            </div>
+            <p class="text-[10px] uppercase font-bold tracking-[0.2em] text-white/40 ml-1">Panel Arrendador</p>
+        </div>
+
+        <nav class="flex-1 overflow-y-auto px-4 py-6 space-y-2 sidebar-nav" role="navigation">
+            <a onclick="switchMainTab('habitaciones'); toggleMobileSidebar()" id="tabBtn-habitaciones" class="nav-item active">
+                <span class="material-symbols-outlined">home</span> Mis Propiedades
+            </a>
+            <a onclick="switchMainTab('reservas'); toggleMobileSidebar()" id="tabBtn-reservas" class="nav-item">
+                <span class="material-symbols-outlined">book_online</span> Reservas Recibidas
+            </a>
+            <a onclick="switchMainTab('mensajes'); toggleMobileSidebar()" id="tabBtn-mensajes" class="nav-item">
+                <span class="material-symbols-outlined">mail</span> Bandeja Entrada
+            </a>
+            <a onclick="switchMainTab('resenas'); toggleMobileSidebar()" id="tabBtn-resenas" class="nav-item">
+                <span class="material-symbols-outlined">rate_review</span> Reseñas Recibidas
+            </a>
+            
+            <div class="my-4 border-t border-gray-800/50 pt-4"></div>
+            
+            <a onclick="switchMainTab('catalogo'); toggleMobileSidebar(); cargarCatalogoCompetencia();" id="tabBtn-catalogo" class="nav-item">
+                <span class="material-symbols-outlined">travel_explore</span> Catálogo Referencia
+            </a>
+            
+            <div class="my-4 border-t border-gray-800/50 pt-4"></div>
+            
+            <a onclick="switchMainTab('perfil'); toggleMobileSidebar()" id="tabBtn-perfil" class="nav-item">
+                <span class="material-symbols-outlined">person</span> Mi Perfil
+            </a>
+            <a onclick="switchMainTab('documentos'); toggleMobileSidebar()" id="tabBtn-documentos" class="nav-item">
+                <span class="material-symbols-outlined">verified_user</span> Verificación
+            </a>
+            <a onclick="switchMainTab('planes'); toggleMobileSidebar()" id="tabBtn-planes" class="nav-item !text-primary hover:!bg-primary/10">
+                <span class="material-symbols-outlined">workspace_premium</span> Mi Plan
+            </a>
+        </nav>
+
+        <div class="p-4 shrink-0 border-t border-gray-800">
+            <div class="bg-white/5 rounded-xl p-4 mb-4 flex items-center gap-3 border border-white/10">
+                <div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary shrink-0">
+                    <span class="material-symbols-outlined">person</span>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-xs text-white/50 mb-0.5">Conectado como</p>
+                    <p class="font-bold text-sm text-white truncate" id="userEmailDisplay">Cargando...</p>
+                </div>
+            </div>
+            <button onclick="cerrarSesion()" class="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 hover:text-white transition-colors text-sm font-bold">
+                <span class="material-symbols-outlined text-[18px]">logout</span> Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <!-- BACKDROP MOBILE SIDEBAR -->
+    <div id="mobile-overlay" class="fixed inset-0 bg-charcoal/80 backdrop-blur-sm z-40 hidden md:hidden" onclick="toggleMobileSidebar()"></div>
+
+    <!-- MAIN CONTENT AREA -->
+    <main id="main-content" class="flex-1 flex flex-col h-screen overflow-hidden bg-bglite relative">
+        <!-- TOP HEADER -->
+        <header class="h-[80px] shrink-0 bg-white border-b border-gray-100 px-4 sm:px-8 flex items-center justify-between z-10 shadow-sm relative">
+            <div class="flex items-center gap-4">
+                <button onclick="toggleMobileSidebar()" class="md:hidden text-charcoal p-2 hover:bg-gray-100 rounded-lg">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+                <h2 class="text-xl font-bold font-serif text-charcoal hidden sm:block">Panel de Gestión</h2>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center text-gray-500 relative transition-colors">
+                    <span class="material-symbols-outlined">notifications</span>
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-secondary rounded-full"></span>
+                </button>
+            </div>
+        </header>
+
+        <!-- SCROLLABLE CONTENT -->
+        <div class="flex-1 overflow-y-auto" id="scrollable-content">
+            <!-- MOBILE HEADER -->
+            <div class="md:hidden mobile-header shadow-sm border-b border-gray-100">
+                <span class="font-extrabold font-serif text-xl text-charcoal"><span>Cusco</span><span
+                        class="text-primary">Rent</span></span>
+                <button onclick="toggleMobileSidebar()" class="mobile-menu-btn" aria-label="Menu">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-10">
+            <!-- ======================= SECCIÓN: CATÁLOGO DE REFERENCIA ======================= -->
+            <div id="seccion-catalogo" class="hidden space-y-8">
+                <div class="flex justify-between items-end flex-wrap gap-4 border-b border-gray-200 pb-6">
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-charcoal font-serif">Analiza el Mercado local</h1>
+                        <p class="text-gray-500 text-lg mt-2">Compara tus precios y servicios con otros arrendadores en Cusco.</p>
+                    </div>
+                </div>
+
+                <!-- Filtros de Competencia -->
+                <div class="bg-white rounded-2xl p-6 shadow-soft border border-gray-100 flex flex-col lg:flex-row gap-6 items-center">
+                    <div class="flex-1 w-full relative">
+                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">location_on</span>
+                        <select id="filtroDistritoArr" class="w-full bg-gray-50 border border-gray-200 rounded-xl pl-12 pr-4 py-3 text-sm font-medium text-charcoal focus:outline-none focus:ring-2 focus:ring-primary/20 appearance-none cursor-pointer">
+                            <option value="">Todos los distritos</option>
+                            <option value="Wanchaq">Wanchaq</option>
+                            <option value="San Jerónimo">San Jerónimo</option>
+                            <option value="San Sebastián">San Sebastián</option>
+                            <option value="Cusco Cercado">Cusco Cercado</option>
+                            <option value="Santiago">Santiago</option>
+                        </select>
+                    </div>
+                    <div class="flex-1 w-full relative px-4 py-2 flex flex-col justify-center bg-gray-50 rounded-xl border border-gray-200">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-gray-500 flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">payments</span> Precio Máx</span>
+                            <span id="precioMaxLabelArr" class="text-sm font-black text-primary tabular-nums">S/ 2000</span>
+                        </div>
+                        <input type="range" id="filtroPrecioArr" min="100" max="2000" step="50" value="2000" class="w-full accent-primary cursor-pointer" oninput="document.getElementById('precioMaxLabelArr').textContent = 'S/ ' + this.value">
+                    </div>
+                    <button onclick="aplicarFiltrosCompetencia()" class="w-full lg:w-auto bg-primary text-white font-bold px-10 py-3.5 rounded-xl hover:bg-primary-dark transition-colors shadow-[0_4px_14px_rgba(137,81,0,0.3)]">
+                        Filtrar Mercado
+                    </button>
+                </div>
+                
+                <div>
+                    <p class="text-sm text-gray-500 mb-6">Viendo <span id="catalogoCountArr" class="font-bold text-primary">0</span> habitaciones de referencia</p>
+                    <div id="catalogoHabitacionesArr" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-8">
+                        <!-- Skeletons via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ======================= SECCIÓN: PLANES PREMIUM ======================= -->
+            <div id="seccion-planes" class="hidden space-y-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <h1 class="text-4xl font-black text-charcoal font-serif mb-4">Impulsa tus Alquileres</h1>
+                    <p class="text-lg text-gray-500">Destaca tus habitaciones por encima de la competencia y consigue inquilinos más rápido con nuestros planes exclusivos.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                    <!-- Plan Gratuito -->
+                    <div class="bg-white rounded-3xl p-8 border border-gray-200 shadow-sm flex flex-col">
+                        <h3 class="text-2xl font-bold text-charcoal mb-2">Plan Básico</h3>
+                        <div class="flex items-baseline gap-1 mb-6">
+                            <span class="text-4xl font-black text-charcoal">S/ 0</span>
+                            <span class="text-gray-500 font-medium">/mes</span>
+                        </div>
+                        <p class="text-gray-500 mb-8">Ideal para empezar en la plataforma.</p>
+                        
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-start gap-4">
+                                <div class="mt-0.5 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-green-600 text-sm font-bold">check</span>
+                                </div>
+                                <span class="text-gray-600 font-medium">Publicaciones ilimitadas</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <div class="mt-0.5 w-6 h-6 rounded-full bg-green-100 flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-green-600 text-sm font-bold">check</span>
+                                </div>
+                                <span class="text-gray-600 font-medium">Recibir reservas y mensajes</span>
+                            </li>
+                        </ul>
+                        
+                        <button class="w-full py-4 px-6 rounded-xl bg-gray-100 text-gray-500 font-bold text-center cursor-default">
+                            Tu plan actual
+                        </button>
+                    </div>
+                    
+                    <!-- Plan Premium -->
+                    <div class="bg-charcoal rounded-3xl p-8 shadow-2xl flex flex-col relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-primary text-white text-xs font-bold px-4 py-1.5 rounded-bl-xl uppercase tracking-wider">
+                            Recomendado
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Plan Premium</h3>
+                        <div class="flex items-baseline gap-1 mb-6">
+                            <span class="text-4xl font-black text-white">S/ 29.90</span>
+                            <span class="text-white/60 font-medium">/mes</span>
+                        </div>
+                        <p class="text-white/70 mb-8">Maximiza tu visibilidad y cierra tratos rápido.</p>
+                        
+                        <ul class="space-y-4 mb-8 flex-1">
+                            <li class="flex items-start gap-4">
+                                <div class="mt-0.5 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-primary text-sm font-bold">check</span>
+                                </div>
+                                <span class="text-gray-200 font-medium">Posicionamiento destacado en búsquedas</span>
+                            </li>
+                            <li class="flex items-start gap-4">
+                                <div class="mt-0.5 w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                                    <span class="material-symbols-outlined text-primary text-sm font-bold">check</span>
+                                </div>
+                                <span class="text-gray-200 font-medium">Insignia de "Arrendador Premium"</span>
+                            </li>
+                        </ul>
+                        
+                        <button onclick="if(typeof showToast==='function') showToast('Funcionalidad de pasarela de pagos en desarrollo.', 'info')" class="w-full py-4 px-6 rounded-xl bg-primary text-white font-bold text-center hover:bg-primary-dark transition-all shadow-[0_4px_14px_rgba(137,81,0,0.3)] relative z-10">
+                            Cambiar a Premium
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+                <!-- ======================= SECCIÓN: MI PERFIL ======================= -->
+                <div id="seccion-perfil" class="hidden space-y-8">
+                    <div class="flex justify-between items-end flex-wrap gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900 font-serif">Configuración de Perfil</h1>
+                            <p class="text-gray-500 mt-1">Gestiona tu información pública y privada como arrendador</p>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-[24px] p-10 shadow-soft border border-gray-100 max-w-4xl">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            <div class="floating-label-group">
+                                <input id="perfilNombre" class="input-field" type="text" placeholder=" " required />
+                                <label for="perfilNombre">Nombre Completo</label>
+                            </div>
+                            <div class="floating-label-group opacity-60">
+                                <input id="perfilEmail" class="input-field" type="email" placeholder=" " disabled />
+                                <label for="perfilEmail">Correo Electrónico</label>
+                            </div>
+                            <div class="floating-label-group">
+                                <input id="perfilTelefono" class="input-field" type="tel" placeholder=" " />
+                                <label for="perfilTelefono">Teléfono de Contacto</label>
+                            </div>
+                        </div>
+                        <div class="mt-12 pt-8 border-t border-gray-50 flex justify-end">
+                            <button onclick="guardarPerfilArrendador()" class="btn btn-primary btn-lg px-12">
+                                <span class="material-symbols-outlined">save</span>
+                                Guardar Cambios
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ======================= SECCIÓN: HABITACIONES ======================= -->
+                <div id="seccion-habitaciones" class="space-y-8">
+                    <div class="flex justify-between items-center flex-wrap gap-6">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900 font-serif">Mis Propiedades</h1>
+                            <p class="text-gray-500 mt-1">Gestiona tus anuncios y el estado de tus habitaciones</p>
+                        </div>
+                        <button
+                            onclick="document.getElementById('formCrearHabitacion').classList.remove('hidden'); window.scrollTo({ top: 0, behavior: 'smooth' });"
+                            class="btn btn-primary btn-lg group px-8">
+                            <span
+                                class="material-symbols-outlined group-hover:rotate-90 transition-transform">add_circle</span>
+                            Publicar Nueva Habitación
+                        </button>
+                    </div>
+
+                    <!-- FORMULARIO CREAR/EDITAR -->
+                    <div id="formCrearHabitacion"
+                        class="hidden bg-white p-10 rounded-[32px] shadow-xl border border-gray-100 mb-12 relative animate-scale-in">
+                        <button onclick="cancelarEdicion()"
+                            class="absolute top-8 right-8 p-3 text-gray-400 hover:bg-gray-100 rounded-full transition-all">
+                            <span class="material-symbols-outlined">close</span>
+                        </button>
+                        <h3 id="formTitulo"
+                            class="text-2xl font-bold text-gray-900 mb-10 font-serif border-b border-gray-50 pb-6">Datos
+                            de la Publicación</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="floating-label-group md:col-span-2">
+                                <input type="text" id="hTitulo" placeholder=" " class="input-field" required>
+                                <label for="hTitulo">Título del Anuncio (Ej: Cuarto Premium en Wanchaq)</label>
+                            </div>
+                            <div class="floating-label-group">
+                                <select id="hDistrito" class="input-field" onchange="updateMapPreview()" required>
+                                    <option value="" disabled selected>Distrito</option>
+                                    <option value="Wanchaq">Wanchaq</option>
+                                    <option value="San Jerónimo">San Jerónimo</option>
+                                    <option value="San Sebastián">San Sebastián</option>
+                                    <option value="Cusco Cercado">Cusco Cercado</option>
+                                    <option value="Santiago">Santiago</option>
+                                </select>
+                                <label for="hDistrito">Distrito</label>
+                            </div>
+                            <div class="floating-label-group">
+                                <input type="text" id="hDireccion" placeholder=" " class="input-field"
+                                    oninput="updateMapPreview()" required>
+                                <label for="hDireccion">Dirección Completa</label>
+                            </div>
+                            <div class="floating-label-group">
+                                <select id="hTipo" class="input-field">
+                                    <option value="Individual">Individual</option>
+                                    <option value="Compartida">Compartida</option>
+                                </select>
+                                <label for="hTipo">Tipo de Habitación</label>
+                            </div>
+                            <div class="floating-label-group">
+                                <input type="number" id="hPrecio" placeholder=" " class="input-field" required>
+                                <label for="hPrecio">Mensualidad (S/.)</label>
+                            </div>
+
+                            <div class="floating-label-group">
+                                <input type="text" id="hLatitud" placeholder=" " class="input-field">
+                                <label for="hLatitud">Latitud Mapa</label>
+                            </div>
+                            <div class="floating-label-group">
+                                <input type="text" id="hLongitud" placeholder=" " class="input-field">
+                                <label for="hLongitud">Longitud Mapa</label>
+                            </div>
+
+                            <div class="md:col-span-2 space-y-4">
+                                <label class="text-xs font-bold text-gray-400 uppercase tracking-widest">Servicios
+                                    Incluidos</label>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="hServiciosContainer">
+                                    <label class="category-chip cursor-pointer py-3"><input type="checkbox"
+                                            value="Wi-Fi" class="hidden peer"> <span
+                                            class="peer-checked:bg-primary peer-checked:text-white">Wi-Fi</span></label>
+                                    <label class="category-chip cursor-pointer py-3"><input type="checkbox"
+                                            value="Baño Privado" class="hidden peer"> <span
+                                            class="peer-checked:bg-primary peer-checked:text-white">Baño
+                                            Privado</span></label>
+                                    <label class="category-chip cursor-pointer py-3"><input type="checkbox"
+                                            value="Agua Caliente" class="hidden peer"> <span
+                                            class="peer-checked:bg-primary peer-checked:text-white">Agua
+                                            Caliente</span></label>
+                                    <label class="category-chip cursor-pointer py-3"><input type="checkbox"
+                                            value="Lavandería" class="hidden peer"> <span
+                                            class="peer-checked:bg-primary peer-checked:text-white">Lavandería</span></label>
+                                    <label class="category-chip cursor-pointer py-3"><input type="checkbox"
+                                            value="Cocina Compartida" class="hidden peer"> <span
+                                            class="peer-checked:bg-primary peer-checked:text-white">Cocina
+                                            Compartida</span></label>
+                                    <label class="category-chip cursor-pointer py-3"><input type="checkbox"
+                                            value="Amoblado" class="hidden peer"> <span
+                                            class="peer-checked:bg-primary peer-checked:text-white">Amoblado</span></label>
+                                </div>
+                            </div>
+
+                            <div class="md:col-span-2 floating-label-group">
+                                <textarea id="hDescripcion" rows="4" placeholder=" " class="input-field"></textarea>
+                                <label for="hDescripcion">Descripción adicional</label>
+                            </div>
+
+                            <div class="md:col-span-2 mt-4">
+                                <label
+                                    class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-4">Fotos
+                                    de la Propiedad (Máx 5)</label>
+                                <div class="upload-zone py-12 relative">
+                                    <input type="file" id="hFotos" accept=".jpg,.jpeg,.png" multiple
+                                        class="absolute inset-0 opacity-0 cursor-pointer">
+                                    <span
+                                        class="material-symbols-outlined text-4xl mb-2 text-gray-300">add_photo_alternate</span>
+                                    <p class="font-bold text-gray-500">Haz clic para subir o arrastra imágenes</p>
+                                </div>
+                                <div id="hFotosPreview" class="upload-preview mt-4"></div>
+                            </div>
+
+                            <div class="md:col-span-2 mt-4">
+                                <label
+                                    class="text-xs font-bold text-gray-400 uppercase tracking-widest block mb-4">Vista
+                                    Previa Ubicación</label>
+                                <div class="w-full h-64 bg-gray-100 rounded-2xl overflow-hidden border border-gray-100">
+                                    <iframe id="mapPreview" width="100%" height="100%" style="border:0;" loading="lazy"
+                                        src="https://maps.google.com/maps?q=Cusco,Peru&output=embed&z=14"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 flex justify-end gap-4 pt-10 border-t border-gray-50">
+                            <button onclick="cancelarEdicion()" class="btn btn-ghost px-10">Descartar</button>
+                            <button id="btnGuardarHabitacion" onclick="guardarHabitacion()"
+                                class="btn btn-primary btn-lg px-12">
+                                <span class="material-symbols-outlined">publish</span>
+                                Guardar y Publicar
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="listaMisHabitaciones"
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                        <!-- JS content -->
+                    </div>
+                </div>
+
+                <!-- ======================= SECCIÓN: RESERVAS ======================= -->
+                <div id="seccion-reservas" class="hidden space-y-8">
+                    <div class="flex justify-between items-end flex-wrap gap-4">
+                        <div>
+                            <h1 class="text-3xl font-bold text-gray-900 font-serif">Gestión de Reservas</h1>
+                            <p class="text-gray-500 mt-1">Supervisa los contratos y pagos de tus inquilinos</p>
+                        </div>
+                    </div>
+                    <div id="listaReservasArrendador" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    </div>
+                </div>
+
+                <!-- ======================= SECCIÓN: MENSAJES ======================= -->
+                <div id="seccion-mensajes" class="hidden transition-opacity duration-500 ease-out py-4">
+                    <div class="max-w-[1400px] mx-auto w-full h-[80vh] bg-white rounded-[32px] shadow-soft border border-gray-100 flex overflow-hidden">
+                        <!-- Left Sidebar: Conversations List -->
+                        <aside class="w-full md:w-[380px] bg-white border-r border-gray-100 flex flex-col shrink-0 z-40">
+                            <!-- Sidebar Header & Search -->
+                            <div class="p-6 border-b border-gray-100 shrink-0">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h1 class="text-2xl font-bold text-charcoal font-serif">Mensajes</h1>
+                                    <button onclick="cargarMensajesArrendador()" class="w-10 h-10 rounded-full flex items-center justify-center text-charcoal/50 hover:bg-primary/10 hover:text-primary transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">refresh</span>
+                                    </button>
+                                </div>
+                                <div class="relative w-full">
+                                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-charcoal/40">search</span>
+                                    <input class="w-full bg-gray-50 border border-gray-200 rounded-full py-3 pl-12 pr-4 text-sm text-charcoal placeholder:text-charcoal/40 focus:ring-2 focus:ring-primary focus:outline-none transition-all" placeholder="Buscar conversaciones..." type="text" />
+                                </div>
+                                <!-- Filter Chips -->
+                                <div class="flex gap-2 mt-4 overflow-x-auto pb-1 hide-scrollbar">
+                                    <button class="category-chip active">Todos</button>
+                                    <button class="category-chip">No leídos</button>
+                                    <button class="category-chip">Estudiantes</button>
+                                </div>
+                            </div>
+                            <!-- Conversations List -->
+                            <div class="flex-1 overflow-y-auto" id="listaMensajes">
+                                <div class="py-12 text-center">
+                                    <div class="spinner border-primary mx-auto mb-4"></div>
+                                    <p class="text-gray-500 font-medium">Cargando...</p>
+                                </div>
+                            </div>
+                        </aside>
+
+                        <!-- Right Main Area: Active Chat Canvas -->
+                        <main class="hidden md:flex flex-1 flex-col bg-bglite relative">
+                            <!-- Chat Header -->
+                            <header class="bg-white border-b border-gray-100 px-8 py-5 flex justify-between items-center shrink-0 shadow-sm z-10">
+                                <div class="flex items-center gap-4">
+                                    <div class="relative">
+                                        <div class="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+                                            <span class="material-symbols-outlined text-2xl">person</span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <h2 class="text-lg font-bold text-charcoal flex items-center gap-2">Selecciona un chat</h2>
+                                        <p class="text-sm text-charcoal/50">Para comenzar a chatear</p>
+                                    </div>
+                                </div>
+                            </header>
+
+                            <!-- Scrollable Messages Area -->
+                            <div class="flex-1 overflow-y-auto p-8 flex flex-col gap-4">
+                                <div class="flex-1 flex flex-col items-center justify-center text-center opacity-50">
+                                    <span class="material-symbols-outlined text-7xl mb-4 text-primary">forum</span>
+                                    <h3 class="text-2xl font-bold text-charcoal mb-2">Tus Mensajes</h3>
+                                    <p class="text-charcoal/70">Selecciona una conversación a la izquierda para ver los mensajes.</p>
+                                </div>
+                            </div>
+
+                            <!-- Input Area (Disabled) -->
+                            <div class="bg-white border-t border-gray-100 p-6 shrink-0 z-20">
+                                <div class="flex items-end gap-3 max-w-4xl mx-auto opacity-50 pointer-events-none">
+                                    <button class="w-12 h-12 shrink-0 rounded-full flex items-center justify-center text-charcoal/50 bg-gray-50">
+                                        <span class="material-symbols-outlined text-[22px]">add_circle</span>
+                                    </button>
+                                    <div class="flex-1 bg-gray-50 rounded-2xl border border-gray-200 flex items-end min-h-[48px] p-1">
+                                        <textarea class="w-full bg-transparent border-none resize-none text-sm text-charcoal py-3 px-4" placeholder="Escribe un mensaje..." rows="1" disabled></textarea>
+                                    </div>
+                                    <button class="w-12 h-12 shrink-0 rounded-full bg-gray-200 text-white flex items-center justify-center">
+                                        <span class="material-symbols-outlined icon-filled text-[20px]">send</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </main>
+                    </div>
+                </div>
+                <div id="seccion-resenas" class="hidden">
+                    <div id="listaResenas" class="grid grid-cols-1 gap-6"></div>
+                </div>
+                <div id="seccion-documentos" class="hidden">
+                    <div class="bg-white rounded-[24px] p-10 shadow-soft border border-gray-100 max-w-4xl">
+                        <h2 class="text-2xl font-bold text-charcoal font-serif mb-8">Verificación de Arrendador</h2>
+                        <div class="flex gap-6 mb-10 border-b border-gray-50">
+                            <button class="doc-tab-active py-4 px-2" id="tab-doc-fotos"
+                                onclick="switchDocTab('fotos')">Fotos de Propiedades</button>
+                            <button class="doc-tab-inactive py-4 px-2" id="tab-doc-propiedad"
+                                onclick="switchDocTab('propiedad')">Documentos Legales</button>
+                        </div>
+                        <div id="panel-doc-fotos" class="space-y-6">
+                            <div class="upload-zone py-16"><input type="file" multiple
+                                    onchange="handleFileSelect(event, 'arrendador', 'habitaciones', null)"
+                                    class="absolute inset-0 opacity-0 cursor-pointer"> <span
+                                    class="material-symbols-outlined text-5xl mb-4">add_a_photo</span>
+                                <p class="font-bold">Sube fotos generales de tus servicios</p>
+                            </div>
+                            <div id="current-arr-habitaciones" class="upload-preview"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                    </div> <!-- closes max-w-7xl mx-auto -->
+        </div> <!-- closes scrollable-content -->
+</main>
+    </div>
+
+    <script>
+    // ============================================================
+    // STATE
+    // ============================================================
+    const APP = {
+        selectedRole: 'estudiante',
+        currentUser: null,
+        currentEmail: '',
+        currentRole: '',
+        pendingFiles: {}
+    };
+
+    // ============================================================
+    // TOAST NOTIFICATIONS
+    // ============================================================
+    function showToast(message, type = 'info') {
+        const container = document.getElementById('toastContainer');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        const icons = { success: 'check_circle', error: 'report', info: 'info' };
+
+        const typeClasses = {
+            success: 'bg-sage text-white shadow-sage/20',
+            error: 'bg-secondary text-white shadow-secondary/20',
+            info: 'bg-skyblue text-white shadow-skyblue/20'
+        };
+
+        toast.className = `toast ${type} ${typeClasses[type] || 'bg-charcoal text-white'} flex items-center gap-3 px-6 py-4 rounded-[20px] shadow-xl transform transition-all duration-500 ease-out translate-y-10 opacity-0`;
+
+        toast.innerHTML = `
+            <div class="flex-shrink-0 w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
+                <span class="material-symbols-outlined text-lg">${icons[type] || 'info'}</span>
+            </div>
+            <div class="flex-1">
+                <p class="font-bold text-sm tracking-tight leading-tight">${message}</p>
+            </div>
+        `;
+
+        container.appendChild(toast);
+
+        requestAnimationFrame(() => {
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
+            }, 10);
+        });
+
+        setTimeout(() => {
+            toast.classList.add('opacity-0', 'scale-95');
+            toast.style.transform = 'translateY(-20px)';
+            setTimeout(() => toast.remove(), 500);
+        }, 5000);
+    }
+
+    // ============================================================
+    // LOADER
+    // ============================================================
+    function showLoader(text = 'Procesando...') {
+        const loader = document.getElementById('overlayLoader');
+        if (loader) {
+            const textEl = document.getElementById('loaderText');
+            if (textEl) textEl.textContent = text;
+            loader.classList.remove('hidden');
+            loader.classList.add('animate-fade-in');
+        }
+    }
+
+    function hideLoader() {
+        const loader = document.getElementById('overlayLoader');
+        if (loader) {
+            loader.classList.add('opacity-0');
+            setTimeout(() => {
+                loader.classList.add('hidden');
+                loader.classList.remove('opacity-0', 'animate-fade-in');
+            }, 300);
+        }
+    }
+
+    // ============================================================
+    // MODAL SYSTEM
+    // ============================================================
+    let modalCallback = null;
+    let modalType = 'confirm';
+
+    function ensureModalContainer() {
+        let m = document.getElementById('appConfirmModal');
+        if (m) return m;
+        m = document.createElement('div');
+        m.id = 'appConfirmModal';
+        m.className = 'modal-backdrop hidden';
+        m.setAttribute('role', 'dialog');
+        m.setAttribute('aria-modal', 'true');
+        m.setAttribute('aria-labelledby', 'appConfirmTitle');
+        m.innerHTML = `
+            <div class="modal-content" role="document">
+                <button type="button" onclick="closeAppModal()" aria-label="Cerrar"
+                    class="modal-close">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+                <div class="modal-header">
+                    <div class="flex items-start gap-4">
+                        <div id="appConfirmIconWrap" class="w-14 h-14 flex-shrink-0 rounded-2xl bg-primary/10 text-primary flex items-center justify-center">
+                            <span class="material-symbols-outlined text-4xl" id="appConfirmIcon">help</span>
+                        </div>
+                        <div class="flex-1 pt-1">
+                            <h3 id="appConfirmTitle" class="text-xl font-bold text-charcoal mb-1">Confirmar</h3>
+                            <p id="appConfirmMessage" class="text-sm text-gray-500 leading-relaxed whitespace-pre-wrap">¿Estás seguro?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="appConfirmCancel" onclick="closeAppModal(false)"
+                        class="btn btn-ghost">
+                        Cancelar
+                    </button>
+                    <button type="button" id="appConfirmOk" onclick="closeAppModal(true)"
+                        class="btn btn-primary">
+                        Confirmar
+                    </button>
+                </div>
+            </div>
+        `;
+        m.addEventListener('click', function (e) {
+            if (e.target === m) closeAppModal(false);
+        });
+        document.body.appendChild(m);
+        return m;
+    }
+
+    function showConfirmModal(titulo, mensaje, onConfirm, opts) {
+        opts = opts || {};
+        const m = ensureModalContainer();
+        document.getElementById('appConfirmTitle').textContent = titulo || 'Confirmar';
+        document.getElementById('appConfirmMessage').textContent = mensaje || '';
+        const okBtn = document.getElementById('appConfirmOk');
+        const cancelBtn = document.getElementById('appConfirmCancel');
+        const icon = document.getElementById('appConfirmIcon');
+        const iconWrap = document.getElementById('appConfirmIconWrap');
+
+        if (opts.danger) {
+            okBtn.className = 'btn btn-danger';
+            iconWrap.className = 'w-14 h-14 flex-shrink-0 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center';
+            icon.textContent = 'warning';
+            okBtn.textContent = opts.okLabel || 'Eliminar';
+        } else {
+            okBtn.className = 'btn btn-primary';
+            iconWrap.className = 'w-14 h-14 flex-shrink-0 rounded-2xl bg-primary/10 text-primary flex items-center justify-center';
+            icon.textContent = 'help';
+            okBtn.textContent = opts.okLabel || 'Confirmar';
+        }
+        cancelBtn.textContent = opts.cancelLabel || 'Cancelar';
+        cancelBtn.classList.toggle('hidden', !!opts.hideCancel);
+
+        modalType = opts.alertOnly ? 'alert' : 'confirm';
+        modalCallback = onConfirm || null;
+        m.classList.remove('hidden');
+        trapFocus(m);
+    }
+
+    function showAlertModal(titulo, mensaje, opts) {
+        opts = opts || {};
+        opts.alertOnly = true;
+        opts.okLabel = opts.okLabel || 'Entendido';
+        showConfirmModal(titulo, mensaje, null, opts);
+    }
+
+    function closeAppModal(result) {
+        const m = document.getElementById('appConfirmModal');
+        if (!m) return;
+        m.classList.add('hidden');
+        if (result === true && typeof modalCallback === 'function') {
+            try { modalCallback(); } catch (e) { console.error(e); }
+        }
+        modalCallback = null;
+        modalType = 'confirm';
+    }
+
+    // ============================================================
+    // NAVIGATION & URL PERSISTENCE
+    // ============================================================
+    function syncUrlWithTab(tab) {
+        if (!window.history.pushState) return;
+        try {
+            const url = new URL(window.location.href);
+            url.searchParams.set('tab', tab);
+            window.history.pushState({ tab: tab }, '', url);
+        } catch (e) {
+            // Silently ignore SecurityError in Google Apps Script iframes
+        }
+    }
+
+    function switchMainTab(tab) {
+        let pageTabs = [];
+        if (APP.currentRole === 'estudiante') {
+            pageTabs = ['buscar', 'reservas', 'mensajes', 'roommates', 'documentos'];
+        } else if (APP.currentRole === 'arrendador') {
+            pageTabs = ['habitaciones', 'reservas', 'mensajes', 'resenas', 'perfil', 'documentos', 'catalogo', 'planes'];
+        } else if (APP.currentRole === 'administrador') {
+            pageTabs = ['dashboard', 'habitaciones', 'estudiantes', 'arrendadores'];
+        }
+
+        pageTabs.forEach(t => {
+            const seccion = document.getElementById(`seccion-${t}`);
+            const boton = document.getElementById(`tabBtn-${t}`);
+            const mobileBoton = document.getElementById(`tabBtn-${t}-mobile`);
+
+            if (seccion) seccion.classList.toggle('hidden', t !== tab);
+            if (boton) {
+                boton.classList.toggle('active', t === tab);
+                boton.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+            }
+            if (mobileBoton) {
+                mobileBoton.classList.toggle('bg-primary/10', t === tab);
+                mobileBoton.classList.toggle('text-primary', t === tab);
+            }
+        });
+
+        syncUrlWithTab(tab);
+
+        // Trigger specific loads if needed
+        if (tab === 'buscar' && typeof cargarCatalogo === 'function') cargarCatalogo();
+        
+        if (tab === 'reservas' && APP.currentRole === 'estudiante' && typeof cargarMisReservas === 'function') cargarMisReservas();
+        if (tab === 'reservas' && APP.currentRole === 'arrendador' && typeof cargarReservasArrendador === 'function') cargarReservasArrendador();
+        
+        if (tab === 'mensajes' && APP.currentRole === 'estudiante' && typeof cargarMensajesEstudiante === 'function') cargarMensajesEstudiante();
+        if (tab === 'mensajes' && APP.currentRole === 'arrendador' && typeof cargarMensajesArrendador === 'function') cargarMensajesArrendador();
+        
+        if (tab === 'roommates' && typeof cargarRoommates === 'function') cargarRoommates();
+        if (tab === 'documentos' && typeof cargarImagenesExistentes === 'function') cargarImagenesExistentes();
+        if (tab === 'habitaciones' && APP.currentRole === 'arrendador' && typeof cargarMisHabitaciones === 'function') cargarMisHabitaciones();
+    }
+
+    function switchDocTab(tab, allDocTabs) {
+        allDocTabs = allDocTabs || ['perfil', 'carne', 'dni', 'fotos', 'propiedad'];
+        allDocTabs.forEach(t => {
+            var panel = document.getElementById('panel-doc-' + t);
+            var btn = document.getElementById('tab-doc-' + t);
+            if (panel) panel.classList.toggle('hidden', t !== tab);
+            if (btn) {
+                btn.classList.toggle('doc-tab-active', t === tab);
+                btn.classList.toggle('doc-tab-inactive', t !== tab);
+            }
+        });
+    }
+
+    function switchAdminTab(tab) {
+        switchMainTab(tab);
+    }
+
+    function toggleMobileSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.classList.toggle('active');
+            sidebar.classList.toggle('-translate-x-full');
+        }
+    }
+
+    function closeMobileMenu() {
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar) {
+            sidebar.classList.remove('active');
+            sidebar.classList.add('-translate-x-full');
+        }
+    }
+
+    // ============================================================
+    // SKELETON LOADING
+    // ============================================================
+    function renderSkeletons(containerId, count = 6) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        let html = '';
+        for (let i = 0; i < count; i++) {
+            html += `
+                <div class="listing-card pointer-events-none">
+                    <div class="listing-card-image skeleton-load aspect-[4/3]"></div>
+                    <div class="listing-card-content space-y-4">
+                        <div class="h-5 bg-gray-100 rounded-full w-3/4 skeleton-load"></div>
+                        <div class="h-4 bg-gray-50 rounded-full w-1/2 skeleton-load"></div>
+                        <div class="flex justify-between items-center pt-4 border-t border-gray-50">
+                            <div class="h-6 bg-gray-100 rounded-full w-1/4 skeleton-load"></div>
+                            <div class="h-8 bg-gray-100 rounded-full w-1/4 skeleton-load"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        container.innerHTML = html;
+    }
+
+    // ============================================================
+    // ROLE & PASSWORD VISIBILITY
+    // ============================================================
+    function seleccionarRolUI_Login(role) {
+        APP.selectedRole = role;
+        document.querySelectorAll('.segmented-control-btn').forEach(btn => {
+            const isMatch = (role === 'estudiante' && btn.id === 'btnLoginEstudiante') ||
+                (role === 'arrendador' && btn.id === 'btnLoginArrendador') ||
+                (role === 'administrador' && btn.id === 'btnLoginAdmin');
+            btn.classList.toggle('active', isMatch);
+        });
+    }
+
+    function togglePasswordVisibility(inputId, iconId) {
+        var input = document.getElementById(inputId);
+        var icon = document.getElementById(iconId);
+        if (!input || !icon) return;
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.textContent = 'visibility';
+        } else {
+            input.type = 'password';
+            icon.textContent = 'visibility_off';
+        }
+    }
+
+    // ============================================================
+    // ACCESSIBILITY HELPERS
+    // ============================================================
+    function trapFocus(modal) {
+        var focusable = modal.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+        modal.addEventListener('keydown', function (e) {
+            if (e.key !== 'Tab') return;
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        });
+        first.focus();
+    }
+
+    // ============================================================
+    // AUTH / LOGIN / REGISTER
+    // ============================================================
+    function seleccionarRolUI_Reg(role) {
+        document.querySelectorAll('.role-btn-reg').forEach(btn => {
+            const isActive = btn.dataset.role === role;
+            btn.classList.toggle('active', isActive);
+        });
+        document.getElementById('regRole').value = role;
+        const estExtra = document.getElementById('estudianteExtraFields');
+        if (estExtra) {
+            estExtra.classList.toggle('hidden', role !== 'estudiante');
+        }
+    }
+
+    function openRegisterModal() {
+        document.getElementById('registerModal').classList.remove('hidden');
+        seleccionarRolUI_Reg('estudiante');
+    }
+
+    function closeRegisterModal() {
+        document.getElementById('registerModal').classList.add('hidden');
+    }
+
+    function openForgotModal() {
+        document.getElementById('forgotModal').classList.remove('hidden');
+    }
+
+    function closeForgotModal() {
+        document.getElementById('forgotModal').classList.add('hidden');
+    }
+
+    function handleForgot(e) {
+        e.preventDefault();
+        const email = document.getElementById('forgotEmail').value.trim();
+        if (!email) return showToast('Ingresa tu correo.', 'error');
+
+        showLoader('Buscando cuenta y enviando correo...');
+        google.script.run
+            .withSuccessHandler(result => {
+                hideLoader();
+                if (result.success) {
+                    showToast(result.message, 'success');
+                    closeForgotModal();
+                    document.getElementById('forgotEmail').value = '';
+                } else {
+                    showToast(result.message, 'error');
+                }
+            })
+            .withFailureHandler(err => {
+                hideLoader();
+                showToast('Error de conexión: ' + err.message, 'error');
+            })
+            .recuperarCuenta(email);
+    }
+
+    function handleLogin(e) {
+        e.preventDefault();
+        const email = document.getElementById('authEmail').value.trim();
+        const password = document.getElementById('authPassword').value;
+        const role = APP.selectedRole;
+
+        if (!email || !password) {
+            return showToast('Completa todos los campos.', 'error');
+        }
+
+        showLoader('Verificando credenciales...');
+        google.script.run
+            .withSuccessHandler(result => {
+                hideLoader();
+                if (result.success) {
+                    showToast('¡Bienvenido!', 'success');
+                    iniciarDashboard(email, role, result.user);
+                } else {
+                    showToast(result.message, 'error');
+                }
+            })
+            .withFailureHandler(err => {
+                hideLoader();
+                showToast('Error de conexión: ' + err.message, 'error');
+            })
+            .loginUser(email, password, role);
+    }
+
+    function handleRegister(e) {
+        e.preventDefault();
+        const role = document.getElementById('regRole').value;
+        const email = document.getElementById('regEmail').value.trim();
+        const password = document.getElementById('regPassword').value;
+        const nombre = document.getElementById('regNombre').value.trim();
+        const telefono = document.getElementById('regTelefono').value.trim();
+
+        if (!nombre || !email || !password) {
+            return showToast('Completa los campos obligatorios.', 'error');
+        }
+
+        const userData = {};
+        if (role === 'estudiante') {
+            userData['CorreoInstitucional'] = email;
+            userData['Contrasena'] = password;
+            userData['NombreCompleto'] = nombre;
+            userData['Telefono'] = telefono;
+            userData['BuscaRoommate'] = document.getElementById('regBuscaRoommate').checked ? 'Sí' : 'No';
+            userData['Intereses'] = document.getElementById('regIntereses').value.trim();
+        } else {
+            userData['Email'] = email;
+            userData['Contrasena'] = password;
+            userData['NombreCompleto'] = nombre;
+            userData['Telefono'] = telefono;
+        }
+
+        showLoader('Creando tu cuenta...');
+        google.script.run
+            .withSuccessHandler(result => {
+                hideLoader();
+                if (result.success) {
+                    showToast('¡Cuenta creada! Inicia sesión.', 'success');
+                    closeRegisterModal();
+                    document.getElementById('authEmail').value = email;
+                    document.getElementById('authPassword').value = '';
+                    google.script.run
+                        .withSuccessHandler(() => { })
+                        .withFailureHandler(err => {
+                            showToast('Error al crear carpetas: ' + err.message, 'error');
+                        })
+                        .inicializarCarpetasUsuario(role, email);
+                } else {
+                    showToast(result.message, 'error');
+                }
+            })
+            .withFailureHandler(err => {
+                hideLoader();
+                showToast('Error: ' + err.message, 'error');
+            })
+            .registerUser(role, userData);
+    }
+
+    // ============================================================
+    // NAVIGATION
+    // ============================================================
+    function redirectTop(url) {
+        if (!url || url.includes('undefined') || url === '?page=Login') {
+            window.location.href = url || 'index.html?page=Login';
+            return;
+        }
+        const form = document.createElement('form');
+        form.method = 'GET';
+        form.action = url.split('?')[0];
+        form.target = '_top';
+
+        const params = new URLSearchParams(url.split('?')[1] || '');
+        for (const [key, value] of params.entries()) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = value;
+            form.appendChild(input);
+        }
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+    function iniciarDashboard(email, role, user) {
+        APP.currentEmail = email;
+        APP.currentRole = role;
+        APP.currentUser = user;
+        localStorage.setItem('user', JSON.stringify(user));
+
+        let page = role === 'estudiante' ? 'Estudiante' : role === 'arrendador' ? 'Arrendador' : 'Administrador';
+        try {
+            redirectTop(SCRIPT_URL + '?page=' + page);
+        } catch (e) {
+            window.location.href = SCRIPT_URL + '?page=' + page;
+        }
+    }
+
+    function cerrarSesion() {
+        localStorage.removeItem('user');
+        try {
+            redirectTop(SCRIPT_URL + '?page=Login');
+        } catch (e) {
+            window.location.href = SCRIPT_URL + '?page=Login';
+        }
+    }
+
+    // ============================================================
+    // IMAGE COMPRESSION (Canvas API)
+    // ============================================================
+    function compressImage(file, maxWidth = 1920, quality = 0.80) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+
+                    if (width > maxWidth) {
+                        height = Math.round((height * maxWidth) / width);
+                        width = maxWidth;
+                    }
+                    if (height > maxWidth) {
+                        width = Math.round((width * maxWidth) / height);
+                        height = maxWidth;
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.imageSmoothingEnabled = true;
+                    ctx.imageSmoothingQuality = 'high';
+                    ctx.drawImage(img, 0, 0, width, height);
+
+                    const compressedBase64 = canvas.toDataURL('image/jpeg', quality);
+                    const compressedSize = Math.round((compressedBase64.length * 3) / 4);
+
+                    resolve({
+                        base64: compressedBase64,
+                        originalSize: file.size,
+                        compressedSize: compressedSize,
+                        width: width,
+                        height: height,
+                        mimeType: 'image/jpeg',
+                        fileName: file.name.replace(/\.\w+$/, '.jpg')
+                    });
+                };
+                img.onerror = reject;
+                img.src = e.target.result;
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // ============================================================
+    // FILE HANDLING
+    // ============================================================
+    function handleFileSelect(event, tipoUsuario, categoria, subcategoria) {
+        const files = Array.from(event.target.files);
+        if (files.length === 0) return;
+
+        const file = files[0];
+        const ext = file.name.split('.').pop().toLowerCase();
+        if (!['jpg', 'jpeg', 'png'].includes(ext)) {
+            showToast('Formato no permitido. Solo JPG y PNG.', 'error');
+            event.target.value = '';
+            return;
+        }
+
+        if (file.size > 15 * 1024 * 1024) {
+            showToast('El archivo es demasiado grande (máx. 15MB).', 'error');
+            event.target.value = '';
+            return;
+        }
+
+        showLoader('Comprimiendo...');
+        compressImage(file)
+            .then(result => {
+                hideLoader();
+                const prefix = tipoUsuario === 'estudiante' ? 'est' : 'arr';
+                const key = subcategoria || categoria;
+                const progressEl = document.getElementById(`progress-${prefix}-${key}`);
+
+                const datos = {
+                    base64: result.base64,
+                    nombreArchivo: result.fileName,
+                    mimeType: result.mimeType,
+                    tipoUsuario: tipoUsuario,
+                    emailUsuario: APP.currentEmail,
+                    categoria: categoria,
+                    subcategoria: subcategoria || null
+                };
+
+                if (progressEl) {
+                    progressEl.classList.remove('hidden');
+                    progressEl.querySelector('div').style.width = '50%';
+                }
+
+                google.script.run
+                    .withSuccessHandler(res => {
+                        if (progressEl) progressEl.classList.add('hidden');
+                        if (res.success) {
+                            showToast(res.message, 'success');
+
+                            // Guardar URL en Google Sheets según la categoría
+                            let campoDestino = null;
+                            if (categoria === 'foto_perfil') campoDestino = 'FotoPerfil';
+                            else if (categoria === 'carne_verificacion' || categoria === 'dni' || categoria === 'datos_personales') campoDestino = 'DocumentoVerificacion';
+
+                            if (campoDestino && res.url) {
+                                google.script.run.actualizarCampoUsuario(tipoUsuario, APP.currentEmail, campoDestino, res.url);
+                            }
+
+                            cargarImagenesExistentes();
+                        } else {
+                            showToast(res.message, 'error');
+                        }
+                    })
+                    .subirImagen(datos);
+
+                event.target.value = '';
+            })
+            .catch(err => {
+                hideLoader();
+                showToast('Error de compresión: ' + err.message, 'error');
+                event.target.value = '';
+            });
+    }
+
+    function cargarImagenesExistentes() {
+        if (!APP.currentRole || !APP.currentEmail) return;
+
+        google.script.run
+            .withSuccessHandler(result => {
+                if (result.success) {
+                    renderizarTodasLasImagenes(result.imagenes);
+                }
+            })
+            .obtenerTodasLasImagenes(APP.currentRole, APP.currentEmail);
+    }
+
+    function renderizarTodasLasImagenes(imagenes) {
+        if (APP.currentRole === 'estudiante') {
+            renderSingleImage('est', 'foto_perfil', imagenes['foto_perfil'] || []);
+            renderSingleImage('est', 'carne_verificacion', imagenes['carne_verificacion'] || []);
+            renderSingleImage('est', 'dni', imagenes['dni'] || []);
+        } else if (APP.currentRole === 'arrendador') {
+            renderGallery('arr', 'habitaciones', imagenes['habitaciones'] || []);
+            const datosPersonales = imagenes['datos_personales'] || [];
+            renderSingleImage('arr', 'datos_personales', datosPersonales);
+        }
+    }
+
+    function renderSingleImage(prefix, key, images) {
+        const container = document.getElementById(`current-${prefix}-${key}`);
+        if (!container) return;
+
+        if (!images || images.length === 0) {
+            container.innerHTML = ``;
+            return;
+        }
+
+        const img = images[0];
+        container.innerHTML = `
+            <div class="relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                <img src="${img.thumbnailUrl || img.url}" alt="${img.nombre}" class="w-full h-32 object-cover">
+                <div class="absolute inset-0 bg-charcoal/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button class="bg-white/20 hover:bg-white/40 p-2 rounded-full text-white" onclick="window.open('${img.url}', '_blank')"><span class="material-symbols-outlined text-sm">open_in_new</span></button>
+                    <button class="bg-secondary/80 hover:bg-secondary p-2 rounded-full text-white" onclick="eliminarImagenUI('${img.id}', '${img.nombre}')"><span class="material-symbols-outlined text-sm">delete</span></button>
+                </div>
+            </div>
+        `;
+    }
+
+    function renderGallery(prefix, key, images) {
+        const container = document.getElementById(`current-${prefix}-${key}`);
+        if (!container) return;
+
+        container.innerHTML = images.map(img => `
+            <div class="relative group rounded-xl overflow-hidden shadow-sm border border-gray-200">
+                <img src="${img.thumbnailUrl || img.url}" alt="${img.nombre}" class="w-full h-32 object-cover">
+                <div class="absolute inset-0 bg-charcoal/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                    <button class="bg-secondary/80 hover:bg-secondary p-2 rounded-full text-white" onclick="eliminarImagenUI('${img.id}', '${img.nombre}')"><span class="material-symbols-outlined text-sm">delete</span></button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function eliminarImagenUI(fileId, nombre) {
+        showConfirmModal(
+            'Eliminar imagen',
+            `¿Eliminar la imagen "${nombre}"? Esta acción es irreversible.`,
+            function () {
+                showLoader('Eliminando imagen...');
+                google.script.run
+                    .withSuccessHandler(result => {
+                        hideLoader();
+                        if (result.success) {
+                            showToast('Imagen eliminada.', 'success');
+                            cargarImagenesExistentes();
+                        } else {
+                            showToast(result.message, 'error');
+                        }
+                    })
+                    .eliminarImagen(fileId);
+            },
+            { danger: true, okLabel: 'Eliminar' }
+        );
+    }
+</script>
+
+    <script>
+        const SCRIPT_URL = "<?= getScriptUrl() ?>";
+        let habitacionEditandoId = null;
+
+        function irAlDashboard() { switchMainTab('habitaciones'); cargarMisHabitaciones(); }
+
+        function irAlCatalogo() { switchMainTab('catalogo'); cargarCatalogoCompetencia(); }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedUser = localStorage.getItem('user');
+            if (!savedUser) { redirectTop(SCRIPT_URL + '?page=Login'); return; }
+            APP.currentUser = JSON.parse(savedUser);
+            APP.currentRole = 'arrendador';
+            APP.currentEmail = APP.currentUser.Email || APP.currentUser.Correo;
+            if (document.getElementById('userEmailDisplay')) document.getElementById('userEmailDisplay').textContent = APP.currentEmail;
+
+            const tab = new URLSearchParams(window.location.search).get('tab');
+            if (tab) { switchMainTab(tab); if(tab === 'catalogo') cargarCatalogoCompetencia(); } else { switchMainTab('habitaciones'); cargarMisHabitaciones(); }
+
+            renderSkeletons('catalogoHabitacionesArr', 4);
+            renderSkeletons('listaMisHabitaciones', 4);
+        });
+
+        let hospedajesCompetenciaGlobal = [];
+
+        function cargarCatalogoCompetencia() {
+            const container = document.getElementById('catalogoHabitacionesArr');
+            renderSkeletons('catalogoHabitacionesArr', 4);
+            google.script.run.withSuccessHandler(result => {
+                hospedajesCompetenciaGlobal = result || [];
+                renderCatalogoCompetencia(hospedajesCompetenciaGlobal);
+            }).getHospedajes();
+        }
+
+        window.aplicarFiltrosCompetencia = function () {
+            if (!hospedajesCompetenciaGlobal) return;
+
+            const dist = document.getElementById('filtroDistritoArr').value.trim().toLowerCase();
+            const maxP = document.getElementById('filtroPrecioArr').value;
+            const serviciosSeleccionados = Array.from(document.querySelectorAll('#main-content-catalogo input[type="checkbox"]:checked')).map(cb => cb.value);
+
+            const filtrados = hospedajesCompetenciaGlobal.filter(h => {
+                const hPrecio = parseFloat(h.PrecioMensual) || 0;
+                if (hPrecio > maxP) return false;
+
+                if (dist && (h.Distrito || '').toLowerCase() !== dist) return false;
+
+                if (serviciosSeleccionados.length > 0) {
+                    const serv = (h.Servicios || '').toLowerCase();
+                    const tieneTodos = serviciosSeleccionados.every(s => serv.includes(s.toLowerCase()));
+                    if (!tieneTodos) return false;
+                }
+
+                return true;
+            });
+
+            renderCatalogoCompetencia(filtrados);
+        };
+
+        function renderCatalogoCompetencia(data) {
+            const container = document.getElementById('catalogoHabitacionesArr');
+            document.getElementById('catalogoCountArr').textContent = data ? data.length : 0;
+            if (!data || data.length === 0) {
+                container.innerHTML = '<p class="col-span-full py-12 text-center text-gray-400">Sin coincidencias.</p>';
+                return;
+            }
+            container.innerHTML = data.map(h => {
+                const imgHtml = h.URLsImagenes ? `<img src="${h.URLsImagenes.split(',')[0].trim()}" class="w-full h-full object-cover">` : `<div class="listing-ph h-full"><span class="material-symbols-outlined text-4xl">home</span></div>`;
+                return `
+                  <div class="listing-card pointer-events-none opacity-80">
+                      <div class="listing-card-image">${imgHtml}</div>
+                      <div class="listing-card-content">
+                          <h4 class="font-bold text-charcoal truncate mb-1">${h.Titulo || h.Distrito}</h4>
+                          <p class="text-sm text-gray-500 flex items-center gap-1 mb-4"><span class="material-symbols-outlined text-xs">location_on</span> ${h.Distrito}</p>
+                          <div class="flex justify-between items-center pt-3 border-t border-gray-50">
+                              <span class="text-lg font-bold text-primary tabular-nums">S/ ${h.PrecioMensual}</span>
+                              <span class="badge badge-primary text-[10px] uppercase">${h.TipoHabitacion}</span>
+                          </div>
+                      </div>
+                  </div>
+              `;
+            }).join('');
+        }
+
+        function cargarMisHabitaciones() {
+            const container = document.getElementById('listaMisHabitaciones');
+            renderSkeletons('listaMisHabitaciones', 4);
+            google.script.run.withSuccessHandler(result => {
+                if (!result || result.length === 0) { container.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 bg-gray-50 rounded-[32px] border-2 border-dashed border-gray-100">No tienes publicaciones.</div>'; return; }
+                container.innerHTML = result.map(h => {
+                    const esOcupado = h.Estado === 'Ocupado';
+                    const imgHtml = h.URLsImagenes ? `<img src="${h.URLsImagenes.split(',')[0].trim()}" class="w-full h-full object-cover">` : `<div class="listing-ph h-full"><span class="material-symbols-outlined text-5xl">home</span></div>`;
+                    return `
+                      <div class="listing-card group animate-fade-in" onclick="prepararEdicion('${encodeURIComponent(JSON.stringify(h))}')">
+                          <div class="listing-card-image aspect-square">
+                              ${imgHtml}
+                              <div class="absolute top-3 right-3 z-10"><span class="badge ${esOcupado ? 'badge-secondary' : 'badge-sage'} py-1.5 px-3 uppercase tracking-tighter">${h.Estado}</span></div>
+                          </div>
+                          <div class="listing-card-content">
+                              <h4 class="font-bold text-charcoal text-lg truncate mb-1">${h.Titulo || h.Distrito}</h4>
+                              <p class="text-sm text-gray-400 mb-6">${h.Distrito}</p>
+                              <div class="flex justify-between items-end mb-6">
+                                  <p class="text-2xl font-black text-primary leading-none tabular-nums">S/ ${h.PrecioMensual}</p>
+                                  <div class="flex items-center gap-1 font-bold text-charcoal bg-gray-50 px-2 py-1 rounded-lg border border-gray-100"><span class="material-symbols-outlined text-primary text-sm filled-icon">star</span> ${h.CalificacionPromedio || '0'}</div>
+                              </div>
+                              <div class="flex gap-2 pt-4 border-t border-gray-100">
+                                  <button class="btn btn-ghost btn-sm flex-1" onclick="event.stopPropagation(); prepararEdicion('${encodeURIComponent(JSON.stringify(h))}')"><span class="material-symbols-outlined text-lg">edit</span></button>
+                                  <button class="btn btn-danger btn-sm flex-1" onclick="event.stopPropagation(); borrarHabitacion('${h.HospedajeID}')"><span class="material-symbols-outlined text-lg">delete</span></button>
+                              </div>
+                          </div>
+                      </div>
+                  `;
+                }).join('');
+            }).getHospedajesPorArrendador(APP.currentUser.ArrendadorID);
+        }
+
+        async function guardarHabitacion() {
+            const hTitulo = document.getElementById('hTitulo').value.trim();
+            const hPrecio = document.getElementById('hPrecio').value.trim();
+
+            if (!hTitulo || !hPrecio) return showToast('Título y Precio son obligatorios', 'error');
+
+            const files = Array.from(document.getElementById('hFotos') ? document.getElementById('hFotos').files : []);
+            if (files.length > 5) return showToast('Máximo 5 fotos permitidas.', 'error');
+
+            const datos = {
+                HospedajeID: habitacionEditandoId,
+                ArrendadorID: APP.currentUser.ArrendadorID,
+                Titulo: hTitulo,
+                Distrito: document.getElementById('hDistrito').value,
+                Direccion: document.getElementById('hDireccion').value,
+                TipoHabitacion: document.getElementById('hTipo').value,
+                PrecioMensual: hPrecio,
+                Latitud: document.getElementById('hLatitud') ? document.getElementById('hLatitud').value : '',
+                Longitud: document.getElementById('hLongitud') ? document.getElementById('hLongitud').value : '',
+                Servicios: Array.from(document.querySelectorAll('#hServiciosContainer input[type="checkbox"]:checked')).map(cb => cb.value).join(', '),
+                Descripcion: document.getElementById('hDescripcion') ? document.getElementById('hDescripcion').value : '',
+                Estado: 'Disponible'
+            };
+
+            showLoader('Publicando anuncio...');
+
+            try {
+                const res = await new Promise((resolve, reject) => {
+                    if (habitacionEditandoId) {
+                        google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).editarHabitacion(datos);
+                    } else {
+                        google.script.run.withSuccessHandler(resolve).withFailureHandler(reject).crearHabitacion(datos);
+                    }
+                });
+
+                if (!res.success) {
+                    hideLoader();
+                    showToast(res.message, 'error');
+                    return;
+                }
+
+                const hospedajeId = res.hospedajeId || habitacionEditandoId;
+
+                if (files.length > 0) {
+                    document.getElementById('loaderText').textContent = 'Subiendo fotos de la propiedad...';
+                    let nuevasUrls = [];
+                    for (let i = 0; i < files.length; i++) {
+                        const file = files[i];
+                        const comp = await compressImage(file);
+                        const uploadData = {
+                            base64: comp.base64,
+                            nombreArchivo: comp.fileName,
+                            mimeType: comp.mimeType,
+                            tipoUsuario: APP.currentRole,
+                            emailUsuario: APP.currentEmail,
+                            categoria: 'habitaciones',
+                            subcategoria: hospedajeId
+                        };
+                        const upRes = await new Promise((resolveUp, rejectUp) => {
+                            google.script.run.withSuccessHandler(resolveUp).withFailureHandler(rejectUp).subirImagen(uploadData);
+                        });
+
+                        if (upRes && upRes.success && upRes.url) {
+                            nuevasUrls.push(upRes.url);
+                        }
+                    }
+
+                    if (nuevasUrls.length > 0) {
+                        const urlsStr = nuevasUrls.join(', ');
+                        await new Promise((resolveAct) => {
+                            google.script.run.withSuccessHandler(resolveAct).withFailureHandler(resolveAct).actualizarFotosHabitacion(hospedajeId, urlsStr);
+                        });
+                    }
+                }
+
+                hideLoader();
+                showToast(res.message || 'Habitación guardada', 'success');
+                cancelarEdicion();
+                cargarMisHabitaciones();
+
+            } catch (e) {
+                hideLoader();
+                showToast('Error del servidor: ' + e.message, 'error');
+            }
+        }
+
+        function prepararEdicion(hStr) {
+            const h = JSON.parse(decodeURIComponent(hStr));
+            document.getElementById('formCrearHabitacion').classList.remove('hidden');
+            document.getElementById('formTitulo').textContent = 'Editar Publicación';
+            document.getElementById('btnGuardarHabitacion').innerHTML = '<span class="material-symbols-outlined">save</span> Guardar Cambios';
+
+            document.getElementById('hTitulo').value = h.Titulo || '';
+            document.getElementById('hDistrito').value = h.Distrito || '';
+            document.getElementById('hDireccion').value = h.Direccion || '';
+            document.getElementById('hTipo').value = h.TipoHabitacion || 'Individual';
+            document.getElementById('hPrecio').value = h.PrecioMensual || '';
+
+            if (document.getElementById('hLatitud')) document.getElementById('hLatitud').value = h.Latitud || '';
+            if (document.getElementById('hLongitud')) document.getElementById('hLongitud').value = h.Longitud || '';
+            if (document.getElementById('hDescripcion')) document.getElementById('hDescripcion').value = h.Descripcion || '';
+
+            document.querySelectorAll('#hServiciosContainer input[type="checkbox"]').forEach(cb => {
+                cb.checked = h.Servicios && h.Servicios.split(',').map(s => s.trim()).includes(cb.value);
+            });
+
+            habitacionEditandoId = h.HospedajeID;
+            updateMapPreview();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function updateMapPreview() {
+            const dir = document.getElementById('hDireccion').value.trim();
+            const dist = document.getElementById('hDistrito').value;
+            const preview = document.getElementById('mapPreview');
+            if (!preview) return;
+            let query = 'Cusco,Peru';
+            if (dir || dist) {
+                query = `${dir || ''} ${dist || ''} Cusco Peru`.trim().replace(/\s+/g, '+');
+            }
+            preview.src = `https://maps.google.com/maps?q=${query}&output=embed&z=15`;
+        }
+
+        function cancelarEdicion() {
+            document.getElementById('formCrearHabitacion').classList.add('hidden');
+            habitacionEditandoId = null;
+        }
+
+        function borrarHabitacion(id) {
+            showConfirmModal('Eliminar', '¿Confirmas eliminar este anuncio?', () => {
+                showLoader('Eliminando...');
+                google.script.run.withSuccessHandler(() => { hideLoader(); cargarMisHabitaciones(); }).eliminarHabitacion(id);
+            }, { danger: true });
+        }
+
+        function cargarPerfilArrendador() {
+            document.getElementById('perfilNombre').value = APP.currentUser.NombreCompleto || '';
+            document.getElementById('perfilEmail').value = APP.currentUser.Email || '';
+            document.getElementById('perfilTelefono').value = APP.currentUser.Telefono || '';
+        }
+
+        function guardarPerfilArrendador() {
+            showLoader('Guardando...');
+            google.script.run.withSuccessHandler(() => { hideLoader(); showToast('Perfil guardado', 'success'); }).actualizarPerfilArrendador({ ArrendadorID: APP.currentUser.ArrendadorID, NombreCompleto: document.getElementById('perfilNombre').value, Telefono: document.getElementById('perfilTelefono').value });
+        }
+        
+        window.cargarReservasArrendador = function () {
+            const container = document.getElementById('listaReservasArrendador');
+            container.innerHTML = '<div class="col-span-full py-12 text-center"><div class="spinner border-primary mx-auto mb-4"></div><p class="text-gray-500 font-medium">Buscando reservas...</p></div>';
+            google.script.run.withSuccessHandler(res => {
+                if (!res || res.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-full py-20 flex flex-col items-center text-center bg-white rounded-[32px] border border-dashed border-gray-200">
+                            <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">book_online</span>
+                            <h3 class="text-xl font-bold text-gray-700 mb-2">No existen reservas</h3>
+                            <p class="text-gray-500">Tus habitaciones aún no tienen reservas.</p>
+                        </div>`;
+                    return;
+                }
+                container.innerHTML = res.map(r => `
+                    <div class="bg-white rounded-[24px] overflow-hidden shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                        <div class="p-6 border-b border-gray-50 flex justify-between items-start">
+                            <div>
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${r.Estado === 'Confirmada' ? 'bg-sage/10 text-sage' : 'bg-primary/10 text-primary'} mb-3 uppercase tracking-wider">${r.Estado}</span>
+                                <h3 class="font-bold text-gray-900 text-lg">${r.TituloHabitacion || r.Titulo || 'Habitación'}</h3>
+                                <p class="text-sm font-medium text-charcoal/60 mt-1 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[16px]">person</span> ${r.NombreEstudiante || r.EstudianteNombre || 'Estudiante'}
+                                </p>
+                            </div>
+                            <span class="font-mono text-sm text-gray-400 font-bold bg-gray-50 px-2 py-1 rounded-lg">${r.ReservaID}</span>
+                        </div>
+                        <div class="p-6 bg-gray-50/50">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Ingreso</span>
+                                <span class="font-black text-xl text-primary tabular-nums">S/ ${r.Monto}</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Fecha</span>
+                                <span class="font-semibold text-gray-700">${r.FechaReserva}</span>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }).getReservasPorArrendador(APP.currentUser.ArrendadorID);
+        };
+
+        window.cargarMensajesArrendador = function () {
+            const container = document.getElementById('listaMensajes');
+            if (!container) return;
+            container.innerHTML = '<div class="py-12 text-center"><div class="spinner border-primary mx-auto mb-4"></div><p class="text-gray-500 font-medium">Buscando mensajes...</p></div>';
+            google.script.run.withSuccessHandler(res => {
+                if (!res || res.length === 0) {
+                    container.innerHTML = `
+                        <div class="py-20 flex flex-col items-center text-center">
+                            <span class="material-symbols-outlined text-5xl text-gray-300 mb-4">chat_bubble</span>
+                            <h3 class="text-lg font-bold text-gray-700">Tu bandeja está vacía</h3>
+                            <p class="text-sm text-gray-400">Aún no tienes conversaciones.</p>
+                        </div>`;
+                    return;
+                }
+                container.innerHTML = res.map((m, index) => {
+                    const animDelay = Math.min(index * 100, 500);
+                    return `
+                    <div class="p-4 flex gap-3 items-center cursor-pointer border-l-4 border-transparent hover:bg-gray-50 transition-colors animate-fade-in-up" style="animation-delay: ${animDelay}ms">
+                        <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center text-primary font-black text-xl shrink-0">
+                            ${(m.NombreRemitente || 'E').charAt(0).toUpperCase()}
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <div class="flex justify-between items-baseline mb-1">
+                                <h3 class="font-semibold text-sm text-charcoal truncate pr-2">${m.NombreRemitente || 'Estudiante'}</h3>
+                                <span class="text-[11px] text-charcoal/50 font-medium shrink-0">${m.FechaHora || 'Hace 1h'}</span>
+                            </div>
+                            <p class="text-sm text-charcoal/60 truncate">${m.Mensaje}</p>
+                        </div>
+                    </div>
+                `}).join('');
+            }).getMensajesPorUsuario(APP.currentUser.ArrendadorID);
+        };
+    </script>
+
+    <footer
+        class="text-center text-[10px] uppercase font-bold tracking-widest text-gray-300 py-12 border-t border-gray-50">
+        CuscoRent &bull; Panel de Gestión Arrendador &bull; 2025
+    </footer>
+
+<script>
+// Mock Google Script Run for local dev
+if (typeof google === 'undefined') {
+    window.google = {
+        script: {
+            run: {
+                withSuccessHandler: function(cb) {
+                    this.successCb = cb;
+                    return this;
+                },
+                withFailureHandler: function(cb) {
+                    this.failureCb = cb;
+                    return this;
+                },
+                loginUser: function(role, email, password) {
+                    setTimeout(() => {
+                        if (email === 'arrendador@test.com' && password === '123') {
+                            this.successCb({success: true, user: {Email: email, NombreCompleto: 'Arrendador Falso', ArrendadorID: 'A1'}});
+                        } else if (email === 'estudiante@test.com' && password === '123') {
+                            this.successCb({success: true, user: {CorreoInstitucional: email, NombreCompleto: 'Estudiante Falso', EstudianteID: 'E1'}});
+                        } else {
+                            this.successCb({success: false, message: 'Credenciales inválidas'});
+                        }
+                    }, 500);
+                    return this;
+                },
+                getHospedajes: function() {
+                    setTimeout(() => {
+                        this.successCb([
+                            {HospedajeID: 'H1', Titulo: 'Cuarto de prueba', Distrito: 'Wanchaq', PrecioMensual: 500, Servicios: 'Wi-Fi,Baño Privado', Estado: 'Disponible'}
+                        ]);
+                    }, 500);
+                    return this;
+                },
+                misHabitaciones: function(id) {
+                    setTimeout(() => { this.successCb([]); }, 500);
+                    return this;
+                },
+                getReservasPorEstudiante: function(id) {
+                    setTimeout(() => { this.successCb([
+                        {ReservaID: 'RES-1234', Titulo: 'Cuarto Céntrico', Estado: 'Confirmada', Monto: 450, FechaReserva: '12/05/2026'}
+                    ]); }, 500);
+                    return this;
+                },
+                getReservasPorArrendador: function(id) {
+                    setTimeout(() => { this.successCb([
+                        {ReservaID: 'RES-9999', Titulo: 'Habitación Premium', Estado: 'Activa', Monto: 500, FechaReserva: 'Hoy', EstudianteNombre: 'María López'}
+                    ]); }, 500);
+                    return this;
+                },
+                getMensajesPorUsuario: function(id) {
+                    setTimeout(() => { this.successCb([
+                        {MensajeID: 'M1', NombreRemitente: 'Arrendador Juan', FechaHora: 'Hoy 10:00 AM', Mensaje: 'Hola, la habitación sigue disponible.'},
+                        {MensajeID: 'M2', NombreRemitente: 'María López', FechaHora: 'Hoy 10:05 AM', Mensaje: '¡Hola! He reservado tu habitación: Habitación Premium. ¡Quedo atento a tus indicaciones!'}
+                    ]); }, 500);
+                    return this;
+                },
+                enviarMensaje: function(remitenteId, receptorId, hospedajeId, mensaje) {
+                    setTimeout(() => { this.successCb({success: true}); }, 500);
+                    return this;
+                },
+                getRoommates: function() {
+                    setTimeout(() => { this.successCb([
+                        {NombreCompleto: 'Carlos Ruiz', Universidad: 'U. Andina', Carrera: 'Ing. Sistemas', Intereses: 'Deportes, Videojuegos'}
+                    ]); }, 500);
+                    return this;
+                }
+            }
+        }
+    };
+}
+</script>
+
+</body>
+
+</html>

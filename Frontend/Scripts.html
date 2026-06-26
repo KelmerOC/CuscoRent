@@ -220,8 +220,13 @@
 
         // Trigger specific loads if needed
         if (tab === 'buscar' && typeof cargarCatalogo === 'function') cargarCatalogo();
-        if (tab === 'reservas' && typeof cargarMisReservas === 'function') cargarMisReservas();
+        
+        if (tab === 'reservas' && APP.currentRole === 'estudiante' && typeof cargarMisReservas === 'function') cargarMisReservas();
+        if (tab === 'reservas' && APP.currentRole === 'arrendador' && typeof cargarReservasArrendador === 'function') cargarReservasArrendador();
+        
         if (tab === 'mensajes' && APP.currentRole === 'estudiante' && typeof cargarMensajesEstudiante === 'function') cargarMensajesEstudiante();
+        if (tab === 'mensajes' && APP.currentRole === 'arrendador' && typeof cargarMensajesArrendador === 'function') cargarMensajesArrendador();
+        
         if (tab === 'roommates' && typeof cargarRoommates === 'function') cargarRoommates();
         if (tab === 'documentos' && typeof cargarImagenesExistentes === 'function') cargarImagenesExistentes();
         if (tab === 'habitaciones' && APP.currentRole === 'arrendador' && typeof cargarMisHabitaciones === 'function') cargarMisHabitaciones();
